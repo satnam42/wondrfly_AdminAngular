@@ -1,0 +1,68 @@
+<div>
+    <button style="align-items:flex-end;margin: 15px;" mat-raised-button (click)="add()" color="primary">ADD</button>
+    <h3 style="text-align: center;">Child/Children</h3>
+
+    <mat-form-field style="width: 100%">
+        <input matInput placeholder="Search" value="" (keyup)='updateFilter($event)' />
+    </mat-form-field>
+
+    <ngx-datatable [rows]="rows" class="material bg-white" [limit]="8" [scrollbarH]="true"
+        [columnMode]="ColumnMode.force" [rowHeight]="50" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+        [sorts]="[{ prop: 'name', dir: 'desc' }]">
+
+        <ngx-datatable-column name="First Name">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.name}}
+            </ng-template>
+        </ngx-datatable-column>
+
+        <!-- <ngx-datatable-column name="Last Name">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.lastName}}
+            </ng-template>
+        </ngx-datatable-column> -->
+        <ngx-datatable-column name="Age">
+
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.age}}
+            </ng-template>
+        </ngx-datatable-column>
+
+        <!-- <ngx-datatable-column name="Status">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <mat-chip *ngIf="row.status==='active'" matTooltip="status" matTooltipPosition="above" mat-sm-chip
+                    selected style="background-color: green;"> {{row.status}}
+                </mat-chip>
+                <mat-chip *ngIf="row.status==='inactive'" matTooltip="status" matTooltipPosition="above" mat-sm-chip
+                    selected style="background-color: rgb(156, 161, 156);"> {{row.status}}
+                </mat-chip>
+            </ng-template>
+        </ngx-datatable-column> -->
+
+        <ngx-datatable-column name="Action">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <!-- <mat-icon matTooltip="edit" matTooltipPosition="above"(click)="edit(row)">edit</mat-icon> -->
+                <!-- <mat-icon matTooltip="delete" matTooltipPosition="above" color="warn">delete</mat-icon> -->
+                <!-- <mat-icon matTooltip="edit" matTooltipPosition="above">open_in_new</mat-icon> -->
+                <!-- <mat-icon (click)="activeSkill($event)" color="primary">edit</mat-icon> -->
+                <!-- <mat-icon matTooltip="edit" matTooltipPosition="above" color="warn">close</mat-icon> -->
+
+                <button mat-icon-button [matMenuTriggerFor]="msgMenu" class="hidden-on-open">
+                    <mat-icon class="text-muted">more_vert</mat-icon>
+                </button>
+                <mat-menu #msgMenu="matMenu">
+                    <button mat-menu-item (click)="edit(row)">
+                        <mat-icon>edit</mat-icon>Edit
+                    </button>
+                    <button mat-menu-item (click)="deleteChild(row)">
+                        <mat-icon>delete</mat-icon>Delete
+                    </button>
+                </mat-menu>
+
+            </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable>
+    <button style="align-items:flex-end;margin-left: 15px;" mat-raised-button (click)="back()"
+        color="warn">Back</button>
+
+</div>

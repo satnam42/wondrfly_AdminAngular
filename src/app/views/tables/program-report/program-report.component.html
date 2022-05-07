@@ -1,0 +1,262 @@
+<!-- <div>
+  <div *ngIf="isShow">
+
+    <div>
+      <!-- <button style="align-items:flex-end;margin: 15px;" mat-raised-button
+        (click)="showHideButton()" color="primary">Import</button> -->
+      <!-- <button style="align-items:flex-end;margin: 15px;" mat-raised-button (click)="openPopUp('wizard')"
+        color="primary">ADD
+        PROGRAM USING WIZARD</button>
+      <button style="align-items:flex-end;margin: 15px;" mat-raised-button (click)="openPopUp('form')"
+        color="primary">Quick Program Add</button> 
+        <button style="align-items:flex-end;margin: 15px;" mat-raised-button 
+        color="primary">ADD
+        PROGRAM USING WIZARD</button>
+      <button style="align-items:flex-end;margin: 15px;" mat-raised-button 
+        color="primary">Quick Program Add</button>
+    </div>
+    <br *ngIf="user._id==='id'">
+    <h3 style="text-align: center;"> All Programs List</h3>
+    <mat-form-field style="width: 100%">
+      <input matInput placeholder="Search" value="" (keyup)='updateFilter($event)' />
+    </mat-form-field>
+    <div class="scrolls">
+      <ngx-datatable [rows]="rows" class="material bg-white" [limit]="pageSize" [scrollbarH]="true"
+        [columnMode]="ColumnMode.force" [rowHeight]="50" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+        [externalPaging]="true" [count]="temp.total" [offset]="pageNo" (page)='setPage($event)'>
+        <ngx-datatable-column name="Name">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.name}}
+          </ng-template>
+        </ngx-datatable-column>
+        
+        <ngx-datatable-column name="Provider Id">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <div (click)="copyText(row.user)">{{row.user}}</div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Status">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+             <mat-chip *ngIf="row.status==='active'" matTooltip="status" matTooltipPosition="above" mat-sm-chip selected
+            style="background-color: green;" (click)="programActiveInActive(row)">{{row.status}}</mat-chip>
+          <mat-chip *ngIf="row.status==='inactive'" matTooltip="status" matTooltipPosition="above" mat-sm-chip selected
+            style="background-color: red;" (click)="programActiveInActive(row)">{{row.status}}</mat-chip> 
+
+
+            <span *ngIf="row.status==='active'" class="pointer" matTooltip="{{row.status}}" [ngStyle]="{'color':'#53B2E8'}"
+            (click)="programActiveInActive(row)"><span>active</span></span>
+          <span *ngIf="row.status==='inactive'" class="pointer" matTooltip="{{row.status}}"  [ngStyle]="{'color':'red'}"
+            (click)="programActiveInActive(row)"><span>Inactive</span></span>
+
+             <mat-icon *ngIf="row.status==='active'" matTooltip="{{row.status}}" [ngStyle]="{'color':'green'}"
+              (click)="programActiveInActive(row)">active</mat-icon>
+            <mat-icon *ngIf="row.status==='inactive'" matTooltip="{{row.status}}" color="warn"
+              (click)="programActiveInActive(row)">Inactive</mat-icon> 
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Action">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+
+            <button mat-icon-button [matMenuTriggerFor]="msgMenu" class="hidden-on-open">
+              <mat-icon class="text-muted">more_vert</mat-icon>
+            </button>
+            <mat-menu #msgMenu="matMenu">
+              <button mat-menu-item (click)="edit(row)">
+                <mat-icon>edit</mat-icon>Edit
+              </button>
+              <button mat-menu-item (click)="deleteProgram(row)">
+                <mat-icon>delete</mat-icon>Delete
+              </button>
+              <button mat-menu-item>
+                <mat-icon>open_in_new</mat-icon>Manage
+              </button>
+              <button mat-menu-item (click)="ProgramDataPopUp(row)">
+                <mat-icon>view_comfy</mat-icon>View
+              </button>
+
+            </mat-menu>
+
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+
+    </div>
+
+    <button mat-raised-button (click)="back()" color="warn">Back</button>
+  </div>
+  <div *ngIf="!isShow">
+    <button mat-raised-button (click)="showHideButton()" color="primary">Back</button>
+
+    <mat-card class="p-0">
+
+      <mat-card-content>
+        <div class="mb-1 mt-1">
+          <p>Upload a profile picture</p>
+          <input type="file" ng2FileSelect [uploader]="uploader" />
+        </div>
+
+        <div class="mb-1">
+          <div ng2FileDrop [ngClass]="{'dz-file-over': hasBaseDropZoneOver}" [uploader]="uploader"
+            (fileOver)="fileOverBase($event)" class="fileupload-drop-zone">
+            Drop png/jpeg file here
+          </div>
+        </div>
+        <table class="default-table mat-box-shadow" style="width: 100%">
+          <thead>
+            <tr>
+              <th width="30%">Name</th>
+              <th>Size</th>
+              <th>Progress</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="uploader.queue.length; else tableNoData">
+            <tr *ngFor="let item of uploader.queue">
+              <td>{{ item?.file?.name }}</td>
+              <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+              <td>
+                <div class="progress" style="margin-bottom: 0;">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                  <mat-progress-bar class="" color="primary" mode="determinate" [value]="item.progress">
+                  </mat-progress-bar>
+                </div>
+              </td>
+              <td class="">
+                <mat-icon *ngIf="item.isSuccess">check</mat-icon>
+                <mat-icon *ngIf="item.isCancel" color="accent">cancel</mat-icon>
+                <mat-icon *ngIf="item.isError" color="warn">error</mat-icon>
+              </td>
+              <td nowrap>
+                <button mat-raised-button class="mat-primary" (click)="item.upload()"
+                  [disabled]="item.isReady || item.isUploading || item.isSuccess">Upload</button>
+                <button mat-raised-button class="mat-accent" (click)="item.cancel()"
+                  [disabled]="!item.isUploading">Cancel</button>
+
+                <button mat-raised-button class="mat-warn" (click)="item.remove()">Remove</button>
+              </td>
+            </tr>
+          </tbody>
+          <ng-template #tableNoData>
+            <p [ngStyle]="{padding: '0 1.2rem'}">Queue is empty</p>
+          </ng-template>
+        </table>
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+</div> -->
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+  <br>
+  <div class="row">
+    <div class="col-12">
+      <div class="search-section">
+        <input type="text" class="search_input" placeholder="Search By Program Name" [(ngModel)]="searchText" />
+        <i class="fa fa-filter filter-icon" aria-hidden="true" *ngIf="searchText"></i>
+        <i aria-hidden="true" *ngIf="!searchText"></i>
+        <span class="back-search">
+          <mat-icon>search</mat-icon>
+          <!-- <mat-icon style="position:relative;top: 4px; float: right;
+                          ">search</mat-icon> -->
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8">
+      <h4 class="col-greys total_providers">All Programs List: <span>{{temp.total}}</span> </h4>
+      <!-- <button class="letsplay_btn" data-toggle="modal" (click)="openPopUp('form')" data-target="#addNewTopic">ADD
+        PROGRAM USING WIZARD</button>
+      <button class="letsplay_btn quick_add" data-toggle="modal" (click)="openPopUp('wizard')"
+        data-target="#addNewTopic">Quick Program Add</button> -->
+    </div>
+    <div class="col-4 text-right total_providers">
+    </div>
+  </div>
+
+
+
+  <!-- <div class="search-results" #scrollToTop infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()" [scrollWindow]="false" *ngIf="rows.length"> -->
+    <table class="table forum-table ">
+      <tbody>
+        <tr>
+          <th>
+            Program Name
+          </th>
+          <th>
+            Program ID
+          </th>
+
+         
+          <th>
+            Status
+          </th>
+
+
+        </tr>
+        <tr *ngFor="let row of rows | filter : searchText">
+          <td>
+            <span (click)="openPopUp(row)">{{row.name}}</span>
+          </td>
+          <td>
+            <span (click)="openPopUp(row)">{{row._id}}</span>
+          </td>
+        
+
+          <td>
+            <!-- <mat-chip *ngIf="row.status==='active'" matTooltip="status" matTooltipPosition="above" mat-sm-chip selected
+            style="background-color: green;" (click)="programActiveInActive(row)">{{row.status}}</mat-chip>
+          <mat-chip *ngIf="row.status==='inactive'" matTooltip="status" matTooltipPosition="above" mat-sm-chip selected
+            style="background-color: red;" (click)="programActiveInActive(row)">{{row.status}}</mat-chip> -->
+
+            <!-- <mat-icon *ngIf="row.status==='active'" matTooltip="{{row.status}}" [ngStyle]="{'color':'green'}"
+              (click)="programActiveInActive(row)">circle</mat-icon>
+            <mat-icon *ngIf="row.status==='inactive'" matTooltip="{{row.status}}" color="warn"
+              (click)="programActiveInActive(row)">circle</mat-icon> -->
+              
+                <span *ngIf="row.status==='active'" class="pointer" matTooltip="{{row.status}}" [ngStyle]="{'color':'#53B2E8'}"
+              (click)="programActiveInActive(row)"><span>active</span></span>
+            <span *ngIf="row.status==='inactive'" class="pointer" matTooltip="{{row.status}}"  [ngStyle]="{'color':'red'}"
+              (click)="programActiveInActive(row)"><span>Inactive</span></span>
+          </td>
+          <td>
+            <button mat-icon-button [matMenuTriggerFor]="msgMenu" class="hidden-on-open">
+              <mat-icon class="text-muted">more_vert</mat-icon>
+            </button>
+            <mat-menu #msgMenu="matMenu">
+              <button mat-menu-item (click)="edit(row)">
+                <mat-icon class="col-blue">edit</mat-icon>Edit
+              </button>
+              <button mat-menu-item (click)="deleteProgram(row)">
+                <i class="icon col-blue mat-icon fa fa-trash-o" aria-hidden="true"></i>Delete
+                <!-- <mat-icon>delete</mat-icon>Delete -->
+              </button>
+              <button mat-menu-item>
+                <mat-icon class="col-blue">open_in_new</mat-icon>Manage
+              </button>
+              <button mat-menu-item (click)="ProgramDataPopUp(row)">
+                <mat-icon class="col-blue">view_comfy</mat-icon>View
+              </button>
+
+            </mat-menu>
+
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  <!-- </div> -->
+</div>

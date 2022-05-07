@@ -1,0 +1,70 @@
+<h1 matDialogTitle>Search Provider</h1>
+<div fxLayout="row" style="margin-top:15px;">
+  <!-- <button mat-raised-button (click)="submit()" color="primary">ADD</button> -->
+  <!-- <span fxFlex="8px"></span> -->
+
+  <button mat-raised-button color="accent" (click)="changeByName()">Search By Name</button>
+  <span fxFlex="8px"></span>
+
+  <button mat-raised-button color="accent" (click)="changeByMail()">Search By Email</button>
+  <span fxFlex="8px"></span>
+  <button mat-raised-button color="accent" (click)="changeById()">Search By Id</button>
+
+
+
+</div><br><br><br>
+<form>
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <mat-label *ngIf="searchByName" style="color: rgb(118, 118, 118);">Search Provider By Name</mat-label>
+    <mat-label *ngIf="searchByMail" style="color: rgb(118, 118, 118);">Search Provider By Email</mat-label>
+    <mat-label *ngIf="searchById" style="color: rgb(118, 118, 118);">Search Provider By Id</mat-label>
+
+
+    <div *ngIf="searchByName" class="full-width">
+
+      <ng-autocomplete [data]="users" [searchKeyword]="keyword" (selected)='selectEvent($event)'
+        (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+        [notFoundTemplate]="notFoundTemplate">
+      </ng-autocomplete>
+
+      <ng-template #itemTemplate let-item>
+        <a [innerHTML]="item.firstName"></a>
+      </ng-template>
+
+      <ng-template #notFoundTemplate let-notFound>
+        <div *ngIf="users.length" [innerHTML]="notFound"></div>
+      </ng-template>
+    </div>
+
+    <mat-form-field *ngIf="searchByMail" class="full-width" appearance="fill">
+
+      <input matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="emailForSearch">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="searchById" class="full-width" appearance="fill">
+
+      <input matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="idForSearch">
+    </mat-form-field>
+
+
+    <div *ngIf="searchByName" fxLayout="row" style="margin-top:150px;">
+      <button *ngIf="searchByMail" mat-raised-button (click)="searchByEmail()" color="primary">OK</button>
+      <span *ngIf="searchByName" fxFlex="8px"></span>
+
+      <button mat-raised-button color="warn" (click)="dialogRef.close(false)">CANCEL</button>
+    </div>
+    <div *ngIf="searchByMail" fxLayout="row" style="margin-top:15px;">
+      <button *ngIf="searchByMail" mat-raised-button (click)="searchByEmail()" color="primary">OK</button>
+      <span *ngIf="searchByMail" fxFlex="8px"></span>
+
+      <button mat-raised-button color="warn" (click)="dialogRef.close(false)">CANCLE</button>
+    </div>
+
+    <div *ngIf="searchById" fxLayout="row" style="margin-top:15px;">
+      <button *ngIf="searchById" mat-raised-button (click)="searchByid()" color="primary">OK</button>
+      <span *ngIf="searchById" fxFlex="8px"></span>
+
+      <button mat-raised-button color="warn" (click)="dialogRef.close(false)">CANCLE</button>
+    </div>
+  </div>
+</form>

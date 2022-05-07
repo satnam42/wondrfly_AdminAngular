@@ -1,0 +1,87 @@
+
+     <div class="search-result">
+        <div class="download-btn">
+            <mat-button-toggle matTooltip="Add" (click)="exportElmToExcel()" value="add">
+            <mat-icon class="text-success">download</mat-icon>
+          </mat-button-toggle>
+            </div>
+        <table class="table forum-tables ">
+            <tbody>
+                <tr>
+                    <th>
+                        Full Name 
+                        <!-- <span class="ml-2"><img src="assets/images/filter-arrow.png"></span> -->
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        IP Address
+                    </th>
+                    <th>
+                        Date of application
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Date of Approval
+                    </th>
+                    <th>
+                        Invited/Self
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                   
+                        <!-- <div class="">
+                            <mat-button-toggle matTooltip="Add" (click)="exportElmToExcel()" value="add">
+                            <mat-icon class="text-success">download</mat-icon>
+                          </mat-button-toggle>
+                            </div> -->
+            
+                </tr>
+                <tr *ngFor="let user of users">
+                    <td class="d-flex align-items-center"> 
+                        <span class="mr-2"><img src="assets/images/table-img.png"></span>
+                          <span> {{user?.name}}</span>
+                      </td>
+                    <td>
+                        <span>{{user?.email}}</span>
+                    </td>
+                    <td>
+                        <span><a target="_blank" href="{{IPtoLocation+user?.ipAddress}}">{{user?.ipAddress}}</a></span>
+                    </td>
+                    <td>
+                        <span>{{user?.date | date }}</span>
+
+                    </td>
+                    <td>
+                        <span *ngIf="user?.status.pending">Pending</span>
+                        <span *ngIf="user?.status.accepted" >Approved</span>
+                        <span *ngIf="user?.status.declined">Declined</span>
+                    </td>
+                     <td>
+                        <span>{{user?.approvalDate | date }}</span>
+
+                    </td>
+                    <td>
+                        <span *ngIf="user?.isInvited === 'invited'">Invited</span>
+                        <span *ngIf="user?.isInvited === 'self'">Self</span>
+                    </td>
+                    <td>
+                        <button class="hidden-on-open" mat-icon-button [matMenuTriggerFor]="msgMenu">
+                            <mat-icon class="text-muted">more_vert</mat-icon>
+                        </button>
+                        <mat-menu #msgMenu="matMenu">
+                            <button mat-menu-item (click)="openPopUp(user)">
+                                <mat-icon>view</mat-icon>View
+                            </button>
+                          
+                        </mat-menu>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf=" response && !users?.length" class="pt-5"><h4>There is no data found!</h4></div>

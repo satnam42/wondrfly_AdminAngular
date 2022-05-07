@@ -1,0 +1,41 @@
+<h1 matDialogTitle>Add Session</h1>
+<form>
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <mat-form-field class="full-width">
+      <input matInput name="batchname" placeholder="BATCH NAME" [(ngModel)]="batch.sessionName">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput name="date1" type="date" placeholder="START DATE" [(ngModel)]="startDate" required>
+    </mat-form-field>
+
+
+    <mat-form-field class="full-width">
+      <input matInput name="date2" type="date" placeholder="END DATE" [(ngModel)]="endDate" required>
+    </mat-form-field>
+
+
+    <mat-form-field class="full-width">
+      <input matInput name="time1" type="time" placeholder="START TIME" [(ngModel)]="startTime" required>
+    </mat-form-field>
+
+
+
+    <mat-form-field class="full-width">
+      <input matInput name="time2" type="time" placeholder="END TIME" [(ngModel)]="endTime" required>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput name="inst" placeholder="INSTRUCTOR" [(ngModel)]="batch.instructor" required>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput name="noOFSeats" placeholder="NO OF SEATS" [(ngModel)]="batch.noOfSeats" required>
+    </mat-form-field>
+
+    <div fxLayout="row">
+      <button [disabled]="!batch.sessionName || !startDate|| !endDate || !startTime || !endTime || !batch.instructor || !batch.noOfSeats" mat-raised-button (click)="submit()" color="primary">ADD</button>
+      <span fxFlex="8px"></span>
+
+      <button mat-raised-button color="warn" (click)="dialogRef.close(false)">CANCLE</button>
+    </div>
+  </div>
+</form>

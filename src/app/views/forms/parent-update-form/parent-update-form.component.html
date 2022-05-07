@@ -1,0 +1,165 @@
+<mat-card class="p-0">
+    <mat-card-title class="">
+        <div class="card-title-text">Update Parent</div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="parentupdateForm" (ngSubmit)="onSubmit()">
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="fname" placeholder="First name"
+                                [formControl]="parentupdateForm.controls['firstName']" [(ngModel)]="user.firstName"
+                                required>
+                        </mat-form-field>
+                    </div>
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput type="email" name="email" placeholder="Email"
+                                [formControl]="parentupdateForm.controls['email']" [(ngModel)]="user.email" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <mat-label>Sex</mat-label>
+                            <mat-select [formControl]="parentupdateForm.controls['sex']" [(ngModel)]="user.sex"
+                                name="sex">
+                                <mat-option *ngIf="user.sex==='male'" selected>male</mat-option>
+                                <mat-option *ngIf="user.sex==='female'" selected>female</mat-option>
+                                <mat-option value="male">male</mat-option>
+                                <mat-option value="female">female</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="address_line1" placeholder="Address Line1"
+                                [formControl]="parentupdateForm.controls['addressLine1']"
+                                [(ngModel)]="user.addressLine1">
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="address_line2" placeholder="Address Line2"
+                                [formControl]="parentupdateForm.controls['addressLine2']"
+                                [(ngModel)]="user.addressLine2">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="source" placeholder="Source"
+                                [formControl]="parentupdateForm.controls['source']" [(ngModel)]="user.source">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="city" placeholder="City"
+                                [formControl]="parentupdateForm.controls['city']" [(ngModel)]="user.city">
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="country" placeholder="Country"
+                                [formControl]="parentupdateForm.controls['country']" [(ngModel)]="user.country">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="zip_code" placeholder="Zip Code"
+                                [formControl]="parentupdateForm.controls['zipCode']" [(ngModel)]="user.zipCode">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="lname" placeholder="Last name"
+                                [formControl]="parentupdateForm.controls['lastName']" [(ngModel)]="user.lastName">
+                        </mat-form-field>
+                    </div>
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="phone" placeholder="Phone number"
+                                [formControl]="parentupdateForm.controls['phoneNumber']" [(ngModel)]="user.phoneNumber">
+                        </mat-form-field>
+                    </div>
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="lat" placeholder="Lat"
+                                [formControl]="parentupdateForm.controls['lat']" [(ngModel)]="user.lat">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="long" placeholder="Long"
+                                [formControl]="parentupdateForm.controls['long']" [(ngModel)]="user.lng">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="stripe_token" placeholder="Stripe Token"
+                                [formControl]="parentupdateForm.controls['stripeToken']" [(ngModel)]="user.stripeToken">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="stripeKey" placeholder="Stripe Key"
+                                [formControl]="parentupdateForm.controls['stripeKey']" [(ngModel)]="user.stripeKey">
+                        </mat-form-field>
+                    </div>
+
+                    <!-- <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="last_loggedin" placeholder="Last LoggedIn" >
+                        </mat-form-field>
+                    </div> -->
+
+                    <!-- <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="login_limit" placeholder="Login Limit" value="">
+                        </mat-form-field>
+                    </div> -->
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="deviceToken" placeholder="Device Token"
+                                [formControl]="parentupdateForm.controls['deviceToken']" [(ngModel)]="user.deviceToken">
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="ssn" placeholder="SSN"
+                                [formControl]="parentupdateForm.controls['ssn']" [(ngModel)]="user.ssn">
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <textarea matInput name="note" placeholder="Note"
+                                [formControl]="parentupdateForm.controls['note']" [(ngModel)]="user.note"></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <button mat-raised-button color="warn" (click)="back()">Back</button>
+            <button style="align-items:flex-end;margin-left: 15px;" mat-raised-button color="primary"
+                [disabled]="parentupdateForm.invalid">Submit</button>
+        </form>
+    </mat-card-content>
+</mat-card>

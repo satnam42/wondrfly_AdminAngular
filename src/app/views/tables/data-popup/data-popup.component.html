@@ -1,0 +1,166 @@
+<!-- <h1 matDialogTitle>Provider Data</h1> -->
+<div class="view_moreModel">
+  <div class="row">
+    <!-- <div class="col-6"></div> -->
+    <div class="col-12">
+      <button class="ok" mat-button (click)="dialogRef.close(false)">Ok</button>
+    </div>
+  </div>
+  <div class="row fields">
+
+    <div *ngIf="data?.firstName">
+      <label> Name </label>
+      <p>{{data?.firstName}}</p>
+    </div>
+
+    <div  *ngIf="data?.name" >
+      <label> Name </label>
+      <p placeholder="Name" *ngIf="data?.name">{{data?.name}}</p>
+    </div>
+
+    <div *ngIf="data?.programOwner">
+      <label> Provider Name </label>
+      <p>{{data?.programOwner}}</p>
+    </div>
+    <div *ngIf="data?.email">
+      <label> Email </label>
+      <p>{{data?.email}}</p>
+    </div>
+
+    <div *ngIf="data?.description">
+      <label> Description </label>
+      <p>{{data?.description}}</p>
+    </div>
+    <div *ngIf="data?.address">
+      <label> Address </label>
+      <p>{{data?.address}}</p>
+    </div>
+
+    <div *ngIf="data?.city">
+      <label> City </label>
+      <p>{{data?.city}}</p>
+    </div>
+    <div *ngIf="data?.likesCount">
+      <label> Total Likes </label>
+      <p>{{data?.likesCount}}</p>
+    </div>
+    <div *ngIf="data?.message">
+      <label> Message </label>
+      <p>{{data?.msg}}</p>
+    </div>
+
+    <div *ngIf="data?.phoneNumber">
+      <label> phoneNumber </label>
+      <p>{{data?.phoneNumber}}</p>
+    </div>
+
+
+    <div *ngIf="data?.date?.from">
+      <label> From Date </label>
+      <p>{{data?.date?.from | date:"mediumDate" }}</p>
+    </div>
+    <div *ngIf="data?.date?.to">
+      <label> To Date </label>
+      <p>{{data?.date?.to | date:"mediumDate"}}</p>
+    </div>
+
+
+    <div *ngIf="data?.time?.from">
+      <label> From Time </label>
+      <p>{{data?.time?.from }}
+      </p>
+    </div>
+
+    <div *ngIf="data?.time?.to">
+      <label> To Time </label>
+      <p> {{data?.time?.to}}
+      </p>
+    </div>
+
+
+
+    <div *ngIf="data?.id">
+      <label> Id </label>
+      <p>{{data?.id}}</p>
+    </div>
+    <div *ngIf="data?._id">
+      <label> Id </label>
+      <p>{{data?._id}}</p>
+    </div>
+
+    <div *ngIf="data?.state">
+      <label> State </label>
+      <p>{{data?.state}}</p>
+
+    </div>
+    <div *ngIf="data?.country">
+      <label> Country </label>
+      <p>{{data?.country}}</p>
+    </div>
+    <div *ngIf="data?.note">
+      <label> Note </label>
+      <p>{{data?.note}}</p>
+    </div>
+
+    <div *ngIf="data?.source">
+      <label> Source </label>
+      <p>{{data?.source}}</p>
+    </div>
+    <div *ngIf="data?.bookedActivityFor">
+      <label> Activity_For </label>
+      <p>{{data?.bookedActivityFor}}</p>
+    </div>
+
+
+    <div *ngIf="data?.applicationDate">
+      <label> Application Date </label>
+      <p>{{data?.applicationDate | date:"mediumDate"}}</p>
+    </div>
+    <div *ngIf="data?.approvalDate">
+      <label> Approval Date </label>
+      <p>{{data?.approvalDate | date:"mediumDate"}}</p>
+    </div>
+    <div *ngIf="data?.approvedBy?.name">
+      <label> Approved By(Name/Role)</label>
+      <p>{{data?.approvedBy?.name}}/{{data?.approvedBy?.role}}</p>
+    </div>
+
+    <div *ngIf="data?.ipAddress">
+      <label> IP_Address </label>
+      <p><a target="_blank" href="{{IPtoLocation+data?.ipAddress}}">{{data?.ipAddress}}</a></p>
+    </div>
+    <div *ngIf="data?.lookingkidsActivityIn">
+      <label> Activity_Location </label>
+      <p>{{data?.lookingkidsActivityIn}}</p>
+    </div>
+   
+  
+    <div *ngIf="data?.bookedActivityInLastMonths">
+      <label> Bookings_Last_6_Months </label>
+      <p>{{data?.bookedActivityInLastMonths}}</p>
+    </div>
+    <div *ngIf="data?.wantWondrflyBetaUserBecause">
+      <label> Why_Beta_User </label>
+      <p>{{data?.wantWondrflyBetaUserBecause}}</p>
+    </div>
+    <div *ngIf="data?.occupation">
+      <label> Occupation </label>
+      <p>{{data?.occupation}}</p>
+    </div>
+
+    <div *ngIf="data?.round">
+      <label> Round-1 </label>
+      <p>{{data?.round}}</p>
+    </div>
+
+    <div *ngIf="data?.createdOn">
+      <label>Added On </label>
+      <p>{{data?.createdOn | date}}</p>
+    </div>
+
+    <div *ngIf="data?.title">
+      <label>Title </label>
+      <p>{{data?.title}}</p>
+    </div>
+  </div>
+</div>

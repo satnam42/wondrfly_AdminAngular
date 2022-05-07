@@ -1,0 +1,49 @@
+.app-loader {
+    height: 100vh !important;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+}
+.spinner {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    margin: auto;
+}
+element.style {
+    background: #fcc02e;
+}
+.double-bounce1{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-animation: sk-bounce 2s infinite ease-in-out;
+    animation: sk-bounce 2s infinite ease-in-out;
+}
+element.style {
+    background: #03a9f4;
+}
+.double-bounce2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-animation: sk-bounce 2s infinite ease-in-out;
+    animation: sk-bounce 2s infinite ease-in-out;
+}
+.userImage{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    position: relative;
+}

@@ -1,0 +1,199 @@
+<!-- <div>
+    <button mat-raised-button (click)="add()" style="margin: 15px;" color="primary">ADD</button>
+    <h3 style="text-align: center;">Category List</h3>
+
+    <mat-form-field style="width: 100%">
+        <input matInput placeholder="Search" value="" (keyup)='updateFilter($event)' />
+    </mat-form-field>
+
+    <ngx-datatable [rows]="rows" class="material bg-white" [limit]="8" [scrollbarH]="true" [rowHeight]="50"
+        [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50">
+        <ngx-datatable-column name="Name">
+
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.name}}
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Description">
+
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.description}}
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Action">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <mat-icon matTooltip="edit" matTooltipPosition="above" (click)="edit(row)">edit</mat-icon>
+                <mat-icon matTooltip="delete" matTooltipPosition="above" color="warn" (click)="deleteCategory(row)">
+                    delete</mat-icon>
+
+
+            </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable>
+</div> -->
+
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-12">
+            <div class="search-section">
+                <input type="text" class="search_input" placeholder="Search By Category Name"
+                    [(ngModel)]="searchText" />
+                <i class="fa fa-filter filter-icon" aria-hidden="true" *ngIf="searchText"></i>
+                <span class="back-search">
+                    <mat-icon>search</mat-icon>
+                </span>
+            </div>
+            <div class="row">
+                <div class="col-6">
+
+                    <h4 class="col-greys">Category List</h4>
+                </div>
+                <div class="col-6">
+                    <div class="add_buttons text-right">
+                        <button class="letsplay_btn" data-toggle="modal" data-target="#badgesList">+ ADD NEW
+                            CATEGORY</button>
+                    </div>
+                </div>
+            </div>
+            <!-- <button class="letsplay_btn" mat-button routerLink="/dashboard/addForum">+ ADD NEW</button> -->
+        </div>
+    </div>
+
+    <table class="table forum-table">
+        <tbody>
+            <tr>
+                <!-- <th>
+                   Image
+                </th> -->
+                <th>
+                    Category Name
+                </th>
+                <th>
+                    Description
+                </th>
+
+            </tr>
+            <tr *ngFor="let category of CategoriesList | filter : searchText; let i =index;" [ngClass]="{'deactivated':!category?.isActivated}">
+                <!-- <td>  
+                    <img class="userImage" *ngIf="category?.iconUrl" src="{{category?.iconUrl}}">
+                    <img class="userImage" *ngIf="!category?.iconUrl" src="assets/images/user.png">
+                      </td> -->
+                <td>
+                    <span (click)="openPopUp(category)"> {{category?.name}}</span>
+                </td>
+                <td>
+                    <span (click)="openPopUp(category)"> {{category?.description}}</span>
+                </td>
+                <td>
+                    <mat-icon [matMenuTriggerFor]="menu" class="menubutton tags_list">more_vert</mat-icon>
+                    <mat-menu #menu="matMenu" yPosition="below">
+                        <button mat-menu-item (click)="edit(category)">
+                            <mat-icon class="col-blue" matTooltip="edit" matTooltipPosition="above">edit
+                            </mat-icon>Edit
+                        </button>
+                        <button *ngIf="!category?.isActivated" mat-menu-item (click)=" activateDeactivateCategory(true,i)">
+                            <mat-icon class="col-blue">delete</mat-icon>Activate
+                        </button>
+                        <button *ngIf="category?.isActivated" mat-menu-item (click)=" activateDeactivateCategory(false,i)">
+                            <mat-icon class="col-blue">delete</mat-icon>Deactivate
+                        </button>
+                        <button mat-menu-item (click)=" deleteCategory(category)">
+                            <mat-icon class="col-blue">delete</mat-icon>Remove
+                        </button>
+                    </mat-menu>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<!-- Modal -->
+<div class="modal fade new_topic" id="badgesList" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <mat-icon class="material-icons icon-image-preview">cancel</mat-icon>
+            </button>
+            <div class="modal-body">
+                <h2>Add Category</h2>
+                <div class="form_outer">
+                    <form [formGroup]="categoryForm" autocomplete="off">
+                        <div class="form-group">
+                            <label> Category NAME</label>
+                            <input type="text" class="form-control" formControlName="name" [(ngModel)]="category.name" placeholder="Type">
+                        </div>
+                        <div class="form-group length">
+                            <label>DESCRIPTION</label>
+                            <textarea type="text" class="form-control" [(ngModel)]="category.description"
+                                formControlName="description" placeholder="Type" rows="5"></textarea>
+                            <div class="text_length">
+                                <p>(0 of 150)</p>    
+                            </div>
+                        </div> 
+                        
+                        <div class="row">
+                            <div class=" col-6 pb-1">
+                              <div class="full-width">
+                                <p style="color:rgb(118, 118, 118);">Upload Icon</p>
+                                <input #file accept="image/*" (change)="iconSelect($event)" type="file" name="myfile" />
+                              </div><br/>
+                              <img [src]="iconURL" height="100" *ngIf="iconURL"><br/>
+                            </div>
+                      
+                            <div class="col-6 pb-1">
+                              <div class="full-width">
+                                <p style="color:rgb(118, 118, 118);">Upload Image</p>
+                                <input #file accept="image/*" (change)="imageSelect($event)"  type="file" name="myfile" />
+                              </div><br/>
+                              <img [src]="imageURL" height="100" *ngIf="imageURL"><br/>
+                            </div></div>
+                            <div class="row">
+                            <div class="col-6 pb-1">
+                              <div class="full-width">
+                                <p style="color:rgb(118, 118, 118);">Upload Pattern</p>
+                                <input #file accept="image/*" (change)="patternSelect($event)"  type="file" name="myfile" />
+                              </div><br/>
+                              <img [src]="patternURL" height="100" *ngIf="patternURL"><br/>
+                            </div>
+                            <div class="col-6 pb-1">
+                              <div class="full-width">
+                                <p style="color:rgb(118, 118, 118);">Upload Logo</p>
+                                <input #file accept="image/*" (change)="logoSelect($event)"  type="file" name="myfile" />
+                              </div><br/>
+                              <img [src]="logoURL" height="100" *ngIf="logoURL"><br/>
+                            </div>
+                          </div>
+                        
+                        <!-- <div class=" length">
+                            <div>
+                              <p style="color:rgb(118, 118, 118);">Upload category image</p>
+                              <input #file accept="image/*" (change)="fileSelect($event)" type="file" name="myfile" />
+                            </div><br />
+                            <span style="color:red;" *ngIf="msg">{{msg}}</span>
+                            <img [src]="imgURL" height="100" *ngIf="imgURL"><br>
+                          </div>
+
+                          <div class=" length">
+                            <div>
+                              <p style="color:rgb(118, 118, 118);">Upload category icon</p>
+                              <input #file accept="image/*" (change)="iconSelect($event)" type="file" name="myfile" />
+                            </div><br />
+                            <span style="color:red;" *ngIf="msg">{{msg}}</span>
+                            <img [src]="iconURL" height="100" *ngIf="iconURL"><br>
+                          </div> -->
+
+                        <div class="form-group submit">
+                            <button class="submit_btn" (click)="addCategory()" data-dismiss="modal"
+                                [disabled]="!categoryForm">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

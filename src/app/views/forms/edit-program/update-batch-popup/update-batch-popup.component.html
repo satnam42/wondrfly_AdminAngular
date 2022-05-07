@@ -1,0 +1,35 @@
+<h1 matDialogTitle>Update Batch</h1>
+<form>
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <mat-form-field class="full-width">
+      <input matInput name="batchname" placeholder="BATCH NAME" [(ngModel)]="batch.sessionName">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput name="date1" type="date" placeholder="START DATE" [(ngModel)]="batch.sessionStartDate">
+    </mat-form-field>
+
+
+    <mat-form-field class="full-width">
+      <input matInput name="date2" type="date" placeholder="END DATE" [(ngModel)]="batch.sessionEndDate">
+    </mat-form-field>
+
+
+    <mat-form-field class="full-width">
+      <input matInput name="time1" type="time" placeholder="START TIME" [(ngModel)]="batch.sessionStartTime">
+    </mat-form-field>
+
+
+
+    <mat-form-field class="full-width">
+      <input matInput name="time2" type="time" placeholder="END TIME" [(ngModel)]="batch.sessionEndTime">
+    </mat-form-field>
+
+    <div fxLayout="row">
+      <button [disabled]="!batch.sessionName" mat-raised-button (click)="updateBatch()" color="primary">ADD</button>
+      <span fxFlex="8px"></span>
+
+      <button mat-raised-button color="warn" (click)="dialogRef.close(false)">CANCLE</button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,82 @@
+<div class="container">
+
+  <h4 class="text-center">Expired Programs</h4>
+  
+  <div class=" counts">
+    <h4> Total:</h4>
+    <span>{{temp?.items?.length}}</span>
+  </div>
+  <div class="program-list" #scrollToTop infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+  (scrolled)="loadMore()" [scrollWindow]="false">
+  <table class="table forum-table">
+    <tbody>
+      <tr>
+        <th>
+          Program Name
+      </th>
+      <th>
+          Program ID
+      </th>
+
+      <th>
+          Provider Name
+      </th>
+      <th>
+          Price
+      </th>
+      <th>
+        Expired in
+    </th>
+
+      <th colspan="2">
+          Published
+      </th>
+
+      </tr>
+      <tr *ngFor="let publish of rows">
+        <td>
+          <span (click)="routeToDetailPage(publish)"> <a href="{{detailPageUrl}}" target="_blank">{{publish.name}}</a></span>
+      </td>
+      <td>
+          <span (click)="openPopUp(publish)">{{ publish._id }}</span>
+      </td>
+      <td>
+          <span (click)="openPopUp(publish)">{{publish.programOwner}}</span>
+      </td>
+      <td>
+          <span (click)="openPopUp(publish)" *ngIf="publish.isFree">Free</span>
+          <span *ngIf="!publish.isFree"><span (click)="openPopUp(publish)">${{publish.pricePerParticipant}}</span><span *ngIf="publish.pricePeriod.periodAmount">/{{publish.pricePeriod.periodAmount}}</span></span>
+      </td>
+
+      <td>
+        <span *ngIf="!publish?.isDateNotMention && !publish?.isExpired"><counter [isProgram]="true" [futureString]="publish?.date?.to"></counter></span>
+        <span  *ngIf="publish?.isDateNotMention && !publish?.isExpired">Date Not Mentioned</span>
+        <span  *ngIf="publish?.isExpired" style="background: red;">Expired</span>
+    </td>
+
+      <td>
+          <!-- <span *ngIf="publish?.isPublished" (click)="publishUnpublishProgram(publish,i,false)">Click To UnPublish</span>
+          <span *ngIf="!publish?.isPublished" (click)="publishUnpublishProgram(publish,i,true)">Click To Publish</span> -->
+          <mat-slide-toggle [checked]="publish?.isPublished" color="primary"
+          (change)="publishUnpublishProgram($event,publish)">
+      </mat-slide-toggle>
+
+      </td>
+      <td>
+        <button mat-icon-button [matMenuTriggerFor]="msgMenu" class="hidden-on-open">
+<mat-icon class="text-muted">more_vert</mat-icon>
+</button>
+        <mat-menu #msgMenu="matMenu">
+
+
+            <button mat-menu-item (click)="edit(publish)">
+<mat-icon class="col-blue">edit</mat-icon>Edit
+</button>
+        </mat-menu>
+
+    </td>
+      </tr>
+    </tbody>                 
+  </table>
+</div>
+</div>

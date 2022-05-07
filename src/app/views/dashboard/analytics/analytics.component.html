@@ -1,0 +1,249 @@
+<!-- First row -->
+
+
+<!-- src="assets/images/logo.png" -->
+<div class="custom_row_p1">
+
+
+  <mat-card class="p-0 Main_row1" [@animate]="{ value: '*', params: { y: '50px', delay: '300ms' } }">
+
+    <div fxLayout="row wrap " class="Main_row2">
+
+      <div fxFlex="50" fxFlex.gt-sm="20" fxFlex.sm="50">
+        <mat-card class="mat-border-size m-1 N_myclass">
+          <div class="text-center pt-1 pb-1 border-right-light">
+            <img src="assets/images/1icon.png">
+            <div class="N_box1">
+              <div class="N_heading">
+                <h4 class="m-0 ">{{providers.total}}</h4>
+              </div>
+              <small class="m-0 ">Providers </small>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+      <div fxFlex="50" fxFlex.gt-sm="20" fxFlex.sm="50">
+        <mat-card class="mat-border-size m-1 N_myclass">
+          <div class="text-center pt-1 pb-1 border-right-light">
+            <img src="assets/images/2icon.png">
+            <div class="N_box3">
+              <div class="N_heading">
+                <h4 class="m-0 ">{{programs.total}}</h4>
+              </div>
+              <small class="m-0 ">Programs</small>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+      <div fxFlex="50" fxFlex.gt-sm="20" fxFlex.sm="50">
+        <mat-card class="mat-border-size m-1 N_myclass">
+          <div class="text-center pt-1 pb-1 border-right-light">
+            <img src="assets/images/3icon.png">
+            <div class="N_box4">
+              <div class="N_heading">
+                <h4 class="m-0 ">{{this.parents.total}}</h4>
+              </div>
+              <small class="m-0 ">Parents </small>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+      <div fxFlex="50" fxFlex.gt-sm="20" fxFlex.sm="50">
+        <mat-card class="mat-border-size m-1 N_myclass">
+          <div class="text-center pt-1 pb-1 border-right-light">
+            <img src="assets/images/4icon.png">
+            <div class="N_box2">
+              <div class="N_heading">
+                <h4 class="m-0 ">{{this.children.length}}</h4>
+              </div>
+              <small class="m-0 ">Children </small>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+
+      <div fxFlex="50" fxFlex.gt-sm="20" fxFlex.sm="50">
+        <mat-card class="mat-border-size m-1">
+          <div class="text-center pt-1 pb-1">
+            <img src="assets/images/1icon.png">
+            <div class="N_box5">
+              <div class="N_heading">
+                <h4 class="m-0 ">
+                  {{parents.total+providers.total}}
+                </h4>
+              </div>
+              <small class="m-0 ">Total Members</small>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </mat-card>
+
+
+
+</div>
+
+
+
+<!--/ End first row -->
+<!-- 2nd, 3rd row -->
+<!--Pritpal code start-->
+<div class="N_section2">
+  <div class="N_wrapper">
+    <div class="row">
+      <div class="col-3">
+        <div class="categories">
+          <span><div class="program_leble"></div> Programs</span>
+        </div>
+        <!-- <div class="N_dropdown">
+          <mat-select appDropdown placeholder="New Provider">
+            <mat-option selected value="Week">New Register Parents</mat-option>
+            <mat-option value="Month">New Register Providers</mat-option>
+            <mat-option value="Year">New Added Child</mat-option>
+          </mat-select>
+        </div> -->
+      </div>
+      <div class="col-3">
+        <div class="categories">
+          <span><div class="provider_leble"></div> Providers</span>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="three_buttons">
+          <div class="btn" [class.btn_active]="isWeek" (click)="getGraphData('week')">Week</div>
+          <div class="btn" [class.btn_active]="isMonth" (click)="getGraphData('month')">Month</div>
+          <div class="btn" [class.btn_active]="isYear" (click)="getGraphData('year')">Year</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="50"
+    [@animate]="{ value: '*', params: { y: '50px', delay: '600ms' } }">
+    <mat-card class="p-0 ">
+      <mat-tab-group>
+        <mat-tab label="Program's and Provider's Data">
+          <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
+            style="height: 255px;"></div>
+        </mat-tab>
+        <!-- <mat-tab label="Provider Data">
+          <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
+            style="height: 255px;"></div>
+        </mat-tab> -->
+        <!-- <mat-tab label="New Added Child">
+          <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
+            style="height: 255px;"></div>
+        </mat-tab> -->
+        <!-- <mat-tab label="Profile Completed">
+          <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
+            style="height: 255px;"></div>
+        </mat-tab> -->
+      </mat-tab-group>
+    </mat-card>
+  </div>
+
+  <!-- <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="50" *ngIf="isMonth"
+  [@animate]="{ value: '*', params: { y: '50px', delay: '600ms' } }">
+  <mat-card class="p-0 ">
+    <mat-tab-group>
+      <mat-tab label="New Register Parents">
+        <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
+          style="height: 255px;"></div>
+      </mat-tab>
+      <mat-tab label="New Register Providers">
+        <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
+          style="height: 255px;"></div>
+      </mat-tab>
+      <mat-tab label="New Added Child">
+        <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
+          style="height: 255px;"></div>
+      </mat-tab>
+      <mat-tab label="Profile Completed">
+        <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
+          style="height: 255px;"></div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div> -->
+
+<!-- <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="50"  *ngIf="isYear"
+[@animate]="{ value: '*', params: { y: '50px', delay: '600ms' } }">
+<mat-card class="p-0 ">
+  <mat-tab-group>
+    <mat-tab label="New Register Parents">
+      <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
+        style="height: 255px;"></div>
+    </mat-tab>
+    <mat-tab label="New Register Providers">
+      <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
+        style="height: 255px;"></div>
+    </mat-tab>
+    <mat-tab label="New Added Child">
+      <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
+        style="height: 255px;"></div>
+    </mat-tab>
+    <mat-tab label="Profile Completed">
+      <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
+        style="height: 255px;"></div>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>
+</div> -->
+
+</div>
+
+       <mat-card class="p-0">
+        <h3 style="margin-left:26px;margin-top: 15px;">Progress</h3>
+        <mat-card-content>
+          <div class="mb-1">
+            <p class="m-0">
+              Parents <span class="text-muted">| {{parents.total}}</span>
+            </p>
+            <mat-progress-bar color="warn" mode="determinate" [value]="parents.total/50" class="rounded"
+              style="height: 6px">
+            </mat-progress-bar>
+          </div>
+          <div class="mb-1">
+            <p class="m-0 text-13">
+              Providers <span class="text-muted">| {{providers.total}}</span>
+            </p>
+            <mat-progress-bar color="primary" mode="determinate" [value]="providers.length/50" class="rounded"
+              style="height: 6px">
+            </mat-progress-bar>
+          </div>
+          <div class="mb-1">
+            <p class="m-0 text-13">
+              Programs <span class="text-muted">| {{programs.total}}</span>
+            </p>
+            <mat-progress-bar class="" color="accent" mode="determinate" [value]="programs.total/50" class="rounded"
+              style="height: 6px">
+            </mat-progress-bar>
+          </div>
+          <div class="">
+            <p class="m-0 text-13">
+              child <span class="text-muted">| {{children.length}}</span>
+            </p>
+            <mat-progress-bar class="" color="warn" mode="determinate" [value]="children.length/50" class="rounded"
+              style="height: 6px">
+            </mat-progress-bar>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    
+
+      <mat-card class="p-0">
+        <h3 style="margin-left:26px;margin-top: 15px;">Published/unpublished/Expiring-soon</h3>
+        <div
+          echarts
+          [options]="dailyBandwithUsage"
+          [autoResize]="true"
+          style="height: 216px;"
+        ></div>
+      </mat-card>
+   

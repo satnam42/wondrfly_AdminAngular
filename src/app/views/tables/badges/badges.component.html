@@ -1,0 +1,152 @@
+<div class="container">
+  <br>
+  <div class="row">
+    <div class="col-12">
+
+
+      <div class="search-section">
+        <input type="text" class="search_input" placeholder="Search By Badge Name" [(ngModel)]="searchText" />
+        <i class="fa fa-filter filter-icon" aria-hidden="true" *ngIf="searchText"></i>
+        <span class="back-search">
+          <mat-icon style="position:relative;top: 4px; float: right;
+          ">search</mat-icon>
+        </span>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <h4 class="col-greys">Badge's List</h4>
+        </div>
+        <div class="col-6 text-right add_buttons">
+          <button class="letsplay_btn" data-toggle="modal" data-target="#badgesList">+ ADD NEW BADGE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table class="table forum-table">
+    <tbody>
+      <tr>
+        <th>
+          Badge Name
+        </th>
+        <th>
+          Icon
+        </th>
+        <th>
+          Description
+        </th>
+
+        <!-- <th>
+
+          End Date
+        </th> -->
+
+        <th>
+          Added Date
+
+        </th>
+        <th>
+        </th>
+      </tr>
+      <tr *ngFor="let badge of badgesList | filter : searchText">
+        <td>
+          <span (click)="openPopUp(badge)">{{badge.name}}</span>
+        </td>
+        <td>
+          <img class="userImage" *ngIf="badge.icon" src="{{badge.icon}}">
+        </td>
+        <td>
+          <span (click)="openPopUp(badge)">{{badge.description}}</span>
+        </td>
+        <td>
+          <span (click)="openPopUp(badge)">{{badge.createdOn | date}}</span>
+        </td>
+        <td>
+          <mat-icon [matMenuTriggerFor]="menu" class="menubutton tags_list">more_vert</mat-icon>
+          <mat-menu #menu="matMenu" yPosition="below">
+            <button mat-menu-item (click)=" delete(badge)">
+              <mat-icon class="col-blue">delete</mat-icon>Remove
+            </button>
+          </mat-menu>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade new_topic" id="badgesList" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <mat-icon class="material-icons icon-image-preview">cancel</mat-icon>
+      </button>
+      <div class="modal-body">
+        <h2>Add New Badge</h2>
+        <div class="form_outer">
+          <form [formGroup]="badgeForm" autocomplete="off">
+
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" class="form-control" formControlName="name" placeholder="Type">
+            </div>
+            <div class="form-group">
+              <label>Icon</label>
+              <input type="file" #file accept="image/*" (change)="getPicUrl($event)" class="form-control"
+                placeholder="Type">
+            </div>
+
+            <div class="form-group length">
+              <label>Description</label>
+              <textarea type="text" class="form-control" formControlName="description" placeholder="Type"
+                rows="5"></textarea>
+              <div class="text_length">
+                <p>(0 of 150)</p>
+              </div>
+            </div>
+
+            <div class="form-group submit">
+              <button class="submit_btn" (click)="onSubmit()" data-dismiss="modal"
+                [disabled]="!badgeForm">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 
+<div class="form-group">
+  <label>Add for</label>
+  <div class="checkbox_outer">
+    <label class="ch-radio">
+      <input name="hiring" type="radio">
+      <span>
+        <i class="ch-icon material-icons icon-image-preview">done</i>All
+      </span>
+    </label>
+    <label class="ch-radio">
+      <input name="hiring" type="radio">
+      <span>
+        <i class="ch-icon material-icons icon-image-preview">done</i>
+        Parents
+      </span>
+    </label>
+    <label class="ch-radio">
+      <input name="hiring" type="radio">
+      <span>
+        <i class="ch-icon material-icons icon-image-preview">done</i>Providers
+      </span>
+    </label>
+    <label class="ch-radio">
+      <input name="hiring" type="radio">
+      <span>
+        <i class="ch-icon material-icons icon-image-preview">done</i>
+        Email
+      </span>
+    </label>
+  </div>
+</div> -->

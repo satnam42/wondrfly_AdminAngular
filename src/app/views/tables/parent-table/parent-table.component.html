@@ -1,0 +1,223 @@
+<div class="container">
+    <br>
+    <!-- <div class="row">
+        <div class="col-12">
+            <div class="search-section">
+                <input type="text" class="search_input" placeholder="Search By Topic's Name" [(ngModel)]="searchText" />
+                <i class="fa fa-filter filter-icon" aria-hidden="true" *ngIf="searchText"></i>
+                <i aria-hidden="true" *ngIf="!searchText"></i>
+                <span class="back-search">
+                    <mat-icon>search</mat-icon>
+                </span>
+            </div>
+            <div class="row">
+                <div class="col-6 total_providers">
+                    <h4 class="col-greys">Total Parents: <span>({{temp.total}})</span> </h4>
+                </div>
+                <div class="col-6 text-right add_buttons">
+                    <button class="letsplay_btn" data-toggle="modal" (click)="add()" data-target="#addNewTopic">+ ADD
+                        NEW PARENT</button>
+                </div>
+            </div>
+
+        </div>
+    </div> -->
+    <div class="row">
+
+
+        <div class="col-2">
+            <mat-form-field appearance="fill">
+              <mat-label>Select Filter</mat-label>
+              <mat-select name="defaultFilter"  [(ngModel)]="defaultFilter">
+                <mat-option  *ngFor="let item of filterColumns" [value]="item" (click)="selectedFilter(item)">
+                 {{item}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-5">
+            <mat-form-field class="w-85" appearance="standard" [hidden]="selectedValue=='status'">
+              <mat-label>Search</mat-label>
+              <input matInput (keyup)="updateFilter($event.target.value)" [(ngModel)]="keyword" placeholder="Search" #input>
+              <button mat-icon-button matSuffix value="reset" matTooltip="Search">
+                <mat-icon class="text-primary">search</mat-icon>
+              </button>
+            </mat-form-field>
+              <button mat-raised-button value="reset" class="m-2" (click)="reset()"  matTooltip="Reset">
+                <mat-icon>autorenew</mat-icon>  Reset
+              </button>
+          </div>
+        
+        
+        
+                <!-- <div class="col-7">
+                    <div class="search-section">
+                        <input type="text" class="search_input" (keyup)="updateFilter($event.target.value)" placeholder="Search By Program Name" [(ngModel)]="searchText" />
+                        <i class="fa fa-filter filter-icon" aria-hidden="true" *ngIf="searchText"></i>
+                        <i aria-hidden="true" *ngIf="!searchText"></i>
+                        <span class="back-search"> -->
+                  <!-- <mat-icon>search</mat-icon> -->
+                  <!-- <mat-icon style="position:relative;top: 4px; float: right;
+                                  ">search</mat-icon>
+                </span>
+                    </div> -->
+              <!-- <div class="col-2 mt-4">
+                <button mat-raised-button value="Round-1" data-toggle="modal" data-target=".bd-example-modal-lg" matTooltip="Round-1 Beta Users">Round-1</button>
+              </div> -->
+                  
+               
+                <div class="col-3">
+                    <h4 class="col-greys total_providers"> 
+                        Total Parents<span > ({{temp?.total}})</span> 
+                    </h4>
+                </div>
+           
+                <div class="col-2 text-right add_buttons">
+        
+                    <!-- <label class="letsplay_btn ">Import
+                <input  style="display: none;"  accept=".xlsx, .xls, .csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" mat-raised-button type="file" color="primary" #csv_file (change)=" onFileChange($event)" name="myfile">
+              </label> -->
+              <mat-button-toggle matTooltip="Add"  (click)="add()" value="add">
+                <mat-icon class="text-success">add</mat-icon>
+              </mat-button-toggle>
+        
+                    <!-- <button class="letsplay_btn" data-toggle="modal" (click)="openPopUps('wizard')" data-target="#addNewTopic">
+                ADD New Program </button> -->
+                    <!-- <button class="letsplay_btn quick_add" data-toggle="modal" (click)="openPopUps('form')" data-target="#addNewTopic">Quick Program Add</button> -->
+                </div>
+            </div>
+<div class="row">
+    <div class="col-2">
+        <mat-checkbox class="example-margin" (change)="isActiveChange($event) "  [(ngModel)]="isActive">Enrolled</mat-checkbox>
+    </div>
+    <div class="col-2">
+        <mat-checkbox class="example-margin" (change)="isDeactivatedChange($event)"  [(ngModel)]="isDeactivated">Deactivated</mat-checkbox>
+    </div>
+    <div class="col-8">
+        
+    </div>
+</div>
+
+
+    <div class="search-results" #scrollToTop infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+        (scrolled)="onScroll()" [scrollWindow]="false" *ngIf="rows.length">
+        <table class="table forum-table ">
+            <tbody>
+                <tr>
+                    <th>
+                        First Name
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Source
+                    </th>
+
+                    <th>
+                        Round
+                    </th>
+
+                    <th>
+                        Ambassador
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+                <tr *ngFor="let row of rows | filter : searchText; let i = index">
+                    <td>
+                        <span (click)="openPopUp(row)"> {{row.firstName}}</span>
+                    </td>
+                    <td>
+                        <span (click)="openPopUp(row)"> {{row.email}}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="row.source" (click)="openPopUp(row)"> {{row.source}}</span>
+                        <span *ngIf="!row.source" (click)="openPopUp(row)"> - </span>
+                    </td>
+
+                    <td>
+                        <span (click)="openPopUp(row)">Round1</span>
+                    </td>
+
+                    <td>
+                        <mat-slide-toggle [checked]="row.isAmbassador" color="primary"
+                            (change)="addRemoveAmbassador($event,row)">
+                        </mat-slide-toggle>
+                    </td>
+                    <td>
+                        <!-- <span *ngIf="row.status==='active'" class="pointer" matTooltip="{{row.status}}" [ngStyle]="{'color':'#53B2E8'}"
+            (click)="parentActiveInActive(row)"><span>active</span></span>
+          <span *ngIf="row.status==='inactive'" class="pointer" matTooltip="{{row.status}}"  [ngStyle]="{'color':'red'}"
+            (click)="parentActiveInActive(row)"><span>Inactive</span></span> -->
+
+
+
+                        <span *ngIf="row.isActivated===true" matTooltip="Active" matTooltipPosition="above" mat-sm-chip
+                            selected style="color: #53B2E8;cursor: pointer;" (click)="parentActiveInActive(row)">
+                            Enrolled</span>
+                        <span *ngIf="row.isActivated===false" matTooltip="InActive" matTooltipPosition="above"
+                            mat-sm-chip selected style="color: red; cursor: pointer;"
+                            (click)="parentActiveInActive(row)">
+                            Deactivated</span>
+                    </td>
+                    <td>
+                        <button mat-icon-button [matMenuTriggerFor]="msgMenu" class="hidden-on-open">
+                            <mat-icon class="text-muted">more_vert</mat-icon>
+                        </button>
+                        <mat-menu #msgMenu="matMenu">
+                            <button mat-menu-item *ngIf="usersData.role=='superAdmin' || 'admin'" target="_blank" (click)="showAnalytics(row)">
+                                <mat-icon>dashboard</mat-icon>Analytics
+                            </button>
+                            <button mat-menu-item (click)="edit(row)">
+                                <mat-icon>edit</mat-icon>Edit
+                            </button>
+                            <button mat-menu-item (click)="deleteParent(row,i)">
+                                <mat-icon>delete</mat-icon>Delete
+                            </button>
+                            <!-- <button mat-menu-item>
+                                <mat-icon>dynamic_feed</mat-icon>Logout
+                            </button> -->
+                            <button mat-menu-item *ngIf="usersData.role=='superAdmin' && row.isActivated" target="_blank" (click)="parentLogin(row)">
+                                <mat-icon>login</mat-icon>Manage
+                            </button>
+                        </mat-menu>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table>
+              <tr>
+                  <th class="pl-5">Name</th>
+                  <th class="pl-5">Id</th>
+                  <th class="pl-5">Email</th>
+                  <!-- <th class="pl-5">Address</th> -->
+             </tr>
+             <tr *ngFor="let row of rows | filter : searchText; let i = index">
+                 <td class="pl-5">{{row.firstName}}</td>
+                 <td class="pl-5">{{row.id}}</td>
+                 <td class="pl-5">{{row.email}}</td>
+                 <!-- <td class="pl-5">{{row.address}}</td> -->
+             </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

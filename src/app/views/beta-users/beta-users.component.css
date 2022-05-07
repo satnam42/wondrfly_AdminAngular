@@ -1,0 +1,10 @@
+.selected{
+    color: rgb(54, 193, 235) !important;
+}
+.box-beta {
+    margin: 0px 40px 0px 0px;
+}
+
+.beta-program ul.nav li.nav-item {
+    width: 25%;
+}

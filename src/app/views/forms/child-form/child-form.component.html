@@ -1,0 +1,129 @@
+<mat-card class="p-0">
+    <mat-card-title class="">
+        <div class="card-title-text">
+            Child Form
+        </div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+        <form>
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="name" placeholder="Name" [(ngModel)]="child.name" required>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="alergies" placeholder="Alergies" [(ngModel)]="child.alergies">
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="age" maxlength='2' minlength='1' placeholder="Age" [(ngModel)]="child.age" required>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <mat-label>Sex</mat-label>
+                            <mat-select [(ngModel)]="child.sex" name="sex" required>
+                                <mat-option *ngIf="child.sex==='male'" selected>male</mat-option>
+                                <mat-option *ngIf="child.sex==='female'" selected>female</mat-option>
+                                <mat-option value="male">male</mat-option>
+                                <mat-option value="female">female</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="schoolinfo" placeholder="School Info..."
+                                [(ngModel)]="child.schoolInfo">
+                        </mat-form-field>
+
+                    </div>
+
+                    <!-- <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="interestinfo" placeholder="Interest Info..."
+                                [(ngModel)]="child.interestInfo">
+                        </mat-form-field>
+
+                    </div> -->
+                </div>
+
+                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-1">
+                    <!-- 
+                        <div class="pb-1">
+                            <mat-form-field class="full-width">
+                                <input matInput name="name" placeholder="Last Name"
+                                    [(ngModel)]="child.lname">
+                            </mat-form-field>
+    
+                        </div> -->
+
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="parentnotes" placeholder="Parent Notes"
+                                [(ngModel)]="child.parentNotes">
+                        </mat-form-field>
+
+                    </div>
+
+
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="availability" placeholder="Availability"
+                                [(ngModel)]="child.availability">
+                        </mat-form-field>
+
+                    </div>
+
+
+
+                    <!-- <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="availability" placeholder="Availability"
+                                [(ngModel)]="child.availability">
+                        </mat-form-field>
+
+                    </div> -->
+
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="dislikes" placeholder="Dislikes" [(ngModel)]="child.dislikes">
+                        </mat-form-field>
+
+                    </div>
+
+
+
+
+
+                    <div class="pb-1">
+                        <mat-form-field class="full-width">
+                            <input matInput name="info" placeholder="Information" [(ngModel)]="child.info">
+                        </mat-form-field>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <button mat-raised-button color="warn" (click)="back()">Back</button>
+            <button style="align-items:flex-end;margin-left: 15px;" mat-raised-button color="primary"
+                (click)="updateChild()">Submit</button>
+
+        </form>
+    </mat-card-content>
+</mat-card>

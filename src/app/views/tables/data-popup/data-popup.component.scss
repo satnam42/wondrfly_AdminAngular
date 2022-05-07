@@ -1,0 +1,38 @@
+.view_moreModel{
+    border-radius: 10px !important;
+}
+.ok{
+    background-color: #53B2E8;
+    border: none !important;
+    border-radius: 5px !important;
+    float: right !important;
+    color: white;
+}   
+.fields div{
+    display: flex;
+    padding-left: 30px;
+    flex-direction: row;
+    width: 100%;
+}
+
+.fields{
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    flex-direction: column;
+}
+
+label {
+    font-weight: 600;
+    color: #53b2e8;
+    width: 30%;
+}
+p {
+    word-break: break-word;
+    width: 90%;
+    padding-right: 15px;
+}
+// .fields label{
+//     // margin-left: 10px !important;
+// }

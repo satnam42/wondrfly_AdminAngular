@@ -1,0 +1,71 @@
+
+<mat-card class="p-0">
+  <mat-card-title class="">
+      <div class="card-title-text">
+          Update Category
+      </div>
+      <mat-divider></mat-divider>
+  </mat-card-title>
+  <mat-card-content>
+      <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+          <div fxLayout="row wrap">
+              <div fxFlex="100" fxFlex.gt-xs="100" class="pr-1">
+                  <div class="pb-1">
+                      <mat-form-field class="full-width">
+                          <input matInput name="name" placeholder="Category Name"
+                          formControlName="name"
+                              [(ngModel)]="category.name">
+                      </mat-form-field>
+                  </div>
+
+
+                      <div class="pb-1">
+                          <mat-form-field class="full-width">
+                              <input matInput name="description" placeholder="Description"
+                              formControlName="description"
+                                  [(ngModel)]="category.description">
+                          </mat-form-field>
+                      </div>
+
+
+                      <div class="row">
+                        <div class=" col-3 pb-1">
+                          <div class="full-width">
+                            <p style="color:rgb(118, 118, 118);">Upload Icon</p>
+                            <input #file accept="image/*" (change)="iconSelect($event)" type="file" name="myfile" />
+                          </div><br/>
+                          <img [src]="iconURL" height="100" *ngIf="iconURL"><br/>
+                        </div>
+                  
+                        <div class="col-3 pb-1">
+                          <div class="full-width">
+                            <p style="color:rgb(118, 118, 118);">Upload Image</p>
+                            <input #file accept="image/*" (change)="imageSelect($event)"  type="file" name="myfile" />
+                          </div><br/>
+                          <img [src]="imageURL" height="100" *ngIf="imageURL"><br/>
+                        </div>
+                        <div class="col-3 pb-1">
+                          <div class="full-width">
+                            <p style="color:rgb(118, 118, 118);">Upload Pattern</p>
+                            <input #file accept="image/*" (change)="patternSelect($event)"  type="file" name="myfile" />
+                          </div><br/>
+                          <img [src]="patternURL" height="100" *ngIf="patternURL"><br/>
+                        </div>
+                        <div class="col-3 pb-1">
+                          <div class="full-width">
+                            <p style="color:rgb(118, 118, 118);">Upload Logo</p>
+                            <input #file accept="image/*" (change)="logoSelect($event)"  type="file" name="myfile" />
+                          </div><br/>
+                          <img [src]="logoURL" height="100" *ngIf="logoURL"><br/>
+                        </div>
+                      </div>
+
+                  </div>
+              </div>
+          
+              <button mat-raised-button color="warn" (click)="back()">Back</button>
+              <button style="align-items:flex-end;margin-left: 15px;"
+               mat-raised-button color="primary"[disabled]="categoryForm.invalid">Update</button>
+      </form>
+  </mat-card-content>
+</mat-card>

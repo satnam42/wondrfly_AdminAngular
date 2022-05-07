@@ -1,0 +1,62 @@
+<div class="event-dialog-wrapper">
+  <mat-toolbar matDialogTitle class="mat-primary m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title">{{dialogTitle}}</span>
+      <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+  <div mat-dialog-content class="p-1 m-0">
+    <form name="eventForm" [formGroup]="eventForm" class="event-form" fxFlex>
+      <div fxLayout="row wrap" fxLayout.lt-sm="column">
+        <div fxFlex="100">
+          <mat-form-field class="full-width">
+            <input matInput name="title" formControlName="title" placeholder="Title" required>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100" *ngIf="action=='add'">
+          <mat-form-field fxFlex>
+            <input placeholder="Search Provider Name" (keyup)="searchProvider($event.target.value)"
+              aria-label="Search Provider Name" matInput formControlName="userId" [matAutocomplete]="auto" required>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)='selectedProviderId($event.option.value)'
+              [displayWith]="getProviderName">
+              <mat-option *ngFor="let provider of providers" [value]="provider">
+                {{provider?.firstName}} </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100">
+          <mat-form-field fxFlex>
+            <input matInput [matDatepicker]="startDateDP" placeholder="Start Date" name="startDate"
+              formControlName="start">
+            <mat-datepicker-toggle matSuffix [for]="startDateDP"></mat-datepicker-toggle>
+            <mat-datepicker #startDateDP></mat-datepicker>
+          </mat-form-field>
+          <span fxFlex="16px"></span>
+
+          <mat-form-field fxFlex>
+            <input matInput [matDatepicker]="endDateDP" placeholder="End Date" name="endDate" formControlName="end">
+            <mat-datepicker-toggle matSuffix [for]="endDateDP"></mat-datepicker-toggle>
+            <mat-datepicker #endDateDP></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100">
+          <mat-form-field class="full-width">
+            <textarea matInput name="description" formControlName="description" placeholder="Description"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div mat-dialog-actions class="m-0 p-1" fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-raised-button color="primary" (click)="dialogRef.close({action: 'save', event: eventForm.value})"
+      [disabled]="eventForm.invalid" aria-label="SAVE">
+      Save
+    </button>
+    <button *ngIf="action ==='edit'" mat-icon-button color="warn" (click)="dialogRef.close({action: 'delete'})"
+      aria-label="Delete" matTooltip="Delete">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</div>

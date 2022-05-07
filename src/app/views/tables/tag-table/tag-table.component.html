@@ -1,0 +1,282 @@
+<!-- <div>
+    <button style="align-items:flex-end;margin: 15px;" mat-raised-button (click)="add()" color="primary">ADD</button>
+    <h3 style="text-align: center;">Tags</h3>
+
+     <mdb-icon fas icon="search" aria-hidden="true"></mdb-icon> -->
+<!-- <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search" mdbInput> -->
+<!-- <div class="app-loader">
+
+      <div class="spinner">
+          <div class="double-bounce1 mat-bg-primary" style="background: #fcc02e;"></div>
+          <div class="double-bounce2 mat-bg-accent" style="background: #03a9f4;"></div>
+      </div>
+  </div> -->
+<!-- <mat-form-field style="width: 100%">
+      <input 
+      matInput 
+      placeholder="Search" 
+      value=""
+      (keyup)='updateFilter($event)'/>
+    </mat-form-field> 
+    <mat-form-field style="width: 100%">
+        <input matInput placeholder="Search" value="" (keyup)='updateFilter($event)' />
+    </mat-form-field>
+
+    <ngx-datatable [rows]="rows" class="material bg-white" [limit]="8" [scrollbarH]="true" [rowHeight]="50"
+        [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50">
+        <ngx-datatable-column name="Name">
+
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.name}}
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Description">
+
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.description}}
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column>
+          <ng-template let-column="column" ngx-datatable-header-template>
+              Gender
+          </ng-template>
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.gender}}
+          </ng-template>
+      </ngx-datatable-column> 
+
+        <ngx-datatable-column name="Action">
+
+             <div *ngIf="isLoading">
+              <div class="loader"></div>
+          </div> 
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <mat-icon matTooltip="edit" matTooltipPosition="above" (click)="edit(row)">edit</mat-icon>
+
+            </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable>
+</div> -->
+
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-12">
+            <div class="search-section">
+                <input type="text" class="search_input" (keyup)="updateFilter($event.target.value)" placeholder="Search By Topic's Name" [(ngModel)]="searchText" />
+                <!-- <i class="fa fa-filter filter-icon" aria-hidden="true" *ngIf="searchText"></i> -->
+                <span class="back-search">
+                    <mat-icon>search</mat-icon>
+                </span>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <h4 class="col-greys">Tag List</h4>
+                </div>
+                <div class="col-6">
+                    <div class="text-right add_buttons">
+                        <button class="letsplay_btn" data-toggle="modal" data-target="#badgesList">+ ADD
+                            NEW TAG</button>
+                        <!-- (click)="add()" -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- <button class="letsplay_btn" mat-button routerLink="/dashboard/addForum">+ ADD NEW</button> -->
+        </div>
+
+    </div>
+    <table class="table forum-table">
+        <tbody>
+            <tr>
+                <!-- <th>
+                    Image
+                </th> -->
+                <th>
+                    Tag Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Category
+                </th>
+                <th>
+                    status
+                </th>
+            </tr>
+            <tr *ngFor="let tag of tagsList | filter : searchText;let i =index;" [ngClass]="{'deactivated':!tag?.isActivated}"
+                >
+                <!-- <td>  
+                          <img class="userImage" *ngIf="tag.categoryIds[0]?.iconUrl" src="{{baseUrl}}{{tag.categoryIds[0]?.iconUrl}}">
+                          <img class="userImage" *ngIf="!tag.categoryIds[0]?.iconUrl" src="assets/images/user.png">
+                            </td> -->
+                <td>
+                    <span (click)="openPopUp(tag)"> {{tag?.name}}</span>
+                </td>
+                <td>
+                    <span (click)="openPopUp(tag)"> {{tag?.description}}</span>
+                </td>
+                <td>
+                    <!-- <td *ngFor="let category of categoryIds "> -->
+                    {{tag?.categoryIds[0]?.name}}
+                </td>
+
+                <td>
+                <mat-slide-toggle [checked]="tag?.isActivated" color="primary"
+                        (change)="activateDeactivate($event,tag)">
+                    </mat-slide-toggle>
+                </td>
+                <!-- <td *ngFor="let category of categoryI">
+                    {{category.name}}
+
+                </td> -->
+                <td>
+                    <mat-icon [matMenuTriggerFor]="menu" class="menubutton tags_list">more_vert</mat-icon>
+                    <mat-menu #menu="matMenu" yPosition="below">
+                        <button mat-menu-item (click)="edit(tag)">
+                            <mat-icon class="col-blue" matTooltip="edit" matTooltipPosition="above">edit
+                            </mat-icon>Edit
+                        </button>
+                        <!-- <button  *ngIf="tag?.isActivated" mat-menu-item (click)="activateDeactivate(false ,i)">
+                            <mat-icon class="col-blue">delete</mat-icon>Deactivate
+                        </button>
+                        <button *ngIf="!tag?.isActivated" mat-menu-item (click)="activateDeactivate(true,i)">
+                            <mat-icon class="col-blue">delete</mat-icon>Activate
+                        </button> -->
+                        <button mat-menu-item (click)="deleteTag(tag)">
+                            <mat-icon class="col-blue">delete</mat-icon>Remove
+                        </button>
+                    </mat-menu>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade new_topic" id="badgesList" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <mat-icon class="material-icons icon-image-preview">cancel</mat-icon>
+            </button>
+            <div class="modal-body">
+                <h2>Add New Badge</h2>
+                <div class="form_outer">
+                    <form [formGroup]="tagForm" (ngSubmit)="onSubmit()">
+
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" formControlName="name" placeholder="Name">
+                        </div>
+                        <div class="form-group length">
+                            <label>Description</label>
+                            <input type="text" formControlName="description" class="form-control"
+                                placeholder="Description">
+                        </div>
+
+<!-- 
+                        <mat-form-field class="width">
+                            <mat-label>SELECT CATEGORY</mat-label>
+                            <mat-select formControlName="categoryIds" #itemValue (selectionChange)="changeItem($event.value)" 
+                             required>                
+                              <mat-option selected value="single" *ngFor='let item of allCategories' 
+                               [value]="item.id" >{{item.name}}</mat-option>                          
+                
+                            </mat-select>
+                          </mat-form-field> -->
+                          <div  class="form-group ">
+                            <label>SELECT CATEGORY</label>
+                            <select formControlName="categoryIds" class="form-control" #itemValue (selectionChange)="changeItem($event.value)">
+                                <option *ngFor='let item of allCategories' [value]="item.id">{{item.name}}</option>
+                            </select>
+                        </div>
+
+                        <div class="row">
+                            <div class=" col-6 pb-1">
+                              <div class="full-width">
+                                <p style="color:rgb(118, 118, 118);">Upload Icon</p>
+                                <input #file accept="image/*" (change)="iconSelect($event)" type="file" name="myfile" />
+                              </div><br/>
+                              <img [src]="iconURL" height="100" *ngIf="iconURL"><br/>
+                            </div>
+                      
+                            <div class="col-6 pb-1">
+                              <div class="full-width">
+                                <p style="color:rgb(118, 118, 118);">Upload Image</p>
+                                <input #file accept="image/*" (change)="imageSelect($event)"  type="file" name="myfile" />
+                              </div><br/>
+                              <img [src]="imageURL" height="100" *ngIf="imageURL"><br/>
+                            </div>
+                        </div>
+                            <div class="row">
+                            <div class="col-6 pb-1">
+                              <div class="full-width">
+                                <p style="color:rgb(118, 118, 118);">Upload Pattern</p>
+                                <input #file accept="image/*" (change)="patternSelect($event)"  type="file" name="myfile" />
+                              </div><br/>
+                              <img [src]="patternURL" height="100" *ngIf="patternURL"><br/>
+                            </div>
+                            <div class="col-6 pb-1">
+                              <div class="full-width">
+                                <p style="color:rgb(118, 118, 118);">Upload Logo</p>
+                                <input #file accept="image/*" (change)="logoSelect($event)"  type="file" name="myfile" />
+                              </div><br/>
+                              <img [src]="logoURL" height="100" *ngIf="logoURL"><br/>
+                            </div>
+                          </div>
+
+                        <div class="form-group submit">
+                            <button class="submit_btn"  (click)="onSubmit()" data-dismiss="modal"
+                                [disabled]="!tagForm.valid">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- 
+  <div class="form-group">
+    <label>Add for</label>
+    <div class="checkbox_outer">
+      <label class="ch-radio">
+        <input name="hiring" type="radio">
+        <span>
+          <i class="ch-icon material-icons icon-image-preview">done</i>All
+        </span>
+      </label>
+      <label class="ch-radio">
+        <input name="hiring" type="radio">
+        <span>
+          <i class="ch-icon material-icons icon-image-preview">done</i>
+          Parents
+        </span>
+      </label>
+      <label class="ch-radio">
+        <input name="hiring" type="radio">
+        <span>
+          <i class="ch-icon material-icons icon-image-preview">done</i>Providers
+        </span>
+      </label>
+      <label class="ch-radio">
+        <input name="hiring" type="radio">
+        <span>
+          <i class="ch-icon material-icons icon-image-preview">done</i>
+          Email
+        </span>
+      </label>
+    </div>
+  </div> -->

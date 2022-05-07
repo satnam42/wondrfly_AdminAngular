@@ -1,0 +1,65 @@
+
+     <div class="search-result">
+
+        <div class="button-approved">
+            <button [ngClass]="{'btn-processing':disableApproveBtn}" [disabled]="disableApproveBtn" (click)="approveAllBetaUsers()">APPROVE ALL</button>
+            <!-- <button>BULK MESSAGE</button> -->
+        </div>
+          <table class="table forum-tables ">
+              <tbody>
+                  <tr>
+                      <th>
+                          Full Name 
+                          <!-- <span class="ml-2"><img src="assets/images/filter-arrow.png"></span> -->
+                      </th>
+                      <th>
+                          Email
+                      </th>
+                      <th>
+                        IP Address
+                    </th>
+                      <th>
+                          Date
+                      </th>
+                      <th>
+                         Action
+                      </th>
+                  </tr>
+                  <tr *ngFor="let user of users; let i = index">
+                      <td class="align-items-center"> 
+                        <span class="mr-2"><img src="assets/images/table-img.png"></span>
+                          <span> {{user?.name}}</span>
+                      </td>
+                      <td>
+                          <span>{{user?.email}}</span>
+                      </td>
+                      <td>
+                        <span><a target="_blank" href="{{IPtoLocation+user?.ipAddress}}">{{user?.ipAddress}}</a></span>
+                    </td>
+                      <td>
+                          <span>{{user?.date | date }}</span>
+                      </td>
+                      <td>
+                        <button class="disabled" [disabled]="disableApproveBtn" [ngClass]="{'btn-processing':disableApproveBtn}" (click)="approveOrDeclineById('decline',user,i)">Decline</button>
+                        <button class="active"   [disabled]="disableApproveBtn" [ngClass]="{'btn-processing':disableApproveBtn}"  (click)="approveOrDeclineById('approve',user,i)">Approve</button>
+                      </td>
+                      <td>
+                        <button class="hidden-on-open" mat-icon-button [matMenuTriggerFor]="msgMenu">
+                            <mat-icon class="text-muted">more_vert</mat-icon>
+                        </button>
+                        <mat-menu #msgMenu="matMenu">
+                            <button mat-menu-item (click)="openPopUp(user)">
+                                <mat-icon>view</mat-icon>View
+                            </button>
+                          
+                        </mat-menu>
+                      </td>
+                  </tr>
+    
+                
+              </tbody>
+          </table>
+      </div>
+  
+        <div *ngIf="response && !users?.length" class="pt-5"><h4>There is no data found!</h4></div>
+    

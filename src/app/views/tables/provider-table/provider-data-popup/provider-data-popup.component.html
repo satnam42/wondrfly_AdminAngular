@@ -1,0 +1,115 @@
+<h1 matDialogTitle>Provider Data</h1>
+<div>
+   <div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-xs="33" class="pr-1">
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="fname" placeholder="Name" [(ngModel)]="data.firstName" readonly>
+        </mat-form-field>
+      </div>
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="email" placeholder="Email" [(ngModel)]="data.email" readonly>
+        </mat-form-field>
+      </div>
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="phone" placeholder="Phone No." [(ngModel)]="data.phoneNumber" readonly>
+        </mat-form-field>
+      </div>
+
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="twitter" placeholder="Twitter" [(ngModel)]="data.twitter" readonly>
+        </mat-form-field>
+      </div>
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="location" placeholder="Location" [(ngModel)]="data.location" readonly>
+        </mat-form-field>
+      </div>
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="source" placeholder="Source" [(ngModel)]="data.source" readonly>
+        </mat-form-field>
+      </div>
+
+    </div>
+
+    <div fxFlex="100" fxFlex.gt-xs="33" class="pr-1">
+      <div class="pb-1">
+        <mat-form-field *ngIf="data.id" class="full-width">
+          <input matInput name="id" placeholder="Id" [(ngModel)]="data.id" readonly>
+        </mat-form-field>
+        <mat-form-field *ngIf="data._id" class="full-width">
+          <input matInput name="id" placeholder="Id" [(ngModel)]="data._id" readonly>
+        </mat-form-field>
+      </div>
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="city" placeholder="City" [(ngModel)]="data.city" readonly>
+        </mat-form-field>
+      </div>
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="state" placeholder="State" [(ngModel)]="data.state" readonly>
+        </mat-form-field>
+      </div>
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="country" placeholder="Country" [(ngModel)]="data.country" readonly>
+        </mat-form-field>
+      </div>
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="tnum" placeholder="Tax Number" [(ngModel)]="data.taxNumber" readonly>
+        </mat-form-field>
+      </div>
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="note" placeholder="Note" [(ngModel)]="data.note" readonly>
+        </mat-form-field>
+      </div>
+
+
+    </div>
+
+    <div fxFlex="100" fxFlex.gt-xs="33" class="pr-1">
+      <div *ngIf="data.type" class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="type" placeholder="Type" [(ngModel)]="data.type" readonly>
+        </mat-form-field>
+      </div>
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="fb" placeholder="Facebook" [(ngModel)]="data.facebook" readonly>
+        </mat-form-field>
+      </div>
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="yt" placeholder="Youtube" [(ngModel)]="data.youtube" readonly>
+        </mat-form-field>
+      </div>
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="insta" placeholder="Instagram" [(ngModel)]="data.instagram" readonly>
+        </mat-form-field>
+      </div>
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="sex" placeholder="Sex" [(ngModel)]="data.sex" readonly>
+        </mat-form-field>
+      </div>
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="tier" placeholder="Tier" [(ngModel)]="data.tier" readonly>
+        </mat-form-field>
+      </div>
+    </div>
+
+
+
+    <div fxLayout="row">
+      <button mat-raised-button color="warn" (click)="dialogRef.close(false)">CLOSE</button>
+    </div>
+  </div>

@@ -1,0 +1,14 @@
+::ng-deep.egret-navy .mat-chip.mat-standard-chip {
+    background-color: #e0e0e0;
+    color: rgba(0, 0, 0, 0.87);
+    width: auto;
+    height: auto;
+    word-break: break-word;
+    padding-left: 20px;
+    padding-right: 36px;
+}
+::ng-deep.mat-standard-chip .mat-chip-remove.mat-icon {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+}

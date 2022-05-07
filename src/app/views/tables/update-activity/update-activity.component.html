@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="text-center">
+  <h3>Update Activity</h3>
+</div>
+<form [formGroup]="activityForm" (ngSubmit)="onSubmit()" autocomplete="off">
+  <div class="row">
+      <div class="col-6">
+        <mat-form-field class="full-width">
+          <input matInput name="fname" placeholder="Activity Name"
+          formControlName="activity"
+              [(ngModel)]="activity.activity">
+      </mat-form-field>
+      
+         
+      </div>
+
+      <div class="col-6">
+        <mat-form-field class="full-width">
+          <input matInput name="fname" placeholder="Activity Point"
+          formControlName="point"
+              [(ngModel)]="activity.point">
+      </mat-form-field>
+      </div>
+  </div>
+  <button mat-raised-button color="warn" (click)="back()">Back</button>
+  <button style="align-items:flex-end;margin-left: 15px;" mat-raised-button color="primary"
+      [disabled]="activityForm.invalid">Submit</button>
+</form>
+</div>

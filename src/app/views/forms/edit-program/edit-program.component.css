@@ -1,0 +1,94 @@
+
+
+.card{
+  text-align: center;
+  height: 60px;
+  width: 160px;
+  padding: 50px;
+  margin-top: 50px;
+
+}
+.text-invisible {
+opacity: 0;
+font-size: 0.875rem !important;
+}
+.mat-form-field-underline {
+background-color: rgba(0, 0, 0, 0.42);
+height: 0px !important;
+bottom: 1.25em;
+position: absolute;
+width: 100%;
+}
+.mat-slider-horizontal {
+height: 48px;
+min-width: 100%;
+}
+.icon {
+  color: red;
+}
+.mat-form-field-underline { display: none !important; }
+
+.example-ripple-container {
+  cursor: pointer;
+  text-align: center;
+
+  width: 240px;
+  height: 100px;
+  line-height: 300px;
+
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/** Styles to make the demo look better. */
+.example-ripple-checkbox {
+  margin: 6px 12px 6px 0;
+}
+
+.example-ripple-form-field {
+  margin: 0 12px 0 0;
+}
+
+.width{
+  width: 50%;
+}
+
+.textarea{
+  resize: none;
+  height: 140px;
+  background-color: rgb(252, 252, 252);
+}
+
+
+
+
+.card-container {
+  /*  not needed styles to reflect it */ 
+  background: rgb(246, 246, 252);
+  padding: 10px;
+  color: rgb(8, 8, 8);
+  /* width: 500px; */
+
+  /* needed styles below */
+  display: flex;
+  justify-content: space-between;
+}
+
+.minutes{
+  margin-left: 25px;
+}
+.dot{
+  margin-left: 25px;
+}
+
+::ng-deep .egret-navy .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background-color: #007bff;
+}
+::ng-deep .egret-navy .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: #007bff;
+}

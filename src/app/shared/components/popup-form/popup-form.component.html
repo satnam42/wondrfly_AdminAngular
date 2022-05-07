@@ -1,0 +1,17 @@
+<div class="pl-3 pr-3">
+  <mat-form-field class="full-width">
+    <mat-label>Expiry Reason</mat-label>
+    <textarea matInput #Description maxlength="3000" [(ngModel)]="reason" placeholder="Type"
+       ></textarea>
+    <mat-hint align="end">{{Description.value?.length  || 0}} / 3000</mat-hint>
+
+  </mat-form-field>
+  <div class="row">
+    <div class="col-2">
+      <button [disabled]="!reason" mat-raised-button color="primary" (click)="setData()">Submit</button>
+    </div>
+    <div class="col-2">
+      <button mat-raised-button color="primary" (click)=" this.dialogRef.close(true)">Cancel</button>
+    </div>
+  </div>
+</div>

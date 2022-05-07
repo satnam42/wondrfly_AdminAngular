@@ -1,0 +1,184 @@
+<div class="container">
+  <div>
+    <div class="row headdiv">
+      <!-- <input  style="align-items:flex-end;margin: 15px;"  mat-raised-button type="file" color="primary" #csvfile  accept=".xlsx, .xls, .csv" (change)=" onFileChange($event)" name="myfile"> -->
+      <!-- <button style="align-items:flex-end;margin: 15px;" mat-raised-button
+        (click)="showHideButton()" color="primary">Import</button> -->
+      <!-- <button style="align-items:flex-end;margin: 15px;" mat-raised-button (click)="add()" color="primary">ADD
+        PROGRAM USING WIZARD</button> -->
+      <!-- <button style="align-items:flex-end;margin: 15px;" mat-raised-button (click)="addProgram()" color="primary">Quick
+        Program Add</button> -->
+        <div class="col-2">
+        <mat-button-toggle matTooltip="Add" (click)="add()" value="add">
+          <mat-icon class="text-success">add</mat-icon>
+        </mat-button-toggle>
+    </div>
+    <div class="col-10">
+      <br *ngIf="user._id==='id'">
+      <h3 style="text-align:  center;">Programs List By Provider ({{user?.firstName}})</h3>
+    </div>
+  </div>
+
+<div class="row">
+  <div class="col-4">
+    <mat-form-field style="width: 100%">
+      <input matInput placeholder="Search" value="" (keyup)='updateFilter($event)' />
+    </mat-form-field>
+  </div>
+  <div class="col-2">
+    <mat-form-field class="width:100%">
+      <mat-label>Page size</mat-label>
+      <mat-select #itemValue [(ngModel)]="pageLimit">
+        <mat-option selected value="single" [value]="10" >10</mat-option>
+        <mat-option selected value="single" [value]="15" >15</mat-option>
+        <!-- <mat-option selected value="single" [value]="20" >20</mat-option> -->
+        <mat-option selected value="single" [value]="50" >50</mat-option>
+        <mat-option selected value="single" [value]="100" >100</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+<div class="col-4">
+  <button class="mr-4" (click)="selectedActivityIds.isPublished=true;publishUnpublishMultiplePrograms()"  mat-raised-button color="primary" *ngIf="selectedActivityIds.programIds?.length" matTooltip="Publish Selected Activities" (click)="publishOrUnpublishMultiple()">
+    Publish
+  </button>
+  <button (click)="selectedActivityIds.isPublished=false;publishUnpublishMultiplePrograms()" mat-raised-button color="warn" *ngIf="selectedActivityIds.programIds?.length" matTooltip="Unpublish Selected Activities" (click)="publishOrUnpublishMultiple()">
+    Unpublish
+  </button>
+</div>
+</div>
+    
+
+    <ngx-datatable [rows]="rows" [sorts]="[{prop: 'published', dir: 'desc'},{prop: 'expirein', dir: 'desc'}]" class="material bg-white" [limit]="pageLimit" [scrollbarH]="true"
+      [columnMode]="ColumnMode.force" [rowHeight]="50" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50">
+
+      <ngx-datatable-column name="Name">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row?.name}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column  name="Activity-Id">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row?._id}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column  name="Added-On">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row?.addedBy?.createdOn | date:'medium'}}
+      </ng-template>
+    </ngx-datatable-column>
+
+      <ngx-datatable-column prop="published" name="Published">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <!-- <mat-chip *ngIf="row.status==='active'" matTooltip="status" matTooltipPosition="above" mat-sm-chip selected
+            style="background-color: green;" (click)="programActiveInActive(row)">{{row.status}}</mat-chip>
+          <mat-chip *ngIf="row.status==='inactive'" matTooltip="status" matTooltipPosition="above" mat-sm-chip selected
+            style="background-color: red;" (click)="programActiveInActive(row)">{{row.status}}</mat-chip> -->
+
+            <mat-slide-toggle [checked]="row?.isPublished" color="primary"
+            (change)="publishUnpublishProgram($event,row)">
+        </mat-slide-toggle>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column [sortable]="true" prop="expirein" name="Expire-In">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <span *ngIf="!row?.isDateNotMention && !row?.isExpired"><counter [isProgram]="true" [futureString]="row?.date?.to"></counter></span>
+          <span  *ngIf="row?.isDateNotMention && !row?.isExpired">Date Not Mentioned</span>
+          <span  *ngIf="row?.isExpired" style="background: red;">Expired</span>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Action">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+
+          <button mat-icon-button [matMenuTriggerFor]="msgMenu" class="hidden-on-open">
+            <mat-icon class="text-muted">more_vert</mat-icon>
+          </button>
+          <mat-menu #msgMenu="matMenu">
+            <button mat-menu-item (click)="edit(row)">
+              <mat-icon>edit</mat-icon>Edit
+            </button>
+            <button mat-menu-item (click)="deleteProgram(row)">
+              <mat-icon>delete</mat-icon>Delete
+            </button>
+            <button mat-menu-item (click)="openPopUp(row)">
+              <mat-icon>view_comfy</mat-icon>View
+            </button>
+          </mat-menu>
+
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Bulk-Operation">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <mat-checkbox  color="primary" [checked]="row?.isSelected" (change)="row.isSelected=true;selectPrograms($event,row)"></mat-checkbox>
+        </ng-template>
+      </ngx-datatable-column>.
+    </ngx-datatable>
+    <button  mat-raised-button onclick="history.back()"
+      color="warn">Back</button>
+  </div>
+  <!-- <div *ngIf="!isShow">
+    <button style="align-items:flex-end;margin: 15px;" mat-raised-button (click)="showHideButton()"
+      color="primary">Back</button>
+
+    <mat-card class="p-0">
+
+      <mat-card-content>
+        <div class="mb-1 mt-1">
+          <p>Upload a profile picture</p>
+          <input type="file" ng2FileSelect [uploader]="uploader" />
+        </div>
+
+        <div class="mb-1">
+          <div ng2FileDrop [ngClass]="{'dz-file-over': hasBaseDropZoneOver}" [uploader]="uploader"
+            (fileOver)="fileOverBase($event)" class="fileupload-drop-zone">
+            Drop png/jpeg file here
+          </div>
+        </div>
+        <table class="default-table mat-box-shadow" style="width: 100%">
+          <thead>
+            <tr>
+              <th width="30%">Name</th>
+              <th>Size</th>
+              <th>Progress</th>
+              <th>Added-on</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="uploader.queue.length; else tableNoData">
+            <tr *ngFor="let item of uploader.queue">
+              <td>{{ item?.file?.name }}</td>
+              <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+              <td>
+                <div class="progress" style="margin-bottom: 0;">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                  <mat-progress-bar class="" color="primary" mode="determinate" [value]="item.progress">
+                  </mat-progress-bar>
+                </div>
+              </td>
+              <td class="">
+                <mat-icon *ngIf="item.isSuccess">check</mat-icon>
+                <mat-icon *ngIf="item.isCancel" color="accent">cancel</mat-icon>
+                <mat-icon *ngIf="item.isError" color="warn">error</mat-icon>
+              </td>
+              <td nowrap>
+                <button mat-raised-button class="mat-primary" (click)="item.upload()"
+                  [disabled]="item.isReady || item.isUploading || item.isSuccess">Upload</button>
+                <button mat-raised-button class="mat-accent" (click)="item.cancel()"
+                  [disabled]="!item.isUploading">Cancel</button>
+
+                <button mat-raised-button class="mat-warn" (click)="item.remove()">Remove</button>
+              </td>
+            </tr>
+          </tbody>
+          <ng-template #tableNoData>
+            <p [ngStyle]="{padding: '0 1.2rem'}">Queue is empty</p>
+          </ng-template>
+        </table>
+      </mat-card-content>
+
+    </mat-card>
+  </div> -->
+</div>

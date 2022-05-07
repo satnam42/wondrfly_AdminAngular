@@ -1,0 +1,63 @@
+
+     <div class="search-result">
+          <table class="table forum-tables ">
+              <tbody>
+                  <tr>
+                      <th>
+                          Full Name 
+                          <!-- <span class="mr-2"><img src="assets/images/filter-arrow.png"></span> -->
+                      </th>
+                      <th>
+                          Email
+                      </th>
+                      <th>
+                        Invitor
+                      </th>
+                      <th>
+                        Expires in
+                      </th>
+                      <th>
+                        Status
+                      </th>
+                  </tr>
+                
+    
+                <tr *ngFor="let user of users">
+                    <td class=" align-items-center"> 
+                      <span class="mr-2"><img src="assets/images/table-img.png"></span>
+                        <span> {{user?.name}}</span>
+                    </td>
+                    <td>
+                        <span>{{user?.email}}</span>
+                    </td>
+                    <td>
+                        <span>{{user?.inviter}}</span>
+                    </td>
+                    <td class="align-items-center">
+                      <!-- <span>1d 12h 30m</span>  -->
+                      <span><counter [futureString]="user?.date"></counter></span>
+                      <!-- <span class="ml-2"><img src="assets/images/refresh.png"></span>   -->
+                    </td>
+                    <td>
+                      <span *ngIf="user?.status?.pending">Pending</span>
+                      <span *ngIf="user?.status?.accepted">Approved</span>
+                      <span *ngIf="user?.status?.declined">Declined</span>
+
+
+                  </td>
+                    <td>
+                      <button class="hidden-on-open" mat-icon-button [matMenuTriggerFor]="msgMenu">
+                        <mat-icon class="text-muted">more_vert</mat-icon>
+                    </button>
+                    <mat-menu #msgMenu="matMenu">
+                        <button mat-menu-item (click)="openPopUp(user)">
+                            <mat-icon>view</mat-icon>View
+                        </button>
+                      
+                    </mat-menu>
+                    </td>
+                </tr>
+              </tbody>
+          </table>
+      </div>
+      <div *ngIf="response && !users?.length" class="pt-5"><h4>There is no data found!</h4></div>

@@ -1,0 +1,121 @@
+<h1 matDialogTitle>Program Data</h1>
+<div>
+  <!-- <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <mat-form-field class="full-width">
+      <input matInput name="name" placeholder="Name" [(ngModel)]="data.firstName">
+    </mat-form-field>
+
+
+    <div fxLayout="row">
+
+
+      <button mat-raised-button color="warn" (click)="dialogRef.close(false)">CLOSE</button>
+    </div>
+  </div> -->
+  <div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-xs="33" class="pr-1">
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="fname" placeholder="Name" [(ngModel)]="data.name" readonly>
+        </mat-form-field>
+      </div>
+
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="presenter" placeholder="Presenter" [(ngModel)]="data.presenter" readonly>
+        </mat-form-field>
+      </div>
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="sdate" placeholder="Start Date" [(ngModel)]="data.date.from" readonly>
+        </mat-form-field>
+      </div>
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="stime" placeholder="Start Time" [(ngModel)]="data.time.from" readonly>
+        </mat-form-field>
+      </div>
+
+
+    </div>
+
+    <div fxFlex="100" fxFlex.gt-xs="33" class="pr-1">
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="id" placeholder="Program Id" [(ngModel)]="data._id" readonly>
+        </mat-form-field>
+      </div>
+
+
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="joinlink" placeholder="Joining Link" [(ngModel)]="data.joiningLink" readonly>
+        </mat-form-field>
+      </div>
+
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="edate" placeholder="End Date" [(ngModel)]="data.date.to" readonly>
+        </mat-form-field>
+      </div>
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="etime" placeholder="End Time" [(ngModel)]="data.time.to" readonly>
+        </mat-form-field>
+      </div>
+
+      <!-- <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="description" placeholder="Description" [(ngModel)]="data.description" readonly>
+        </mat-form-field>
+      </div> -->
+
+    </div>
+
+    <div fxFlex="100" fxFlex.gt-xs="33" class="pr-1">
+
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="firstName" placeholder="Provider Name" [(ngModel)]="provider.firstName" readonly>
+        </mat-form-field>
+      </div>
+
+      <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="type" placeholder="Type" [(ngModel)]="data.type" readonly>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="data.isFree" class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="isfree" placeholder="Is Program Free ?" readonly>Yes
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="!data.isFree" class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="pricePerParticipant" placeholder="price Per Participant"
+            [(ngModel)]="data.pricePerParticipant" readonly>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="!data.isFree" class=" pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="priceForSiblings" placeholder="price For Siblings" [(ngModel)]="data.priceForSiblings"
+            readonly>
+        </mat-form-field>
+      </div>
+      <!-- <div class="pb-1">
+        <mat-form-field class="full-width">
+          <input matInput name="description" placeholder="Description" [(ngModel)]="data.description" readonly>
+        </mat-form-field>
+      </div> -->
+
+    </div>
+
+
+
+    <div fxLayout="row">
+      <button mat-raised-button color="warn" (click)="dialogRef.close(false)">CLOSE</button>
+    </div>
+  </div>
