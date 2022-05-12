@@ -202,12 +202,10 @@ export class ProgramTableComponent implements OnInit {
   }
 
   updateFilter(event) {
-    var response: any;
     const val = event.target.value;
     if (val) {
       this.apiservice.searchProgram(val).subscribe((res: any) => {
-        response = res;
-        this.rows = response;
+        this.rows = res.filter(item=>item.user===this.user._id)
       });
     } else {
       this.getProgram();
