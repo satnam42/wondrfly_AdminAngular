@@ -61,7 +61,7 @@
       (scrolled)="onScrollDown()">
         <table mat-table [dataSource]="dataSource"  matSort 
           >
-          <!-- <ng-container matColumnDef="select" sticky>
+          <ng-container matColumnDef="select" sticky>
             <th mat-header-cell class="w-25" *matHeaderCellDef>
               <mat-checkbox (change)="$event" [checked]="selection.hasValue()"
                 [indeterminate]="selection.hasValue()">
@@ -72,7 +72,7 @@
                 [checked]="selection.isSelected(row)" >
               </mat-checkbox>
             </td>
-          </ng-container> -->
+          </ng-container>
       
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>

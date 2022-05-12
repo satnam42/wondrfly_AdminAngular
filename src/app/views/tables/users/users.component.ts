@@ -204,6 +204,9 @@ export class UsersComponent implements OnInit {
 
 
   manage(data){
+    if(data._id){
+      data.id = data._id
+    }
     this.router.navigate(['tables/program',data.id]);
   }
 
@@ -352,6 +355,9 @@ export class UsersComponent implements OnInit {
       if (res) {
         this.isLoading = true;
         this.loader.open()
+        if(user._id){
+          user.id = user._id
+        }
         this.apiservice.deleteUser(user.id).subscribe(res => {
           this.loader.close()
           var response: any = res;

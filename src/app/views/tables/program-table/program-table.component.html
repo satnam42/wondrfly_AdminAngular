@@ -70,10 +70,6 @@
 
       <ngx-datatable-column prop="published" name="Published">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <!-- <mat-chip *ngIf="row.status==='active'" matTooltip="status" matTooltipPosition="above" mat-sm-chip selected
-            style="background-color: green;" (click)="programActiveInActive(row)">{{row.status}}</mat-chip>
-          <mat-chip *ngIf="row.status==='inactive'" matTooltip="status" matTooltipPosition="above" mat-sm-chip selected
-            style="background-color: red;" (click)="programActiveInActive(row)">{{row.status}}</mat-chip> -->
 
             <mat-slide-toggle [checked]="row?.isPublished" color="primary"
             (change)="publishUnpublishProgram($event,row)">
