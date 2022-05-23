@@ -44,6 +44,7 @@ export interface UserData {
 })
 export class UsersComponent implements OnInit {
   displayedColumns: any[] = [
+    'select',
     'id',
     'firstName',
     'email',

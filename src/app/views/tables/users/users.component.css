@@ -2,10 +2,10 @@ table {
   width: 100%;
 }
 
-.mat-form-field {
+/* .mat-form-field {
   font-size: 14px;
   width: 100%;
-}
+} */
 
 .example-container {
   height: 90vh;
@@ -32,30 +32,25 @@ td.mat-column-position {
   border-right: 1px solid #e0e0e0;
 }
 
-.w-25 {
-  width: 5% !important;
-  border: 1px solid #ccc !important;
-}
-
-.w-85 {
+/* .w-85 {
   width:70%!important;
-}
+} */
 
-.mat-header-cell {
+/* .mat-header-cell {
   width: 900px;
   text-align: center;
   padding: 0 !important;
   border: 1px solid #ccc;
-}
+} */
 
-::ng-deep .mat-sort-header-container {
+/* ::ng-deep .mat-sort-header-container {
   display:flex;
   justify-content:center;
-}
+} */
 
-.mat-cell:hover {
+/* .mat-cell:hover {
   background-color: #ccc;
-}
+} */
 
 .mat-cell:first-child {
   background-color: white;
@@ -68,16 +63,11 @@ td.mat-column-position {
 .mat-cell {
   width: 900px;
   cursor: pointer;
-  text-align: center;
+  /* text-align: center;
   padding: 0 !important;
-  border: 1px solid #ccc;
+  border: 1px solid #ccc; */
 }
 
-mat-button-toggle-group {
-  margin-left: 12px;
-  height: 35px;
-  align-items: center;
-}
 
 th.mat-sort-header-sorted {
   color: black;
@@ -98,14 +88,9 @@ th.mat-sort-header-sorted {
   line-height: 0;
   border-radius: 10px;
 }
-.tablesuser-flex {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-.container.usertable {
+/* .container.usertable {
   max-width: 100%;
-}
+} */
 .mat-raised-button {
   background-color: #4dcaf0 !important;
   color: white !important;
@@ -137,3 +122,51 @@ th.mat-sort-header-sorted {
 .tablesuser-flex span {
   color: #53B2E2;
 }
+
+/* custom css table */
+.align-center{align-items: center;}
+.center{text-align: center;}
+.blue-clr{color: #53B2E2;}
+.mb-10{margin-bottom: 15px;}
+.mb-15{margin-bottom: 15px;}
+.mb-20{margin-bottom: 20px;}
+.mb-30{margin-bottom: 30px;}
+
+.tablesuser-flex {display: flex;align-items: center;column-gap: 30px;}
+.table-header-info h4 {font-family: 'Poppins';font-style: normal;font-weight: 400;
+  font-size: 26px;line-height: 18px;color: #4F4F4F; margin-bottom: 0px;}                                          
+.add-program-btn mat-button-toggle-group.mat-button-toggle-group {border: none!important;}
+.add-program-btn mat-button-toggle-group.mat-button-toggle-group mat-button-toggle {border: 1px solid #53B2E8;height: auto;border-radius: 10px;}
+.add-program-btn mat-button-toggle-group.mat-button-toggle-group .mat-icon {font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 14px;line-height: 18px;color: #53B2E8!important;display: block;width: 100%;padding: 10px 15px;height: auto;}
+.search-form-info mat-form-field.mat-form-field {width: 100%;background: #FFFFFF;box-shadow: 4px 4px 4px rgb(0 0 0 / 10%);border-radius: 40px;padding: 10px;}
+.search-form-info {max-width: 345px;margin-left: auto;}
+::ng-deep .search-form-info .mat-form-field-infix {padding: 0px !important;width: 100%;border-top: none!important;}
+::ng-deep .search-form-info .mat-form-field-underline{display: none;}
+::ng-deep .search-form-info .mat-form-field-flex {padding-top: 0px !important;column-gap: 10px;}
+::ng-deep .search-form-info .mat-form-field-wrapper {padding-bottom: 0px;}
+::ng-deep .search-form-info .text-primary.mat-icon {color: #fff !important;background: #53B2E8;width: 40px;height: 40px;border-radius: 50px;display: flex!important;align-items: center;justify-content: center;}
+.search-form-info input {background: #EFEFEF;border-radius: 30px;padding: 10px 15px;position: relative;font-family: 'Open Sans';font-style: normal;font-weight: 400;font-size: 13px;line-height: 18px;letter-spacing: 0.001em;color: #748494;margin-bottom: -4px;}
+
+ul.table-top-links {display: inline-flex;list-style: none;padding: 0px;margin: 0px;width: 100%;text-align: center;}
+ul.table-top-links li {width: 100%;}
+ul.table-top-links li a {font-family: 'Poppins';font-style: normal;font-weight: 600;font-size: 14px;line-height: 24px;text-align: center;letter-spacing: 0.4px;text-transform: uppercase;color: rgba(0, 0, 0, 0.6);display: block;padding: 12px 5px;text-decoration: none;}
+ul.table-top-links li.active a,
+ul.table-top-links li:hover a{background: #EEF9FF;border-bottom: 2px solid #53B2E8;color: #53B2E8;}
+.table-body-info .example-container {box-shadow: unset;}
+::ng-deep .table-body-info table thead tr th {border: unset !important;}
+.w-25 {width: 5% !important;}
+::ng-deep .table-body-info table .mat-checkbox-inner-container{width: 20px;height: 20px;}
+::ng-deep .table-body-info table .mat-checkbox-inner-container .mat-checkbox-frame {border-color: #2B3858;border-width: 1px!important;border-radius: 4px;}
+::ng-deep .table-body-info table .mat-checkbox-checked.mat-accent .mat-checkbox-background {background-color: #53B2E8 !important;border-radius: 4px;}
+::ng-deep .table-body-info table tr th.mat-header-cell {font-family: 'Poppins';font-style: normal;font-weight: 600;font-size: 16px;line-height: 24px;color: #2B3858;padding-left: 8px;position: relative;}
+::ng-deep .table-body-info table tr th.mat-header-cell::before {content: "";border-left: 1px solid #D9DFEA;position: absolute;height: 17.85px;width: 2px;left: 0px;top: 50%;transform: translateY(-50%);}
+::ng-deep .table-body-info table tr th.mat-header-cell:first-child::before{display: none;}
+::ng-deep .table-body-info table tr th.mat-header-cell:first-child,
+::ng-deep .table-body-info table tr td:first-child {text-align: center;padding-left: 0px;}
+::ng-deep .table-body-info table tr th mat-label.checkbox-label {display: block;font-style: normal;font-weight: 400;font-size: 12px;line-height: 150%;color: #2B3858;}
+::ng-deep .table-body-info table tr th label.mat-checkbox-layout {margin-bottom: 0px;}
+::ng-deep .table-body-info table tr {border-bottom: 1px solid #E7E6F8;}
+::ng-deep .table-body-info table tr td {font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 14px;line-height: 150%;color: #2B3858!important;border: none!important;}
+::ng-deep .table-body-info table tr th, .table-body-info table tr td {padding: 8px 0px;}
+::ng-deep .table-body-info table tr th button.mat-sort-header-button{text-align: left;}
+::ng-deep .table-body-info table tr td.mat-column-star {text-align: center;}

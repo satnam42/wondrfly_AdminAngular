@@ -1,7 +1,7 @@
 <!-- <h3 class="mt-0"><b>Filter and Search Table</b></h3> -->
-<div class="container usertable">
+<div class="container table-header-info mb-30">
 <div class="row">
-  <div class="col-2">
+  <!-- <div class="col-2">
     <mat-form-field appearance="fill">
       <mat-label>Select Filter</mat-label>
       <mat-select name="defaultFilter"  [(ngModel)]="defaultFilter">
@@ -10,10 +10,29 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+  </div> -->
+  <div class="col-6 tablesuser-flex">
+    <h4>Total Providers<span class="blue-clr">({{total}})</span></h4>
+    <div class="add-program-btn">
+      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+        <!-- <mat-button-toggle (click)=" deleteProvider()" matTooltip="Delete">
+          <mat-icon class="danger-clr">delete</mat-icon>
+        </mat-button-toggle> -->
+        <mat-button-toggle matTooltip2="Add" (click)="add()" value="add">
+          <mat-icon class="text-success">+ Add New Program</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+  
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>Change Status</button>
+        <!-- <button mat-menu-item>Item 2</button> -->
+      </mat-menu>
+    </div>
   </div>
-  <div class="col-5">
+  <div class="col-6">
+    <div class="search-form-info">
     <mat-form-field class="w-85" appearance="standard" [hidden]="selectedValue=='montclair' || selectedValue=='byDate'">
-      <mat-label>Search</mat-label>
+      <!-- <mat-label>Search</mat-label> -->
       <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
       <button mat-icon-button matSuffix value="search" matTooltip="Search">
         <mat-icon class="text-primary">search</mat-icon>
@@ -30,32 +49,25 @@
       </button>
     </mat-form-field>
 
-      <button mat-raised-button value="reset" class="m-2" (click)="reset()" matTooltip="Reset">
+      <!-- <button mat-raised-button value="reset" class="m-2" (click)="reset()" matTooltip="Reset">
         <mat-icon>autorenew</mat-icon>  Reset
-      </button>
-  </div>
-  <div class="col-3 tablesuser-flex"><h4>Total Providers<span>({{total}})</span></h4></div>
-  <div class="col-2 tablesuser-flex">
-    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-      <!-- <mat-button-toggle    (click)=" deleteProvider()" matTooltip="Delete">
-        <mat-icon class="danger-clr">delete</mat-icon>
-      </mat-button-toggle> -->
-      <mat-button-toggle matTooltip="Add" (click)="add()" value="add">
-        <mat-icon class="text-success">add</mat-icon>
-      </mat-button-toggle>
-    </mat-button-toggle-group>
-
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>Change Status</button>
-      <!-- <button mat-menu-item>Item 2</button> -->
-    </mat-menu>
+      </button> -->
+    </div>
   </div>
 </div>
-
 </div>
 
-<div class="container usertable" >
+<div class="container usertable table-body-info" >
   <div class="row">
+    <div class="col-12">
+      <ul class="table-top-links">
+        <li class="active"><a href="#">online programs</a></li>
+        <li><a href="#">published (15647)</a></li>
+        <li><a href="#">unpublished (1706)</a></li>
+        <li><a href="#">expiring soon (10)</a></li>
+        <li><a href="#">EXpired (10)</a></li>
+      </ul>
+    </div>
     <div class="col-12">
       <div class="example-container mat-elevation-z8" #scrollToTop infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [scrollWindow]="false"
       (scrolled)="onScrollDown()">
@@ -66,6 +78,7 @@
               <mat-checkbox (change)="$event" [checked]="selection.hasValue()"
                 [indeterminate]="selection.hasValue()">
               </mat-checkbox>
+              <mat-label class="checkbox-label">All</mat-label>
             </th>
             <td mat-cell class="w-25" *matCellDef="let row">
               <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
@@ -115,7 +128,7 @@
       
           <ng-container matColumnDef="isActivated">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-            <td mat-cell *matCellDef="let row" >
+            <td class="center" mat-cell *matCellDef="let row" >
               <mat-slide-toggle [checked]="row?.isActivated" color="primary"
               (change)="activateDeactivate($event,row)">
               </mat-slide-toggle>
@@ -126,7 +139,7 @@
        
         <ng-container matColumnDef="freeTrial">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Free Trial </th>
-          <td mat-cell *matCellDef="let row" >
+          <td class="center" mat-cell *matCellDef="let row" >
             <mat-slide-toggle [checked]="row?.isFreeTrial" color="primary"
             (change)="trueFalseFreeTrial($event,row)">
             </mat-slide-toggle>
