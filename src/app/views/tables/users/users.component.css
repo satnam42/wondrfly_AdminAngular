@@ -7,12 +7,6 @@ table {
   width: 100%;
 } */
 
-.example-container {
-  height: 90vh;
-  width: 100%;
-  max-width: 100%;
-  overflow: auto;
-}
 
 td.mat-column-star {
   width: 20px;
@@ -131,7 +125,13 @@ th.mat-sort-header-sorted {
 .mb-15{margin-bottom: 15px;}
 .mb-20{margin-bottom: 20px;}
 .mb-30{margin-bottom: 30px;}
-
+.example-container {
+  height: 90vh;
+  width: 100%;
+  max-width: 100%;
+  overflow: auto;
+  box-shadow: unset;
+}
 .tablesuser-flex {display: flex;align-items: center;column-gap: 30px;}
 .table-header-info h4 {font-family: 'Poppins';font-style: normal;font-weight: 400;
   font-size: 26px;line-height: 18px;color: #4F4F4F; margin-bottom: 0px;}                                          
@@ -152,21 +152,36 @@ ul.table-top-links li {width: 100%;}
 ul.table-top-links li a {font-family: 'Poppins';font-style: normal;font-weight: 600;font-size: 14px;line-height: 24px;text-align: center;letter-spacing: 0.4px;text-transform: uppercase;color: rgba(0, 0, 0, 0.6);display: block;padding: 12px 5px;text-decoration: none;}
 ul.table-top-links li.active a,
 ul.table-top-links li:hover a{background: #EEF9FF;border-bottom: 2px solid #53B2E8;color: #53B2E8;}
-.table-body-info .example-container {box-shadow: unset;}
 ::ng-deep .table-body-info table thead tr th {border: unset !important;}
 .w-25 {width: 5% !important;}
 ::ng-deep .table-body-info table .mat-checkbox-inner-container{width: 20px;height: 20px;}
 ::ng-deep .table-body-info table .mat-checkbox-inner-container .mat-checkbox-frame {border-color: #2B3858;border-width: 1px!important;border-radius: 4px;}
 ::ng-deep .table-body-info table .mat-checkbox-checked.mat-accent .mat-checkbox-background {background-color: #53B2E8 !important;border-radius: 4px;}
-::ng-deep .table-body-info table tr th.mat-header-cell {font-family: 'Poppins';font-style: normal;font-weight: 600;font-size: 16px;line-height: 24px;color: #2B3858;padding-left: 8px;position: relative;}
+::ng-deep .table-body-info table tr th.mat-header-cell {font-family: 'Poppins';font-style: normal;font-weight: 600;font-size: 16px;line-height: 24px;color: #2B3858;}
 ::ng-deep .table-body-info table tr th.mat-header-cell::before {content: "";border-left: 1px solid #D9DFEA;position: absolute;height: 17.85px;width: 2px;left: 0px;top: 50%;transform: translateY(-50%);}
 ::ng-deep .table-body-info table tr th.mat-header-cell:first-child::before{display: none;}
 ::ng-deep .table-body-info table tr th.mat-header-cell:first-child,
-::ng-deep .table-body-info table tr td:first-child {text-align: center;padding-left: 0px;}
+::ng-deep .table-body-info table tr td:first-child {text-align: center;padding-left: 15px;}
 ::ng-deep .table-body-info table tr th mat-label.checkbox-label {display: block;font-style: normal;font-weight: 400;font-size: 12px;line-height: 150%;color: #2B3858;}
 ::ng-deep .table-body-info table tr th label.mat-checkbox-layout {margin-bottom: 0px;}
 ::ng-deep .table-body-info table tr {border-bottom: 1px solid #E7E6F8;}
 ::ng-deep .table-body-info table tr td {font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 14px;line-height: 150%;color: #2B3858!important;border: none!important;}
-::ng-deep .table-body-info table tr th, .table-body-info table tr td {padding: 8px 0px;}
+::ng-deep .table-body-info table tr th, .table-body-info table tr td {padding: 8px 15px;}
 ::ng-deep .table-body-info table tr th button.mat-sort-header-button{text-align: left;}
 ::ng-deep .table-body-info table tr td.mat-column-star {text-align: center;}
+::ng-deep .table-body-info table tr td:last-of-type, 
+::ng-deep .table-body-info table tr th:last-of-type {padding-right: 15px;right: unset!important;}
+::ng-deep .table-body-info table tr td .mat-slide-toggle-bar {background: #C4C4C4;width: 30px;height: 16px;border-radius: 20px;}
+::ng-deep .table-body-info table tr td .mat-slide-toggle-bar .mat-slide-toggle-thumb {height: 14px;width: 14px;}
+::ng-deep .table-body-info table tr td .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container {transform: translate3d(14px,0,0);}
+::ng-deep .table-body-info table tr td .mat-slide-toggle-thumb-container{top: 1px;margin-left: 1.2px;}
+::ng-deep .table-body-info table tr td.mat-column-star {color: #BDBDBD!important;}
+
+.pagination-table-info {position: relative;margin: 20px 0px;display: grid;grid-template-columns: 1fr 1fr;column-gap: 15px;}
+.pagination-table-info .pagination-page-no .pagination-h3 h3, .pagination-rpp-info .rrp-h3 h3 {font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 14px;line-height: 21px;color: #2B3858;margin-bottom: 0px;}
+.bold{font-weight: bold;}
+.pagination-table-info .pagination-page-no {display: flex;align-items: center;column-gap: 20px;}
+.pagination-table-info .pagination-left-right-btn {display: flex;align-items: center;column-gap: 35px;}
+.pagination-table-info .pagination-left-btn, .pagination-table-info .pagination-right-btn {cursor: pointer;}
+.pagination-table-info .pagination-rpp-info {display: flex;align-items: center;column-gap: 20px;justify-content: end;}
+.pagination-table-info select.rrp-select-no {padding: 0px 5px;border: none;background: #F8F8F8;border-radius: 4px;cursor: pointer;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 14px;line-height: 21px;color: #2B3858;}
