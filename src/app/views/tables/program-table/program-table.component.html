@@ -1,6 +1,28 @@
-<div class="container">
+<div class="container table-header-info mb-30">
+  <div class="row">
+    <div class="col-6 tablesuser-flex">
+      <h4>
+        Programs List By Provider ({{user?.firstName}})
+      </h4>
+      <div class="add-program-btn">
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+          <mat-button-toggle matTooltip2="Add" (click)="add()" value="add">
+            <mat-icon class="text-success">+ Add New Program</mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="search-form-info">
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="Search Published Activities" value="" (keyup)='updateFilter($event)' />
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container usertable table-body-info">
   <div>
-    <div class="row headdiv">
       <!-- <input  style="align-items:flex-end;margin: 15px;"  mat-raised-button type="file" color="primary" #csvfile  accept=".xlsx, .xls, .csv" (change)=" onFileChange($event)" name="myfile"> -->
       <!-- <button style="align-items:flex-end;margin: 15px;" mat-raised-button
         (click)="showHideButton()" color="primary">Import</button> -->
@@ -8,23 +30,8 @@
         PROGRAM USING WIZARD</button> -->
       <!-- <button style="align-items:flex-end;margin: 15px;" mat-raised-button (click)="addProgram()" color="primary">Quick
         Program Add</button> -->
-        <div class="col-2">
-        <mat-button-toggle matTooltip="Add" (click)="add()" value="add">
-          <mat-icon class="text-success">add</mat-icon>
-        </mat-button-toggle>
-    </div>
-    <div class="col-10">
-      <br *ngIf="user._id==='id'">
-      <h3 style="text-align:  center;">Programs List By Provider ({{user?.firstName}})</h3>
-    </div>
-  </div>
 
-<div class="row">
-  <div class="col-4">
-    <mat-form-field style="width: 100%">
-      <input matInput placeholder="Search Published Activities" value="" (keyup)='updateFilter($event)' />
-    </mat-form-field>
-  </div>
+<div class="row" style="display: none;">
   <div class="col-2">
     <mat-form-field class="width:100%">
       <mat-label>Page size</mat-label>
@@ -47,7 +54,8 @@
 </div>
 </div>
     
-
+  <div class="row">
+    <div class="col-12">
     <ngx-datatable [rows]="rows" [sorts]="[{prop: 'published', dir: 'desc'},{prop: 'expirein', dir: 'desc'}]" class="material bg-white" [limit]="pageLimit" [scrollbarH]="true"
       [columnMode]="ColumnMode.force" [rowHeight]="50" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50">
 
@@ -111,6 +119,9 @@
         </ng-template>
       </ngx-datatable-column>.
     </ngx-datatable>
+    </div>
+    </div>
+
     <button  mat-raised-button onclick="history.back()"
       color="warn">Back</button>
   </div>
