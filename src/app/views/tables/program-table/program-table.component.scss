@@ -93,15 +93,7 @@ element.style {
 ::ng-deep .mat-ripple-element {opacity: 0!important;}
 ::ng-deep button.mat-icon-button.mat-button-base {margin-top: -10px;}
 ::ng-deep .mat-checkbox-checked.mat-primary .mat-checkbox-background {background-color: #2B3858;border-radius: 4px;}
-
-::ng-deep .datatable-footer .datatable-footer-inner .page-count {
-    font-family: 'Open Sans';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 16px;
-    color: #2B3858;
-}
+::ng-deep .datatable-footer .datatable-footer-inner .page-count {font-family: 'Open Sans';font-style: normal;font-weight: 400;font-size: 14px;line-height: 16px;color: #2B3858;}
 
 /* pagination css */
 .pagination-table-info {position: relative;margin: 20px 0px;display: grid;grid-template-columns: 1fr 1fr;column-gap: 15px;}
@@ -112,5 +104,7 @@ element.style {
 .pagination-table-info .pagination-left-btn, .pagination-table-info .pagination-right-btn {cursor: pointer;}
 .pagination-table-info .pagination-rpp-info {display: flex;align-items: center;column-gap: 20px;justify-content: end;}
 .pagination-table-info select.rrp-select-no {padding: 0px 5px;border: none;background: #F8F8F8;border-radius: 4px;cursor: pointer;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 14px;line-height: 21px;color: #2B3858;}
+
+.back-btn {font-family: 'Poppins';font-style: normal;font-size: 14px;line-height: 150%;padding: 10px 25px;margin-bottom: 33px;background: #4dcaf0 !important;color: white !important;text-decoration: none;border-radius: 4px;}
 
 /* custom css end table */
