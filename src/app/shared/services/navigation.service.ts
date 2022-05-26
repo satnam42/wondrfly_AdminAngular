@@ -95,6 +95,13 @@ export class NavigationService {
     //   state: 'beta-program/enrolled',
     // },
     {
+      name: 'Keyword',
+      type: 'link',
+      tooltip: 'Keyword',
+      icon: 'spellcheck',
+      state: 'tables/keyword'
+    },
+    {
       name: 'Children',
       type: 'link',
       tooltip: 'Children',

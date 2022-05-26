@@ -119,7 +119,7 @@ import { AddFormComponent } from '../components/add-form/add-form.component';
     AddFormComponent,
     ProgramLocationComponent,
     UpdateBatchPopupComponent,
-  UpdateFormComponent],
+  UpdateFormComponent,],
   providers: [],
   entryComponents: [ ProgramLocationComponent, AddBatchComponent, UpdateBatchPopupComponent]
 })

@@ -34,6 +34,7 @@ import { OnlineProgramsComponent } from './online-programs/online-programs.compo
 import { ExpiredProgramsComponent } from './expired-programs/expired-programs.component';
 import { AllExpiredComponent } from './all-expired/all-expired.component';
 import { ParentTableComponent } from './parent-table/parent-table.component';
+import { KeywordComponent } from './keyword/keyword.component';
 export const TablesRoutes: Routes = [
   {
     path: '',
@@ -234,6 +235,11 @@ export const TablesRoutes: Routes = [
       path: 'All-Users',
       component: AllUserComponent,
       data: { title: 'ALL-USERS'}
+    },
+    {
+      path: 'keyword',
+      component: KeywordComponent,
+      data: { title: 'KEYWORDS'}
     },
     ]
   },

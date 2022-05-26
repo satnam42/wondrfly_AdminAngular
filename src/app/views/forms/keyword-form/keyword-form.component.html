@@ -1,0 +1,148 @@
+<!-- <div *ngIf="!isTable"> -->
+  <div class="title_heading">
+  <h2 class="title addform" [hidden]="editData">
+    Add Keyword
+  </h2>
+  <h2 class="title addform" [hidden]="!editData">
+    Update Keyword
+  </h2>
+  <span (click)="dialogRef.close()"> <mat-icon>close</mat-icon></span>
+</div>
+  <div class="container addform">
+  <div class="row pt-3 pb-3">
+    <div class="col-6">
+      <form [formGroup]="editKeyword" >
+
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Name</mat-label>
+          <input type="text" matInput [formControl]="editKeyword.controls['name']" [(ngModel)]="keywordForm.name" placeholder="keyword name">
+          <mat-error *ngIf="editKeyword.controls.name?.errors?.required">
+           Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+  
+    <div class="col-6">
+      <form [formGroup]="editKeyword">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Keyword Type</mat-label>
+          <mat-select name="type" [formControl]="editKeyword.controls['type']"
+              [(ngModel)]="keywordForm.type">
+              <mat-option value="Open">Category/Sub Category</mat-option>
+              <mat-option value="Expired">Age</mat-option>
+              <mat-option value="Wrong County">Dates</mat-option>
+              <mat-option value="Wrong County">Time</mat-option>
+              <mat-option value="Wrong County">Days</mat-option>
+              <mat-option value="Wrong County">Price</mat-option>
+              <mat-option value="Wrong County">Format</mat-option>
+              <mat-option value="Wrong County">Top Rated</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+  <hr>
+                           <!-- filter options -->
+<div>
+  <mat-form-field class="full-width">
+    <mat-label>Days</mat-label>
+    <mat-select name="dayss"  [(ngModel)]="daysValue"
+       multiple>
+        <mat-option [value]="'sunday'">Sunday</mat-option>
+        <mat-option [value]="'monday'">Monday</mat-option>
+        <mat-option [value]="'tuesday'">Tuesday</mat-option>
+        <mat-option [value]="'wednesday'">Wednesday</mat-option>
+        <mat-option [value]="'thursday'">Thursday</mat-option>
+        <mat-option [value]="'friday'">Friday</mat-option>
+        <mat-option [value]="'saturday'">Saturday</mat-option>
+    </mat-select>
+</mat-form-field>
+</div>
+
+<div>
+  <mat-form-field class="full-width">
+    <mat-label>Time</mat-label>
+    <mat-select name="dayss"  [(ngModel)]="daysValue"
+       multiple>
+        <mat-option [value]="'sunday'">Early-Morning (6AM-9AM)</mat-option>
+        <mat-option [value]="'monday'">Morning (9AM-12PM)</mat-option>
+        <mat-option [value]="'tuesday'">Afternoon (12PM-3PM)</mat-option>
+        <mat-option [value]="'wednesday'">Late-Afternoon (3PM-6PM)</mat-option>
+        <mat-option [value]="'thursday'">Evening (6PM-9PM)</mat-option>
+    </mat-select>
+</mat-form-field>
+</div>
+
+<div>
+  <mat-form-field class="full-width">
+    <mat-label>Type</mat-label>
+    <mat-select name="dayss"  [(ngModel)]="daysValue"
+       multiple>
+        <mat-option [value]="'camps'">Camps</mat-option>
+        <mat-option [value]="'semesters'">Semesters</mat-option>
+        <mat-option [value]="'dropins'">Drop ins</mat-option>
+        <mat-option [value]="'other'">Other</mat-option>
+    </mat-select>
+</mat-form-field>
+</div>
+
+<div>
+  <mat-form-field class="full-width">
+    <mat-label>Format</mat-label>
+    <mat-select name="dayss"  [(ngModel)]="daysValue"
+       >
+        <mat-option [value]="'inperson'">In-person</mat-option>
+        <mat-option [value]="'online'">Online</mat-option>
+    </mat-select>
+</mat-form-field>
+</div>
+
+<div class="row">
+  <div class="col-6">
+    <mat-form-field>
+      <input matInput [matDatepicker]="startpicker" placeholder="Start Date">
+      <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
+      <mat-datepicker #startpicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="col-6">
+    <mat-form-field>
+      <input matInput [matDatepicker]="endpicker" placeholder="End Date">
+      <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
+      <mat-datepicker #endpicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="full-width">
+  <mat-label style="color: rgb(118, 118, 118);">AGE GROUP</mat-label>
+  <!-- <mat-slider thumbLabel="true" min="1" max="5" step="1" value="3"></mat-slider>
+  <textarea matInput hidden></textarea> -->
+  <ng5-slider [(value)]="minAge" [(highValue)]="maxAge" [options]="ageOption">
+  </ng5-slider>
+</div>
+
+<div class="full-width">
+  <mat-label style="color: rgb(118, 118, 118);">Price</mat-label>
+  <!-- <mat-slider thumbLabel="true" min="1" max="5" step="1" value="3"></mat-slider>
+  <textarea matInput hidden></textarea> -->
+  <ng5-slider [(value)]="minPrice" [(highValue)]="maxPrice" [options]="priceOption">
+  </ng5-slider>
+</div>
+
+<div class="full-width">
+  <mat-label style="color: rgb(118, 118, 118);">Rating</mat-label>
+  <!-- <mat-slider thumbLabel="true" min="1" max="5" step="1" value="3"></mat-slider>
+  <textarea matInput hidden></textarea> -->
+  <ng5-slider [(value)]="minRating" [(highValue)]="maxRating" [options]="ratingOption">
+  </ng5-slider>
+</div>
+
+  <div class="col-12 button-form pb-3">
+    <button type="submit" mat-raised-button (click)="onSubmit()">Submit</button>
+  </div>
+  </div>
+  
+ 

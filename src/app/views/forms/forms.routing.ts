@@ -15,6 +15,7 @@ import { ParentUpdateFormComponent } from './parent-update-form/parent-update-fo
 import { ProviderUpdateFormComponent } from './provider-update-form/provider-update-form.component';
 import { ProviderQuickFormComponent } from './provider-quick-form/provider-quick-form.component';
 import { AddFormComponent } from '../components/add-form/add-form.component';
+import { KeywordFormComponent } from './keyword-form/keyword-form.component';
 
 export const FormsRoutes: Routes = [
   {
@@ -97,6 +98,11 @@ export const FormsRoutes: Routes = [
       path:'new-form/:id',
       component: UpdateFormComponent,
       data: { title: 'UPDATE-PROVIDER'}
+    },
+    {
+      path:'keyword-form/:id',
+      component: KeywordFormComponent,
+      data: { title: 'KEYWORD-FORM'}
     },
    ]
   }

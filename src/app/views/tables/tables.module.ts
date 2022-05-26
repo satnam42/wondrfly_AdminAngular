@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import {
-  MatInputModule, MatPaginatorModule, MatDatepickerModule, MatIconModule, MatTableModule, MatSortModule, MatButtonModule, MatChip, MatCardModule, MatMenuModule, MatChipsModule, MatTooltipModule, MatListModule, MatDialogModule, MatSnackBarModule, MatSlideToggleModule, MatGridListModule, MatCheckboxModule, MatRadioModule, MatProgressBarModule, MatTabsModule, MatOptionModule, MatAutocompleteModule, MatExpansionModule, MatSelectModule, MatButtonToggleModule
+  MatInputModule, MatPaginatorModule, MatIconModule, MatTableModule, MatSortModule, MatButtonModule, MatChip, MatCardModule, MatMenuModule, MatChipsModule, MatTooltipModule, MatListModule, MatDialogModule, MatSnackBarModule, MatSlideToggleModule, MatGridListModule, MatCheckboxModule, MatRadioModule, MatProgressBarModule, MatTabsModule, MatOptionModule, MatAutocompleteModule, MatExpansionModule, MatSelectModule, MatButtonToggleModule
 } from '@angular/material';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TablesRoutes } from './tables.routing';
@@ -65,6 +65,12 @@ import { AllExpiredComponent } from './all-expired/all-expired.component';
 import { ParentTableComponent } from './parent-table/parent-table.component';
 import { CategoryTableComponent } from './category-table/category-table.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { KeywordComponent } from './keyword/keyword.component';
+import { KeywordFormComponent } from '../forms/keyword-form/keyword-form.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { Ng5SliderModule } from 'ng5-slider';
+
+
 // ProviderPopupComponent
 @NgModule({
   imports: [
@@ -81,6 +87,7 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
     MatInputModule,
     MatIconModule,
     MatCardModule,
+    Ng5SliderModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MatMenuModule,
@@ -170,9 +177,11 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
     AllUserComponent,
     OnlineProgramsComponent,
     ExpiredProgramsComponent,
-    AllExpiredComponent
+    AllExpiredComponent,
+    KeywordComponent,
+    KeywordFormComponent
     
   ],
-  entryComponents: [SearchProviderPopupComponent, DuplicacyDataPopupComponent, ProviderDataPopupComponent, ProgramDataPopupComponent,UsersComponent,EditFormComponent,AllUserComponent]
+  entryComponents: [SearchProviderPopupComponent, DuplicacyDataPopupComponent, ProviderDataPopupComponent,KeywordFormComponent, ProgramDataPopupComponent,UsersComponent,EditFormComponent,AllUserComponent]
 })
 export class TablesModule { }

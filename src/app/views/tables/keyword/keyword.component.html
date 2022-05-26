@@ -1,0 +1,197 @@
+
+<div class="container table-header-info mb-30">
+  <div class="row">
+      <!-- <div class="col-2">
+          <mat-form-field appearance="fill">
+          <mat-label>Select Filter</mat-label>
+          <mat-select name="defaultFilter"  [(ngModel)]="defaultFilter">
+              <mat-option  *ngFor="let item of filterColumns" [value]="item" (click)="selectedFilter(item)">
+              {{item}}
+              </mat-option>
+          </mat-select>
+          </mat-form-field>
+      </div> -->
+      <div class="col-6 tablesuser-flex">
+          <h4> 
+              Keyword Table<span class="blue-clr" [hidden]="selectedValue=='montclair'" ></span> <span class="blue-clr" [hidden]="selectedValue!=='montclair'" > ({{montTemp?.total}})</span> 
+          </h4>
+          <!-- <div class="add-program-btn"> -->
+          <!-- <label class="letsplay_btn ">Import
+                      <input  style="display: none;"  accept=".xlsx, .xls, .csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" mat-raised-button type="file" color="primary" #csv_file (change)=" onFileChange($event)" name="myfile">
+                  </label> -->
+              <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                  <mat-button-toggle matTooltip2="Add" (click)="editDataPopup({})" value="add">
+                      <mat-icon class="text-success">+ Add Keyword</mat-icon>
+                  </mat-button-toggle>
+                  <!-- <button class="letsplay_btn" data-toggle="modal" (click)="openPopUps('wizard')" data-target="#addNewTopic">
+                  ADD New Program </button> -->
+          <!-- <button class="letsplay_btn quick_add" data-toggle="modal" (click)="openPopUps('form')" data-target="#addNewTopic">Quick Program Add</button> -->
+              </mat-button-toggle-group>            
+          <!-- </div> -->
+      </div>
+      <div class="col-6">
+          <div class="search-form-info">
+          <mat-form-field class="w-85" appearance="standard" [hidden]="selectedValue=='montclair' || selectedValue=='byDate'">
+          <!-- <mat-label>Search</mat-label> -->
+          <input matInput [formControl]="searchControl" [(ngModel)]="keyword" placeholder="Search" #input>
+          <button mat-icon-button matSuffix value="reset" matTooltip="Search">
+              <mat-icon class="text-primary">search</mat-icon>
+          </button>
+          </mat-form-field>
+          <mat-form-field class="w-85" appearance="standard" *ngIf="selectedValue=='byDate'">
+              <input type="text" matInput
+          ngxDaterangepickerMd
+          [(ngModel)]="selected"
+          placeholder="Select Date"
+          [autoApply]="true"
+          (datesUpdated)="choosedDate($event)"
+          name="daterange"/>
+          </mat-form-field>
+          <!-- <button mat-raised-button value="reset" class="m-2" (click)="reset()"  matTooltip="Reset">
+              <mat-icon>autorenew</mat-icon>  Reset
+          </button> -->
+          </div>
+      </div>
+      <!-- <div class="col-7">
+          <div class="search-section">
+              <input type="text" class="search_input" (keyup)="updateFilter($event.target.value)" placeholder="Search By Program Name" [(ngModel)]="searchText" />
+              <i class="fa fa-filter filter-icon" aria-hidden="true" *ngIf="searchText"></i>
+              <i aria-hidden="true" *ngIf="!searchText"></i>
+              <span class="back-search"> -->
+        <!-- <mat-icon>search</mat-icon> -->
+        <!-- <mat-icon style="position:relative;top: 4px; float: right;
+                        ">search</mat-icon>
+      </span>
+          </div> -->
+      
+      </div>
+</div>    
+<div class="container">
+  <!-- <div class="row">
+      <div class="col-12">
+          <ul class="table-top-links">
+            <li class="active"><a routerLink='/tables/online-programs'>Online Programs</a></li>
+            <li><a *ngIf="publishedPrograms?.total" routerLink='/tables/published'>Published ({{publishedPrograms?.total}}) <span  *ngIf="publishedPrograms?.total==0"> (0)</span> </a></li>
+            <li><a *ngIf="unpublished" routerLink='/tables/unpublish'>Unpublished ({{unpublished}}) <span *ngIf="unpublished==0"> (0)</span></a></li>
+            <li><a *ngIf="expiredProgram?.length" routerLink='/tables/expiring'>Expiring Soon ({{expiredProgram?.length}}) <span *ngIf="!expiredProgram?.length"> (0)</span></a></li>
+            <li><a *ngIf="allExpired?.length" routerLink='/tables/expired'>Expired ({{allExpired?.length}})
+              <span *ngIf="!allExpired?.length"> (0)</span>
+              <span class="ml-5" style="color: rgb(51, 49, 49); font: bolder;" *ngIf="keyword || stratDate"> Results 
+                  <span *ngIf="stratDate || keyword &&  filteredData?.length"> ({{filteredData?.length}})</span>
+                  <span *ngIf="keyword && !filteredData?.length"> (0)</span>
+               </span></a>
+            </li>
+          </ul>
+      </div>  
+  </div> -->
+  <div class="row">
+  <div class="col-12">
+  <div class="search-results table-body-info" #scrollToTop infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="false" *ngIf="rows.length">
+      <table>
+          <tbody>
+              <tr>
+                  <th class="left">
+                     Keyword
+                  </th>
+                  <!-- <th>
+                      Program ID
+                  </th> -->
+
+                  <th>
+                    Type
+                  </th>
+                  <!-- <th>
+                      Address
+                  </th>
+                  <th>
+                      Price
+                  </th>
+                  <th>
+                      Type
+                  </th>
+                  <th>
+                      Expired in
+                  </th>
+
+                  <th >
+                      Published
+                  </th>
+                  <th >
+                      Free Trial
+                  </th> -->
+                  <th >
+                  </th>
+              </tr>
+              <tr *ngFor="let row of rows | filter : searchText; let i = index">
+                  <td class="left">
+                      <span> {{row.name}}</span>
+                  </td>
+                  <!-- <td>
+                      <span (click)="openPopUp(row)">{{ row._id }}</span>
+                  </td> -->
+                  <td>
+                      <span (click)="openPopUp(row)">{{row.programOwner}}</span>
+                  </td>
+                  <td>
+                      <button mat-icon-button [matMenuTriggerFor]="msgMenu" class="hidden-on-open">
+            <mat-icon class="text-muted">more_vert</mat-icon>
+          </button>
+                      <mat-menu #msgMenu="matMenu">
+                          <!-- <button mat-menu-item (click)="createDuplicate(row)">
+                              <mat-icon class="col-blue">file_copy</mat-icon>Duplicate
+                            </button> -->
+
+                          <button mat-menu-item (click)="editDataPopup(row)">
+              <mat-icon class="col-blue">edit</mat-icon>Edit
+            </button>
+                          <button mat-menu-item (click)="deleteProgram(row,i)">
+              <i class="icon col-blue mat-icon fa fa-trash-o" aria-hidden="true"></i>Delete
+              <!-- <mat-icon>delete</mat-icon>Delete -->
+            </button>
+             <!-- <button mat-menu-item (click)="manage(row)">
+              <mat-icon class="col-blue">open_in_new</mat-icon>Manage
+            </button> -->
+            <!-- <button mat-menu-item (click)="form(row,i)">
+              <mat-icon class="col-blue">timer_off</mat-icon>Set to be Expired
+            </button> -->
+                          <!-- <button mat-menu-item (click)="ProgramDataPopUp(row)">
+              <mat-icon class="col-blue">view_comfy</mat-icon>View
+            </button> -->
+
+
+                      </mat-menu>
+
+                  </td>
+
+              </tr>
+          </tbody>
+      </table>
+  </div>
+  </div>
+
+  <div class="col-12">
+      <div class="pagination-table-info">
+        <div class="pagination-page-no">
+          <div class="pagination-h3">
+            <h3>Page <span class="bold">1</span> of <span class="bold">16</span></h3>
+          </div>
+          <div class="pagination-left-right-btn">
+            <div class="pagination-left-btn"><img src="assets/images/pagination-left-arrow.svg" /></div>
+            <div class="pagination-right-btn"><img src="assets/images/pagination-right-arrow.svg" /></div>
+          </div>
+        </div>
+        <div class="pagination-rpp-info">
+          <div class="rrp-h3"><h3>Rows per page:</h3></div>
+          <div class="rrp-select-info">
+            <select class="rrp-select-no">
+              <option value="20">20</option>
+              <option value="30">30</option>
+              <option value="40">40</option>
+              <option value="50">50</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
