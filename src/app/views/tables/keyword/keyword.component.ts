@@ -200,7 +200,7 @@ export class KeywordComponent implements OnInit {
     this.dataservice.setOption(data);
     this.apiservice.createDuplicateProgram(data._id).subscribe((res:any) => {
 if(res.isSuccess){
-  this.getProgram()
+  this.getKeywords()
 }   });
   }
 
@@ -216,29 +216,22 @@ if(res.isSuccess){
     if (page.offset == 1) {
       this.pageNo = 2
     }
-    this.getProgram();
+    this.getKeywords();
   }
 
-  getProgram() {
+  getKeywords() {
     this.loader.open();
-    this.apiservice.getProgram(this.pageNo, this.pageSize).subscribe(res => {
-      console.log(res)
+    this.apiservice.getKeyword().subscribe(res => {
+      console.log('get Keywords',res)
       this.temp = res;
-      if (this.temp.items) {
-        this.rows = this.rows.concat(this.temp.items);
+      if (this.temp.data) {
+        this.rows = this.temp.data;
         this.isScrol = true;
       }
       this.loader.close();
     });
     this.loader.close();
   }
-
-
-  
-
-
-
-
 
   editDataPopup(data): void {
     let dialogRef: MatDialogRef<any> = this.dialog.open(KeywordFormComponent, {
@@ -248,7 +241,9 @@ if(res.isSuccess){
     })
     dialogRef.afterClosed()
       .subscribe(res => {
+        this.getKeywords();
         if (!res) {
+          console.log('from keywordData form',res)
           // If user press cancel
           this.keywordData = this.dataservice.getOption();
           console.log('from keywordData form',this.keywordData)
@@ -264,21 +259,6 @@ if(res.isSuccess){
   //   })
   // }
 
-  programActiveInActive(program) {
-    let programStatus = '';
-    if (program.status === 'active') {
-      programStatus = 'inactive';
-      this.apiservice.programActiveInActive(program._id, programStatus).subscribe(res => {
-        this.getProgram();
-      });
-    }
-    else {
-      programStatus = 'active';
-      this.apiservice.programActiveInActive(program._id, programStatus).subscribe(res => {
-        this.getProgram();
-      });
-    }
-  }
   deleteProgram(data,indx) {
     this.confirmService.confirm({ message: `Delete ${data.name}?` }).subscribe(res => {
       if (res) {
@@ -303,7 +283,7 @@ if(res.isSuccess){
     this.searchControl.valueChanges.subscribe((value) =>{
       this.updateFilter(value)
     })
-    this.getProgram();
+    this.getKeywords();
   }
   public fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
@@ -350,7 +330,7 @@ if(res.isSuccess){
     this.endDate=null;
     // this.picker.clear();
     this.filteredData=[];
-    this.getProgram();
+    this.getKeywords();
   }
 
   updateFilter(key) {
@@ -372,7 +352,7 @@ if(res.isSuccess){
     }
     if (!key) {
       this.rows=[];
-      this.getProgram();
+      this.getKeywords();
     }
     this.loader.close()
   }
@@ -383,7 +363,7 @@ if(res.isSuccess){
     this.fileData= ev.target.files[0];
     this.formData.append('csv',this.fileData);
       this.apiservice.programCSVupload(this.formData).subscribe(res => {
-        this.getProgram();
+        this.getKeywords();
         console.log('res',res)
       });
   }

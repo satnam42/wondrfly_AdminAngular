@@ -15,7 +15,7 @@
           <h4> 
               Keyword Table<span class="blue-clr" [hidden]="selectedValue=='montclair'" ></span> <span class="blue-clr" [hidden]="selectedValue!=='montclair'" > ({{montTemp?.total}})</span> 
           </h4>
-          <!-- <div class="add-program-btn"> -->
+          <div class="add-program-btn">
           <!-- <label class="letsplay_btn ">Import
                       <input  style="display: none;"  accept=".xlsx, .xls, .csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" mat-raised-button type="file" color="primary" #csv_file (change)=" onFileChange($event)" name="myfile">
                   </label> -->
@@ -27,7 +27,7 @@
                   ADD New Program </button> -->
           <!-- <button class="letsplay_btn quick_add" data-toggle="modal" (click)="openPopUps('form')" data-target="#addNewTopic">Quick Program Add</button> -->
               </mat-button-toggle-group>            
-          <!-- </div> -->
+          </div>
       </div>
       <div class="col-6">
           <div class="search-form-info">
@@ -91,14 +91,14 @@
           <tbody>
               <tr>
                   <th class="left">
-                     Keyword
+                     Keyword Name
                   </th>
                   <!-- <th>
                       Program ID
                   </th> -->
 
                   <th>
-                    Type
+                    Keyword Type
                   </th>
                   <!-- <th>
                       Address
@@ -124,13 +124,13 @@
               </tr>
               <tr *ngFor="let row of rows | filter : searchText; let i = index">
                   <td class="left">
-                      <span> {{row.name}}</span>
+                      <span> {{row.keywordName}}</span>
                   </td>
                   <!-- <td>
                       <span (click)="openPopUp(row)">{{ row._id }}</span>
                   </td> -->
                   <td>
-                      <span (click)="openPopUp(row)">{{row.programOwner}}</span>
+                      <span (click)="openPopUp(row)">{{row.keywordType}}</span>
                   </td>
                   <td>
                       <button mat-icon-button [matMenuTriggerFor]="msgMenu" class="hidden-on-open">

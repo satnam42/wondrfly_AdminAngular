@@ -15,9 +15,9 @@
 
         <mat-form-field class="example-full-width" appearance="outline">
           <mat-label>Name</mat-label>
-          <input type="text" matInput [formControl]="editKeyword.controls['name']" [(ngModel)]="keywordForm.name" placeholder="keyword name">
-          <mat-error *ngIf="editKeyword.controls.name?.errors?.required">
-           Name is <strong>required</strong>
+          <input type="text" matInput [formControl]="editKeyword.controls['keywordName']" [(ngModel)]="keywordForm.keywordName" placeholder="keyword name">
+          <mat-error *ngIf="editKeyword.controls.keywordName?.errors?.required" required>
+           Keyword Name is <strong>required</strong>
           </mat-error>
         </mat-form-field>
       </form>
@@ -27,24 +27,28 @@
       <form [formGroup]="editKeyword">
         <mat-form-field class="example-full-width" appearance="outline">
           <mat-label>Keyword Type</mat-label>
-          <mat-select name="type" [formControl]="editKeyword.controls['type']"
-              [(ngModel)]="keywordForm.type">
-              <mat-option value="Open">Category/Sub Category</mat-option>
-              <mat-option value="Expired">Age</mat-option>
-              <mat-option value="Wrong County">Dates</mat-option>
-              <mat-option value="Wrong County">Time</mat-option>
-              <mat-option value="Wrong County">Days</mat-option>
-              <mat-option value="Wrong County">Price</mat-option>
-              <mat-option value="Wrong County">Format</mat-option>
-              <mat-option value="Wrong County">Top Rated</mat-option>
+          <mat-select name="keywordType" [formControl]="editKeyword.controls['keywordType']"
+              [(ngModel)]="keywordForm.keywordType">
+              <!-- <mat-option value="Open">Category/Sub Category</mat-option> -->
+              <mat-option value="age">Age</mat-option>
+              <mat-option value="dates">Dates</mat-option>
+              <mat-option value="time">Time</mat-option>
+              <mat-option value="days">Days</mat-option>
+              <mat-option value="price">Price</mat-option>
+              <mat-option value="type">Type</mat-option>
+              <mat-option value="format">Format</mat-option>
+              <mat-option value="top rated">Top Rated</mat-option>
           </mat-select>
+          <mat-error *ngIf="editKeyword.controls.keywordType?.errors?.required" required>
+            Keyword Type is <strong>required</strong>
+           </mat-error>
         </mat-form-field>
       </form>
     </div>
   </div>
   <hr>
                            <!-- filter options -->
-<div>
+<div *ngIf="keywordForm.keywordType=='days'">
   <mat-form-field class="full-width">
     <mat-label>Days</mat-label>
     <mat-select name="dayss"  [(ngModel)]="daysValue"
@@ -60,7 +64,7 @@
 </mat-form-field>
 </div>
 
-<div>
+<div *ngIf="keywordForm.keywordType=='time'">
   <mat-form-field class="full-width">
     <mat-label>Time</mat-label>
     <mat-select name="dayss"  [(ngModel)]="daysValue"
@@ -74,7 +78,7 @@
 </mat-form-field>
 </div>
 
-<div>
+<div *ngIf="keywordForm.keywordType=='type'">
   <mat-form-field class="full-width">
     <mat-label>Type</mat-label>
     <mat-select name="dayss"  [(ngModel)]="daysValue"
@@ -87,7 +91,7 @@
 </mat-form-field>
 </div>
 
-<div>
+<div *ngIf="keywordForm.keywordType=='format'">
   <mat-form-field class="full-width">
     <mat-label>Format</mat-label>
     <mat-select name="dayss"  [(ngModel)]="daysValue"
@@ -98,7 +102,7 @@
 </mat-form-field>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="keywordForm.keywordType=='dates'">
   <div class="col-6">
     <mat-form-field>
       <input matInput [matDatepicker]="startpicker" placeholder="Start Date">
@@ -116,7 +120,7 @@
   </div>
 </div>
 
-<div class="full-width">
+<div class="full-width" *ngIf="keywordForm.keywordType=='age'">
   <mat-label style="color: rgb(118, 118, 118);">AGE GROUP</mat-label>
   <!-- <mat-slider thumbLabel="true" min="1" max="5" step="1" value="3"></mat-slider>
   <textarea matInput hidden></textarea> -->
@@ -124,7 +128,7 @@
   </ng5-slider>
 </div>
 
-<div class="full-width">
+<div class="full-width" *ngIf="keywordForm.keywordType=='price'">
   <mat-label style="color: rgb(118, 118, 118);">Price</mat-label>
   <!-- <mat-slider thumbLabel="true" min="1" max="5" step="1" value="3"></mat-slider>
   <textarea matInput hidden></textarea> -->
@@ -132,7 +136,7 @@
   </ng5-slider>
 </div>
 
-<div class="full-width">
+<div class="full-width" *ngIf="keywordForm.keywordType=='top rated'">
   <mat-label style="color: rgb(118, 118, 118);">Rating</mat-label>
   <!-- <mat-slider thumbLabel="true" min="1" max="5" step="1" value="3"></mat-slider>
   <textarea matInput hidden></textarea> -->
@@ -141,7 +145,7 @@
 </div>
 
   <div class="col-12 button-form pb-3">
-    <button type="submit" mat-raised-button (click)="onSubmit()">Submit</button>
+    <button type="submit" mat-raised-button [disabled]="!editKeyword.valid" (click)="onSubmit()">Submit</button>
   </div>
   </div>
   

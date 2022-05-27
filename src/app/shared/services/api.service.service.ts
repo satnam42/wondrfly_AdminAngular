@@ -1429,6 +1429,38 @@ getParentAnalytics(id): Observable<any[]> {
             });
             return subject.asObservable();
         }
+// Filter Keywords CRUD
+addKeyword(model): Observable<any[]> {
+    const subject = new Subject<any[]>();
+    this.http.post(`${this.root}/filterkeys/create`, model, this.getHeaders()).subscribe((responseData) => {
+        this.userResponse = responseData;
+        subject.next(this.userResponse);
+    }, (error) => {
+        subject.next(error.error);
+    });
+    return subject.asObservable();
+}
+
+updateKeyword(id,data): Observable<any[]> {
+    const subject = new Subject<any[]>();
+    this.http.put(`${this.root}/filterkeys/update/${id}`,data,this.getHeaders()).subscribe((responseData:any) => {
+        subject.next(responseData);
+    }, (error) => {
+        subject.next(error.error);
+    });
+    return subject.asObservable();
+}
+
+getKeyword(): Observable<Program> {
+    const subject = new Subject<Program>();
+    this.http.get(`${this.root}/filterkeys/list`, this.getHeaders()).subscribe((responseData: any) => {
+        subject.next(responseData);
+    }, (error) => {
+        subject.next(error.error);
+    });
+    return subject.asObservable();
+}
+
 
 
 }
