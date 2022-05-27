@@ -173,9 +173,8 @@ export class KeywordFormComponent implements OnInit {
   }
 
   updateKeyword() {
-    this.ageGroup.from = this.minAge;
-    this.ageGroup.to = this.maxAge;
-      this.keywordFormbody.keywordValue[0].ageGroup = this.ageGroup;
+      this.keywordForm.keywordValue[0].ageGroup.from = this.minAge;
+      this.keywordForm.keywordValue[0].ageGroup.to = this.maxAge;
       console.log('updateKeyword before',this.keywordForm)
     this.loader.open();
     this.apiservice.updateKeyword(this.keywordForm._id,this.keywordForm).subscribe((res) => {
