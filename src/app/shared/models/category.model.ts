@@ -7,6 +7,7 @@ id: string;
     description: String;
     imageUrl : string;
     iconUrl: string;
+    checked:boolean
     
     constructor(obj?: any) {
 

@@ -260,6 +260,9 @@ export class KeywordComponent implements OnInit {
       }
     })
   }
+  activateDeactivateKeyword(){
+    
+  }
   ngOnInit() {
     this.getKeywords();
   }

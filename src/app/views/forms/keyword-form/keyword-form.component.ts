@@ -2,10 +2,12 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatDialog, MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router } from '@angular/router';
+import { Category } from 'app/shared/models/category.model';
 import { ApiService } from 'app/shared/services/api.service.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { DataService } from 'app/shared/services/dataservice.service';
 import { Options } from 'ng5-slider';
+import { map } from 'rxjs-compat/operator/map';
 
 @Component({
   selector: 'app-keyword-form',
@@ -34,6 +36,7 @@ export class KeywordFormComponent implements OnInit {
     ]
   }
   daysValue:any = []
+  timeValue:any = []
   days:any =
   {sunday:false,
   monday:false,
@@ -78,7 +81,9 @@ export class KeywordFormComponent implements OnInit {
   }
   keywordValue:any=[];
   isEmpty: any;
-
+  categories:any = []
+  subcategories:any =[]
+  selectedCategoryIndx = -1
   constructor(
     private apiservice: ApiService,
     public dialog: MatDialog,
@@ -94,8 +99,35 @@ export class KeywordFormComponent implements OnInit {
        console.log('datttttta',this.keywordForm)
   }
  
+  getCategory() {
+    this.apiservice.getCategory().subscribe(res => {
+      this.loader.close();
+      this.categories = res;
+      console.log(res)
+      // this.categories.sort((a,b) => 0 - (a.name > b.name ? -1 : 1)) 
+       });
+  }
+  pushCategory(category){
+console.log(category)
+  }
+  getTag(e,category) {
+    console.log(e.checked)
+    if(e.checked){
+      this.loader.open();
+        this.apiservice.getTagByCategoryId(category.id).subscribe((res: any) => {
+          this.subcategories = res.data
+          console.log(res)
+          this.subcategories = this.subcategories.filter((item) => item.isActivated === true && item.programCount);
+        this.loader.close();
+      });
+    }
+    else{
+      this.subcategories = []
+    }
 
+  }
   ngOnInit() {
+    this.getCategory()
     if(this.isEmpty){
       this.editData=false;
     }else{

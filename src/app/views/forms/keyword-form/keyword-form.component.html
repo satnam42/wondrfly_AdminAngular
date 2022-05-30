@@ -30,6 +30,8 @@
           <mat-select name="keywordType" [formControl]="editKeyword.controls['keywordType']"
               [(ngModel)]="keywordForm.keywordType">
               <!-- <mat-option value="Open">Category/Sub Category</mat-option> -->
+              <mat-option value="category" >Category</mat-option>
+              <mat-option value="subCategory">Sub Category</mat-option>
               <mat-option value="age">Age</mat-option>
               <mat-option value="dates">Dates</mat-option>
               <mat-option value="time">Time</mat-option>
@@ -37,13 +39,13 @@
               <mat-option value="price">Price</mat-option>
               <mat-option value="type">Type</mat-option>
               <mat-option value="format">Format</mat-option>
-              <mat-option value="top rated">Top Rated</mat-option>
+              <mat-option value="topRated">Top Rated</mat-option>
           </mat-select>
           <mat-error *ngIf="editKeyword.controls.keywordType?.errors?.required" required>
             Keyword Type is <strong>required</strong>
            </mat-error>
         </mat-form-field>
-      </form>
+      </form> 
     </div>
   </div>
   <hr>
@@ -67,7 +69,7 @@
 <div *ngIf="keywordForm.keywordType=='time'">
   <mat-form-field class="full-width">
     <mat-label>Time</mat-label>
-    <mat-select name="dayss"  [(ngModel)]="daysValue"
+    <mat-select name="dayss"  [(ngModel)]="timeValue"
        multiple>
         <mat-option [value]="'early-morning'">Early-Morning (6AM-9AM)</mat-option>
         <mat-option [value]="'morning'">Morning (9AM-12PM)</mat-option>
@@ -136,14 +138,55 @@
   </ng5-slider>
 </div>
 
-<div class="full-width" *ngIf="keywordForm.keywordType=='top rated'">
+<div class="full-width" *ngIf="keywordForm.keywordType=='topRated'">
   <mat-label style="color: rgb(118, 118, 118);">Rating</mat-label>
   <!-- <mat-slider thumbLabel="true" min="1" max="5" step="1" value="3"></mat-slider>
   <textarea matInput hidden></textarea> -->
   <ng5-slider [(value)]="minRating" [(highValue)]="maxRating" [options]="ratingOption">
   </ng5-slider>
 </div>
+<div class="full-width" *ngIf="keywordForm.keywordType=='category' || keywordForm.keywordType=='subCategory' ">
 
+ 
+ <section class="example-section">
+   
+    <div class="row">
+            <!-- categories -->
+      <div class="col-3">
+        <span class="example-list-section">
+          
+          <ul>
+            <label>Categories</label>
+            <li *ngFor="let category of categories;let i = index">
+              <mat-checkbox [checked]="selectedCategoryIndx === i"
+                            (change)="selectedCategoryIndx = i;getTag($event,category)">
+                {{category.name}}
+              </mat-checkbox>
+            </li>
+          </ul>
+        </span>
+      </div>
+      <!-- sucategories -->
+      <div class="col-7">
+        <span class="example-list-section" *ngIf="subcategories?.length">
+          
+          <ul class="ul-tag-col-6">
+            <label>Sub-categories</label>
+            <li *ngFor="let tag of subcategories">
+              <mat-checkbox [(ngModel)]="tag.checked"
+                            (ngModelChange)="pushCategory(tag)">
+                {{tag.name}}
+              </mat-checkbox>
+            </li>
+          </ul>
+        </span>
+      </div>
+       </div> 
+ 
+  </section>
+
+  
+</div>
   <div class="col-12 button-form pb-3">
     <button type="submit" mat-raised-button [disabled]="!editKeyword.valid" (click)="onSubmit()">Submit</button>
   </div>

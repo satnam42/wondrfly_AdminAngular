@@ -179,6 +179,19 @@ export class ApiService {
         return subject.asObservable();
 
     }
+       // -------------------------- get Tag By Category Id ------------------------->
+
+       getTagByCategoryId(id): Observable<User> {
+        const subject = new Subject<User>();
+        this.http.get(`${this.root}/tags/byCategoryId?catrgoryIds=${id}`, this.getHeaders()).subscribe((responseData: any) => {
+            const dataModel = responseData;
+            subject.next(responseData);
+        }, (error) => {
+            const dataModel = error;
+            subject.next(dataModel.error);
+        });
+        return subject.asObservable();
+    }
     getCategory(): Observable<Category[]> {
         const subject = new Subject<Category[]>();
         this.http.get(`${this.root}/categories/list`,).subscribe((responseData) => {
