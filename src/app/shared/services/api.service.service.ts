@@ -1450,9 +1450,18 @@ updateKeyword(id,data): Observable<any[]> {
     });
     return subject.asObservable();
 }
+deleteKeyword(id): Observable<any[]> {
+    const subject = new Subject<any[]>();
+    this.http.delete(`${this.root}/filterkeys/deleteFilterkey/${id}`,this.getHeaders()).subscribe((responseData:any) => {
+        subject.next(responseData);
+    }, (error) => {
+        subject.next(error.error);
+    });
+    return subject.asObservable();
+}
 
-getKeyword(): Observable<Program> {
-    const subject = new Subject<Program>();
+getKeyword(): Observable<any> {
+    const subject = new Subject<any>();
     this.http.get(`${this.root}/filterkeys/list`, this.getHeaders()).subscribe((responseData: any) => {
         subject.next(responseData);
     }, (error) => {

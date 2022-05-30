@@ -48,7 +48,7 @@ export class KeywordComponent implements OnInit {
   users: any = new Userr
   public uploader: FileUploader = new FileUploader({ url: 'upload_url' });
   public hasBaseDropZoneOver: boolean = false;
-  message: string = 'Program Deleted Successfully!';
+  message: string = 'Keyword Deleted Successfully!';
   action: boolean = true;
   setAutoHide: boolean = true;
   autoHide: number = 4000;
@@ -193,18 +193,7 @@ export class KeywordComponent implements OnInit {
 
   manage(data){
     this.route.navigate(['tables/program',data.user]);
-  }
-
-
-  createDuplicate(data) {
-    this.dataservice.setOption(data);
-    this.apiservice.createDuplicateProgram(data._id).subscribe((res:any) => {
-if(res.isSuccess){
-  this.getKeywords()
-}   });
-  }
-
-  
+  } 
 
   showHideButton() {
     this.isShow = !this.isShow;
@@ -226,6 +215,7 @@ if(res.isSuccess){
       this.temp = res;
       if (this.temp.data) {
         this.rows = this.temp.data;
+        this.rows.reverse()
         this.isScrol = true;
       }
       this.loader.close();
@@ -244,27 +234,18 @@ if(res.isSuccess){
         this.getKeywords();
         if (!res) {
           console.log('from keywordData form',res)
-          // If user press cancel
           this.keywordData = this.dataservice.getOption();
           console.log('from keywordData form',this.keywordData)
           return;
         }
       });
   }
-
-  // getUnpublishCount() {
-  //   this.apiservice.getPublishedProgram(this.pageNo, this.pageSize,'unpublished').subscribe(res => {
-  //   this.UnPublishedPrograms = res;
-  //   console.log("getUnpublishCount",res)
-  //   })
-  // }
-
-  deleteProgram(data,indx) {
-    this.confirmService.confirm({ message: `Delete ${data.name}?` }).subscribe(res => {
+  deleteKeyword(data,indx) {
+    this.confirmService.confirm({ message: `Delete ${data.keywordName}?` }).subscribe(res => {
       if (res) {
         this.loader.open();
         this.isLoading = true;
-        this.apiservice.deleteProgram(data._id).subscribe(res => {
+        this.apiservice.deleteKeyword(data._id).subscribe(res => {
           var response: any = res;
           if (response.isSuccess === true) {
             this.rows.splice(indx, 1);
@@ -280,91 +261,6 @@ if(res.isSuccess){
     })
   }
   ngOnInit() {
-    this.searchControl.valueChanges.subscribe((value) =>{
-      this.updateFilter(value)
-    })
     this.getKeywords();
-  }
-  public fileOverBase(e: any): void {
-    this.hasBaseDropZoneOver = e;
-  }
-
-  choosedDate(e) {
-    let response
-    if (e.startDate == null || e.endDate == null) {
-      return;
-    }
-    {
-       this.stratDate = moment(e.startDate._d).format('YYYY-MM-DD');
-       this.endDate = moment(e.endDate._d).format('YYYY-MM-DD')
-       this.loader.open();
-      this.apiservice.programFilterByDate('from',this.stratDate,this.endDate).subscribe((res:any)=>{
-        console.log(res)
-        if(res.isSuccess){
-          response = res.data;
-          this.rows= response
-          this.filteredData = response;
-          this.isScrol = false;
-          this.loader.close();
-        } 
-      })
-    }
-  }
-
-  selectedFilter(value: any) {
-    this.selectedValue = value;
-    if(this.selectedValue=='montclair'){
-      this.rows=[];
-    }else if(this.selectedValue=='byDate' && this.selected){
-      console.log(this.selected)
-      // this.apiservice.programFilterByDate('from',)
-    }
-  }
-
-  reset(){
-    this.rows=[];
-    this.keyword='';
-    this.defaultFilter='name';
-    this.selectedValue='';
-    this.stratDate=null;
-    this.endDate=null;
-    // this.picker.clear();
-    this.filteredData=[];
-    this.getKeywords();
-  }
-
-  updateFilter(key) {
-    var response: any;
-    if (key) {
-      if(!this.selectedValue){
-      this.selectedValue=this.defaultFilter;
-    }
-    console.log(this.selectedValue)
-    this.loader.open();
-    this.apiservice.searchProgramFilter(this.selectedValue, key).subscribe((res: any) => {
-      if(res.isSuccess){
-        response = res.data;
-        this.rows = response;
-        this.filteredData = response;
-      } 
-      this.loader.close()
-    });
-    }
-    if (!key) {
-      this.rows=[];
-      this.getKeywords();
-    }
-    this.loader.close()
-  }
-  download() {
-    this.csvService.downloadFile(this.rows, 'Total programs');
-  }
-  onFileChange(ev) {
-    this.fileData= ev.target.files[0];
-    this.formData.append('csv',this.fileData);
-      this.apiservice.programCSVupload(this.formData).subscribe(res => {
-        this.getKeywords();
-        console.log('res',res)
-      });
   }
 }
