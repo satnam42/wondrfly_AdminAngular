@@ -38,8 +38,8 @@ export class KeywordFormComponent implements OnInit {
   }
   daysValue: any = []
   timeValue: any = []
-  typeValue:any = []
-  formatValue:any = []
+  typeValue: any = []
+  formatValue: any = []
   days: any =
     {
       sunday: false,
@@ -209,67 +209,67 @@ export class KeywordFormComponent implements OnInit {
           from: this.minAge,
           to: this.maxAge
         }
-        this.keywordFormbody.keywordValue[0]=ageGroup;
+        this.keywordFormbody.keywordValue[0] = ageGroup;
         break;
       case 'category':
         let category: any = {
           category: this.selectedCategory.id
         }
-        this.keywordFormbody.keywordValue[0]=category;
+        this.keywordFormbody.keywordValue[0] = category;
         break;
       case 'subCategory':
         let subcategory: any = {
-          category:this.selectedCategory.id,
+          category: this.selectedCategory.id,
           subcategory: this.selectedSubCategories
         }
-        this.keywordFormbody.keywordValue[0]=subcategory;
+        this.keywordFormbody.keywordValue[0] = subcategory;
         break;
       case 'days':
-        let days:any = {
-          days:this.daysValue
+        let days: any = {
+          days: this.daysValue
         }
-        this.keywordFormbody.keywordValue[0]=days;
+        this.keywordFormbody.keywordValue[0] = days;
         break;
-        case 'time':
-          let time:any = {
-            time: this.timeValue
-          }
-          this.keywordFormbody.keywordValue[0]=time;
-          break;
-          case 'type':
-          let type:any = {
-            type:this.typeValue
-          }
-          this.keywordFormbody.keywordValue[0]=type;
-          break;
-          case 'format':
-            let format:any = {
-              format:this.formatValue
-            }
-            this.keywordFormbody.keywordValue[0]=format;
-            break;
-            case 'dates':
-              const dateFormat = "YYYY-MM-DD";
-              let dates:any = {
-                from: moment(this.dateFrom).format(dateFormat),
-                to: moment(this.dateTo).format(dateFormat)
-              }
-              this.keywordFormbody.keywordValue[0]=dates;
-              break;
-              case 'price':
-                let price:any = {
-                  from: this.minPrice,
-                  to: this.maxPrice
-                }
-                this.keywordFormbody.keywordValue[0]=price;
-                break;
-                case 'topRated':
-                let topRated:any = {
-                  from: this.minRating,
-                  to: this.maxRating
-                }
-                this.keywordFormbody.keywordValue[0]=topRated;
-                break;
+      case 'time':
+        let time: any = {
+          time: this.timeValue
+        }
+        this.keywordFormbody.keywordValue[0] = time;
+        break;
+      case 'type':
+        let type: any = {
+          type: this.typeValue
+        }
+        this.keywordFormbody.keywordValue[0] = type;
+        break;
+      case 'format':
+        let format: any = {
+          format: this.formatValue
+        }
+        this.keywordFormbody.keywordValue[0] = format;
+        break;
+      case 'dates':
+        const dateFormat = "YYYY-MM-DD";
+        let dates: any = {
+          from: moment(this.dateFrom).format(dateFormat),
+          to: moment(this.dateTo).format(dateFormat)
+        }
+        this.keywordFormbody.keywordValue[0] = dates;
+        break;
+      case 'price':
+        let price: any = {
+          from: this.minPrice,
+          to: this.maxPrice
+        }
+        this.keywordFormbody.keywordValue[0] = price;
+        break;
+      case 'topRated':
+        let topRated: any = {
+          from: this.minRating,
+          to: this.maxRating
+        }
+        this.keywordFormbody.keywordValue[0] = topRated;
+        break;
     }
     console.log('addKeyword before', this.keywordFormbody)
     this.loader.open();
@@ -301,67 +301,67 @@ export class KeywordFormComponent implements OnInit {
           from: this.minAge,
           to: this.maxAge
         }
-        this.keywordFormbody.keywordValue[0]=ageGroup;
+        this.keywordFormbody.keywordValue[0] = ageGroup;
         break;
       case 'category':
         let category: any = {
           category: this.selectedCategory.id
         }
-        this.keywordFormbody.keywordValue[0]=category;
+        this.keywordFormbody.keywordValue[0] = category;
         break;
       case 'subCategory':
         let subcategory: any = {
-          category:this.selectedCategory.id,
+          category: this.selectedCategory.id,
           subcategory: this.selectedSubCategories
         }
-        this.keywordFormbody.keywordValue[0]=subcategory;
+        this.keywordFormbody.keywordValue[0] = subcategory;
         break;
       case 'days':
-        let days:any = {
-          days:this.daysValue
+        let days: any = {
+          days: this.daysValue
         }
-        this.keywordFormbody.keywordValue[0]=days;
+        this.keywordFormbody.keywordValue[0] = days;
         break;
-        case 'time':
-          let time:any = {
-            time: this.timeValue
-          }
-          this.keywordFormbody.keywordValue[0]=time;
-          break;
-          case 'type':
-          let type:any = {
-            type:this.typeValue
-          }
-          this.keywordFormbody.keywordValue[0]=type;
-          break;
-          case 'format':
-            let format:any = {
-              format:this.formatValue
-            }
-            this.keywordFormbody.keywordValue[0]=format;
-            break;
-            case 'dates':
-              const dateFormat = "YYYY-MM-DD";
-              let dates:any = {
-                from: moment(this.dateFrom).format(dateFormat),
-                to: moment(this.dateTo).format(dateFormat)
-              }
-              this.keywordFormbody.keywordValue[0]=dates;
-              break;
-              case 'price':
-                let price:any = {
-                  from: this.minPrice,
-                  to: this.maxPrice
-                }
-                this.keywordFormbody.keywordValue[0]=price;
-                break;
-                case 'topRated':
-                let topRated:any = {
-                  from: this.minRating,
-                  to: this.maxRating
-                }
-                this.keywordFormbody.keywordValue[0]=topRated;
-                break;
+      case 'time':
+        let time: any = {
+          time: this.timeValue
+        }
+        this.keywordFormbody.keywordValue[0] = time;
+        break;
+      case 'type':
+        let type: any = {
+          type: this.typeValue
+        }
+        this.keywordFormbody.keywordValue[0] = type;
+        break;
+      case 'format':
+        let format: any = {
+          format: this.formatValue
+        }
+        this.keywordFormbody.keywordValue[0] = format;
+        break;
+      case 'dates':
+        const dateFormat = "YYYY-MM-DD";
+        let dates: any = {
+          from: moment(this.dateFrom).format(dateFormat),
+          to: moment(this.dateTo).format(dateFormat)
+        }
+        this.keywordFormbody.keywordValue[0] = dates;
+        break;
+      case 'price':
+        let price: any = {
+          from: this.minPrice,
+          to: this.maxPrice
+        }
+        this.keywordFormbody.keywordValue[0] = price;
+        break;
+      case 'topRated':
+        let topRated: any = {
+          from: this.minRating,
+          to: this.maxRating
+        }
+        this.keywordFormbody.keywordValue[0] = topRated;
+        break;
     }
     this.loader.open();
     this.apiservice.updateKeyword(this.keywordForm._id, this.keywordForm).subscribe((res) => {
