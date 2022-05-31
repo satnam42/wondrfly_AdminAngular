@@ -172,9 +172,9 @@
           
           <ul class="ul-tag-col-6">
             <label>Sub-categories</label>
-            <li *ngFor="let tag of subcategories">
-              <mat-checkbox [(ngModel)]="tag.checked"
-                            (ngModelChange)="pushCategory(tag)">
+            <li *ngFor="let tag of subcategories;let i = index">
+              <mat-checkbox [checked]="tag.checked"
+                            (change)="pushCategory($event,i)">
                 {{tag.name}}
               </mat-checkbox>
             </li>
