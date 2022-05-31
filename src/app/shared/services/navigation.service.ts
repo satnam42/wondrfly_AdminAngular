@@ -69,6 +69,10 @@ export class NavigationService {
         { name: 'Programs List', state: 'all-program/id' },
         { name: 'Categories', state: 'category' },
         { name: 'Tags', state: 'tag' },
+        {
+          name: 'Keywords',
+          state: 'keyword'
+        },
       ]
     },
 
@@ -94,13 +98,7 @@ export class NavigationService {
     //   icon: 'person',
     //   state: 'beta-program/enrolled',
     // },
-    {
-      name: 'Keyword',
-      type: 'link',
-      tooltip: 'Keyword',
-      icon: 'spellcheck',
-      state: 'tables/keyword'
-    },
+ 
     {
       name: 'Children',
       type: 'link',
