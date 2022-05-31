@@ -6,6 +6,7 @@ import { Category } from 'app/shared/models/category.model';
 import { ApiService } from 'app/shared/services/api.service.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { DataService } from 'app/shared/services/dataservice.service';
+import * as moment from 'moment';
 import { Options } from 'ng5-slider';
 import { map } from 'rxjs-compat/operator/map';
 
@@ -37,6 +38,8 @@ export class KeywordFormComponent implements OnInit {
   }
   daysValue: any = []
   timeValue: any = []
+  typeValue:any = []
+  formatValue:any = []
   days: any =
     {
       sunday: false,
@@ -49,6 +52,8 @@ export class KeywordFormComponent implements OnInit {
     }
   minAge: number = 3;
   maxAge: number = 10;
+  dateFrom: Date
+  dateTo: Date
   ageOption: Options = {
     floor: 0,
     ceil: 15,
@@ -77,10 +82,7 @@ export class KeywordFormComponent implements OnInit {
       return '' + value;
     }
   };
-  ageGroup: any = {
-    from: 0,
-    to: 0
-  }
+
   keywordValue: any = [];
   isEmpty: any;
   categories: any = []
@@ -201,10 +203,73 @@ export class KeywordFormComponent implements OnInit {
     }
     this.keywordFormbody.keywordName = this.editKeyword.value.keywordName;
     this.keywordFormbody.keywordType = this.editKeyword.value.keywordType;
-    this.ageGroup.from = this.minAge;
-    this.ageGroup.to = this.maxAge;
-    if (this.ageGroup.from || this.ageGroup.to) {
-      this.keywordFormbody.keywordValue[0].ageGroup = this.ageGroup;
+    switch (this.keywordFormbody.keywordType) {
+      case 'age':
+        let ageGroup: any = {
+          from: this.minAge,
+          to: this.maxAge
+        }
+        this.keywordFormbody.keywordValue[0]=ageGroup;
+        break;
+      case 'category':
+        let category: any = {
+          category: this.selectedCategory.id
+        }
+        this.keywordFormbody.keywordValue[0]=category;
+        break;
+      case 'subCategory':
+        let subcategory: any = {
+          category:this.selectedCategory.id,
+          subcategory: this.selectedSubCategories
+        }
+        this.keywordFormbody.keywordValue[0]=subcategory;
+        break;
+      case 'days':
+        let days:any = {
+          days:this.daysValue
+        }
+        this.keywordFormbody.keywordValue[0]=days;
+        break;
+        case 'time':
+          let time:any = {
+            time: this.timeValue
+          }
+          this.keywordFormbody.keywordValue[0]=time;
+          break;
+          case 'type':
+          let type:any = {
+            type:this.typeValue
+          }
+          this.keywordFormbody.keywordValue[0]=type;
+          break;
+          case 'format':
+            let format:any = {
+              format:this.formatValue
+            }
+            this.keywordFormbody.keywordValue[0]=format;
+            break;
+            case 'dates':
+              const dateFormat = "YYYY-MM-DD";
+              let dates:any = {
+                from: moment(this.dateFrom).format(dateFormat),
+                to: moment(this.dateTo).format(dateFormat)
+              }
+              this.keywordFormbody.keywordValue[0]=dates;
+              break;
+              case 'price':
+                let price:any = {
+                  from: this.minPrice,
+                  to: this.maxPrice
+                }
+                this.keywordFormbody.keywordValue[0]=price;
+                break;
+                case 'topRated':
+                let topRated:any = {
+                  from: this.minRating,
+                  to: this.maxRating
+                }
+                this.keywordFormbody.keywordValue[0]=topRated;
+                break;
     }
     console.log('addKeyword before', this.keywordFormbody)
     this.loader.open();
@@ -228,6 +293,76 @@ export class KeywordFormComponent implements OnInit {
     this.keywordForm.keywordValue[0].ageGroup.from = this.minAge;
     this.keywordForm.keywordValue[0].ageGroup.to = this.maxAge;
     console.log('updateKeyword before', this.keywordForm)
+    this.keywordFormbody.keywordName = this.editKeyword.value.keywordName;
+    this.keywordFormbody.keywordType = this.editKeyword.value.keywordType;
+    switch (this.keywordFormbody.keywordType) {
+      case 'age':
+        let ageGroup: any = {
+          from: this.minAge,
+          to: this.maxAge
+        }
+        this.keywordFormbody.keywordValue[0]=ageGroup;
+        break;
+      case 'category':
+        let category: any = {
+          category: this.selectedCategory.id
+        }
+        this.keywordFormbody.keywordValue[0]=category;
+        break;
+      case 'subCategory':
+        let subcategory: any = {
+          category:this.selectedCategory.id,
+          subcategory: this.selectedSubCategories
+        }
+        this.keywordFormbody.keywordValue[0]=subcategory;
+        break;
+      case 'days':
+        let days:any = {
+          days:this.daysValue
+        }
+        this.keywordFormbody.keywordValue[0]=days;
+        break;
+        case 'time':
+          let time:any = {
+            time: this.timeValue
+          }
+          this.keywordFormbody.keywordValue[0]=time;
+          break;
+          case 'type':
+          let type:any = {
+            type:this.typeValue
+          }
+          this.keywordFormbody.keywordValue[0]=type;
+          break;
+          case 'format':
+            let format:any = {
+              format:this.formatValue
+            }
+            this.keywordFormbody.keywordValue[0]=format;
+            break;
+            case 'dates':
+              const dateFormat = "YYYY-MM-DD";
+              let dates:any = {
+                from: moment(this.dateFrom).format(dateFormat),
+                to: moment(this.dateTo).format(dateFormat)
+              }
+              this.keywordFormbody.keywordValue[0]=dates;
+              break;
+              case 'price':
+                let price:any = {
+                  from: this.minPrice,
+                  to: this.maxPrice
+                }
+                this.keywordFormbody.keywordValue[0]=price;
+                break;
+                case 'topRated':
+                let topRated:any = {
+                  from: this.minRating,
+                  to: this.maxRating
+                }
+                this.keywordFormbody.keywordValue[0]=topRated;
+                break;
+    }
     this.loader.open();
     this.apiservice.updateKeyword(this.keywordForm._id, this.keywordForm).subscribe((res) => {
       console.log("updateKeyword res", res)

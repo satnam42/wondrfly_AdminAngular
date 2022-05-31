@@ -83,7 +83,7 @@
 <div *ngIf="keywordForm.keywordType=='type'">
   <mat-form-field class="full-width">
     <mat-label>Type</mat-label>
-    <mat-select name="dayss"  [(ngModel)]="daysValue"
+    <mat-select name="dayss"  [(ngModel)]="typeValue"
        multiple>
         <mat-option [value]="'  Camps'">Camps</mat-option>
         <mat-option [value]="'Semesters'">Semesters</mat-option>
@@ -96,7 +96,7 @@
 <div *ngIf="keywordForm.keywordType=='format'">
   <mat-form-field class="full-width">
     <mat-label>Format</mat-label>
-    <mat-select name="dayss"  [(ngModel)]="daysValue"
+    <mat-select name="dayss"  [(ngModel)]="formatValue"
        >
         <mat-option [value]="'inperson'">In-person</mat-option>
         <mat-option [value]="'online'">Online</mat-option>
@@ -107,7 +107,7 @@
 <div class="row" *ngIf="keywordForm.keywordType=='dates'">
   <div class="col-6">
     <mat-form-field>
-      <input matInput [matDatepicker]="startpicker" placeholder="Start Date">
+      <input matInput [matDatepicker]="startpicker" [(ngModel)]="dateFrom" placeholder="Start Date">
       <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
       <mat-datepicker #startpicker></mat-datepicker>
     </mat-form-field>
@@ -115,7 +115,7 @@
 
   <div class="col-6">
     <mat-form-field>
-      <input matInput [matDatepicker]="endpicker" placeholder="End Date">
+      <input matInput [matDatepicker]="endpicker" [(ngModel)]="dateTo" placeholder="End Date">
       <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
       <mat-datepicker #endpicker></mat-datepicker>
     </mat-form-field>
