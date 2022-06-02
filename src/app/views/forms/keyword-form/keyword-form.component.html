@@ -145,47 +145,29 @@
   <ng5-slider [(value)]="minRating" [(highValue)]="maxRating" [options]="ratingOption">
   </ng5-slider>
 </div>
-<div class="full-width" *ngIf="keywordForm.keywordType=='category' || keywordForm.keywordType=='subCategory' ">
+<div class="row" *ngIf="keywordForm.keywordType=='category' || keywordForm.keywordType=='subCategory' ">
+  <div class="col-6">
+    <mat-form-field>
+      <mat-label>Select Category</mat-label>
+      <mat-select #itemValue (selectionChange)="changeItem($event.value)" 
+      [(ngModel)]="selectedCategory"  >
 
- 
- <section class="example-section">
-   
-    <div class="row">
-            <!-- categories -->
-      <div class="col-3">
-        <span class="example-list-section">
-          
-          <ul>
-            <label>Categories</label>
-            <li *ngFor="let category of categories;let i = index">
-              <mat-checkbox [checked]="selectedCategoryIndx === i"
-                            (change)="selectedCategoryIndx = i;getTag($event,category)">
-                {{category.name}}
-              </mat-checkbox>
-            </li>
-          </ul>
-        </span>
-      </div>
-      <!-- sucategories -->
-      <div class="col-7">
-        <span class="example-list-section" *ngIf="subcategories?.length">
-          
-          <ul class="ul-tag-col-6">
-            <label>Sub-categories</label>
-            <li *ngFor="let tag of subcategories;let i = index">
-              <mat-checkbox [checked]="tag.checked"
-                            (change)="pushCategory($event,i)">
-                {{tag.name}}
-              </mat-checkbox>
-            </li>
-          </ul>
-        </span>
-      </div>
-       </div> 
- 
-  </section>
+        <mat-option selected  *ngFor='let item of categories' 
+         [value]="item.id" >{{item.name}}</mat-option>
+</mat-select>
+    </mat-form-field>
+  </div>
 
-  
+  <div class="col-6">
+    <mat-form-field class="full-width" [hidden]="keywordForm.keywordType!=='subCategory'">
+      <mat-label>Select Sub-category</mat-label>
+      <mat-select #itemValue2 (selectionChange)="selectSubCategory($event.value)" 
+      [(ngModel)]="selectedSubCategories" multiple>
+        <mat-option selected  *ngFor='let item of subcategories' 
+         [value]="item._id" >{{item.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 </div>
   <div class="col-12 button-form pb-3">
     <button type="submit" mat-raised-button [disabled]="!editKeyword.valid" (click)="onSubmit()">Submit</button>

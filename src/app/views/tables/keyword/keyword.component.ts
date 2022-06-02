@@ -33,8 +33,6 @@ export class KeywordComponent implements OnInit {
   ColumnMode = ColumnMode;
   user = new Userr;
   submitted: any;
-  @ViewChild(DaterangepickerDirective, {static: true}) picker: DaterangepickerDirective;
-  selected: {startDate: moment.Moment, endDate: moment.Moment};
   publishedPrograms:any;
   searchText: '';
   isShow = true;
@@ -45,9 +43,6 @@ export class KeywordComponent implements OnInit {
   pageSize = 20;
   keyword="";
   isScrol = true;
-  users: any = new Userr
-  public uploader: FileUploader = new FileUploader({ url: 'upload_url' });
-  public hasBaseDropZoneOver: boolean = false;
   message: string = 'Keyword Deleted Successfully!';
   action: boolean = true;
   setAutoHide: boolean = true;
@@ -58,21 +53,6 @@ export class KeywordComponent implements OnInit {
   formData=new FormData();
   detailPageUrl:string;
   baseURL = environment.baseURL
-  expiredProgram: any;
-  filterColumns: string[] = [
-    'name',
-    'address',
-    'type',
-    'montclair',
-    'byDate'
-  ];
-  selectedValue: any;
-  allExpired: any;
-  unpublished: number;
-  montTemp: any;
-  stratDate: string;
-  endDate: string;
-  filteredData: any;
   keywordData: any;
   keywordRow: any;
   constructor(
@@ -84,7 +64,6 @@ export class KeywordComponent implements OnInit {
     private confirmService: AppConfirmService,
     private loader: AppLoaderService,
     private dialog: MatDialog,
-    private csvService: CsvDataService,
   ) {
     this.activatedRoute.params.subscribe(params => {
       this.user._id = params['id'];
@@ -112,66 +91,6 @@ export class KeywordComponent implements OnInit {
         }
       });
   }
-  // view data 
-  openPopUps(data) {
-    let dialogRef: MatDialogRef<any> = this.dialog.open(SearchProviderPopupComponent, {
-      width: '30%',
-      disableClose: true,
-      data: data,
-      // this.name: this.data.firstName
-    })
-    dialogRef.afterClosed()
-      .subscribe(res => {
-        if (!res) {
-          return;
-        }
-      });
-  }
-  copyText(val: string) {
-    let selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-    selBox.value = val;
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
-    this.snack.open('Copied', 'OK', { duration: 500 });
-  }
-  
-  ProgramDataPopUp(data) {
-    let dialogRef: MatDialogRef<any> = this.dialog.open(ProgramDataPopupComponent, {
-      width: '60%',
-      disableClose: true,
-      data: data
-    })
-    dialogRef.afterClosed()
-      .subscribe(res => {
-        if (!res) {
-          return;
-        }
-        this.loader.open();
-      });
-  }
-
-  form(data,i) {
-    let dialogRef: MatDialogRef<any> = this.dialog.open(PopupFormComponent, {
-      width: '60%',
-      disableClose: true,
-      data: data
-    })
-    dialogRef.afterClosed()
-    .subscribe(res => {
-      if (!res) {
-        // If user press cancel
-        this.rows[i].isExpired=true
-        console.log('called');
-      }
-    });
-  }
 
   onScroll() {
     if (this.isScrol && this.keyword=='') {
@@ -187,18 +106,6 @@ export class KeywordComponent implements OnInit {
     this.pageNo += 1;
   }
 
-  // edit(data) {
-  //   this.route.navigate(['forms/keyword-form', data._id]);
-  // }
-
-  manage(data){
-    this.route.navigate(['tables/program',data.user]);
-  } 
-
-  showHideButton() {
-    this.isShow = !this.isShow;
-  }
-
   setPage(page) {
     this.pageNo = page.offset;
     this.pageSize = page.pageSize;
@@ -211,7 +118,6 @@ export class KeywordComponent implements OnInit {
   getKeywords() {
     this.loader.open();
     this.apiservice.getKeyword().subscribe(res => {
-      console.log('get Keywords',res)
       this.temp = res;
       if (this.temp.data) {
         this.rows = this.temp.data;
@@ -220,7 +126,6 @@ export class KeywordComponent implements OnInit {
       }
       this.loader.close();
     });
-    this.loader.close();
   }
 
   editDataPopup(data): void {
@@ -233,13 +138,11 @@ export class KeywordComponent implements OnInit {
       .subscribe(res => {
         this.getKeywords();
         if (!res) {
-          console.log('from keywordData form',res)
-          this.keywordData = this.dataservice.getOption();
-          console.log('from keywordData form',this.keywordData)
           return;
         }
       });
   }
+  
   deleteKeyword(data,indx) {
     this.confirmService.confirm({ message: `Delete ${data.keywordName}?` }).subscribe(res => {
       if (res) {

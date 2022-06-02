@@ -86,7 +86,6 @@ export class KeywordFormComponent implements OnInit {
   subcategories: any = []
   selectedSubCategories: any = []
   selectedCategory: any = {}
-  selectedCategoryIndx = -1
   constructor(
     private apiservice: ApiService,
     public dialog: MatDialog,
@@ -99,50 +98,37 @@ export class KeywordFormComponent implements OnInit {
   ) {
     this.keywordForm = data;
     this.isEmpty = Object.keys(this.keywordForm).length === 0;
-    console.log('datttttta', this.keywordForm)
   }
 
   getCategory() {
     this.apiservice.getCategory().subscribe(res => {
       this.loader.close();
       this.categories = res;
+      this.getKeywordData();
       // this.categories.sort((a,b) => 0 - (a.name > b.name ? -1 : 1)) 
     });
   }
-  pushCategory(e, indx) {
-    const index = this.selectedSubCategories.indexOf(this.subcategories[indx]._id)
-    if (e.checked) {
-      if (index === -1) {
-        this.selectedSubCategories.push(this.subcategories[indx]._id)
-      }
-    }
-    else {
-      if (index >= 0) {
-        this.selectedSubCategories.splice(index, 1)
-      }
-    }
-
-  }
-  getTag(e, category) {
-    console.log(e.checked)
-    if (e.checked) {
+  getTag( category) {
       this.selectedCategory = category
       this.loader.open();
-      this.apiservice.getTagByCategoryId(category.id).subscribe((res: any) => {
+      this.apiservice.getTagByCategoryId(category).subscribe((res: any) => {
         this.subcategories = res.data
         this.subcategories = this.subcategories.filter((item) => item.isActivated === true && item.programCount);
         this.loader.close();
       });
-    }
-    else {
-      this.selectedSubCategories = []
-      this.selectedCategory = {}
-      this.subcategories = []
-    }
-
   }
   ngOnInit() {
     this.getCategory()
+  
+    this.editKeyword = new FormGroup({
+      keywordName: new FormControl('', Validators.required),
+      keywordType: new FormControl('', Validators.required),
+      keywordValue: new FormControl([]),
+    });
+  }
+
+
+  getKeywordData(){
     if (this.isEmpty) {
       this.editData = false;
     } else {
@@ -153,12 +139,12 @@ export class KeywordFormComponent implements OnInit {
         this.maxAge = this.keywordForm.keywordValue[0].to;
           break;
         case 'category':
-         
-          this.selectedCategory.id = this.keywordForm.keywordValue[0].category;
+          this.selectedCategory = this.keywordForm.keywordValue[0].category;
           break;
         case 'subCategory':
-          this.selectedCategory.id = this.keywordForm.keywordValue[0].category
-          this.selectedCategory = this.keywordForm.keywordValue[0].subcategory
+          this.selectedCategory = this.keywordForm.keywordValue[0].category;
+          this.getTag(this.selectedCategory)
+          this.selectedSubCategories = this.keywordForm.keywordValue[0].subcategory;
           break;
         case 'days':
           this.daysValue = this.keywordForm.keywordValue[0].days
@@ -188,11 +174,6 @@ export class KeywordFormComponent implements OnInit {
           break;
       }
     }
-    this.editKeyword = new FormGroup({
-      keywordName: new FormControl('', Validators.required),
-      keywordType: new FormControl('', Validators.required),
-      keywordValue: new FormControl([]),
-    });
   }
 
   addKeyword() {
@@ -244,12 +225,14 @@ export class KeywordFormComponent implements OnInit {
         this.keywordFormbody.keywordValue[0] = ageGroup;
         break;
       case 'category':
-        this.selectedCategoryIndx = this.keywordFormbody.keywordValue[0].category.category;
-        this.selectedCategory.id = this.keywordFormbody.keywordValue[0].category.category;
+        let category: any = {
+          category: this.selectedCategory
+        }
+        this.keywordFormbody.keywordValue[0] = category;
         break;
       case 'subCategory':
         let subcategory: any = {
-          category: this.selectedCategory.id,
+          category: this.selectedCategory,
           subcategory: this.selectedSubCategories
         }
         this.keywordFormbody.keywordValue[0] = subcategory;
@@ -301,10 +284,8 @@ export class KeywordFormComponent implements OnInit {
         this.keywordFormbody.keywordValue[0] = topRated;
         break;
     }
-    console.log('addKeyword before', this.keywordFormbody)
     this.loader.open();
     this.apiservice.addKeyword(this.keywordFormbody).subscribe((res) => {
-      console.log("addKeyword res", res)
       this.providerResponse = res;
       this.loader.close();
       if (this.providerResponse.isSuccess === true) {
@@ -320,11 +301,6 @@ export class KeywordFormComponent implements OnInit {
   }
 
   updateKeyword() {
-    // this.keywordForm.keywordValue[0].ageGroup.from = this.minAge;
-    // this.keywordForm.keywordValue[0].ageGroup.to = this.maxAge;
-    // console.log('updateKeyword before', this.keywordForm)
-    // this.keywordFormbody.keywordName = this.editKeyword.value.keywordName;
-    // this.keywordFormbody.keywordType = this.editKeyword.value.keywordType;
     switch (this.keywordForm.keywordType) {
       case 'age':
         let ageGroup: any = {
@@ -335,13 +311,13 @@ export class KeywordFormComponent implements OnInit {
         break;
       case 'category':
         let category: any = {
-          category: this.selectedCategory.id
+          category: this.selectedCategory
         }
         this.keywordForm.keywordValue[0] = category;
         break;
       case 'subCategory':
         let subcategory: any = {
-          category: this.selectedCategory.id,
+          category: this.selectedCategory,
           subcategory: this.selectedSubCategories
         }
         this.keywordForm.keywordValue[0] = subcategory;
@@ -395,7 +371,6 @@ export class KeywordFormComponent implements OnInit {
     }
     this.loader.open();
     this.apiservice.updateKeyword(this.keywordForm._id, this.keywordForm).subscribe((res) => {
-      console.log("updateKeyword res", res)
       this.providerResponse = res;
       this.loader.close();
       if (this.providerResponse.isSuccess === true) {
@@ -410,7 +385,14 @@ export class KeywordFormComponent implements OnInit {
     });
   }
 
+  changeItem(event){
+    this.selectedCategory=event
+    this.getTag(this.selectedCategory)
+  }
 
+  selectSubCategory(event){
+    this.selectedSubCategories = event;
+  }
 
   onSubmit() {
     this.submitted = true;

@@ -13,9 +13,19 @@
       <p>{{data?.firstName}}</p>
     </div>
 
+    <div *ngIf="data?.keywordName">
+      <label> Name </label>
+      <p>{{data?.keywordName}}</p>
+    </div>
+
+    <div *ngIf="data?.keywordType">
+      <label> Type </label>
+      <p>{{data?.keywordType}}</p>
+    </div>
+
     <div  *ngIf="data?.name" >
       <label> Name </label>
-      <p placeholder="Name" *ngIf="data?.name">{{data?.name}}</p>
+      <p>{{data?.name}}</p>
     </div>
 
     <div *ngIf="data?.programOwner">
