@@ -35,6 +35,7 @@ import { ExpiredProgramsComponent } from './expired-programs/expired-programs.co
 import { AllExpiredComponent } from './all-expired/all-expired.component';
 import { ParentTableComponent } from './parent-table/parent-table.component';
 import { KeywordComponent } from './keyword/keyword.component';
+import { SearchedKeywordsComponent } from './searched-keywords/searched-keywords.component';
 export const TablesRoutes: Routes = [
   {
     path: '',
@@ -240,6 +241,16 @@ export const TablesRoutes: Routes = [
       path: 'keyword',
       component: KeywordComponent,
       data: { title: 'KEYWORDS'}
+    },
+    {
+      path: 'keyword',
+      component: KeywordComponent,
+      data: { title: 'KEYWORDS'}
+    },
+    {
+      path: 'keyword-logs',
+      component: SearchedKeywordsComponent,
+      data: { title: 'SEARCHED KEYWORDS'}
     },
     ]
   },

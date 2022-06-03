@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Observable } from 'rxjs';
-import { MatAutocomplete, MatAutocompleteSelectedEvent, MatChipInputEvent, MatSliderChange, MatDialogRef, MatDialog, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
-import { startWith, map } from 'rxjs/operators';
+import { MatAutocompleteSelectedEvent, MatSliderChange, MatDialogRef, MatDialog, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
 import { FileUploader } from 'ng2-file-upload';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Userr } from 'app/shared/models/user.model';
@@ -16,7 +15,7 @@ import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.serv
 import { DataService } from 'app/shared/services/dataservice.service';
 import { UpdateBatchPopupComponent } from './update-batch-popup/update-batch-popup.component';
 import { ProgramLocationComponent } from '../program-form/program-location/program-location.component';
-import { invalid } from '@angular/compiler/src/render3/view/util';
+import { Globals } from 'app/shared/helpers/globalfunctions';
 @Component({
   selector: 'app-edit-program',
   templateUrl: './edit-program.component.html',
@@ -129,7 +128,7 @@ capacity:any={
   categoriesList:any = [];
   isResponse = false;
   tag: any = [];
-  constructor(private fb: FormBuilder,
+  constructor(
     private apiservice: ApiService,
     private dialog: MatDialog,
     private loader: AppLoaderService,
@@ -137,7 +136,7 @@ capacity:any={
     private dataservice: DataService,
     private route: Router,
     private snack: MatSnackBar,
-    private location: Location) {
+    private timechange: Globals) {
 
 
     this.activatedRoute.params.subscribe(params => {
@@ -166,13 +165,6 @@ capacity:any={
 
       });
   }
-  // back() {
-  //   this.location.back();
-  // }
-  onFileChanged(e) { }
-
-  onAgeChange(event: MatSliderChange) {
-  }
 
   selected(event: MatAutocompleteSelectedEvent): void {
     // this.intrests.push(event.option.value);
@@ -190,26 +182,18 @@ capacity:any={
 
 
   onChangeSearch(key: string) {
-    console.log('searchTag key', key);
     this.tags = []
     this.apiservice.searchTag(key).subscribe((res: any) => {
       this.tags = res;
       this.tags.tags = this.tags.tags.filter((item) => item.isActivated === true);
-      console.log('searchTag list categories', res);
     });
   }
 
   remove(t) {
     const index = this.tag.indexOf(t);
-
     if (index >= 0) {
       this.tag.splice(index, 1);
-    }
-    console.log('remove intrest', this.tag)
-   
-  }
-
-  onFocused(e) {
+    }   
   }
 
   fileSelect(event) {
@@ -364,11 +348,10 @@ capacity:any={
     this.program.pricePeriod.periodAmount = this.perTimePeriod
     this.program.pricePeriod.periodCount = this.timePeriodDuration
     this.program.subCategoryIds = this.tag
-    this.program.time.from = this.startTime;
-    this.program.time.to = this.endTime;
-    this.program.realTime.from = this.startTime;
-    this.program.realTime.to =this.endTime;
-    console.log('timeeee to ===>',this.program.time.to)
+    this.program.time.from = this.timechange.tools_replaceAll(this.startTime, ":",".");
+    this.program.time.to = this.timechange.tools_replaceAll(this.endTime, ":",".");
+    this.program.realTime.from = this.timechange.tools_replaceAll(this.startTime, ":",".");
+    this.program.realTime.to = this.timechange.tools_replaceAll(this.endTime, ":",".");
     this.program.date.from = moment(this.startDate).format(dateFormat)
     this.program.date.to = moment(this.endDate).format(dateFormat)
     var datesDiff:any =  Math.round((this.endDate - this.startDate)/(1000*60*60*24));
@@ -380,7 +363,6 @@ if(datesDiff==0){
  }
 else{
 while (i <= datesDiff) {
- console.log(loop);
        days.push(moment(loop).format('dddd')) 
  let newDate = loop.setDate(loop.getDate() + 1);
  i++;
@@ -388,7 +370,6 @@ while (i <= datesDiff) {
 }
 }
 
-console.log('daysValue',this.daysValue)
 for(let i in this.daysValue){
 let dayValue = this.daysValue[i]
 switch (dayValue){
@@ -433,10 +414,8 @@ switch (dayValue){
     // }
     // this.loader.open();
    
-    console.log('before update', this.program)
     this.apiservice.updateProgram(this.program._id, this.program).subscribe(res => {
       response = res;
-      console.log('after update', res)
       this.loader.close();
       if (response.isSuccess === true) {
         let msg = "Program Updated successfully";
@@ -459,20 +438,17 @@ switch (dayValue){
   }
   
   changeItem(event){
-    console.log('selected cat id', event)
     this.program.categoryId=event
   }
   
   changetags(event){
     this.tags=event
-    console.log('selected cat id', this.tags)
   }
  
 
   getQuantity(event) {
     this.numbers= []
      this.title = ''
-    console.log('event limit', event )
     let n
     if(event==='Month'){
       n=12
@@ -508,15 +484,12 @@ switch (dayValue){
   getProgramById() {
     this.changeItem(this.program.category)
     this.apiservice.getProgramById(this.program._id).subscribe(res => {
-      console.log('get program by id function called',res);
       this.program = res;
       let daysValue:any= []
       daysValue = Object.keys(this.program.days);
    this.daysValue = daysValue.filter((key)=> {
         return this.program.days[key]
     })
-      console.log('daysValue',this.daysValue);
-
       this.ageGroup.from=this.program.ageGroup.from 
       this.ageGroup.to=this.program.ageGroup.to 
       this.capacity.minCapacity=this.program.capacity.min 
@@ -531,10 +504,12 @@ switch (dayValue){
         this.startDate = this.program.date.from;
         this.endDate = this.program.date.to;
       }
-      this.startTime = this.program.time.from ;
-      this.endTime = this.program.time.to;
+      let timestart =this.program.time.from ; 
+      let timeend = this.program.time.to;
+      this.startTime = this.timechange.tools_replaceAll(timestart.toFixed(2), ".",":"); 
+      this.endTime = this.timechange.tools_replaceAll(timeend.toFixed(2), ".",":"); 
       this.durationTime.hours= this.program.duration.hours;
-      this.durationTime.minutes= this.program.duration.minutes  
+      this.durationTime.minutes= this.program.duration.minutes;  
       // this.startTime.getHours() + ':' + this.endTime.getMinutes()
       if(this.program.category.length){
       for(let category of this.program.category){

@@ -2,14 +2,10 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatDialog, MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router } from '@angular/router';
-import { Category } from 'app/shared/models/category.model';
 import { ApiService } from 'app/shared/services/api.service.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
-import { DataService } from 'app/shared/services/dataservice.service';
 import * as moment from 'moment';
 import { Options } from 'ng5-slider';
-import { map } from 'rxjs-compat/operator/map';
-
 @Component({
   selector: 'app-keyword-form',
   templateUrl: './keyword-form.component.html',
@@ -91,7 +87,6 @@ export class KeywordFormComponent implements OnInit {
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<KeywordFormComponent>,
-    private dataservice: DataService,
     private loader: AppLoaderService,
     private snack: MatSnackBar,
     private route: Router,
@@ -102,7 +97,6 @@ export class KeywordFormComponent implements OnInit {
 
   getCategory() {
     this.apiservice.getCategory().subscribe(res => {
-      this.loader.close();
       this.categories = res;
       this.getKeywordData();
       // this.categories.sort((a,b) => 0 - (a.name > b.name ? -1 : 1)) 
@@ -110,11 +104,9 @@ export class KeywordFormComponent implements OnInit {
   }
   getTag( category) {
       this.selectedCategory = category
-      this.loader.open();
       this.apiservice.getTagByCategoryId(category).subscribe((res: any) => {
         this.subcategories = res.data
         this.subcategories = this.subcategories.filter((item) => item.isActivated === true && item.programCount);
-        this.loader.close();
       });
   }
   ngOnInit() {

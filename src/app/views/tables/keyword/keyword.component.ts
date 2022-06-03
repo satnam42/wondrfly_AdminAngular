@@ -18,6 +18,7 @@ import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
 import { SearchProviderPopupComponent } from '../all-program-table/search-provider-popup/search-provider-popup.component';
 import { DataPopupComponent } from '../data-popup/data-popup.component';
 import { ProgramDataPopupComponent } from '../program-table/program-data-popup/program-data-popup.component';
+import { SearchedKeywordsComponent } from '../searched-keywords/searched-keywords.component';
 
 @Component({
   selector: 'app-keyword',
@@ -137,10 +138,15 @@ export class KeywordComponent implements OnInit {
     dialogRef.afterClosed()
       .subscribe(res => {
         this.getKeywords();
-        if (!res) {
-          return;
-        }
       });
+  }
+
+  logs(): void {
+    let dialogRef: MatDialogRef<any> = this.dialog.open(SearchedKeywordsComponent, {
+      width: '70%',
+      disableClose: true,
+    })
+    dialogRef.afterClosed()
   }
   
   deleteKeyword(data,indx) {
@@ -163,8 +169,18 @@ export class KeywordComponent implements OnInit {
       }
     })
   }
-  activateDeactivateKeyword(){
-    
+  activateDeactivateKeyword(data,id){
+    var model: any = {
+      id: id,
+      isActivated: data.checked
+    }
+    this.apiservice.keyWordActivateDeactivate(model).subscribe((res:any) => {
+      console.log(res)
+      if(res.isSuccess){
+        // this.snack.open('Program published', 'OK', { duration: 4000 });
+        // this.rows[indx].isPublished = booleanValue
+      }else{this.snack.open('Somthing went wrong', 'OK', { duration: 4000 });}
+    });
   }
   ngOnInit() {
     this.getKeywords();

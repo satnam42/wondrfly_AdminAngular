@@ -234,7 +234,7 @@
             <div class="pl-3 pr-3">
           <mat-form-field class="full-width">
             <mat-label>START TIME</mat-label>
-            <input matInput name="startTime" type='number' [formControl]="firstFormGroup.controls['startTime']" [(ngModel)]="startTime"
+            <input matInput name="startTime" type='time' [formControl]="firstFormGroup.controls['startTime']" [(ngModel)]="startTime"
              placeholder="Start Time" >
             <!-- <owl-date-time [pickerType]="'timer'" #dt3></owl-date-time> -->
           </mat-form-field>
@@ -245,7 +245,7 @@
           <div class="pl-3 pr-3">
           <mat-form-field class="full-width">
             <mat-label>END TIME</mat-label>
-            <input matInput name="endTime" type='number' [formControl]="firstFormGroup.controls['endTime']" [(ngModel)]="endTime"
+            <input matInput name="endTime" type='time' [formControl]="firstFormGroup.controls['endTime']" [(ngModel)]="endTime"
                placeholder="End Time" >
             <!-- <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time> -->
           </mat-form-field>
@@ -576,7 +576,7 @@
           <mat-icon class="pt-1" [style.fontSize]="'36px'">check</mat-icon>
         </div>
         <div class="full-width"> You Are Done.</div>
-        <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+        <button mat-raised-button color="primary" [disabled]="!startTime && !program.isTimeNotMention" (click)="submit()">Submit</button>
         <!-- <div fxLayout="row">
           <button mat-raised-button color="red" matStepperPrevious>Back</button>
           <span fxFlex="8px"></span>

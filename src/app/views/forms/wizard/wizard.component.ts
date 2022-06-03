@@ -14,6 +14,7 @@ import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.serv
 import { DataService } from 'app/shared/services/dataservice.service';
 import { ProgramLocationComponent } from '../program-form/program-location/program-location.component';
 import { AddBatchComponent } from '../program-form/add-batch/add-batch-.component';
+import { Globals } from 'app/shared/helpers/globalfunctions';
 
 @Component({
   selector: 'app-wizard',
@@ -149,7 +150,8 @@ export class WizardComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private route: Router,
     private dataservice: DataService,
-    private snack: MatSnackBar) {
+    private snack: MatSnackBar,
+    private timechange:Globals) {
     this.activatedRoute.params.subscribe(params => {
       this.user._id = params['id'];
     });
@@ -177,18 +179,12 @@ export class WizardComponent implements OnInit {
 
       });
   }
-  onFileChanged(e) { }
-
-  onAgeChange(event: MatSliderChange) {
-  }
-
+ 
   onChangeSearch(key: string) {
-    console.log('searchTag key', key);
     this.tags = []
     this.apiservice.searchTag(key).subscribe((res: any) => {
       this.tags = res;
       this.tags.tags = this.tags.tags.filter((item) => item.isActivated === true);
-      console.log('searchTag list categories', res);
     });
 
     // fetch remote data from here
@@ -197,12 +193,9 @@ export class WizardComponent implements OnInit {
 
   remove(t) {
     const index = this.tag.indexOf(t);
-
     if (index >= 0) {
       this.tag.splice(index, 1);
-    }
-    console.log('remove intrest', this.tag)
-   
+    }   
   }
 
 
@@ -385,10 +378,10 @@ export class WizardComponent implements OnInit {
     this.program.ageGroup.to = this.maxAge
     this.program.userId = this.user._id;
     this.program.bookingCancelledIn = this.bookingCancelledIn;
-    this.program.time.from = this.startTime;
-    this.program.time.to = this.endTime;
-    this.program.realTime.from = this.startTime;
-    this.program.realTime.to =this.endTime;
+    this.program.time.from = this.timechange.tools_replaceAll(this.startTime, ":",".");
+    this.program.time.to = this.timechange.tools_replaceAll(this.endTime, ":",".");
+    this.program.realTime.from = this.program.time.from;
+    this.program.realTime.to = this.program.time.to;
     this.program.date.from = moment(this.startDate).format(dateFormat)
     this.program.date.to = moment(this.endDate).format(dateFormat)
     this.program.extractionDate =  moment(this.extractionDate).format(dateFormat)
@@ -403,7 +396,6 @@ if(datesDiff==0){
   }
 else{
 while (i <= datesDiff) {
-  console.log(loop);
         days.push(moment(loop).format('dddd')) 
   let newDate = loop.setDate(loop.getDate() + 1);
   i++;
@@ -425,11 +417,9 @@ while (i <= datesDiff) {
       let msg = "Please enter valid minutes";
         this.snack.open(msg, 'ERROR', { duration: 4000 });
     }else{
-      console.log('program before add',this.program);
     this.loader.open();
  
     this.apiservice.addProgram(this.program).subscribe((res:any) => {
-      console.log('response',res);
       this.loader.close();
       if (res.isSuccess === true) {
         this.snack.open('Program Added successfully', 'OK', { duration: 5000 });

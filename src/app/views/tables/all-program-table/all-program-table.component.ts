@@ -165,7 +165,6 @@ export class AllProgramTableComponent implements OnInit {
       if (!res) {
         // If user press cancel
         this.rows[i].isExpired=true
-        console.log('called');
         this.allExpiredProgram()
       }
     });
@@ -226,7 +225,6 @@ if(res.isSuccess){
   getProgram() {
     this.loader.open();
     this.apiservice.getProgram(this.pageNo, this.pageSize).subscribe(res => {
-      console.log(res)
       this.temp = res;
       if (this.temp.items) {
         this.rows = this.rows.concat(this.temp.items);
@@ -242,7 +240,6 @@ if(res.isSuccess){
   getMontclairProgram() {
     this.loader.open();
     this.apiservice.getMontclairProgram(this.pageNo, this.pageSize).subscribe(res => {
-      console.log(res)
       this.montTemp = res;
       if (this.montTemp.items) {
         this.rows = this.rows.concat(this.montTemp.items);
@@ -271,14 +268,12 @@ if(res.isSuccess){
   allExpiredProgram() {
     this.apiservice.allExpiredProgram().subscribe((res:any) => {
       this.allExpired = res.items;
-      console.log(res)
     });
   }
 
   // getUnpublishCount() {
   //   this.apiservice.getPublishedProgram(this.pageNo, this.pageSize,'unpublished').subscribe(res => {
   //   this.UnPublishedPrograms = res;
-  //   console.log("getUnpublishCount",res)
   //   })
   // }
 
@@ -338,7 +333,6 @@ if(res.isSuccess){
        this.endDate = moment(e.endDate._d).format('YYYY-MM-DD')
        this.loader.open();
       this.apiservice.programFilterByDate('from',this.stratDate,this.endDate).subscribe((res:any)=>{
-        console.log(res)
         if(res.isSuccess){
           response = res.data;
           this.rows= response
@@ -356,7 +350,6 @@ if(res.isSuccess){
       this.rows=[];
       this.getMontclairProgram();
     }else if(this.selectedValue=='byDate' && this.selected){
-      console.log(this.selected)
       // this.apiservice.programFilterByDate('from',)
     }
   }
@@ -379,7 +372,6 @@ if(res.isSuccess){
       if(!this.selectedValue){
       this.selectedValue=this.defaultFilter;
     }
-    console.log(this.selectedValue)
     this.loader.open();
     this.apiservice.searchProgramFilter(this.selectedValue, key).subscribe((res: any) => {
       if(res.isSuccess){
@@ -404,7 +396,6 @@ if(res.isSuccess){
     this.formData.append('csv',this.fileData);
       this.apiservice.programCSVupload(this.formData).subscribe(res => {
         this.getProgram();
-        console.log('res',res)
       });
   }
   routeToDetailPage(data) {
@@ -419,7 +410,6 @@ if(res.isSuccess){
     isPublished: data.checked
   }
   this.apiservice.PublishedProgram (model).subscribe((res:any) => {
-    console.log(res)
     if(res.isSuccess){
       // this.snack.open('Program published', 'OK', { duration: 4000 });
       // this.rows[indx].isPublished = booleanValue
@@ -428,7 +418,6 @@ if(res.isSuccess){
 }
 trueFalseFreeTrial(e,indx) {
  this.apiservice.trueFalseFreeTrialProgram(this.rows[indx]._id,e.checked).subscribe((res:any)=>{
-console.log(res)
   })
 }
 }

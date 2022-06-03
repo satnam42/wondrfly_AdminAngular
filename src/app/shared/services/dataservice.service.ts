@@ -14,14 +14,11 @@ export class DataService {
 
     setOption(option) {
         this.data = option;
-        console.log('setOption', option);
-        console.log('data from data service = >> ', this.data);
         this._currentUserSubject.next(option);
         this._dataSubject.next(option);
     }
 
     getOption() {
-        console.log('getOption', this.data);
         return this.data;
     }
 

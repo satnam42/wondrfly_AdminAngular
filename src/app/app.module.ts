@@ -28,6 +28,7 @@ import { RolespopupComponent } from './rolespopup/rolespopup.component';
 import { ActiveUser } from './shared/services/auth/auth.guard';
 import { AuthsService } from './shared/services/auth.service';
 import { LocalStorageService } from './shared/services/local-storage.service';
+import { Globals } from './shared/helpers/globalfunctions';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -66,6 +67,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   providers: [
     ActiveUser,
     AuthsService,
+    Globals,
     LocalStorageService,
     { provide: ErrorHandler, useClass: ErrorHandlerService },
     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig },

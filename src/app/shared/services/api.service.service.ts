@@ -1442,7 +1442,7 @@ getParentAnalytics(id): Observable<any[]> {
             });
             return subject.asObservable();
         }
-// Filter Keywords CRUD
+// Filter Keywords CRUD   ==========================================================================================
 addKeyword(model): Observable<any[]> {
     const subject = new Subject<any[]>();
     this.http.post(`${this.root}/filterkeys/create`, model, this.getHeaders()).subscribe((responseData) => {
@@ -1483,7 +1483,27 @@ getKeyword(): Observable<any> {
     return subject.asObservable();
 }
 
+getKeywordSearchedList(): Observable<any> {
+    const subject = new Subject<any>();
+    this.http.get(`${this.root}/freetextSearch/list`, this.getHeaders()).subscribe((responseData: any) => {
+        subject.next(responseData);
+    }, (error) => {
+        subject.next(error.error);
+    });
+    return subject.asObservable();
+}
 
+keyWordActivateDeactivate(model): Observable<any[]> {
+    const subject = new Subject<any[]>();
+    this.http.put(`${this.root}/filterkeys/activeOrDeactive?id=${model.id}&isActivated=${model.isActivated}`,'',this.getHeaders()).subscribe((responseData) => {
+        // this.getHeaders() 
+        this.categoryResponse = responseData;
+        subject.next(this.categoryResponse);
+    }, (error) => {
+        subject.next(error.error);
+    });
+    return subject.asObservable();
+}
 
 }
 
