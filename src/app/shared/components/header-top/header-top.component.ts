@@ -7,9 +7,7 @@ import { LayoutService } from '../../services/layout.service';
 import { LocalStorageService } from 'app/shared/services/local-storage.service';
 import { AuthsService } from 'app/shared/services/auth.service';
 import { Userr } from 'app/shared/models/user.model';
-import { NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
-import { filter } from 'rxjs-compat/operator/filter';
-
+import { NavigationEnd, Router } from '@angular/router';
 @Component({
   selector: 'app-header-top',
   templateUrl: './header-top.component.html'

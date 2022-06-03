@@ -6,9 +6,6 @@ import { MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPo
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { Userr } from 'app/shared/models/user.model';
 import { AuthsService } from 'app/shared/services/auth.service';
-import { HeaderTopComponent } from 'app/shared/components/header-top/header-top.component';
-import { ProfileComponent } from '../profile.component';
-
 @Component({
   selector: 'app-profile-settings',
   templateUrl: './profile-settings.component.html',

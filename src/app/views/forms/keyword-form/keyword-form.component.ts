@@ -177,43 +177,6 @@ export class KeywordFormComponent implements OnInit {
   }
 
   addKeyword() {
-    if (this.daysValue.length == 0) {
-      this.days = {
-        sunday: false,
-        monday: false,
-        tuesday: false,
-        wednesday: false,
-        thursday: false,
-        friday: false,
-        saturday: false,
-      }
-    }
-    for (let i in this.daysValue) {
-      let dayValue = this.daysValue[i]
-      switch (dayValue) {
-        case 'sunday':
-          this.days.sunday = true;
-          break;
-        case 'monday':
-          this.days.monday = true
-          break;
-        case 'tuesday':
-          this.days.tuesday = true
-          break;
-        case 'wednesday':
-          this.days.wednesday = true
-          break;
-        case 'thursday':
-          this.days.thursday = true
-          break;
-        case 'friday':
-          this.days.friday = true
-          break;
-        case 'saturday':
-          this.days.saturday = true
-          break;
-      }
-    }
     this.keywordFormbody.keywordName = this.editKeyword.value.keywordName;
     this.keywordFormbody.keywordType = this.editKeyword.value.keywordType;
     switch (this.keywordFormbody.keywordType) {
@@ -293,7 +256,6 @@ export class KeywordFormComponent implements OnInit {
         this.snack.open(this.message, 'OK', { duration: 7000 });
         this.route.navigate(['tables/keyword']);
       } else {
-
         let msg = 'Somthing went wrong!';
         this.snack.open(msg, 'OK', { duration: 7000 });
       }
