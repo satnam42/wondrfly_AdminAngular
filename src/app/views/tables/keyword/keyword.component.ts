@@ -1,23 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar, MatDialog, MatSnackBarConfig, MatDialogRef } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ColumnMode } from '@swimlane/ngx-datatable';
-import { PopupFormComponent } from 'app/shared/components/popup-form/popup-form.component';
 import { Userr } from 'app/shared/models/user.model';
 import { ApiService } from 'app/shared/services/api.service.service';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { DataService } from 'app/shared/services/dataservice.service';
-import { CsvDataService } from 'app/shared/services/excel.service';
 import { KeywordFormComponent } from 'app/views/forms/keyword-form/keyword-form.component';
 import { environment } from 'environments/environment';
-import * as moment from 'moment';
-import { FileUploader } from 'ng2-file-upload';
-import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
-import { SearchProviderPopupComponent } from '../all-program-table/search-provider-popup/search-provider-popup.component';
 import { DataPopupComponent } from '../data-popup/data-popup.component';
-import { ProgramDataPopupComponent } from '../program-table/program-data-popup/program-data-popup.component';
 import { SearchedKeywordsComponent } from '../searched-keywords/searched-keywords.component';
 
 @Component({
@@ -58,7 +51,6 @@ export class KeywordComponent implements OnInit {
   keywordRow: any;
   constructor(
     public route: Router,
-    private dataservice: DataService,
     private apiservice: ApiService,
     private snack: MatSnackBar,
     private activatedRoute: ActivatedRoute,
@@ -175,7 +167,6 @@ export class KeywordComponent implements OnInit {
       isActivated: data.checked
     }
     this.apiservice.keyWordActivateDeactivate(model).subscribe((res:any) => {
-      console.log(res)
       if(res.isSuccess){
         // this.snack.open('Program published', 'OK', { duration: 4000 });
         // this.rows[indx].isPublished = booleanValue

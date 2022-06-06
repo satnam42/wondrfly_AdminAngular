@@ -32,12 +32,12 @@
             <div class="search-form-info">
             <mat-form-field class="w-85" appearance="standard" [hidden]="selectedValue=='montclair' || selectedValue=='byDate'">
             <!-- <mat-label>Search</mat-label> -->
-            <input matInput [formControl]="searchControl" [(ngModel)]="keyword" placeholder="Search" #input>
+            <input matInput [formControl]="searchControl" placeholder="Search">
             <button mat-icon-button matSuffix value="reset" matTooltip="Search">
                 <mat-icon class="text-primary">search</mat-icon>
             </button>
             </mat-form-field>
-            <mat-form-field class="w-85" appearance="standard" *ngIf="selectedValue=='byDate'">
+            <!-- <mat-form-field class="w-85" appearance="standard" *ngIf="selectedValue=='byDate'">
                 <input type="text" matInput
             ngxDaterangepickerMd
             [(ngModel)]="selected"
@@ -45,7 +45,7 @@
             [autoApply]="true"
             (datesUpdated)="choosedDate($event)"
             name="daterange"/>
-            </mat-form-field>
+            </mat-form-field> -->
             <!-- <button mat-raised-button value="reset" class="m-2" (click)="reset()"  matTooltip="Reset">
                 <mat-icon>autorenew</mat-icon>  Reset
             </button> -->
@@ -121,7 +121,7 @@
                     <th >
                     </th>
                 </tr>
-                <tr *ngFor="let row of rows | filter : searchText; let i = index">
+                <tr *ngFor="let row of rows let i = index">
                     <td class="left">
                         <span (click)="routeToDetailPage(row)"> <a  href="{{detailPageUrl}}" target="_blank">{{row.name}}</a></span>
                     </td>

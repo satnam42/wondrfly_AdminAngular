@@ -8,6 +8,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { Userr } from 'app/shared/models/user.model';
 import { ApiService } from 'app/shared/services/api.service.service';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
@@ -20,29 +21,13 @@ import { Observable } from 'rxjs';
 import { finalize, share } from 'rxjs/operators';
 import { DataPopupComponent } from '../data-popup/data-popup.component';
 
-
-
-export interface UserData {
-  id: string;
-  firstName: string;
-  isActivated: boolean;
-  isFreeTrial: boolean;
-  phoneNumber: string;
-  email: string;
-  addressLine1: string;
-  country:string;
-  progress:string;
-  updatedOn:string;
-  state:string;
-}
-
-
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
+  userr: Userr;
   displayedColumns: any[] = [
     'select',
     'id',
@@ -60,8 +45,8 @@ export class UsersComponent implements OnInit {
     'byDate'
   ];
   defaultFilter: string ='firstName';
-  dataSource: MatTableDataSource<UserData>;
-  selection = new SelectionModel<UserData>(true, []);
+  dataSource: MatTableDataSource<Userr>;
+  selection = new SelectionModel<Userr>(true, []);
 
   @ViewChild(MatPaginator,{static:false}) paginator!: MatPaginator;
   @ViewChild(MatSort,{static:false}) sort!: MatSort;
@@ -282,14 +267,14 @@ export class UsersComponent implements OnInit {
     this.selection.select(...this.dataSource.data);
   }
 
-  checkboxLabel(row?: UserData): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
-      row.id + 1
-    }`;
-  }
+  // checkboxLabel(row?: UserData): string {
+  //   if (!row) {
+  //     return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+  //   }
+  //   return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+  //     row.id + 1
+  //   }`;
+  // }
 
 
   selectedFilter(value: any) {
