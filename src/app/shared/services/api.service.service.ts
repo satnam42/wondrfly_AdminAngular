@@ -562,7 +562,7 @@ approveOrDeclineById(type,id): Observable<Userr[]> {
     programMultiFilter(filter): Observable<Program> {
         const subject = new Subject<Program>();
         this.http.get(`${this.root}/programs/multiFilter?${filter}`, this.getHeaders()).subscribe((responseData: any) => {
-            subject.next(responseData.data);
+            subject.next(responseData.items);
         }, (error) => {
             subject.next(error.error);
         });
@@ -1229,7 +1229,7 @@ approveOrDeclineById(type,id): Observable<Userr[]> {
     }
 
     // ---------------------------------------------Expiring soon program ------------------------------------------------------------
-    getExpiredProgram(pageNo, pageSize): Observable<Program[]> {
+    getExpiringProgram(pageNo, pageSize): Observable<Program[]> {
         const subject = new Subject<Program[]>();
         this.http.get(`${this.root}/programs/expiresInWeek?pageNo=${pageNo}&pageSize=${pageSize}`, this.getHeaders()).subscribe((responseData: any) => {
             this.userResponse = responseData;

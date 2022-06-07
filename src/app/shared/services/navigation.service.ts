@@ -66,7 +66,7 @@ export class NavigationService {
 
       // badges: [{ color: 'primary', value: '3' }],
       sub: [
-        { name: 'Programs List', state: 'all-program/id' },
+        { name: 'Programs List', state: 'all-program' },
         { name: 'Categories', state: 'category' },
         { name: 'Tags', state: 'tag' },
         {

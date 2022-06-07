@@ -116,7 +116,7 @@ export const TablesRoutes: Routes = [
       data: { title: 'PROGRAM', breadcrumb: 'PROGRAM' }
     },
     {
-      path: 'all-program/:id',
+      path: 'all-program',
       component: AllProgramTableComponent,
       data: { title: 'ALL-PROGRAM'}
     },

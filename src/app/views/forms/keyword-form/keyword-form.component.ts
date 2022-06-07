@@ -102,16 +102,15 @@ export class KeywordFormComponent implements OnInit {
       // this.categories.sort((a,b) => 0 - (a.name > b.name ? -1 : 1)) 
     });
   }
-  getTag( category) {
+  getTag(category) {
       this.selectedCategory = category
       this.apiservice.getTagByCategoryId(category).subscribe((res: any) => {
         this.subcategories = res.data
-        this.subcategories = this.subcategories.filter((item) => item.isActivated === true && item.programCount);
+        // this.subcategories = this.subcategories.filter((item) => item.isActivated === true && item.programCount);
       });
   }
   ngOnInit() {
     this.getCategory()
-  
     this.editKeyword = new FormGroup({
       keywordName: new FormControl('', Validators.required),
       keywordType: new FormControl('', Validators.required),

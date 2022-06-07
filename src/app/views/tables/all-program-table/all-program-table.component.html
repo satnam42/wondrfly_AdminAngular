@@ -12,7 +12,7 @@
         </div> -->
         <div class="col-6 tablesuser-flex">
             <h4> 
-                Total Programs<span class="blue-clr" [hidden]="selectedValue=='montclair'" > ({{temp?.total}})</span> <span class="blue-clr" [hidden]="selectedValue!=='montclair'" > ({{montTemp?.total}})</span> 
+                Total Programs<span class="blue-clr" [hidden]="selectedValue=='montclair'" > ({{totalProgramsCount}})</span> <span class="blue-clr" [hidden]="selectedValue!=='montclair'" > ({{montTemp?.total}})</span> 
             </h4>
             <div class="add-program-btn">
             <!-- <label class="letsplay_btn ">Import
@@ -69,12 +69,13 @@
     <div class="row">
         <div class="col-12">
             <ul class="table-top-links">
-              <li class="active"><a routerLink='/tables/online-programs'>Online Programs</a></li>
-              <li><a *ngIf="publishedPrograms?.total" routerLink='/tables/published'>Published ({{publishedPrograms?.total}}) <span  *ngIf="publishedPrograms?.total==0"> (0)</span> </a></li>
-              <li><a *ngIf="unpublished" routerLink='/tables/unpublish'>Unpublished ({{unpublished}}) <span *ngIf="unpublished==0"> (0)</span></a></li>
-              <li><a *ngIf="expiredProgram?.length" routerLink='/tables/expiring'>Expiring Soon ({{expiredProgram?.length}}) <span *ngIf="!expiredProgram?.length"> (0)</span></a></li>
-              <li><a *ngIf="allExpired?.length" routerLink='/tables/expired'>Expired ({{allExpired?.length}})
-                <span *ngIf="!allExpired?.length"> (0)</span>
+              <!-- <li [ngClass]="{'active': activeTab === 'online'}" ><a (click)="onlinePrograms()">Online Programs</a></li> -->
+                <li [ngClass]="{'active': activeTab === ''}" ><a (click)="activeProgramsTab('')">All Programs</a></li>
+              <li [ngClass]="{'active': activeTab === 'online'}" ><a (click)="activeProgramsTab('online')">Online Programs</a></li>
+              <li [ngClass]="{'active': activeTab === 'published'}" ><a (click)="activeProgramsTab('published')">Published <span *ngIf="publishedPrograms?.total">({{publishedPrograms?.total}})</span></a></li>
+              <li [ngClass]="{'active': activeTab === 'unpublished'}" ><a (click)="activeProgramsTab('unpublished')">Unpublished <span *ngIf="unpublished?.total">({{unpublished?.total}})</span></a></li>
+              <li [ngClass]="{'active': activeTab === 'expiring'}" ><a (click)="activeProgramsTab('expiring')">Expiring Soon <span *ngIf="expiredProgram?.items?.length">({{expiredProgram?.items?.length}})</span></a></li>
+              <li [ngClass]="{'active': activeTab === 'expired'}" ><a (click)="activeProgramsTab('expired')">Expired <span *ngIf="allExpired?.items?.length">({{allExpired?.items?.length}})</span>
                 <span class="ml-5" style="color: rgb(51, 49, 49); font: bolder;" *ngIf="keyword || stratDate"> Results 
                     <span *ngIf="stratDate || keyword &&  filteredData?.length"> ({{filteredData?.length}})</span>
                     <span *ngIf="keyword && !filteredData?.length"> (0)</span>
@@ -85,7 +86,7 @@
     </div>
     <div class="row">
     <div class="col-12">
-    <div class="search-results table-body-info" #scrollToTop infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="false" *ngIf="rows.length">
+    <div class="search-results table-body-info"  *ngIf="rows.length">
         <table>
             <tbody>
                 <tr>
@@ -121,22 +122,22 @@
                     <th >
                     </th>
                 </tr>
-                <tr *ngFor="let row of rows let i = index">
+                <tr *ngFor="let row of rows; let i = index">
                     <td class="left">
-                        <span (click)="routeToDetailPage(row)"> <a  href="{{detailPageUrl}}" target="_blank">{{row.name}}</a></span>
+                        <span (click)="routeToDetailPage(row)"> <a  href="{{detailPageUrl}}" target="_blank">{{row?.name}}</a></span>
                     </td>
                     <!-- <td>
                         <span (click)="openPopUp(row)">{{ row._id }}</span>
                     </td> -->
                     <td>
-                        <span (click)="openPopUp(row)">{{row.programOwner}}</span>
+                        <span (click)="openPopUp(row)">{{row?.programOwner}}</span>
                     </td>
                     <td>
-                        <span (click)="openPopUp(row)">{{row.addresses}}</span>
+                        <span (click)="openPopUp(row)">{{row?.addresses}}</span>
                     </td>
                     <td>
-                        <span (click)="openPopUp(row)" *ngIf="row.isFree">Free</span>
-                        <span *ngIf="!row.isFree"><span (click)="openPopUp(row)">${{row.pricePerParticipant}}</span><span *ngIf="row.pricePeriod.periodAmount">/{{row.pricePeriod.periodAmount}}</span></span>
+                        <span (click)="openPopUp(row)" *ngIf="row?.isFree">Free</span>
+                        <span *ngIf="!row?.isFree"><span (click)="openPopUp(row)">${{row?.pricePerParticipant}}</span><span *ngIf="row?.pricePeriod?.periodAmount">/{{row?.pricePeriod?.periodAmount}}</span></span>
                     </td>
                     <td>
                         <span (click)="openPopUp(row)">{{row.type}}</span>
@@ -199,11 +200,7 @@
               <button mat-menu-item (click)="form(row,i)">
                 <mat-icon class="col-blue">timer_off</mat-icon>Set to be Expired
               </button>
-                            <button mat-menu-item (click)="ProgramDataPopUp(row)">
-                <mat-icon class="col-blue">view_comfy</mat-icon>View
-              </button>
-
-
+                       
                         </mat-menu>
 
                     </td>
@@ -214,8 +211,8 @@
     </div>
     </div>
 
-    <div class="col-12">
-        <div class="pagination-table-info">
+    <div class="col-12" [hidden]="activeTab === 'expiring' || activeTab === 'expired'">
+        <!-- <div class="pagination-table-info">
           <div class="pagination-page-no">
             <div class="pagination-h3">
               <h3>Page <span class="bold">1</span> of <span class="bold">16</span></h3>
@@ -236,7 +233,14 @@
               </select>
             </div>
           </div>
-        </div>
-      </div>
+        </div> -->
+     
+        <mat-paginator [length]="temp?.total"
+        [pageSize]="this.pageSize"
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        (page)="pageChanged($event)"
+        aria-label="Select page">
+       </mat-paginator>
+    </div>
     </div>
 </div>

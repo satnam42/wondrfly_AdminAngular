@@ -285,7 +285,7 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
   }
 
   getExpiredProgram() {
-    this.apiservice.getExpiredProgram('', '',).subscribe((res:any) => {
+    this.apiservice.getExpiringProgram('', '',).subscribe((res:any) => {
       this.expiredProgram = res.items;
       console.log(this.expiredProgram.length)
       if(res.isSuccess){

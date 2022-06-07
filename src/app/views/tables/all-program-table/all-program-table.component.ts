@@ -67,11 +67,13 @@ export class AllProgramTableComponent implements OnInit {
   ];
   selectedValue: any;
   allExpired: any;
-  unpublished: number;
+  unpublished: any;
   montTemp: any;
   stratDate: string;
   endDate: string;
   filteredData: any;
+  activeTab: any;
+  totalProgramsCount: import("/home/mspl/Desktop/Wondrfly/wondrfly-admin-angular/src/app/shared/models/program.model").Program;
   constructor(
     public route: Router,
     private dataservice: DataService,
@@ -83,9 +85,7 @@ export class AllProgramTableComponent implements OnInit {
     private dialog: MatDialog,
     private csvService: CsvDataService,
   ) {
-    this.activatedRoute.params.subscribe(params => {
-      this.user._id = params['id'];
-    });
+    this.getSetTabs();
     let config = new MatSnackBarConfig();
     config.verticalPosition = this.verticalPosition;
     config.horizontalPosition = this.horizontalPosition;
@@ -95,7 +95,6 @@ export class AllProgramTableComponent implements OnInit {
 
   // view data 
   openPopUp(data) {
- 
     let dialogRef: MatDialogRef<any> = this.dialog.open(DataPopupComponent, {
       width: '60%',
       disableClose: true,
@@ -139,21 +138,7 @@ export class AllProgramTableComponent implements OnInit {
     this.snack.open('Copied', 'OK', { duration: 500 });
   }
   
-  ProgramDataPopUp(data) {
-    let dialogRef: MatDialogRef<any> = this.dialog.open(ProgramDataPopupComponent, {
-      width: '60%',
-      disableClose: true,
-      data: data
-    })
-    dialogRef.afterClosed()
-      .subscribe(res => {
-        if (!res) {
-          return;
-        }
-        this.loader.open();
-      });
-  }
-
+ 
   form(data,i) {
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupFormComponent, {
       width: '60%',
@@ -170,23 +155,6 @@ export class AllProgramTableComponent implements OnInit {
     });
   }
 
-  onScroll() {
-    if (this.isScrol && this.keyword=='') {
-      this.isScrol = false;
-      this.loadMore();
-    }
-  }
-
-  loadMore() {
-    this.loaderType = 'three-bounce';
-    this.loaderPostion = 'bottom-center';
-    // this.pageSize += 20;
-    this.pageNo += 1;
-    if(this.selectedValue=='montclair'){
-      this.getMontclairProgram();
-    }else{this.getProgram();}
-  }
-
   edit(data) {
     this.dataservice.setOption(data);
     this.route.navigate(['forms/edit-program', data._id]);
@@ -200,8 +168,8 @@ export class AllProgramTableComponent implements OnInit {
   createDuplicate(data) {
     this.dataservice.setOption(data);
     this.apiservice.createDuplicateProgram(data._id).subscribe((res:any) => {
-if(res.isSuccess){
-  this.getProgram()
+    if(res.isSuccess){
+    this.getProgram()
 }   });
   }
 
@@ -213,27 +181,35 @@ if(res.isSuccess){
     this.isShow = !this.isShow;
   }
 
-  setPage(page) {
-    this.pageNo = page.offset;
-    this.pageSize = page.pageSize;
-    if (page.offset == 1) {
-      this.pageNo = 2
-    }
-    this.getProgram();
-  }
 
   getProgram() {
     this.loader.open();
     this.apiservice.getProgram(this.pageNo, this.pageSize).subscribe(res => {
       this.temp = res;
-      if (this.temp.items) {
-        this.rows = this.rows.concat(this.temp.items);
-        this.isScrol = true;
+      if (this.temp.isSuccess) {
+        // this.rows = this.rows.concat(this.temp.items);
+        this.rows = this.temp.items
       }
       this.loader.close();
     });
-    this.getPublishedCount()
-    this.loader.close();
+  }
+
+  pageChanged(event) {
+    event.pageSize
+    if(event.pageSize>this.pageSize || event.pageSize<this.pageSize){
+      this.pageNo = event.pageIndex+1;
+      this.pageSize= event.pageSize;
+      this.getProgram();
+    }
+    else if (event.previousPageIndex > event.pageIndex) {
+       // previous button clicked
+       this.pageNo =  this.pageNo!==0? this.pageNo-1 : this.pageNo
+       this.getProgram()
+    } else {
+      this.pageNo = event.pageIndex+1;
+      this.getProgram()
+      // next button clicked
+    }
   }
 
 
@@ -249,25 +225,52 @@ if(res.isSuccess){
     });
   }
 
+  getOnlinePrograms(){
+    let data =[]
+    let filter = `inpersonOrVirtual=online&pageNo=${this.pageNo}&pageSize=${this.pageSize}`
+    this.apiservice.programMultiFilter(filter).subscribe((res: any) => {
+      console.log('res',res)
+      if (res) {
+        res.map(x => x.programs.map(z=>{
+          console.log('z',z)
+          data.push(z)
+         this.rows = data;
+        console.log( this.rows)
+        }))
+      }
+    });
+  }
 
-  getPublishedCount() {
-    this.apiservice.getPublishedProgram('','','published').subscribe(res => {
+
+  getPublished() {
+    this.apiservice.getPublishedProgram(this.pageNo,this.pageSize,'published').subscribe((res:any) => {
     this.publishedPrograms = res;
-    this.unpublished = this.temp.total-this.publishedPrograms.total
-    this.getExpiredProgram()
+    this.rows=this.publishedPrograms.items;
+    console.log(this.publishedPrograms,'this.publishedPrograms')
     })
     // this.getUnpublishCount();
   }
 
-  getExpiredProgram() {
-    this.apiservice.getExpiredProgram('', '',).subscribe((res:any) => {
-      this.expiredProgram = res.items;
+  getUnpublished() {
+    this.apiservice.getPublishedProgram(this.pageNo,this.pageSize,'unpublished').subscribe((res:any) => {
+    this.unpublished = res;
+    this.rows=this.unpublished.items;
+    console.log( this.unpublished ,'this.publishedPrograms')
+    })
+    // this.getUnpublishCount();
+  }
+
+  getExpiringProgram() {
+    this.apiservice.getExpiringProgram('', '',).subscribe((res:any) => {
+      this.expiredProgram = res;
+      this.rows=this.expiredProgram.items;
     });
   }
 
   allExpiredProgram() {
     this.apiservice.allExpiredProgram().subscribe((res:any) => {
-      this.allExpired = res.items;
+      this.allExpired = res;
+      this.rows=this.allExpired.items;
     });
   }
 
@@ -313,12 +316,16 @@ if(res.isSuccess){
     })
   }
   ngOnInit() {
+    this.apiservice.getProgram(this.pageNo, this.pageSize).subscribe((res:any) => {
+      console.log(res)
+      this.totalProgramsCount = res.message;})
+
     this.searchControl.valueChanges.subscribe((value) =>{
       this.updateFilter(value)
     })
-    this.getProgram();
-    this.allExpiredProgram()
-  }
+      }
+      
+  
   public fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
   }
@@ -420,4 +427,62 @@ trueFalseFreeTrial(e,indx) {
  this.apiservice.trueFalseFreeTrialProgram(this.rows[indx]._id,e.checked).subscribe((res:any)=>{
   })
 }
+
+onlinePrograms(){
+this.route.navigate(
+  [],
+  { relativeTo: this.activatedRoute, queryParams: {activity:'online'} }
+);
 }
+
+getSetTabs(){
+  this.activatedRoute.queryParams
+    .subscribe((params: any) => {
+      this.activeTab = params.activity;
+      switch (this.activeTab){
+        case  'online': 
+        this.getOnlinePrograms()
+        console.log('online')
+        break;
+        case  'published': 
+        console.log('published');
+        this.getPublished();
+        break;
+        case  'unpublished': 
+        console.log('unpublished')
+        this.getUnpublished();
+        break;
+        case  'expiring': 
+        console.log('expiring')
+        this.getExpiringProgram();
+        break;
+        case  'expired': 
+        console.log('expired')
+        this.allExpiredProgram();
+        break;
+        default :
+        this.activeTab=''
+        console.log('all',this.activeTab);
+        this.getProgram();
+        
+      }
+     })
+}
+
+activeProgramsTab(tab){
+  const activetab = tab;
+  if(activetab!==''){
+  this.route.navigate(
+    [],
+    { relativeTo: this.activatedRoute, queryParams: {activity:activetab} }
+  );
+  }else{
+    this.route.navigate(
+      [],
+      { relativeTo: this.activatedRoute, queryParams: {} }
+    );
+  }
+}
+
+}
+

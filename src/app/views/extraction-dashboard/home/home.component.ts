@@ -92,7 +92,7 @@ export class HomeComponent implements OnInit {
           this.route.navigate(['tables/children']);
           break;
           case 'programs':
-            this.route.navigate(['tables/all-program/id']);
+            this.route.navigate(['tables/all-program']);
             break;
       
     }

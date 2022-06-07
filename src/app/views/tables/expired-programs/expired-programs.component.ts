@@ -49,7 +49,7 @@ export class ExpiredProgramsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getExpiredProgram();
+    this.getExpiringProgram();
   }
 
   updateFilter(key) {
@@ -63,14 +63,14 @@ export class ExpiredProgramsComponent implements OnInit {
     }
     if (!key) {
       this.rows=[];
-      this.getExpiredProgram();
+      this.getExpiringProgram();
     }
   }
 
-  getExpiredProgram() {
+  getExpiringProgram() {
     this.loader.open();
     console.log(this.pageNo)
-    this.apiservice.getExpiredProgram('', '').subscribe((res:any) => {
+    this.apiservice.getExpiringProgram('', '').subscribe((res:any) => {
       console.log('datttt expired', res)
       this.loader.close();
       this.temp = res;
@@ -122,7 +122,7 @@ export class ExpiredProgramsComponent implements OnInit {
   loadMore(){
     console.log("scrolled");
     this.pageNo += 1;
-    this.getExpiredProgram();
+    this.getExpiringProgram();
   }
 
 

@@ -7,10 +7,8 @@ import { FileUploader } from 'ng2-file-upload';
 import { Userr } from 'app/shared/models/user.model';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
-import { MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatDialogRef, MatDialog } from '@angular/material';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatDialogRef, MatDialog } from '@angular/material';
 import { ProgramDataPopupComponent } from './program-data-popup/program-data-popup.component';
-import * as XLSX from 'xlsx';
-import { I } from '@angular/cdk/keycodes';
 @Component({
   selector: 'app-program-table',
   templateUrl: './program-table.component.html',
@@ -84,7 +82,7 @@ export class ProgramTableComponent implements OnInit {
     this.route.navigate(['forms/edit-program', data._id]);
   }
   back() {
-    this.route.navigate(['tables/all-program/id']);
+    this.route.navigate(['tables/all-program']);
   }
 
   showHideButton() {

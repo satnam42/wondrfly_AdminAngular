@@ -241,7 +241,7 @@ capacity:any={
   
     this.getCategories()
     if (this.program === undefined) {
-      this.route.navigate(['tables/all-program/id']);
+      this.route.navigate(['tables/all-program']);
     }
 
     this.firstFormGroup = new FormGroup({
@@ -420,7 +420,7 @@ switch (dayValue){
       if (response.isSuccess === true) {
         let msg = "Program Updated successfully";
         this.snack.open(msg, 'OK', { duration: 4000 });
-        this.route.navigate(['tables/all-program','id'])
+        this.route.navigate(['tables/all-program'])
       } else {
         let msg = "Somthing went wrong";
         this.snack.open(msg, 'ERROR', { duration: 4000 });
