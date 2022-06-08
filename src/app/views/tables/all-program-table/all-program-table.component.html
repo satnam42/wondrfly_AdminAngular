@@ -235,7 +235,7 @@
           </div>
         </div> -->
      
-        <mat-paginator [length]="temp?.total"
+        <mat-paginator [length]="pageLength"
         [pageSize]="this.pageSize"
         [pageSizeOptions]="[5, 10, 25, 100]"
         (page)="pageChanged($event)"

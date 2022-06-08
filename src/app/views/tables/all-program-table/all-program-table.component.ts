@@ -9,7 +9,6 @@ import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.s
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatDialogRef, MatDialog } from '@angular/material';
 import { SearchProviderPopupComponent } from './search-provider-popup/search-provider-popup.component';
-import { ProgramDataPopupComponent } from '../program-table/program-data-popup/program-data-popup.component';
 import { CsvDataService } from 'app/shared/services/excel.service';
 import { DataPopupComponent } from '../data-popup/data-popup.component';
 import { environment } from 'environments/environment';
@@ -73,6 +72,7 @@ export class AllProgramTableComponent implements OnInit {
   activeTab: any;
   totalProgramsCount: any;
   publishedUnpublishedList: any =[];
+  pageLength: any;
   constructor(
     public route: Router,
     private dataservice: DataService,
@@ -186,7 +186,8 @@ export class AllProgramTableComponent implements OnInit {
     this.apiservice.getProgram(this.pageNo, this.pageSize).subscribe(res => {
       this.temp = res;
       if (this.temp.isSuccess) {
-        this.rows = this.temp.items
+        this.rows = this.temp.items;
+        this.pageLength = +this.temp.total;
       }
       this.loader.close();
     });
@@ -197,14 +198,14 @@ export class AllProgramTableComponent implements OnInit {
     if(event.pageSize>this.pageSize || event.pageSize<this.pageSize){
       this.pageNo = event.pageIndex+1;
       this.pageSize= event.pageSize;
-      this.getProgram();
+      this.getSetTabs();
     }
     else if (event.previousPageIndex > event.pageIndex) {
        this.pageNo =  this.pageNo!==0? this.pageNo-1 : this.pageNo
-       this.getProgram()
+       this.getSetTabs();
     } else {
       this.pageNo = event.pageIndex+1;
-      this.getProgram()
+      this.getSetTabs();
     }
   }
   // =========================================== montclair programs =========================================================
@@ -240,6 +241,7 @@ export class AllProgramTableComponent implements OnInit {
     this.apiservice.getPublishedProgram(this.pageNo,this.pageSize,type).subscribe((res:any) => {
     this.publishedUnpublishedList = res;
     this.rows=this.publishedUnpublishedList.items;
+    this.pageLength = this.publishedUnpublishedList.total;
     this.loader.close();
     })
   }
