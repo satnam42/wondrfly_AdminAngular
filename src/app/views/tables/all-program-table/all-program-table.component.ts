@@ -34,7 +34,6 @@ export class AllProgramTableComponent implements OnInit {
   submitted: any;
   @ViewChild(DaterangepickerDirective, {static: true}) picker: DaterangepickerDirective;
   selected: {startDate: moment.Moment, endDate: moment.Moment};
-  publishedPrograms:any;
   searchText: '';
   isShow = true;
   searchControl = new FormControl()
@@ -67,13 +66,13 @@ export class AllProgramTableComponent implements OnInit {
   ];
   selectedValue: any;
   allExpired: any;
-  unpublished: any;
   montTemp: any;
   stratDate: string;
   endDate: string;
   filteredData: any;
   activeTab: any;
-  totalProgramsCount: import("/home/mspl/Desktop/Wondrfly/wondrfly-admin-angular/src/app/shared/models/program.model").Program;
+  totalProgramsCount: any;
+  publishedUnpublishedList: any =[];
   constructor(
     public route: Router,
     private dataservice: DataService,
@@ -181,19 +180,18 @@ export class AllProgramTableComponent implements OnInit {
     this.isShow = !this.isShow;
   }
 
-
+  // =========================================== All programs =========================================================
   getProgram() {
     this.loader.open();
     this.apiservice.getProgram(this.pageNo, this.pageSize).subscribe(res => {
       this.temp = res;
       if (this.temp.isSuccess) {
-        // this.rows = this.rows.concat(this.temp.items);
         this.rows = this.temp.items
       }
       this.loader.close();
     });
   }
-
+  // =========================================== Pagination =========================================================
   pageChanged(event) {
     event.pageSize
     if(event.pageSize>this.pageSize || event.pageSize<this.pageSize){
@@ -202,17 +200,14 @@ export class AllProgramTableComponent implements OnInit {
       this.getProgram();
     }
     else if (event.previousPageIndex > event.pageIndex) {
-       // previous button clicked
        this.pageNo =  this.pageNo!==0? this.pageNo-1 : this.pageNo
        this.getProgram()
     } else {
       this.pageNo = event.pageIndex+1;
       this.getProgram()
-      // next button clicked
     }
   }
-
-
+  // =========================================== montclair programs =========================================================
   getMontclairProgram() {
     this.loader.open();
     this.apiservice.getMontclairProgram(this.pageNo, this.pageSize).subscribe(res => {
@@ -224,77 +219,49 @@ export class AllProgramTableComponent implements OnInit {
       this.loader.close();
     });
   }
-
+  // =========================================== online programs =========================================================
   getOnlinePrograms(){
     let data =[]
-    let filter = `inpersonOrVirtual=online&pageNo=${this.pageNo}&pageSize=${this.pageSize}`
+    let filter = `inpersonOrVirtual=online&pageNo=${this.pageNo}&pageSize=${this.pageSize}`;
+    this.loader.open();
     this.apiservice.programMultiFilter(filter).subscribe((res: any) => {
-      console.log('res',res)
       if (res) {
         res.map(x => x.programs.map(z=>{
-          console.log('z',z)
           data.push(z)
          this.rows = data;
-        console.log( this.rows)
+        this.loader.close();
         }))
       }
     });
   }
-
-
-  getPublished() {
-    this.apiservice.getPublishedProgram(this.pageNo,this.pageSize,'published').subscribe((res:any) => {
-    this.publishedPrograms = res;
-    this.rows=this.publishedPrograms.items;
-    console.log(this.publishedPrograms,'this.publishedPrograms')
+  // =========================================== published/unpublished programs =========================================================
+  getPublishedUnpublished(type) {
+    this.loader.open();
+    this.apiservice.getPublishedProgram(this.pageNo,this.pageSize,type).subscribe((res:any) => {
+    this.publishedUnpublishedList = res;
+    this.rows=this.publishedUnpublishedList.items;
+    this.loader.close();
     })
-    // this.getUnpublishCount();
   }
-
-  getUnpublished() {
-    this.apiservice.getPublishedProgram(this.pageNo,this.pageSize,'unpublished').subscribe((res:any) => {
-    this.unpublished = res;
-    this.rows=this.unpublished.items;
-    console.log( this.unpublished ,'this.publishedPrograms')
-    })
-    // this.getUnpublishCount();
-  }
-
+  // =========================================== expiring soon programs =========================================================
   getExpiringProgram() {
+    this.loader.open();
     this.apiservice.getExpiringProgram('', '',).subscribe((res:any) => {
       this.expiredProgram = res;
       this.rows=this.expiredProgram.items;
+      this.loader.close();
     });
   }
-
+  // =========================================== expired programs =========================================================
   allExpiredProgram() {
+    this.loader.open();
     this.apiservice.allExpiredProgram().subscribe((res:any) => {
       this.allExpired = res;
       this.rows=this.allExpired.items;
+      this.loader.close();
     });
   }
-
-  // getUnpublishCount() {
-  //   this.apiservice.getPublishedProgram(this.pageNo, this.pageSize,'unpublished').subscribe(res => {
-  //   this.UnPublishedPrograms = res;
-  //   })
-  // }
-
-  programActiveInActive(program) {
-    let programStatus = '';
-    if (program.status === 'active') {
-      programStatus = 'inactive';
-      this.apiservice.programActiveInActive(program._id, programStatus).subscribe(res => {
-        this.getProgram();
-      });
-    }
-    else {
-      programStatus = 'active';
-      this.apiservice.programActiveInActive(program._id, programStatus).subscribe(res => {
-        this.getProgram();
-      });
-    }
-  }
+    // =========================================== delete program =========================================================
   deleteProgram(data,indx) {
     this.confirmService.confirm({ message: `Delete ${data.name}?` }).subscribe(res => {
       if (res) {
@@ -317,7 +284,6 @@ export class AllProgramTableComponent implements OnInit {
   }
   ngOnInit() {
     this.apiservice.getProgram(this.pageNo, this.pageSize).subscribe((res:any) => {
-      console.log(res)
       this.totalProgramsCount = res.message;})
 
     this.searchControl.valueChanges.subscribe((value) =>{
@@ -357,7 +323,6 @@ export class AllProgramTableComponent implements OnInit {
       this.rows=[];
       this.getMontclairProgram();
     }else if(this.selectedValue=='byDate' && this.selected){
-      // this.apiservice.programFilterByDate('from',)
     }
   }
 
@@ -418,8 +383,6 @@ export class AllProgramTableComponent implements OnInit {
   }
   this.apiservice.PublishedProgram (model).subscribe((res:any) => {
     if(res.isSuccess){
-      // this.snack.open('Program published', 'OK', { duration: 4000 });
-      // this.rows[indx].isPublished = booleanValue
     }else{this.snack.open('Somthing went wrong', 'OK', { duration: 4000 });}
   });
 }
@@ -427,14 +390,7 @@ trueFalseFreeTrial(e,indx) {
  this.apiservice.trueFalseFreeTrialProgram(this.rows[indx]._id,e.checked).subscribe((res:any)=>{
   })
 }
-
-onlinePrograms(){
-this.route.navigate(
-  [],
-  { relativeTo: this.activatedRoute, queryParams: {activity:'online'} }
-);
-}
-
+  // =========================================== programs type Tab =========================================================
 getSetTabs(){
   this.activatedRoute.queryParams
     .subscribe((params: any) => {
@@ -442,33 +398,26 @@ getSetTabs(){
       switch (this.activeTab){
         case  'online': 
         this.getOnlinePrograms()
-        console.log('online')
         break;
         case  'published': 
-        console.log('published');
-        this.getPublished();
+        this.getPublishedUnpublished('published');
         break;
         case  'unpublished': 
-        console.log('unpublished')
-        this.getUnpublished();
+        this.getPublishedUnpublished('unpublished');
         break;
         case  'expiring': 
-        console.log('expiring')
         this.getExpiringProgram();
         break;
         case  'expired': 
-        console.log('expired')
         this.allExpiredProgram();
         break;
         default :
         this.activeTab=''
-        console.log('all',this.activeTab);
-        this.getProgram();
-        
+        this.getProgram();   
       }
      })
 }
-
+  // =========================================== change program tabs =========================================================
 activeProgramsTab(tab){
   const activetab = tab;
   if(activetab!==''){
