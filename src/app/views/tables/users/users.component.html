@@ -154,6 +154,9 @@
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #action="matMenu" >
+                <button mat-menu-item (click)="copyLink(row.userName)">
+                  <span>Copy Link</span>
+                </button>
                 <button mat-menu-item (click)="openPopUp(row)">
                   <span>View</span>
                 </button>

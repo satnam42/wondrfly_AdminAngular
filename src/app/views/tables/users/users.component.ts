@@ -365,7 +365,13 @@ export class UsersComponent implements OnInit {
     this.apiservice.trueFalseFreeTrialProvider(row.id,e.checked).subscribe((res:any)=>{
      })
    }
-
+copyLink(username){
+  if(username){
+    navigator.clipboard.writeText(`wondrfly.ml/p/${username}`).then().catch(e => console.error(e));
+  }else{
+    navigator.clipboard.writeText(`wondrfly.ml`).then().catch(e => console.error(e));
+  }
+}
 }
 
 
