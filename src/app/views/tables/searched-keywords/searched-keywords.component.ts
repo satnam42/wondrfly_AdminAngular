@@ -109,7 +109,8 @@ export class SearchedKeywordsComponent implements OnInit {
             }
           }
           if(filter){
-            var url = `https://wondrfly.ml/search?filter=${filter}`;
+            const encodedURL = encodeURIComponent(filter);
+            var url = `https://wondrfly.ml/search?filter=${encodedURL}`;
             var win = window.open(url, '_blank');
                 win.opener = null;
                 win.focus();
