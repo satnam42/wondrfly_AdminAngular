@@ -229,6 +229,7 @@ export class AllProgramTableComponent implements OnInit {
       if (res) {
         res.map(x => x.programs.map(z=>{
           data.push(z)
+          this.pageLength = data.length;
          this.rows = data;
         this.loader.close();
         }))
