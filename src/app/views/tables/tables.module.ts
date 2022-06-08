@@ -70,6 +70,8 @@ import { KeywordFormComponent } from '../forms/keyword-form/keyword-form.compone
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { Ng5SliderModule } from 'ng5-slider';
 import { SearchedKeywordsComponent } from './searched-keywords/searched-keywords.component';
+import { TopicsComponent } from './topics/topics.component';
+import { TopicFormComponent } from './topics/topic-form/topic-form.component';
 
 
 // ProviderPopupComponent
@@ -181,9 +183,11 @@ import { SearchedKeywordsComponent } from './searched-keywords/searched-keywords
     AllExpiredComponent,
     KeywordComponent,
     KeywordFormComponent,
-    SearchedKeywordsComponent
+    SearchedKeywordsComponent,
+    TopicsComponent,
+    TopicFormComponent
     
   ],
-  entryComponents: [SearchProviderPopupComponent, DuplicacyDataPopupComponent, SearchedKeywordsComponent, ProviderDataPopupComponent,KeywordFormComponent, ProgramDataPopupComponent,UsersComponent,EditFormComponent,AllUserComponent]
+  entryComponents: [SearchProviderPopupComponent, DuplicacyDataPopupComponent,TopicFormComponent, SearchedKeywordsComponent, ProviderDataPopupComponent,KeywordFormComponent, ProgramDataPopupComponent,UsersComponent,EditFormComponent,AllUserComponent]
 })
 export class TablesModule { }

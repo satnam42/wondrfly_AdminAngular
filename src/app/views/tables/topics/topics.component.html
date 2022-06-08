@@ -1,0 +1,121 @@
+<div class="container table-header-info mb-30">
+  <div class="row">
+
+      <div class="col-6 tablesuser-flex">
+          <div class="add-program-btn">
+
+              <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                  <mat-button-toggle matTooltip2="Add" (click)="editDataPopup({})" value="add">
+                      <mat-icon class="text-success">+ Add Topic</mat-icon>
+                  </mat-button-toggle>
+
+              </mat-button-toggle-group>
+          </div>
+              <div class="add-program-btn">
+              <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                  <mat-button-toggle matTooltipkeys="searched" (click)="logs()" value="searched">
+                      <mat-icon >Logs</mat-icon>
+                  </mat-button-toggle>
+
+              </mat-button-toggle-group>
+          </div>
+      </div>
+      <div class="col-6">
+          <div class="search-form-info">
+              <mat-form-field class="w-85" appearance="standard">
+                  <input matInput [formControl]="searchControl" [(ngModel)]="searchText" placeholder="Search" #input>
+                  <button mat-icon-button matSuffix value="reset" matTooltip="Search">
+                      <mat-icon class="text-primary">search</mat-icon>
+                  </button>
+              </mat-form-field>
+
+
+          </div>
+      </div>
+
+
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+      <div class="col-12">
+          <div class="search-results table-body-info" #scrollToTop infiniteScroll [infiniteScrollDistance]="2"
+              [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="false" *ngIf="rows.length">
+              <table>
+                  <tbody>
+                      <tr>
+                          <th class="left">
+                              Topic Name
+                          </th>
+                          <th>
+                              Topic Type
+                          </th>
+                          <th>
+                              Is Activated
+                          </th>
+                          <th>
+                          </th>
+                      </tr>
+                      <tr *ngFor="let row of rows | filter : searchText; let i = index">
+                          <td class="left">
+                              <span> {{row.keywordName}}</span>
+                          </td>
+
+                          <td>
+                              <span (click)="openPopUp(row)">{{row.keywordType}}</span>
+                          </td>
+                          <td>
+                              <mat-slide-toggle [checked]="row?.isActivated" color="primary"
+                              (change)="activateDeactivateKeyword($event,row._id)">
+                          </mat-slide-toggle>
+                          </td>
+                          <td>
+                              <button mat-icon-button [matMenuTriggerFor]="msgMenu" class="hidden-on-open">
+                                  <mat-icon class="text-muted">more_vert</mat-icon>
+                              </button>
+                              <mat-menu #msgMenu="matMenu">
+
+
+                                  <button mat-menu-item (click)="editDataPopup(row)">
+                                      <mat-icon class="col-blue">edit</mat-icon>Edit
+                                  </button>
+                                  <button mat-menu-item (click)="deleteKeyword(row,i)">
+                                      <i class="icon col-blue mat-icon fa fa-trash-o" aria-hidden="true"></i>Delete
+                                  </button>
+
+                              </mat-menu>
+
+                          </td>
+
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+
+      <!-- <div class="col-12">
+    <div class="pagination-table-info">
+      <div class="pagination-page-no">
+        <div class="pagination-h3">
+          <h3>Page <span class="bold">1</span> of <span class="bold">16</span></h3>
+        </div>
+        <div class="pagination-left-right-btn">
+          <div class="pagination-left-btn"><img src="assets/images/pagination-left-arrow.svg" /></div>
+          <div class="pagination-right-btn"><img src="assets/images/pagination-right-arrow.svg" /></div>
+        </div>
+      </div>
+      <div class="pagination-rpp-info">
+        <div class="rrp-h3"><h3>Rows per page:</h3></div>
+        <div class="rrp-select-info">
+          <select class="rrp-select-no">
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+            <option value="50">50</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  </div>
+</div>

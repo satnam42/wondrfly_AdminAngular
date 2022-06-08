@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar, MatDialog, MatSnackBarConfig, MatDialogRef } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -11,13 +11,14 @@ import { KeywordFormComponent } from 'app/views/forms/keyword-form/keyword-form.
 import { environment } from 'environments/environment';
 import { DataPopupComponent } from '../data-popup/data-popup.component';
 import { SearchedKeywordsComponent } from '../searched-keywords/searched-keywords.component';
+import { TopicFormComponent } from './topic-form/topic-form.component';
 
 @Component({
-  selector: 'app-keyword',
-  templateUrl: './keyword.component.html',
-  styleUrls: ['./keyword.component.scss']
+  selector: 'app-topics',
+  templateUrl: './topics.component.html',
+  styleUrls: ['./topics.component.scss']
 })
-export class KeywordComponent implements OnInit {
+export class TopicsComponent implements OnInit {
   defaultFilter: string='name'
   isLoading: boolean;
   usersData: any = {};
@@ -121,7 +122,7 @@ export class KeywordComponent implements OnInit {
   }
 
   editDataPopup(data): void {
-    let dialogRef: MatDialogRef<any> = this.dialog.open(KeywordFormComponent, {
+    let dialogRef: MatDialogRef<any> = this.dialog.open(TopicFormComponent, {
       width: '50%',
       disableClose: true,
       data: data

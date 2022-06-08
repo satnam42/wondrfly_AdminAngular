@@ -91,6 +91,15 @@ export class AllProgramTableComponent implements OnInit {
     config.duration = this.setAutoHide ? this.autoHide : 0;
   }
 
+  ngOnInit() {
+    this.apiservice.getProgram(this.pageNo, this.pageSize).subscribe((res:any) => {
+      this.totalProgramsCount = res.message;
+    console.log(this.totalProgramsCount)})
+
+    this.searchControl.valueChanges.subscribe((value) =>{
+      this.updateFilter(value)
+    })
+      }
 
   // view data 
   openPopUp(data) {
@@ -184,29 +193,13 @@ export class AllProgramTableComponent implements OnInit {
   getProgram() {
     this.loader.open();
     this.apiservice.getProgram(this.pageNo, this.pageSize).subscribe(res => {
+      this.loader.close();
       this.temp = res;
+      this.pageLength = +this.temp.message;
       if (this.temp.isSuccess) {
         this.rows = this.temp.items;
-        this.pageLength = +this.temp.total;
       }
-      this.loader.close();
     });
-  }
-  // =========================================== Pagination =========================================================
-  pageChanged(event) {
-    event.pageSize
-    if(event.pageSize>this.pageSize || event.pageSize<this.pageSize){
-      this.pageNo = event.pageIndex+1;
-      this.pageSize= event.pageSize;
-      this.getSetTabs();
-    }
-    else if (event.previousPageIndex > event.pageIndex) {
-       this.pageNo =  this.pageNo!==0? this.pageNo-1 : this.pageNo
-       this.getSetTabs();
-    } else {
-      this.pageNo = event.pageIndex+1;
-      this.getSetTabs();
-    }
   }
   // =========================================== montclair programs =========================================================
   getMontclairProgram() {
@@ -226,12 +219,12 @@ export class AllProgramTableComponent implements OnInit {
     let filter = `inpersonOrVirtual=online&pageNo=${this.pageNo}&pageSize=${this.pageSize}`;
     this.loader.open();
     this.apiservice.programMultiFilter(filter).subscribe((res: any) => {
+      this.loader.close();
       if (res) {
         res.map(x => x.programs.map(z=>{
           data.push(z)
           this.pageLength = data.length;
          this.rows = data;
-        this.loader.close();
         }))
       }
     });
@@ -240,10 +233,10 @@ export class AllProgramTableComponent implements OnInit {
   getPublishedUnpublished(type) {
     this.loader.open();
     this.apiservice.getPublishedProgram(this.pageNo,this.pageSize,type).subscribe((res:any) => {
+      this.loader.close();
     this.publishedUnpublishedList = res;
+    this.pageLength = +this.publishedUnpublishedList.total;
     this.rows=this.publishedUnpublishedList.items;
-    this.pageLength = this.publishedUnpublishedList.total;
-    this.loader.close();
     })
   }
   // =========================================== expiring soon programs =========================================================
@@ -285,16 +278,7 @@ export class AllProgramTableComponent implements OnInit {
       }
     })
   }
-  ngOnInit() {
-    this.apiservice.getProgram(this.pageNo, this.pageSize).subscribe((res:any) => {
-      this.totalProgramsCount = res.message;})
 
-    this.searchControl.valueChanges.subscribe((value) =>{
-      this.updateFilter(value)
-    })
-      }
-      
-  
   public fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
   }
@@ -393,6 +377,22 @@ trueFalseFreeTrial(e,indx) {
  this.apiservice.trueFalseFreeTrialProgram(this.rows[indx]._id,e.checked).subscribe((res:any)=>{
   })
 }
+  // =========================================== Pagination =========================================================
+  pageChanged(event) {
+    event.pageSize
+    if(event.pageSize>this.pageSize || event.pageSize<this.pageSize){
+      this.pageNo = event.pageIndex+1;
+      this.pageSize= event.pageSize;
+      this.getSetTabs();
+    }
+    else if (event.previousPageIndex > event.pageIndex) {
+       this.pageNo =  this.pageNo!==0? this.pageNo-1 : this.pageNo
+       this.getSetTabs();
+    } else {
+      this.pageNo = event.pageIndex+1;
+      this.getSetTabs();
+    }
+  }
   // =========================================== programs type Tab =========================================================
 getSetTabs(){
   this.activatedRoute.queryParams
@@ -435,6 +435,5 @@ activeProgramsTab(tab){
     );
   }
 }
-
 }
 

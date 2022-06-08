@@ -36,6 +36,7 @@ import { AllExpiredComponent } from './all-expired/all-expired.component';
 import { ParentTableComponent } from './parent-table/parent-table.component';
 import { KeywordComponent } from './keyword/keyword.component';
 import { SearchedKeywordsComponent } from './searched-keywords/searched-keywords.component';
+import { TopicsComponent } from './topics/topics.component';
 export const TablesRoutes: Routes = [
   {
     path: '',
@@ -248,9 +249,9 @@ export const TablesRoutes: Routes = [
       data: { title: 'KEYWORDS'}
     },
     {
-      path: 'keyword-logs',
-      component: SearchedKeywordsComponent,
-      data: { title: 'SEARCHED KEYWORDS'}
+      path: 'topics',
+      component: TopicsComponent,
+      data: { title: 'TOPICS'}
     },
     ]
   },

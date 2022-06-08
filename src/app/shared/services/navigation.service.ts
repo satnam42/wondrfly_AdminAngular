@@ -69,10 +69,8 @@ export class NavigationService {
         { name: 'Programs List', state: 'all-program' },
         { name: 'Categories', state: 'category' },
         { name: 'Tags', state: 'tag' },
-        {
-          name: 'Keywords',
-          state: 'keyword'
-        },
+        {name: 'Keywords',state: 'keyword'},
+        {name: 'Topics',state: 'topics'},
       ]
     },
 
