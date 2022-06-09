@@ -53,7 +53,6 @@ export class SigninComponent implements OnInit {
     }
     this.auth.login(this.credentials).subscribe((res: any) => {
       this.userData = res;
-      console.log(this.userData.data.role)
       if(this.userData.isSuccess==true){
         switch(this.userData.data.role) { 
           case "superAdmin" : case "proofreader": case "extractor": { 

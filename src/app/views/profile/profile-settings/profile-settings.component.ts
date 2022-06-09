@@ -39,7 +39,6 @@ export class ProfileSettingsComponent implements OnInit {
       this.user = this.dataservice.getOption();
     this.activatedRoute.params.subscribe(params => {
       this.user.id = params['id'];
-      console.log(this.user.id)
     })
     let config = new MatSnackBarConfig();
     config.verticalPosition = this.verticalPosition;
@@ -56,7 +55,6 @@ export class ProfileSettingsComponent implements OnInit {
        }else{
          this.dataservice.setOption(this.user)
        }
-       console.log(res)
     })
   }
 
@@ -99,7 +97,6 @@ export class ProfileSettingsComponent implements OnInit {
         }
         this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
           this.router.navigate(['profile/settings',this.user.id]);
-          console.log('reloaded')
         })
 
       } else {

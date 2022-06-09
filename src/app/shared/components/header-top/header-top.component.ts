@@ -67,18 +67,15 @@ export class HeaderTopComponent implements OnInit, OnDestroy {
         })
         switch (this.user.role) { 
           case "superAdmin": case "proofreader":{ 
-            console.log(this.user.role)
             this.menuItems = mainItems
              break; 
           } 
           case "operationadmin": { 
-            console.log(this.user.role)
             mainItems = mainItems.filter(item=> item.name=="Beta Program")
             this.menuItems = mainItems
              break; 
           } 
           case "extractor": { 
-            console.log(this.user.role)
               let program:any =[];
               this.menuItems = mainItems.filter(item=> item.name=="Dashboard")
               for (let item of mainItems) {
@@ -90,7 +87,6 @@ export class HeaderTopComponent implements OnInit, OnDestroy {
                   let providers = item.sub.filter(e=> e.name=="Providers")
                   program.sub.push(providers[0]);
                   this.menuItems.push(program);
-                  console.log(mainItems)
                 }
               }
              break; 
@@ -105,7 +101,6 @@ export class HeaderTopComponent implements OnInit, OnDestroy {
         // if (this.user.role=="operationadmin") {
         //   mainItems = mainItems.filter(item=> item.name=="Beta Program")
         //    this.menuItems = mainItems
-        //    console.log(this.menuItems)
         // }
         // else if ( this.user.role!="operationadmin") {
         //  this.menuItems = mainItems
