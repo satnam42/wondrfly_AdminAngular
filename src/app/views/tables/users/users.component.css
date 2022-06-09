@@ -120,7 +120,7 @@ th.mat-sort-header-sorted {
 .mb-15{margin-bottom: 15px;}
 .mb-20{margin-bottom: 20px;}
 .mb-30{margin-bottom: 30px;}
-.example-container {height: 90vh;width: 100%;max-width: 100%;overflow: auto;box-shadow: unset;}
+.example-container {max-height: 90vh;width: 100%;max-width: 100%;overflow: auto;box-shadow: unset;}
 
 /* top left listing heading css  */
 .tablesuser-flex {display: flex;align-items: center;column-gap: 30px;}

@@ -89,12 +89,12 @@ export const FormsRoutes: Routes = [
       data: { title: 'ADMIN'}
     },
     {
-      path:'new-form',
+      path:'provider-form',
       component: AddFormComponent,
       data: { title: 'ADD-PROVIDER'}
     },
     {
-      path:'new-form/:id',
+      path:'provider-form-update/:id',
       component: UpdateFormComponent,
       data: { title: 'UPDATE-PROVIDER'}
     },

@@ -12,17 +12,25 @@
 <div class="row pt-3 pb-3">
   <div class="col-6">
     <form [formGroup]="addUserForm" >
-      <mat-form-field class="example-full-width" appearance="outline">
+      <mat-form-field class="example-full-width" appearance="outline">            
         <mat-label>Name</mat-label>
-        <input type="text" matInput [formControl]="addUserForm.controls['firstName']" [(ngModel)]="user.firstName" placeholder="User Name">
+        <input type="text" matInput [formControl]="addUserForm.controls['firstName']" required [(ngModel)]="user.firstName" placeholder="User Name">
         <mat-error *ngIf="addUserForm.controls.firstName?.errors?.required">
           User Name is <strong>required</strong>
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>UserId</mat-label>
+        <input type="text" matInput [formControl]="addUserForm.controls['userName']" required [(ngModel)]="user.userName" placeholder="User Id">
+        <mat-error *ngIf="addUserForm.controls.userName?.errors?.required">
+          User Id is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Email</mat-label>
-        <input type="email" matInput  [formControl]="addUserForm.controls['email']" [(ngModel)]="user.email" placeholder="Email">
+        <input type="email" matInput  [formControl]="addUserForm.controls['email']" required [(ngModel)]="user.email" placeholder="Email">
         <mat-error *ngIf="addUserForm.controls.email?.errors?.email">
           Please enter a valid email address
         </mat-error>
@@ -33,7 +41,7 @@
 
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Select Category</mat-label>
-        <mat-select [formControl]="addUserForm.controls['categoryIds']" multiple #itemValue (selectionChange)="changeItem($event.value)" 
+        <mat-select [formControl]="addUserForm.controls['categoryIds']" multiple #itemValue required (selectionChange)="changeItem($event.value)" 
                             [(ngModel)]="user.categoryIds" required>
                 
                               <mat-option selected value="single" *ngFor='let item of categoriesList' 
@@ -226,7 +234,7 @@
   </div>
 </div>
 <div class="col-12 button-form pb-3">
-  <button type="submit" mat-raised-button (click)="onSubmit()">Submit</button>
+  <button type="submit" mat-raised-button [disabled]="addUserForm.invalid" (click)="onSubmit()">Submit</button>
 </div>
 </div>
 

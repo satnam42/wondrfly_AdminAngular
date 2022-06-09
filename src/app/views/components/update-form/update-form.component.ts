@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { TablesService } from 'app/views/tables/tables.service';
+import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'app/shared/services/api.service.service';
 import { DataService } from 'app/shared/services/dataservice.service';
-import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar, MatSnackBarConfig, MatAutocompleteSelectedEvent, MatChipInputEvent, MatDialog, MatDialogRef } from '@angular/material';
+import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar, MatChipInputEvent, MatDialog, MatDialogRef } from '@angular/material';
 import { Userr } from 'app/shared/models/user.model';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { COMMA, ENTER, SEMICOLON, SPACE, TAB } from '@angular/cdk/keycodes';
@@ -49,7 +48,7 @@ export class UpdateFormComponent implements OnInit {
   removable: boolean = true;
   sourceUrls:any =[];
   readonly separatorKeysCodes = [ENTER,COMMA,SPACE,TAB,SEMICOLON] as const;
-  constructor(private service: TablesService,
+  constructor(
     public dataRoute: ActivatedRoute,
     private dataservice: DataService,
     private apiservice: ApiService,
@@ -66,9 +65,10 @@ export class UpdateFormComponent implements OnInit {
     history.back();
   }
 
-  getProviderById() {
+  getUserById() {
     this.apiservice.getUserById(this.user.id).subscribe((res: any) => {
       this.user = res;
+      console.log("providerdata", res)
       this.tag = this.user.subCategoryIds;
       if(this.user.categories.length){
         for(let category of this.user.categories){
@@ -77,7 +77,6 @@ export class UpdateFormComponent implements OnInit {
      }}
      console.log("categoryIds after loop", this.categoryIds)
       this.sourceUrls = this.user.sourceUrl;
-      console.log("providerdata", this.user)
     })
   }
 
@@ -85,6 +84,7 @@ export class UpdateFormComponent implements OnInit {
      var user:any = {
        id:this.user.id,
       firstName: this.user.firstName,
+      userName: this.user.userName,
       lastName: this.user.lastName,
       phoneNumber: this.user.phoneNumber,
       secondaryPhonenumber: this.user.secondaryPhonenumber,
@@ -143,7 +143,7 @@ export class UpdateFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getProviderById() 
+    this.getUserById() 
     this.getCategories();
     this.getTags()
     if (this.user === undefined) {
@@ -155,7 +155,6 @@ export class UpdateFormComponent implements OnInit {
     // tslint:disable-next-line:prefer-const
     // let confirmPassword = new FormControl('', CustomValidators.equalTo(password));
   }
-
 
   getCategories(){
     this.apiservice.getCategory().subscribe(res => {

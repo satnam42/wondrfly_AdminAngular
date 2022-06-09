@@ -13,12 +13,9 @@ import { ApiService } from 'app/shared/services/api.service.service';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { DataService } from 'app/shared/services/dataservice.service';
-import { EditFormComponent } from 'app/views/components/edit-form/edit-form.component';
 import * as moment from 'moment';
-// import { ConfirmationDialogService } from 'app/shared/services/confirmation-dialog.service';
-// import { EditFormComponent } from 'app/views/components/edit-form/edit-form.component';
 import { Observable } from 'rxjs';
-import { finalize, share } from 'rxjs/operators';
+import {share} from 'rxjs/operators';
 import { DataPopupComponent } from '../data-popup/data-popup.component';
 
 @Component({
@@ -62,7 +59,7 @@ export class UsersComponent implements OnInit {
   showReset = false;
   pageNo = 1;
   pageSize = 20;
-
+  pageLength: any;
   users: any=[];
   public news: Array<any> = [];
 
@@ -92,22 +89,8 @@ export class UsersComponent implements OnInit {
    
   }
 
-  activateDeactivate(data,user) {
-    this.apiservice.userActiveInActive(user.id,data.checked).subscribe((res:any) => {
-      if(res.isSuccess){
-       this.snack.open('User status changed', 'OK', { duration: 4000 });
-        // this.snack.open('Program published', 'OK', { duration: 4000 });
-        // this.rows[indx].isPublished = booleanValue
-      }else{this.snack.open('Somthing went wrong', 'OK', { duration: 4000 });}
-    });
-  }
-  
-  setOrUnsetFreeTrial(data,user) {
-
-  }
   ngOnInit() {
     // this.spinner.show();
-    this.getList();
     // this.byDate.valueChanges.subscribe((value)=>{
     //   this.searchDate = moment(value).format("YYYY-MM-DD");
     //   this.getProviderByDate(this.searchDate)
@@ -129,20 +112,53 @@ export class UsersComponent implements OnInit {
     // this.spinner.hide();
   }
 
+  activateDeactivate(data,user) {
+    this.apiservice.userActiveInActive(user.id,data.checked).subscribe((res:any) => {
+      if(res.isSuccess){
+       this.snack.open('User status changed', 'OK', { duration: 4000 });
+        // this.snack.open('Program published', 'OK', { duration: 4000 });
+        // this.rows[indx].isPublished = booleanValue
+      }else{this.snack.open('Somthing went wrong', 'OK', { duration: 4000 });}
+    });
+  }
+  
+  setOrUnsetFreeTrial(data,user) {
+
+  }
+  // =========================================== Get provider List =========================================================
   getProvider(){
     this.loader.open()
-    this.apiservice.getUsers(this.provider, this.pageNo, 130).subscribe((res:any) => {
+    this.apiservice.getUsers(this.provider, this.pageNo, this.pageSize).subscribe((res:any) => {
       this.loader.close()
+      console.log(res)
       this.total = res.total;
       this.temp=res;
+      this.pageLength=this.temp.message; 
       if (this.temp.items) {
-        this.users = this.rows.concat(this.temp.items);
+        this.users = this.temp.items;
         this.dataSource = new MatTableDataSource(this.users);
         this.isScrol = true;
         this.selectedValue=this.defaultFilter;
       }
     })
   }
+  // =========================================== Pagination =========================================================
+  pageChanged(event) {
+    event.pageSize
+    if(event.pageSize>this.pageSize || event.pageSize<this.pageSize){
+      this.pageNo = event.pageIndex+1;
+      this.pageSize= event.pageSize;
+      this.getProvider();
+    }
+    else if (event.previousPageIndex > event.pageIndex) {
+       this.pageNo =  this.pageNo!==0? this.pageNo-1 : this.pageNo
+       this.getProvider();
+    } else {
+      this.pageNo = event.pageIndex+1;
+      this.getProvider();
+    }
+  }
+
   reset() {
     this.defaultFilter='firstName';
     this.selectedValue='';
@@ -174,20 +190,40 @@ export class UsersComponent implements OnInit {
     })
   }
 
-
-
   add() {
     // this.router.navigate(['form']);
-    this.router.navigate(['/forms/new-form']);
+    this.router.navigate(['/forms/provider-form']);
   }
   edit(data) {
     this.dataservice.setOption(data);
     if(data._id){
       data.id = data._id
     }
-    this.router.navigate(['forms/new-form', data.id]);
+    this.router.navigate(['forms/provider-form-update', data.id]);
   }
 
+  deleteProvider(user) {
+    this.confirmService.confirm({ message: `Delete ${user.firstName}?` }).subscribe(res => {
+      if (res) {
+        this.isLoading = true;
+        this.loader.open()
+        if(user._id){
+          user.id = user._id
+        }
+        this.apiservice.deleteUser(user.id).subscribe(res => {
+          this.loader.close()
+          var response: any = res;
+          if (response.isSuccess) {
+            this.getProvider()
+           this.snack.open('User Deleted', 'OK', { duration: 4000 });
+          } else {
+            let msg = "Something Went Wrong!";
+            this.snack.open(msg, 'OK', { duration: 4000 });
+          }
+        })
+      }
+    })
+  }
 
   manage(data){
     if(data._id){
@@ -195,7 +231,6 @@ export class UsersComponent implements OnInit {
     }
     this.router.navigate(['tables/program',data.id]);
   }
-
 
   removeSelectedRows() {
     // this.confirmationDialogService.confirm({
@@ -213,17 +248,17 @@ export class UsersComponent implements OnInit {
     //   });
   }
 
-  openDialog(data: any, title: any): void {
-    const dialogRef = this.dialog.open(EditFormComponent, {
-      // disableClose : true,
-      width: '650px',
-      data: { data: data, title: title, id: data.id },
-    });
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-      }
-    });
-  }
+  // openDialog(data: any, title: any): void {
+  //   const dialogRef = this.dialog.open(EditFormComponent, {
+  //     // disableClose : true,
+  //     width: '650px',
+  //     data: { data: data, title: title, id: data.id },
+  //   });
+  //   dialogRef.afterClosed().subscribe((result: any) => {
+  //     if (result) {
+  //     }
+  //   });
+  // }
 
   openPopUp(data) {
     let dialogRef: MatDialogRef<any> = this.dialog.open(DataPopupComponent, {
@@ -239,19 +274,6 @@ export class UsersComponent implements OnInit {
       });
   }
 
-
-
-  getList() {
-    // this.spinner.show();
-    this.getNews(this.currentPage)
-      .pipe(finalize(() => this.onFinalize()))
-      .subscribe((news) => {
-        this.currentPage++;
-        this.news = this.news.concat(news.items);
-        // this.spinner.hide();
-      });
-  }
-
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
@@ -263,7 +285,6 @@ export class UsersComponent implements OnInit {
       this.selection.clear();
       return;
     }
-
     this.selection.select(...this.dataSource.data);
   }
 
@@ -275,7 +296,6 @@ export class UsersComponent implements OnInit {
   //     row.id + 1
   //   }`;
   // }
-
 
   selectedFilter(value: any) {
     this.selectedValue = value;
@@ -299,14 +319,6 @@ export class UsersComponent implements OnInit {
     }
 
   }
-
-  onScrollDown() {
-    // if (this.isScrol) {
-    //   this.isScrol = false;
-    //   this.loadMore();
-    // }
-  }
-
 
   loadMore() {
     // this.pageSize += 20;
@@ -334,32 +346,6 @@ export class UsersComponent implements OnInit {
   onFinalize(): void {
     this.request$ = null;
   }
-
-
-  deleteProvider(user) {
-    this.confirmService.confirm({ message: `Delete ${user.firstName}?` }).subscribe(res => {
-      if (res) {
-        this.isLoading = true;
-        this.loader.open()
-        if(user._id){
-          user.id = user._id
-        }
-        this.apiservice.deleteUser(user.id).subscribe(res => {
-          this.loader.close()
-          var response: any = res;
-          if (response.isSuccess) {
-            this.getProvider()
-           this.snack.open('User Deleted', 'OK', { duration: 4000 });
-          } else {
-            let msg = "Something Went Wrong!";
-            this.snack.open(msg, 'OK', { duration: 4000 });
-          }
-        })
-      }
-    })
-  }
-
-
 
   trueFalseFreeTrial(e,row) {
     this.apiservice.trueFalseFreeTrialProvider(row.id,e.checked).subscribe((res:any)=>{

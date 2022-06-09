@@ -1,7 +1,7 @@
 import { COMMA, ENTER, SEMICOLON, SPACE, TAB } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material';
+import {MatChipInputEvent, MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Userr } from 'app/shared/models/user.model';
@@ -12,9 +12,6 @@ import { ProgramLocationComponent } from 'app/views/forms/program-form/program-l
 import { Observable } from 'rxjs';
 import * as XLSX from 'xlsx';
 import { map, startWith } from 'rxjs/operators';
-import { EditFormComponent } from '../edit-form/edit-form.component';
-import { TablesService } from 'app/views/tables/tables.service';
-
 @Component({
   selector: 'add-form',
   templateUrl: './add-form.component.html',
@@ -112,6 +109,7 @@ export class AddFormComponent implements OnInit {
     this.addUserForm = new FormGroup({
       type: new FormControl('',),
       firstName: new FormControl('', Validators.required),
+      userName: new FormControl('', Validators.pattern(/^\S*$/)),
       lastName: new FormControl('',),
       email: new FormControl('', [Validators.required, Validators.email]),
       phoneNumber: new FormControl('',),

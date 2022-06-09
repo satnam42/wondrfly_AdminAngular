@@ -14,12 +14,17 @@
     <form >
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Name</mat-label>
-        <input type="text" matInput placeholder="User Name" name="firstName" [(ngModel)]="user.firstName">
+        <input type="text" matInput placeholder="User Name" required name="firstName" [(ngModel)]="user.firstName">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>UserId</mat-label>
+        <input type="text" matInput placeholder="User Id" required name="UserId" [(ngModel)]="user.userName">
       </mat-form-field>
 
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Email</mat-label>
-        <input type="email" matInput  name="email" [(ngModel)]="user.email" placeholder="Email" readonly>
+        <input type="email" matInput  name="email" required [(ngModel)]="user.email" placeholder="Email" readonly>
 
       </mat-form-field>
 

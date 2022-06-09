@@ -14,6 +14,7 @@ export class Userr {
     userId: string;
     age: string;
     firstName: string;
+    userName:string;
     lastName: string;
     addressLine1: string;
     addressLine2: string;

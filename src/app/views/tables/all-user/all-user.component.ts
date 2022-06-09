@@ -156,7 +156,7 @@ export class AllUserComponent implements OnInit {
 
   add() {
     // this.router.navigate(['form']);
-    this.router.navigate(['/forms/new-form']);
+    this.router.navigate(['/forms/provider-form']);
   }
   edit(data) {
     this.dataservice.setOption(data);
@@ -165,7 +165,7 @@ export class AllUserComponent implements OnInit {
     } if(data.role=="parent"){
       this.router.navigate(['forms/parent-update']);
     }else{
-      this.router.navigate(['forms/new-form', data.id]);
+      this.router.navigate(['forms/provider-update', data.id]);
     }
   }
   removeSelectedRows() {

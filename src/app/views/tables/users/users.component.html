@@ -19,7 +19,7 @@
           <mat-icon class="danger-clr">delete</mat-icon>
         </mat-button-toggle> -->
         <mat-button-toggle matTooltip2="Add" (click)="add()" value="add">
-          <mat-icon class="text-success">+ Add New Program</mat-icon>
+          <mat-icon class="text-success">+ Add Provider</mat-icon>
         </mat-button-toggle>
       </mat-button-toggle-group>
   
@@ -59,20 +59,9 @@
 
 <div class="container usertable table-body-info" >
   <div class="row">
-    <!-- <div class="col-12">
-      <ul class="table-top-links">
-        <li class="active"><a href="#">online programs</a></li>
-        <li><a href="#">published (15647)</a></li>
-        <li><a href="#">unpublished (1706)</a></li>
-        <li><a href="#">expiring soon (10)</a></li>
-        <li><a href="#">EXpired (10)</a></li>
-      </ul>
-    </div> -->
     <div class="col-12">
-      <div class="example-container mat-elevation-z8" #scrollToTop infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [scrollWindow]="false"
-      (scrolled)="onScrollDown()">
-        <table mat-table [dataSource]="dataSource"  matSort 
-          >
+      <div class="example-container mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
           <ng-container matColumnDef="select" sticky>
             <th mat-header-cell class="w-25" *matHeaderCellDef>
               <mat-checkbox (change)="$event" [checked]="selection.hasValue()"
@@ -182,7 +171,7 @@
       </div>
     </div>
     <div class="col-12">
-      <div class="pagination-table-info">
+      <!-- <div class="pagination-table-info">
         <div class="pagination-page-no">
           <div class="pagination-h3">
             <h3>Page <span class="bold">1</span> of <span class="bold">16</span></h3>
@@ -203,7 +192,13 @@
             </select>
           </div>
         </div>
-      </div>
+      </div> -->
+      <mat-paginator [length]="pageLength"
+        [pageSize]="this.pageSize"
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        (page)="pageChanged($event)"
+        aria-label="Select page">
+       </mat-paginator>
     </div>
   </div>
 </div>
