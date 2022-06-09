@@ -93,8 +93,7 @@ export class AllProgramTableComponent implements OnInit {
 
   ngOnInit() {
     this.apiservice.getProgram(this.pageNo, this.pageSize).subscribe((res:any) => {
-      this.totalProgramsCount = res.message;
-    console.log(this.totalProgramsCount)})
+      this.totalProgramsCount = res.message;})
 
     this.searchControl.valueChanges.subscribe((value) =>{
       this.updateFilter(value)

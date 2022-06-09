@@ -843,7 +843,6 @@ approveOrDeclineById(type,id): Observable<Userr[]> {
     updateProvider(model): Observable<Userr[]> {
         const subject = new Subject<Userr[]>();
         this.http.put(`${this.root}/providers/update/${model.id}`, model,  this.getHeaders()).subscribe(res => {
-            console.log('ressssssssssssssssss',res)
             let response:any = res;
             subject.next(response);
         }, (error) => {
