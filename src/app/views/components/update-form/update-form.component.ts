@@ -68,14 +68,12 @@ export class UpdateFormComponent implements OnInit {
   getUserById() {
     this.apiservice.getUserById(this.user.id).subscribe((res: any) => {
       this.user = res;
-      console.log("providerdata", res)
       this.tag = this.user.subCategoryIds;
       if(this.user.categories.length){
         for(let category of this.user.categories){
           this.categoryIds.push(category._id)
           this.user.categoryIds=this.categoryIds
      }}
-     console.log("categoryIds after loop", this.categoryIds)
       this.sourceUrls = this.user.sourceUrl;
     })
   }
@@ -123,11 +121,9 @@ export class UpdateFormComponent implements OnInit {
       sourceUrl:this.sourceUrls,
       rating:this.user.rating
     }
-    console.log('before resss', user);
  this.user.sourceUrl=   this.sourceUrls ;
  this.loader.open();
     this.apiservice.updateProvider(user).subscribe(res => {
-      console.log('after resss', res)
       this.providerResponse = res;
       this.loader.close();
       if (this.providerResponse.isSuccess === true) {
@@ -148,7 +144,7 @@ export class UpdateFormComponent implements OnInit {
     this.getTags()
     if (this.user === undefined) {
       this.route.navigate(['tables/provider']);
-    }    // console.log('kkkkkkkkkkk', JSON.parse(this.dataRoute.snapshot.params['objectProducts']))
+    }  
     // let user = JSON.parse(this.dataRoute.snapshot.params['objectProducts'])
     // tslint:disable-next-line:prefer-const
     // let password = new FormControl('', Validators.required);
@@ -163,14 +159,11 @@ export class UpdateFormComponent implements OnInit {
   }
   
   changeItem(event){
-    console.log("event", this.categoryIds)
     this.categoryIds=event
-    console.log("event", this.categoryIds)
   }
   
   // changetags(event){
   //   this.tags=event
-  //   console.log('selected cat id', this.tags)
   // }
   
   getTags(){
@@ -186,7 +179,6 @@ export class UpdateFormComponent implements OnInit {
     if (index >= 0) {
       this.tag.splice(index, 1);
     }
-    console.log('remove intrest', this.tag)
   }
 
 
@@ -198,14 +190,12 @@ export class UpdateFormComponent implements OnInit {
     else if (index !== -1) {
       this.tag.splice(index, 1);
     }
-    console.log('intrests', this.tag)
   }
 
   onChangeSearch(key: string) {
     this.tags = []
     this.apiservice.searchTag(key).subscribe((res: any) => {
       this.tags = res.tags.filter((item) => item.isActivated === true);
-      console.log('searchTag list categories', this.tags);
     });
 
     // fetch remote data from here
@@ -213,7 +203,6 @@ export class UpdateFormComponent implements OnInit {
   }
 
   onFocused(e) {
-    console.log('onFocused', e)
     // do something when input is focused
   }                           
 
@@ -226,21 +215,17 @@ export class UpdateFormComponent implements OnInit {
     if (index >= 0) {
       this.sourceUrls.splice(index, 1);
     }
-    console.log('sourceUrls',this.sourceUrls)
    
   }
   addSourceUrl(event: MatChipInputEvent) {
     const value = (event.value || '').trim();
     if (value) {
-      //console.dir(event);
       this.sourceUrls.push(value);
     }
     // Reset the input value
     if (event.input) {
       event.input.value = '';
     }
-    console.log('sourceUrls',this.sourceUrls)
-  
   }
   pasteSourceUrl(event: ClipboardEvent): void {
     event.preventDefault();

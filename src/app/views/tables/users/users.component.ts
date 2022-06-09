@@ -130,7 +130,6 @@ export class UsersComponent implements OnInit {
     this.loader.open()
     this.apiservice.getUsers(this.provider, this.pageNo, this.pageSize).subscribe((res:any) => {
       this.loader.close()
-      console.log(res)
       this.total = res.total;
       this.temp=res;
       this.pageLength=this.temp.message; 

@@ -91,15 +91,12 @@ export class AddFormComponent implements OnInit {
     
       // for(let user of json)
       // const dataString = JSON.stringify(jsonData);
-      // console.log('excel data', dataString)
       // document.getElementById('output').innerHTML = dataString.slice(0, 300).concat("...");
     }
     reader.readAsBinaryString(file);
-
   }
 
   ngOnInit() {
-    
     this.getCategories()
        this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
@@ -252,10 +249,8 @@ export class AddFormComponent implements OnInit {
     this.user.subCategoryIds= this.tag
     this.user.categoryIds= this.categoryIds
     this.user.sourceUrl = this.sourceUrls;
-    console.log('providerData before', this.user)
     this.loader.open();
     this.apiservice.addProvider(this.user).subscribe((res) => {
-      console.log("Provider res",res)
       this.providerResponse = res;
       this.loader.close();
       if (this.providerResponse.isSuccess === true) {
@@ -283,22 +278,17 @@ export class AddFormComponent implements OnInit {
 
   if (index >= 0) {
     this.sourceUrls.splice(index, 1);
-  }
-  console.log('sourceUrls',this.sourceUrls)
- 
+  } 
 }
   addSourceUrl(event: MatChipInputEvent) {
     const value = (event.value || '').trim();
     if (value) {
-      //console.dir(event);
       this.sourceUrls.push(value);
     }
     // Reset the input value
     if (event.input) {
       event.input.value = '';
     }
-    console.log('sourceUrls',this.sourceUrls)
-  
   }
   pasteSourceUrl(event: ClipboardEvent): void {
     event.preventDefault();
