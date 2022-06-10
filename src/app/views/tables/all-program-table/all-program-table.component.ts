@@ -164,11 +164,17 @@ export class AllProgramTableComponent implements OnInit {
 
   edit(data) {
     this.dataservice.setOption(data);
-    this.route.navigate(['forms/edit-program', data._id]);
+    const url = this.route.serializeUrl(
+      this.route.createUrlTree(['forms/edit-program/', data._id])
+    );
+    window.open('#'+url, '_blank');
   }
 
   manage(data){
-    this.route.navigate(['tables/program',data.user]);
+    const url = this.route.serializeUrl(
+      this.route.createUrlTree(['tables/program',data.user])
+    );
+    window.open('#'+url, '_blank');
   }
 
 
