@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Location } from '@angular/common';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Observable } from 'rxjs';
-import { MatAutocompleteSelectedEvent, MatSliderChange, MatDialogRef, MatDialog, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
+import { MatAutocompleteSelectedEvent, MatDialogRef, MatDialog, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
 import { FileUploader } from 'ng2-file-upload';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Userr } from 'app/shared/models/user.model';
@@ -93,14 +92,7 @@ capacity:any={
   removable: boolean = true;
   addOnBlur: boolean = false;
   keyword = 'name';
-
   separatorKeysCodes: number[] = [ENTER, COMMA];
-
-  fruitCtrl = new FormControl();
-
-  filteredFruits: Observable<any[]>;
-  filteredValues: Observable<any[]>;
-
   tags: any = [];
   sessions: any = [];
 
@@ -149,6 +141,58 @@ capacity:any={
     config.duration = this.setAutoHide ? this.autoHide : 0;
 
   }
+  ngOnInit() {
+    this.getCategories()
+    if (this.program === undefined) {
+      this.route.navigate(['tables/all-program']);
+    }
+    this.firstFormGroup = new FormGroup({
+      name: new FormControl(['',]),
+      type: new FormControl(['',]),
+      categoryId: new FormControl(['',]),
+      subCategory: new FormControl(['']),
+      inpersonOrVirtual: new FormControl(['',]),
+      indoorOroutdoor: new FormControl(['',]),
+      description: new FormControl(['',]),
+      specialInstructions: new FormControl(['',]),
+      email: new FormControl(['', Validators.email]),
+      presenter: new FormControl(['',]),
+      ageGroup: new FormControl(['',]),
+      startDate: new FormControl(['',]),
+      endDate: new FormControl(['',]),
+      startTime: new FormControl(['',]),
+      endTime: new FormControl(['',]),
+      isDateNotMention: new FormControl(false),
+      isTimeNotMention: new FormControl(false),
+      daysValue: new FormControl(['',]),
+      isExpired: new FormControl(false),
+     
+    });
+
+    this.secondFormGroup = new FormGroup({ 
+      isproRated: new FormControl(false),
+      isFree: new FormControl(false),
+      days: new FormControl(['',]),
+      pricePerParticipant: new FormControl(['',]),
+      priceForSiblings: new FormControl(['',]),
+      perTimePeriod: new FormControl(['',]),
+      timePeriodDuration: new FormControl(['',]),
+      extractionDate: new FormControl(['',]),
+      duHours: new FormControl(['',Validators.required]),
+      duMinutes: new FormControl(['',Validators.required]),
+      adultAssistanceIsRequried: new FormControl(false),
+      addresses: new FormControl(['',]),
+      hours: new FormControl(['',]),
+      joiningLink: new FormControl(['',]),
+      location: new FormControl(['']),
+      city: new FormControl(['']),
+      source: new FormControl(['',]),
+      sourceUrl: new FormControl(['',]),
+      cycle: new FormControl(['']),
+      activeStatus: new FormControl(['']),
+    });
+  }
+
   openPopUp(batch) {
     this.dataservice.setOption(this.programTOBatchPopup)
     let dialogRef: MatDialogRef<any> = this.dialog.open(UpdateBatchPopupComponent, {
@@ -179,7 +223,6 @@ capacity:any={
       this.tag.splice(index, 1);
     }
   }
-
 
   onChangeSearch(key: string) {
     this.tags = []
@@ -229,114 +272,6 @@ capacity:any={
       this.msg = " only images are supported";
       return;
     }
-    
-  }
-
-  // -------------------------------------get categories------------------------------------------
- 
-
-
-
-  ngOnInit() {
-  
-    this.getCategories()
-    if (this.program === undefined) {
-      this.route.navigate(['tables/all-program']);
-    }
-
-    this.firstFormGroup = new FormGroup({
-      name: new FormControl(['',]),
-      type: new FormControl(['',]),
-      categoryId: new FormControl(['',]),
-      subCategory: new FormControl(['']),
-      inpersonOrVirtual: new FormControl(['',]),
-      indoorOroutdoor: new FormControl(['',]),
-      description: new FormControl(['',]),
-      specialInstructions: new FormControl(['',]),
-      email: new FormControl(['', Validators.email]),
-      presenter: new FormControl(['',]),
-      ageGroup: new FormControl(['',]),
-      startDate: new FormControl(['',]),
-      endDate: new FormControl(['',]),
-      startTime: new FormControl(['',]),
-      endTime: new FormControl(['',]),
-      isDateNotMention: new FormControl(false),
-      isTimeNotMention: new FormControl(false),
-      daysValue: new FormControl(['',]),
-      isExpired: new FormControl(false),
-     
-    });
-
-    this.secondFormGroup = new FormGroup({ 
-      isproRated: new FormControl(false),
-      isFree: new FormControl(false),
-      days: new FormControl(['',]),
-      pricePerParticipant: new FormControl(['',]),
-      priceForSiblings: new FormControl(['',]),
-      perTimePeriod: new FormControl(['',]),
-      timePeriodDuration: new FormControl(['',]),
-      extractionDate: new FormControl(['',]),
-      duHours: new FormControl(['',Validators.required]),
-      duMinutes: new FormControl(['',Validators.required]),
-      adultAssistanceIsRequried: new FormControl(false),
-      addresses: new FormControl(['',]),
-      hours: new FormControl(['',]),
-      joiningLink: new FormControl(['',]),
-      location: new FormControl(['']),
-      city: new FormControl(['']),
-      source: new FormControl(['',]),
-      sourceUrl: new FormControl(['',]),
-      cycle: new FormControl(['']),
-      activeStatus: new FormControl(['']),
-    });
-
-
-
-    // this.firstFormGroup = new FormGroup({
-    //   type: new FormControl(['',]),
-    // });
-    // this.secondFormGroup = new FormGroup({
-    //   name: new FormControl(['',]),
-    //   description: new FormControl(['',]),
-    //   startDate: new FormControl(['',]),
-    //   endDate: new FormControl(['',]),
-    //   startTime: new FormControl(['',]),
-    //   endTime: new FormControl(['',]),
-    //   city: new FormControl(['',]),
-    //   isFree: new FormControl(false),
-    //   isDateNotMention: new FormControl(false),
-    //   isTimeNotMention: new FormControl(false),
-    //   category: new FormControl(['',]),
-    //   pricePerParticipant: new FormControl(['',]),
-    //   perTimePeriod: new FormControl(['',]),
-    //   timePeriodDuration: new FormControl(['',]),
-    //   priceForSiblings: new FormControl(['',]),
-    //   categoryId: new FormControl(['']),
-    //   subCategoryIds : new FormControl(['']),
-    //   location: new FormControl(['']),
-    // });
-    // this.thirdFormGroup = new FormGroup({
-    //   email: new FormControl(['', Validators.email]),
-    //   specialInstructions: new FormControl(['',]),
-    //   adultAssistanceIsRequried: new FormControl(false),
-    //   addresses: new FormControl(['',]),
-    //   daysValue: new FormControl(['',]),
-    //   hours: new FormControl(['',]),
-    //   presenter: new FormControl(['',]),
-    //   joiningLink: new FormControl(['',]),
-    //   indoorOroutdoor: new FormControl(['',]),
-    //   inpersonOrVirtual: new FormControl(['',]),
-
-    // });
-    // this.fourthFormGroup = new FormGroup({
-    //   sourceUrl: new FormControl(['',]),
-    //   source: new FormControl(['',]),
-    //   cycle: new FormControl(['']),
-    //   activeStatus: new FormControl(['']),
-    //   duration: new FormControl(['']),
-    //   type: new FormControl(['']),
-    // })
-
   }
 
   updateProgram() {  
@@ -420,16 +355,14 @@ switch (dayValue){
       if (response.isSuccess === true) {
         let msg = "Program Updated successfully";
         this.snack.open(msg, 'OK', { duration: 4000 });
-        this.route.navigate(['tables/all-program'])
+        this.route.navigate(['tables/program',response.data.user])
       } else {
         let msg = "Somthing went wrong";
         this.snack.open(msg, 'ERROR', { duration: 4000 });
         this.loader.close();
       }
     });
-
   }
-
 
   getCategories(){
     this.apiservice.getCategory().subscribe(res => {
@@ -445,7 +378,6 @@ switch (dayValue){
     this.tags=event
   }
  
-
   getQuantity(event) {
     this.numbers= []
      this.title = ''
@@ -471,13 +403,9 @@ switch (dayValue){
     }
     for (let i = 1; i <= n; i++) {
       this.numbers.push(i)
-  
     }
-  
   }
   
-
-
   submit() {
     this.updateProgram();
   }
@@ -539,5 +467,4 @@ switch (dayValue){
         }
       });
   }
-
 }

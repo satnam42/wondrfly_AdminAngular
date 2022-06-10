@@ -251,6 +251,7 @@ export class AddFormComponent implements OnInit {
     this.user.sourceUrl = this.sourceUrls;
     this.loader.open();
     this.apiservice.addProvider(this.user).subscribe((res) => {
+      console.log(res)
       this.providerResponse = res;
       this.loader.close();
       if (this.providerResponse.isSuccess === true) {
@@ -259,6 +260,10 @@ export class AddFormComponent implements OnInit {
       } else {
         if (this.providerResponse.isSuccess === false && this.providerResponse.error === 'Email already resgister') {
           let msg = 'Email already registered!';
+          this.snack.open(msg, 'OK', { duration: 7000 });
+        }else 
+        if (this.providerResponse.isSuccess === false && this.providerResponse.error === 'userName already resgister') {
+          let msg = 'UserId is already registered!';
           this.snack.open(msg, 'OK', { duration: 7000 });
         }
         else {

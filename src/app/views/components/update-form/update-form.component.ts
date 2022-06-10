@@ -129,7 +129,12 @@ export class UpdateFormComponent implements OnInit {
       if (this.providerResponse.isSuccess === true) {
         this.snack.open(this.message, 'OK', { duration: 4000 })
         this.route.navigate(['tables/providers']);
-      } else {
+      }else 
+      if (this.providerResponse.isSuccess === false && this.providerResponse.error === 'userName already resgister') {
+        let msg = 'UserId is already registered!';
+        this.snack.open(msg, 'OK', { duration: 7000 });
+      }
+       else {
         let msg = "Something Went Wrong!";
         this.snack.open(msg, 'OK', { duration: 4000 });
       }

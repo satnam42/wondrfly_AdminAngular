@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { Observable } from 'rxjs';
-import {  MatSliderChange, MatDialogRef, MatDialog, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
+import { MatDialogRef, MatDialog, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
 import { FileUploader } from 'ng2-file-upload';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Userr } from 'app/shared/models/user.model';
@@ -41,25 +40,21 @@ export class WizardComponent implements OnInit {
     days: "",
     hours: ""
   };
-
   durationTime: any= {
     hours: 0,
     minutes: 0
   }
-
   locationData: any = {
     address: '',
     lat: '',
     lng: ''
   };
-
   pricePeriod: {
     periodAmount: string,
     periodCount: number
   }
   timePeriodDuration:number
   perTimePeriod: string
-
   time = {
     from: moment(this.startDate).format('MM-DD-YYYY'),
     to: moment(this.endDate).format('MM-DD-YYYY'),
@@ -71,12 +66,10 @@ export class WizardComponent implements OnInit {
   user = new Userr;
   program:any = new Program;
   sessions: any = {};
-
   //  ng5slider start age group
   title: string
   minAge: number = 3;
   maxAge: number = 10;
-
   ageOption: Options = {
     floor: 0,
     ceil: 15,
@@ -84,21 +77,16 @@ export class WizardComponent implements OnInit {
     translate: (value: number): string => {
       return value + ' YRS';
     }
-
   };
-
   //  ng5slider start capacity
-
   minCapacity: number = 0;
   maxCapacity: number = 30;
-
   capacityOption: Options = {
     floor: 0,
     ceil: 100,
     translate: (value: number): string => {
       return value + '';
     }
-
   };
   daysValue:any = []
   days:any =
@@ -109,32 +97,15 @@ export class WizardComponent implements OnInit {
     thursday:false,
     friday:false,
     saturday:false,}
-
   // ng5slider end
-
-
   // ---------------autucomplete-------------  
-  visible: boolean = true;
-  selectable: boolean = true;
-  removable: boolean = true;
-  addOnBlur: boolean = false;
-  keyword = 'name';
-
   separatorKeysCodes: number[] = [ENTER, COMMA];
-
-  fruitCtrl = new FormControl();
-
-  filteredFruits: Observable<any[]>;
-  filteredValues: Observable<any[]>;
   public numbers: Array<number> = [];
   tags: any = [];
   tag: any = [];
-  // sessions: any = [];
   // ng5slider end
-
   public uploader: FileUploader = new FileUploader({ url: 'upload_url' });
   public hasBaseDropZoneOver: boolean = false;
-
   action: boolean = true;
   setAutoHide: boolean = true;
   autoHide: number = 4000;
@@ -160,76 +131,6 @@ export class WizardComponent implements OnInit {
     config.verticalPosition = this.verticalPosition;
     config.horizontalPosition = this.horizontalPosition;
     config.duration = this.setAutoHide ? this.autoHide : 0;
-
-  }
-  openPopUp() {
-    let dialogRef: MatDialogRef<any> = this.dialog.open(AddBatchComponent, {
-      width: '30%',
-      disableClose: true,
-      // data: this.sessions
-    })
-    dialogRef.afterClosed()
-      .subscribe(res => {
-        if (!res) {
-          // If user press cancel
-          return;
-        }
-        // this.loader.open();
-
-
-      });
-  }
- 
-  onChangeSearch(key: string) {
-    this.tags = []
-    this.apiservice.searchTag(key).subscribe((res: any) => {
-      this.tags = res;
-      this.tags.tags = this.tags.tags.filter((item) => item.isActivated === true);
-    });
-
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
-  }
-
-  remove(t) {
-    const index = this.tag.indexOf(t);
-    if (index >= 0) {
-      this.tag.splice(index, 1);
-    }   
-  }
-
-
-
-  selectEvent(item) {
-    const index: number = this.tag.indexOf(item);
-    if (this.tag.indexOf(item) === -1) {
-      this.tag.push(item);
-    }
-    else if (index !== -1) {
-      this.tag.splice(index, 1);
-    }
-  }
-
-  onFocused(e) {
-    // do something when input is focused
-  }
-
-  openMap() {
-    let dialogRef: MatDialogRef<any> = this.dialog.open(ProgramLocationComponent, {
-      width: '50%',
-      disableClose: true,
-    })
-    dialogRef.afterClosed()
-      .subscribe(res => {
-        if (!res) {
-          // If user press cancel
-          this.locationData = this.dataservice.getOption();
-          this.program.lat = this.locationData.lat;
-          this.program.lng = this.locationData.lng;
-          this.program.location = this.locationData.address;
-          return;
-        }
-      });
   }
 
   ngOnInit() {
@@ -276,22 +177,75 @@ export class WizardComponent implements OnInit {
       cycle: new FormControl(['']),
       activeStatus: new FormControl(['']),
     });
-    
-  
-    
-
-
-      // email: ['',],
-      // special_instruction: ['',],
-      // isAdult_assistance: [true,],
-      // booking_cancle_before: ['',],
-      // address: ['',]
-
   }
 
-  // public fileOverBase(e: any): void {
-  //   this.hasBaseDropZoneOver = e;
-  // }
+  openPopUp() {
+    let dialogRef: MatDialogRef<any> = this.dialog.open(AddBatchComponent, {
+      width: '30%',
+      disableClose: true,
+      // data: this.sessions
+    })
+    dialogRef.afterClosed()
+      .subscribe(res => {
+        if (!res) {
+          // If user press cancel
+          return;
+        }
+        // this.loader.open();
+
+
+      });
+  }
+ 
+  onChangeSearch(key: string) {
+    this.tags = []
+    this.apiservice.searchTag(key).subscribe((res: any) => {
+      this.tags = res;
+      this.tags.tags = this.tags.tags.filter((item) => item.isActivated === true);
+    });
+
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  remove(t) {
+    const index = this.tag.indexOf(t);
+    if (index >= 0) {
+      this.tag.splice(index, 1);
+    }   
+  }
+
+  selectEvent(item) {
+    const index: number = this.tag.indexOf(item);
+    if (this.tag.indexOf(item) === -1) {
+      this.tag.push(item);
+    }
+    else if (index !== -1) {
+      this.tag.splice(index, 1);
+    }
+  }
+
+  onFocused(e) {
+    // do something when input is focused
+  }
+
+  openMap() {
+    let dialogRef: MatDialogRef<any> = this.dialog.open(ProgramLocationComponent, {
+      width: '50%',
+      disableClose: true,
+    })
+    dialogRef.afterClosed()
+      .subscribe(res => {
+        if (!res) {
+          // If user press cancel
+          this.locationData = this.dataservice.getOption();
+          this.program.lat = this.locationData.lat;
+          this.program.lng = this.locationData.lng;
+          this.program.location = this.locationData.address;
+          return;
+        }
+      });
+  }
 
   fileSelect(event) {
     let formData = new FormData();
@@ -303,17 +257,12 @@ export class WizardComponent implements OnInit {
       this.loader.close();
       if (this.imgResponse.isSuccess === true) {
         this.program.programCoverPic = this.imgResponse.data;
-
-
       } else {
         let msg = "Something Went Wrong!";
         this.snack.open(msg, 'OK', { duration: 4000 });
-
       }
     });
-
-    // --------------------preview image before upload ------------------------
-
+    // -------------------preview image before upload ------------------------
     if (event.target.files.length === 0)
       return;
     var reader = new FileReader();
@@ -328,7 +277,6 @@ export class WizardComponent implements OnInit {
       return;
     }
     // -------------------------------------------------------------------------------
-
   }
 
   addProgram() {
@@ -366,7 +314,6 @@ export class WizardComponent implements OnInit {
                     this.days.saturday=true
                     break;
     }}
-
     const dateFormat = "YYYY-MM-DD";
     this.program.duration = this.durationTime
     this.program.pricePeriod.periodAmount = this.perTimePeriod
@@ -385,8 +332,7 @@ export class WizardComponent implements OnInit {
     this.program.date.from = moment(this.startDate).format(dateFormat)
     this.program.date.to = moment(this.endDate).format(dateFormat)
     this.program.extractionDate =  moment(this.extractionDate).format(dateFormat)
-    this.program.subCategoryIds = this.tag;
-    
+    this.program.subCategoryIds = this.tag; 
     var datesDiff:any =  Math.round((this.endDate - this.startDate)/(1000*60*60*24));
      var days:any = [];
      let i = 0;
@@ -402,7 +348,6 @@ while (i <= datesDiff) {
   loop = new Date(newDate);
 }
 }
-
    this.program.days= this.days
     if (this.sessions.length > 0) {
       this.program.sessions = this.sessions;
@@ -428,7 +373,6 @@ while (i <= datesDiff) {
     });
   }
    this.loader.close();
-
   }
 
   submit() {
@@ -439,7 +383,6 @@ getCategories(){
   this.apiservice.getCategory().subscribe(res => {
     this.categoriesList = res;
     this.categoriesList = this.categoriesList.filter((item) => item.isActivated === true);
-
   })
 }
 
@@ -450,13 +393,7 @@ changeItem(event){
 
 changetags(event){
   this.tags=event
-}
-
-// getTagsByCategory(){
-//   this.apiservice.getTagsByCategory(this.program.categoryId).subscribe((res:any) => {
-//     this.tagByCategory = res.data;
-//   })
-// }
+};
 
 getQuantity(event) {
   this.numbers= []
@@ -483,11 +420,6 @@ getQuantity(event) {
   }
   for (let i = 1; i <= n; i++) {
     this.numbers.push(i)
-
   }
-
 }
-
-
-
 }

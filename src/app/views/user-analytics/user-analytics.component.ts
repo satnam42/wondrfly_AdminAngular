@@ -33,11 +33,11 @@ export class UserAnalyticsComponent implements OnInit {
      this.categories= this.searchedData.filter(e => e.category);
      this.providers= this.searchedData.filter(e => e.provider);
      this.subCategories= this.searchedData.filter(e => e.subCategory);
-     console.log('this.programs',this.programs)
-     console.log('this.categories',this.categories)
-     console.log('this.providers',this.providers)
-     console.log('this.subCategories',this.subCategories)
-     console.log('this.searchedData',this.searchedData)
+    this.programs.reverse();
+   this.categories.reverse();
+   this.providers.reverse();
+    this.subCategories.reverse();
+    this.searchedData.reverse();
     })
   }
 

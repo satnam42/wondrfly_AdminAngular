@@ -2,11 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Userr } from 'app/shared/models/user.model';
 import { ApiService } from 'app/shared/services/api.service.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { DataService } from 'app/shared/services/dataservice.service';
-import { ProgramLocationComponent } from 'app/views/forms/program-form/program-location/program-location.component';
 import { TablesService } from 'app/views/tables/tables.service';
 
 @Component({
@@ -91,7 +89,6 @@ export class EditFormComponent implements OnInit {
     this.apiservice.getUserById(this.userId).subscribe((res: any) => {
       this.user = res;
       this.sourceUrls = this.user.sourceUrl;
-      console.log("providerdata", this.user)
     })
   }
 
@@ -107,10 +104,8 @@ export class EditFormComponent implements OnInit {
           delete this.user.permissions;
           this.user.categoryIds=[]
           this.user.subCategoryIds=[]
-    console.log('before resss', this.user);
  this.user.sourceUrl=   this.sourceUrls ;
     this.apiservice.updateProvider(this.user).subscribe(res => {
-      console.log('after resss', res)
       this.providerResponse = res;
       this.loader.close();
       if (this.providerResponse.isSuccess === true) {

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Userr } from 'app/shared/models/user.model';
@@ -22,9 +22,12 @@ export class EnrolledUsersComponent implements OnInit {
   constructor(private api:ApiService,
  private dialog: MatDialog,
  private sanitizer: DomSanitizer,
- private exportService: CsvDataService,
- 
-    ) { }
+ private exportService: CsvDataService,) { }
+
+ ngOnInit() {
+  this.betaProgramUsers();
+}
+
 betaProgramUsers(){
 this.api.betaProgramUsers().subscribe((res:any)=>{
   if(res.isSuccess){
@@ -44,7 +47,6 @@ this.api.betaProgramUsers().subscribe((res:any)=>{
       Activity_Location:user.lookingkidsActivityIn.replace(/,/g, ''),
     }
       this.filtredUsers.push(filtredUser)
-      console.log('beta ', this.filtredUsers)
     });
   }
 })
@@ -58,14 +60,12 @@ else if(status.declined){
 }
 else{
   return 'pending'
-
 }
-}
+ }
 
 exportElmToExcel() {
   this.exportService.downloadFile(this.filtredUsers);
 }
-
 // generateDownloadJsonUri() {
 //   var theJSON = JSON.stringify(this.users);
 //   var uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
@@ -77,7 +77,6 @@ exportElmToExcel() {
 //   ...items.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
 // ].join('\r\n')
 
-// console.log(csv)
 //   this.downloadJsonHref = uri;
 // }
 
@@ -94,7 +93,4 @@ openPopUp(data) {
       }
     });
 }
-  ngOnInit() {
-    this.betaProgramUsers();
-  }
 }

@@ -18,7 +18,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of programs | slice:0:20">
+            <tr *ngFor="let item of programs | slice:0:30">
               <td>
                 <span > {{item?.program?.name}}</span>
             </td>
@@ -60,7 +60,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of providers | slice:0:20">
+            <tr *ngFor="let item of providers | slice:0:30">
               <td>
                 <span > {{item?.provider?.firstName}}</span>
             </td>
@@ -100,7 +100,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of categories | slice:0:20">
+            <tr *ngFor="let item of categories | slice:0:30">
               <td>
                 <span > {{item?.category?.name}}</span>
             </td>
@@ -141,7 +141,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of subCategories | slice:0:20">
+          <tr *ngFor="let item of subCategories | slice:0:30">
             <td>
               <span > {{item?.subCategory?.name}}</span>
           </td>

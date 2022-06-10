@@ -92,30 +92,24 @@ export class BetaUsersComponent implements OnInit{
             this.routeName = event.url;          
         }
     });
-
     this.dataservice.dataChanges.subscribe( data => {
       this.data = data;
       this.betaProgramUsers();
     });
-
    }
 
-   selectedRound(){
-
-   }
-
+   ngOnInit() {
+    this.betaProgramUsers()
+  }
 
 betaProgramUsers(){
 this.api.betaProgramUsers().subscribe((res:any)=>{
-  console.log(res)
   if(res.isSuccess){
     this.userResponse = res;
   }
 })
 }
-  ngOnInit() {
-    this.betaProgramUsers()
-  }
+
   enrolledRouter(){
   this.router.navigate(['/beta-program/enrolled'])
 }
