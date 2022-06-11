@@ -25,27 +25,6 @@ td.mat-column-position {
 .mat-table-sticky-border-elem-left {
   border-right: 1px solid #e0e0e0;
 }
-
-/* .w-85 {
-  width:70%!important;
-} */
-
-/* .mat-header-cell {
-  width: 900px;
-  text-align: center;
-  padding: 0 !important;
-  border: 1px solid #ccc;
-} */
-
-/* ::ng-deep .mat-sort-header-container {
-  display:flex;
-  justify-content:center;
-} */
-
-/* .mat-cell:hover {
-  background-color: #ccc;
-} */
-
 .mat-cell:first-child {
   background-color: white;
 }
@@ -61,22 +40,17 @@ td.mat-column-position {
   padding: 0 !important;
   border: 1px solid #ccc; */
 }
-
-
 th.mat-sort-header-sorted {
   color: black;
 }
-
 .color-active {
   background-color: green !important;
   color: white;
 }
-
 .color-inactive {
   background-color: red !important;
   color: white;
 }
-
 .mat-flat-button {
   height: 25px;
   line-height: 0;

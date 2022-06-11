@@ -1515,6 +1515,67 @@ keyWordActivateDeactivate(model): Observable<any[]> {
     });
     return subject.asObservable();
 }
+//=============================================== search Topic crud ========================================
+getTopics(): Observable<any> {
+    const subject = new Subject<any>();
+    this.http.get(`${this.root}/searchtopic/list`, this.getHeaders()).subscribe((responseData: any) => {
+        subject.next(responseData);
+    }, (error) => {
+        subject.next(error.error);
+    });
+    return subject.asObservable();
+}
+addSearchTopic(model): Observable<any[]> {
+    const subject = new Subject<any[]>();
+    this.http.post(`${this.root}/searchtopic/create`, model, this.getHeaders()).subscribe((responseData) => {
+        this.userResponse = responseData;
+        subject.next(this.userResponse);
+    }, (error) => {
+        subject.next(error.error);
+    });
+    return subject.asObservable();
+}
+updateSearchTopic(id,data): Observable<any[]> {
+    const subject = new Subject<any[]>();
+    this.http.put(`${this.root}/searchtopic/update/${id}`,data,this.getHeaders()).subscribe((responseData:any) => {
+        subject.next(responseData);
+    }, (error) => {
+        subject.next(error.error);
+    });
+    return subject.asObservable();
+}
+topicActivateDeactivate(model): Observable<any[]> {
+    const subject = new Subject<any[]>();
+    this.http.put(`${this.root}/searchtopic/activeOrDeactive?id=${model.id}&isActivated=${model.isActivated}`,'',this.getHeaders()).subscribe((responseData) => {
+        // this.getHeaders() 
+        this.categoryResponse = responseData;
+        subject.next(this.categoryResponse);
+    }, (error) => {
+        subject.next(error.error);
+    });
+    return subject.asObservable();
+}
+deleteTopic(id): Observable<any[]> {
+    const subject = new Subject<any[]>();
+    this.http.delete(`${this.root}/searchtopic/remove/${id}`,this.getHeaders()).subscribe((responseData:any) => {
+        subject.next(responseData);
+    }, (error) => {
+        subject.next(error.error);
+    });
+    return subject.asObservable();
+}
+searchTopic(key): Observable<any> {
+    const subject = new Subject<any>();
+    this.http.get(`${this.root}/searchtopic/search?name=${key}`, this.getHeaders()).subscribe((responseData:any) => {
+        if(responseData.isSuccess){
+            this.userResponse = responseData;
+            subject.next(this.userResponse);
+        }
+    }, (error) => {
+        subject.next(error.error);
+    });
+    return subject.asObservable();
+}
 
 }
 

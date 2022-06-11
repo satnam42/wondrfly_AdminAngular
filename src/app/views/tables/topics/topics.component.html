@@ -36,10 +36,75 @@
 
   </div>
 </div>
-<div class="container">
+<div class="container usertable table-body-info">
   <div class="row">
       <div class="col-12">
-          <div class="search-results table-body-info" #scrollToTop infiniteScroll [infiniteScrollDistance]="2"
+        <div class="example-container mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort>
+              <ng-container matColumnDef="select" sticky>
+                <th mat-header-cell class="w-25" *matHeaderCellDef>
+                  <mat-checkbox (change)="$event" [checked]="selection.hasValue()"
+                    [indeterminate]="selection.hasValue()">
+                  </mat-checkbox>
+                  <mat-label class="checkbox-label">All</mat-label>
+                </th>
+                <td mat-cell class="w-25" *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)" >
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+          
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let row"> {{row?.id? row.id:row?._id}} </td>
+              </ng-container>
+          
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Topic Name </th>
+                <td mat-cell *matCellDef="let row" (click)="openPopUp(row)" > {{row?.name}} </td>
+              </ng-container>
+          
+    
+              <ng-container matColumnDef="isActivated">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                <td class="center" mat-cell *matCellDef="let row" >
+                  <mat-slide-toggle [checked]="row?.isActivated" color="primary"
+                  (change)="activateDeactivateTopic($event,row)">
+                  </mat-slide-toggle>
+                 </td>
+              </ng-container>
+           
+         
+              <ng-container matColumnDef="star" stickyEnd>
+                <th mat-header-cell class="w-25" *matHeaderCellDef >Action</th>
+                <td mat-cell class="w-25" *matCellDef="let row">
+                  <button  mat-icon-button [matMenuTriggerFor]  ="action">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #action="matMenu" >
+                    <button mat-menu-item>
+                      <span>Copy Link</span>
+                    </button>
+                    <button mat-menu-item (click)="editDataPopup(row)">
+                      <span >Edit</span>
+                    </button>
+                    <button mat-menu-item (click)="deleteTopic(row)">
+                      <span >Delete</span>
+                    </button>
+                  </mat-menu>
+                </td>
+              
+              </ng-container>
+          
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" ></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+              </tr>
+            </table>
+          
+          </div>
+
+          <!-- <div class="search-results table-body-info" #scrollToTop infiniteScroll [infiniteScrollDistance]="2"
               [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="false" *ngIf="rows.length">
               <table>
                   <tbody>
@@ -90,32 +155,7 @@
                       </tr>
                   </tbody>
               </table>
-          </div>
+          </div> -->
       </div>
-
-      <!-- <div class="col-12">
-    <div class="pagination-table-info">
-      <div class="pagination-page-no">
-        <div class="pagination-h3">
-          <h3>Page <span class="bold">1</span> of <span class="bold">16</span></h3>
-        </div>
-        <div class="pagination-left-right-btn">
-          <div class="pagination-left-btn"><img src="assets/images/pagination-left-arrow.svg" /></div>
-          <div class="pagination-right-btn"><img src="assets/images/pagination-right-arrow.svg" /></div>
-        </div>
-      </div>
-      <div class="pagination-rpp-info">
-        <div class="rrp-h3"><h3>Rows per page:</h3></div>
-        <div class="rrp-select-info">
-          <select class="rrp-select-no">
-            <option value="20">20</option>
-            <option value="30">30</option>
-            <option value="40">40</option>
-            <option value="50">50</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </div> -->
   </div>
 </div>

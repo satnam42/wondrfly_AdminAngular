@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar, MatDialog, MatSnackBarConfig, MatDialogRef } from '@angular/material';
+import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar, MatDialog, MatSnackBarConfig, MatDialogRef, MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import { Userr } from 'app/shared/models/user.model';
 import { ApiService } from 'app/shared/services/api.service.service';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
-import { KeywordFormComponent } from 'app/views/forms/keyword-form/keyword-form.component';
 import { environment } from 'environments/environment';
 import { DataPopupComponent } from '../data-popup/data-popup.component';
 import { SearchedKeywordsComponent } from '../searched-keywords/searched-keywords.component';
@@ -20,6 +20,21 @@ import { TopicFormComponent } from './topic-form/topic-form.component';
 })
 export class TopicsComponent implements OnInit {
   defaultFilter: string='name'
+  displayedColumns: any[] = [
+    'id',
+    'name',
+    'star',
+  ];
+  filterColumns: string[] = [
+    'firstName',
+    'montclair',
+    'byDate'
+  ];
+  dataSource: MatTableDataSource<any>;
+  selection = new SelectionModel<any>(true, []);
+
+  @ViewChild(MatPaginator,{static:false}) paginator!: MatPaginator;
+  @ViewChild(MatSort,{static:false}) sort!: MatSort;
   isLoading: boolean;
   usersData: any = {};
   rows: any = [];
@@ -105,17 +120,16 @@ export class TopicsComponent implements OnInit {
     if (page.offset == 1) {
       this.pageNo = 2
     }
-    this.getKeywords();
+    this.getTopics();
   }
 
-  getKeywords() {
+  getTopics() {
     this.loader.open();
-    this.apiservice.getKeyword().subscribe(res => {
+    this.apiservice.getTopics().subscribe(res => {
+      console.log(res)
       this.temp = res;
       if (this.temp.data) {
-        this.rows = this.temp.data;
-        this.rows.reverse()
-        this.isScrol = true;
+        this.rows = this.temp.data.reverse();
       }
       this.loader.close();
     });
@@ -129,7 +143,7 @@ export class TopicsComponent implements OnInit {
     })
     dialogRef.afterClosed()
       .subscribe(res => {
-        this.getKeywords();
+        this.getTopics();
       });
   }
 
@@ -141,7 +155,7 @@ export class TopicsComponent implements OnInit {
     dialogRef.afterClosed()
   }
   
-  deleteKeyword(data,indx) {
+  deleteTopic(data,indx) {
     this.confirmService.confirm({ message: `Delete ${data.keywordName}?` }).subscribe(res => {
       if (res) {
         this.loader.open();
@@ -161,7 +175,7 @@ export class TopicsComponent implements OnInit {
       }
     })
   }
-  activateDeactivateKeyword(data,id){
+  activateDeactivateTopic(data,id){
     var model: any = {
       id: id,
       isActivated: data.checked
@@ -174,6 +188,6 @@ export class TopicsComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.getKeywords();
+    this.getTopics();
   }
 }
