@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import {
-  MatInputModule, MatPaginatorModule, MatIconModule, MatTableModule, MatSortModule, MatButtonModule, MatChip, MatCardModule, MatMenuModule, MatChipsModule, MatTooltipModule, MatListModule, MatDialogModule, MatSnackBarModule, MatSlideToggleModule, MatGridListModule, MatCheckboxModule, MatRadioModule, MatProgressBarModule, MatTabsModule, MatOptionModule, MatAutocompleteModule, MatExpansionModule, MatSelectModule, MatButtonToggleModule
+  MatInputModule, MatPaginatorModule, MatIconModule, MatTableModule, MatSortModule, MatButtonModule, MatCardModule, MatMenuModule, MatChipsModule, MatTooltipModule, MatListModule, MatDialogModule, MatSnackBarModule, MatSlideToggleModule, MatGridListModule, MatCheckboxModule, MatRadioModule, MatProgressBarModule, MatTabsModule, MatOptionModule, MatAutocompleteModule, MatExpansionModule, MatSelectModule, MatButtonToggleModule
 } from '@angular/material';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TablesRoutes } from './tables.routing';
@@ -45,7 +45,6 @@ import { AddNotificationComponent } from './add-notification/add-notification.co
 import { NotificationsComponent } from './notifications/notifications.component';
 import { DuplicacyDataPopupComponent } from './duplicacy/duplicacy-data-popup/duplicacy-data-popup.component';
 import { DuplicacyComponent } from './duplicacy/duplicacy.component';
-import { DataPopupComponent } from './data-popup/data-popup.component';
 import { BadgesComponent } from './badges/badges.component';
 // import { CalenderComponent } from './calender/calender.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
@@ -72,36 +71,25 @@ import { Ng5SliderModule } from 'ng5-slider';
 import { SearchedKeywordsComponent } from './searched-keywords/searched-keywords.component';
 import { TopicsComponent } from './topics/topics.component';
 import { TopicFormComponent } from './topics/topic-form/topic-form.component';
-
-
-// ProviderPopupComponent
+import { ProgramFormComponent } from './all-program-table/program-form/program-form.component';
+import { AgmCoreModule } from '@agm/core';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatIconModule,
     Ng2SearchPipeModule,
-    MatButtonModule,
-    MatInputModule,
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
     MatInputModule,
-    MatIconModule,
-    MatCardModule,
     Ng5SliderModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    MatMenuModule,
-    MatButtonModule,
     MatChipsModule,
-    MatListModule,
     MatTooltipModule,
     MatDialogModule,
     MatDatepickerModule,
-    MatSnackBarModule,
-    MatSlideToggleModule,
     NgxDatatableModule,
     MatListModule,
     MatIconModule,
@@ -134,11 +122,14 @@ import { TopicFormComponent } from './topics/topic-form/topic-form.component';
       useFactory: adapterFactory,
     }),
     RouterModule.forChild(TablesRoutes),
-    NgxDaterangepickerMd.forRoot()
+    NgxDaterangepickerMd.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyD_5P0pxn1q9hvvTeCr3YCsDhLJoHwxs2c',
+      libraries: ['places']
+    }),
   ],
 
   declarations: [
-
     ParentTableComponent,
     ChildrenTableComponent,
     ProviderTableComponent,
@@ -185,9 +176,10 @@ import { TopicFormComponent } from './topics/topic-form/topic-form.component';
     KeywordFormComponent,
     SearchedKeywordsComponent,
     TopicsComponent,
-    TopicFormComponent
+    TopicFormComponent,
+    ProgramFormComponent
     
   ],
-  entryComponents: [SearchProviderPopupComponent, DuplicacyDataPopupComponent,TopicFormComponent, SearchedKeywordsComponent, ProviderDataPopupComponent,KeywordFormComponent, ProgramDataPopupComponent,UsersComponent,EditFormComponent,AllUserComponent]
+  entryComponents: [SearchProviderPopupComponent, DuplicacyDataPopupComponent,TopicFormComponent,ProgramFormComponent, SearchedKeywordsComponent, ProviderDataPopupComponent,KeywordFormComponent, ProgramDataPopupComponent,UsersComponent,EditFormComponent,AllUserComponent]
 })
 export class TablesModule { }

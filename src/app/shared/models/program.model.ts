@@ -43,6 +43,7 @@ export class Program {
     lat: string;
     lng: string;
     categoryIds: [];
+    programImage:any;
     indoorOroutdoor: string;
     subCategoryIds: [];
     source: [];

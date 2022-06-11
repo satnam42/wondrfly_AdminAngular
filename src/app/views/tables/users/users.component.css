@@ -131,7 +131,7 @@ ul.table-top-links li:hover a{background: #EEF9FF;border-bottom: 2px solid #53B2
 ::ng-deep .table-body-info table tr th.mat-header-cell::before {content: "";border-left: 1px solid #D9DFEA;position: absolute;height: 17.85px;width: 2px;left: 0px;top: 50%;transform: translateY(-50%);}
 ::ng-deep .table-body-info table tr th.mat-header-cell:first-child::before{display: none;}
 ::ng-deep .table-body-info table tr th.mat-header-cell:first-child,
-::ng-deep .table-body-info table tr td:first-child {text-align: center;padding-left: 15px;}
+::ng-deep .table-body-info table tr td:first-child {padding-left: 15px;}
 ::ng-deep .table-body-info table tr th mat-label.checkbox-label {display: block;font-style: normal;font-weight: 400;font-size: 12px;line-height: 150%;color: #2B3858;}
 ::ng-deep .table-body-info table tr th label.mat-checkbox-layout {margin-bottom: 0px;}
 ::ng-deep .table-body-info table tr {border-bottom: 1px solid #E7E6F8;}

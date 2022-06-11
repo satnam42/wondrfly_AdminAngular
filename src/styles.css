@@ -616,3 +616,8 @@ background-color: rgb(231, 149, 149);
 .mat-dialog-container{
     max-height: 90vh !important;
 }
+
+.program-form .mat-dialog-container {
+    padding: 0px !important;
+    overflow: hidden;
+}

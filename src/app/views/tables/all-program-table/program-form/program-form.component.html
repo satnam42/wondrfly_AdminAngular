@@ -1,0 +1,773 @@
+
+  <div class="i-padcontainer">
+      <div class="row">
+  
+          <div class="col-md-4 progress-1">
+              <div class="progress-box ">
+                  <!-- <h3 class="progress-heading">Profile Progress</h3>
+                  <div class="progress horizontal">
+                      <div class="progress-bar bar-cl" role="progressbar" [ngStyle]="{'width': progressBarVaue  '%'}" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div> -->
+                  <div class="vertical-box">
+                      <h3 class="progress-subheading">Add Activity</h3>
+                  </div>
+  
+                  <div class="cicle-dots">
+                      <div class="dots-info dots-info1">
+                          <h3 class="prog_text" [ngClass]="{active: this.progressBarVaue>=10}">Program Type
+                          </h3>
+  
+                      </div>
+                      <div class="dots-info dots-info2">
+                          <h3 class="prog_text" [ngClass]="{active: this.progressBarVaue>=21}">Program Info</h3>
+  
+                      </div>
+                      <div class="dots-info dots-info3">
+                          <h3 class="prog_text" [ngClass]="{active: this.progressBarVaue>=32}">Categories</h3>
+  
+                      </div>
+                      <div class="dots-info dots-info4">
+                          <h3 class="prog_text" [ngClass]="{active: this.progressBarVaue>=49}">Time and Price</h3>
+                      </div>
+                      <div class="dots-info dots-info5">
+                          <h3 class="prog_text" [ngClass]="{active: this.progressBarVaue>=65}">More Details</h3>
+                                                         </div>
+                      <div class="dots-info dots-info6">
+                          <h3 class="prog_text" [ngClass]="{active: this.progressBarVaue>=85}">Add Session</h3>
+                      </div>
+  
+                  </div>
+  
+  
+              </div>
+  
+          </div>
+  
+  
+  
+          <div class="col-md-8 progress-2" *ngIf='step1'>
+              <div class=" box text-center p-3 bg-white">
+  
+                  <p>
+                  <h2 class="my_heading1">Select Activity Type</h2>
+                  <div class="box-threespacing">
+                  <div class="row">
+                      <div class="col-sm-4">
+                          <div class="boxs" (click)="selectSingleEvent()" [class.selectType]="isOneTimeEvent">
+                              <div class="box_content">
+                                  <!-- <img class="calender" src="assets/cal.png"> -->
+                                  <svg class="calender" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                      xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M17.5 4.5V1.5" stroke="#494949" stroke-miterlimit="10"
+                                          stroke-linecap="square" />
+                                      <path d="M7.5 4.5V1.5" stroke="#494949" stroke-miterlimit="10"
+                                          stroke-linecap="square" />
+                                      <path d="M1.5 8.5H23.5" stroke="#494949" stroke-miterlimit="10" />
+                                      <path d="M23.5 4.5H1.5V22.5H23.5V4.5Z" stroke="#494949"
+                                          stroke-miterlimit="10" stroke-linecap="square" />
+                                  </svg>
+  
+                                  <br> One Time Event
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-4">
+                          <div class="boxs" (click)="selectScheduled()" [class.selectType]="isMultiEvent">
+                              <div class="box_content">
+                                  <!-- <img class="calender" src="assets/cal_1.png"> -->
+                                  <svg _ngcontent-igf-c14="" class="calender" fill="none" height="24"
+                                  viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                  <path _ngcontent-igf-c14="" d="M7.5 12.5H5.5V13.5H7.5V12.5Z" stroke="#53B2E8"
+                                  stroke-linecap="square" stroke-miterlimit="10"></path><path _ngcontent-igf-c14=""
+                                   d="M13.5 12.5H11.5V13.5H13.5V12.5Z" stroke="#53B2E8" stroke-linecap="square"
+                                   stroke-miterlimit="10"></path><path _ngcontent-igf-c14=""
+                                   d="M7.5 17.5H5.5V18.5H7.5V17.5Z" stroke="#53B2E8" stroke-linecap="square"
+                                   stroke-miterlimit="10"></path><path _ngcontent-igf-c14=""
+                                   d="M13.5 17.5H11.5V18.5H13.5V17.5Z" stroke="#53B2E8" stroke-linecap="square"
+                                   stroke-miterlimit="10"></path><path _ngcontent-igf-c14=""
+                                   d="M19.5 12.5H17.5V13.5H19.5V12.5Z" stroke="#53B2E8"
+                                   stroke-linecap="square" stroke-miterlimit="10"></path>
+                                   <mask _ngcontent-igf-c14="" fill="white" id="path-7-inside-1">
+                                       <path _ngcontent-igf-c14="" d="M7.5 12.5H5.5V13.5H7.5V12.5Z"></path>
+                                      </mask><path _ngcontent-igf-c14="" d="M7.5 12.5H5.5V13.5H7.5V12.5Z"
+                                       fill="#494949"></path><path _ngcontent-igf-c14=""
+                                       d="M5.5 12.5V11.5H4.5V12.5H5.5ZM7.5 12.5H8.5V11.5H7.5V12.5ZM7.5 13.5V14.5H8.5V13.5H7.5ZM5.5 13.5H4.5V14.5H5.5V13.5ZM5.5 13.5H7.5V11.5H5.5V13.5ZM6.5 12.5V13.5H8.5V12.5H6.5ZM7.5 12.5H5.5V14.5H7.5V12.5ZM6.5 13.5V12.5H4.5V13.5H6.5Z" fill="#53B2E8" mask="url(#path-7-inside-1)"></path>
+                                       <mask _ngcontent-igf-c14="" fill="white" id="path-9-inside-2">
+                                           <path _ngcontent-igf-c14="" d="M13.5 12.5H11.5V13.5H13.5V12.5Z">
+  
+                                           </path></mask><path _ngcontent-igf-c14="" d="M13.5 12.5H11.5V13.5H13.5V12.5Z" fill="#494949"></path><path _ngcontent-igf-c14="" d="M11.5 12.5V11.5H10.5V12.5H11.5ZM13.5 12.5H14.5V11.5H13.5V12.5ZM13.5 13.5V14.5H14.5V13.5H13.5ZM11.5 13.5H10.5V14.5H11.5V13.5ZM11.5 13.5H13.5V11.5H11.5V13.5ZM12.5 12.5V13.5H14.5V12.5H12.5ZM13.5 12.5H11.5V14.5H13.5V12.5ZM12.5 13.5V12.5H10.5V13.5H12.5Z" fill="#53B2E8" mask="url(#path-9-inside-2)"></path><mask _ngcontent-igf-c14="" fill="white" id="path-11-inside-3"><path _ngcontent-igf-c14="" d="M7.5 17.5H5.5V18.5H7.5V17.5Z"></path></mask><path _ngcontent-igf-c14="" d="M7.5 17.5H5.5V18.5H7.5V17.5Z" fill="#494949"></path><path _ngcontent-igf-c14="" d="M5.5 17.5V16.5H4.5V17.5H5.5ZM7.5 17.5H8.5V16.5H7.5V17.5ZM7.5 18.5V19.5H8.5V18.5H7.5ZM5.5 18.5H4.5V19.5H5.5V18.5ZM5.5 18.5H7.5V16.5H5.5V18.5ZM6.5 17.5V18.5H8.5V17.5H6.5ZM7.5 17.5H5.5V19.5H7.5V17.5ZM6.5 18.5V17.5H4.5V18.5H6.5Z" fill="#53B2E8" mask="url(#path-11-inside-3)"></path><mask _ngcontent-igf-c14="" fill="white" id="path-13-inside-4"><path _ngcontent-igf-c14="" d="M13.5 17.5H11.5V18.5H13.5V17.5Z"></path></mask><path _ngcontent-igf-c14="" d="M13.5 17.5H11.5V18.5H13.5V17.5Z" fill="#494949"></path><path _ngcontent-igf-c14="" d="M11.5 17.5V16.5H10.5V17.5H11.5ZM13.5 17.5H14.5V16.5H13.5V17.5ZM13.5 18.5V19.5H14.5V18.5H13.5ZM11.5
+                                           18.5H10.5V19.5H11.5V18.5ZM11.5 18.5H13.5V16.5H11.5V18.5ZM12.5 17.5V18.5H14.5V17.5H12.5ZM13.5 17.5
+                                           H11.5V19.5H13.5V17.5ZM12.5 18.5V17.5H10.5V18.5H12.5Z" fill="#53B2E8" mask="url(#path-13-inside-4)"
+                                           ></path><mask _ngcontent-igf-c14="" fill="white" id="path-15-inside-5"><path _ngcontent-igf-c14=""
+                                              d="M19.5 12.5H17.5V13.5H19.5V12.5Z"></path></mask><path _ngcontent-igf-c14="" d="M19.5 12.5H17.5
+                                              V13.5H19.5V12.5Z" fill="#494949"></path><path _ngcontent-igf-c14="" d="M17.5 12.5V11.5H16.5V12.5
+                                              H17.5ZM19.5 12.5H20.5V11.5H19.5V12.5ZM19.5 13.5V14.5H20.5V13.5H19.5ZM17.5 13.5H16.5V14.5H17.5V13
+                                              .5ZM17.5 13.5H19.5V11.5H17.5V13.5ZM18.5 12.5V13.5H20.5V12.5H18.5ZM19.5 12.5H17.5V14.5H19.5V12.5Z
+                                              M18.5 13.5V12.5H16.5V13.5H18.5Z" fill="#53B2E8" mask="url(#path-15-inside-5)"></path><path _ngco
+                                              ntent-igf-c14="" d="M23.5 4.5H1.5V22.5H23.5V4.5Z" stroke="#53B2E8" stroke-linecap="square" strok
+                                              e-miterlimit="10"></path><path _ngcontent-igf-c14="" d="M17.5 4.5V1.5" stroke="#53B2E8" stroke-l
+                                              inecap="square" stroke-miterlimit="10"></path><path _ngcontent-igf-c14="" d="M7.5 4.5V1.5" strok
+                                              e="#53B2E8" stroke-linecap="square" stroke-miterlimit="10"></path><path _ngcontent-igf-c14="" d=
+                                              "M1.5 8.5H23.5" stroke="#53B2E8" stroke-miterlimit="10"></path></svg>
+  
+                                  <br> Multi-Event / Series
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-4">
+                          <div class="boxs" (click)="selectUnScheduled()" [class.selectType]="isDatesTBS">
+                              <div class="box_content">
+                                  <!-- <img class="calender" src="assets/cal_1.png"> -->
+                                  <span class="question-move">?</span>
+                                  <svg _ngcontent-igf-c14="" class="calender" fill="none" height="24"
+                                  viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                  <path _ngcontent-igf-c14="" d="M7.5 12.5H5.5V13.5H7.5V12.5Z" stroke="#53B2E8"
+                                  stroke-linecap="square" stroke-miterlimit="10"></path><path _ngcontent-igf-c14=""
+                                   d="M13.5 12.5H11.5V13.5H13.5V12.5Z" stroke="#53B2E8" stroke-linecap="square"
+                                   stroke-miterlimit="10"></path><path _ngcontent-igf-c14=""
+                                   d="M7.5 17.5H5.5V18.5H7.5V17.5Z" stroke="#53B2E8" stroke-linecap="square"
+                                   stroke-miterlimit="10"></path><path _ngcontent-igf-c14=""
+                                   d="M13.5 17.5H11.5V18.5H13.5V17.5Z" stroke="#53B2E8" stroke-linecap="square"
+                                   stroke-miterlimit="10"></path><path _ngcontent-igf-c14=""
+                                   d="M19.5 12.5H17.5V13.5H19.5V12.5Z" stroke="#53B2E8"
+                                   stroke-linecap="square" stroke-miterlimit="10"></path>
+                                   <mask _ngcontent-igf-c14="" fill="white" id="path-7-inside-1">
+                                       <path _ngcontent-igf-c14="" d="M7.5 12.5H5.5V13.5H7.5V12.5Z"></path>
+                                      </mask><path _ngcontent-igf-c14="" d="M7.5 12.5H5.5V13.5H7.5V12.5Z"
+                                       fill="#494949"></path><path _ngcontent-igf-c14=""
+                                       d="M5.5 12.5V11.5H4.5V12.5H5.5ZM7.5 12.5H8.5V11.5H7.5V12.5ZM7.5 13.5V14.5H8.5V13.5H7.5ZM5.5 13.5H4.5V14.5H5.5V13.5ZM5.5 13.5H7.5V11.5H5.5V13.5ZM6.5 12.5V13.5H8.5V12.5H6.5ZM7.5 12.5H5.5V14.5H7.5V12.5ZM6.5 13.5V12.5H4.5V13.5H6.5Z" fill="#53B2E8" mask="url(#path-7-inside-1)"></path>
+                                       <mask _ngcontent-igf-c14="" fill="white" id="path-9-inside-2">
+                                           <path _ngcontent-igf-c14="" d="M13.5 12.5H11.5V13.5H13.5V12.5Z">
+  
+                                           </path></mask><path _ngcontent-igf-c14="" d="M13.5 12.5H11.5V13.5H13.5V12.5Z" fill="#494949"></path><path _ngcontent-igf-c14="" d="M11.5 12.5V11.5H10.5V12.5H11.5ZM13.5 12.5H14.5V11.5H13.5V12.5ZM13.5 13.5V14.5H14.5V13.5H13.5ZM11.5 13.5H10.5V14.5H11.5V13.5ZM11.5 13.5H13.5V11.5H11.5V13.5ZM12.5 12.5V13.5H14.5V12.5H12.5ZM13.5 12.5H11.5V14.5H13.5V12.5ZM12.5 13.5V12.5H10.5V13.5H12.5Z" fill="#53B2E8" mask="url(#path-9-inside-2)"></path><mask _ngcontent-igf-c14="" fill="white" id="path-11-inside-3"><path _ngcontent-igf-c14="" d="M7.5 17.5H5.5V18.5H7.5V17.5Z"></path></mask><path _ngcontent-igf-c14="" d="M7.5 17.5H5.5V18.5H7.5V17.5Z" fill="#494949"></path><path _ngcontent-igf-c14="" d="M5.5 17.5V16.5H4.5V17.5H5.5ZM7.5 17.5H8.5V16.5H7.5V17.5ZM7.5 18.5V19.5H8.5V18.5H7.5ZM5.5 18.5H4.5V19.5H5.5V18.5ZM5.5 18.5H7.5V16.5H5.5V18.5ZM6.5 17.5V18.5H8.5V17.5H6.5ZM7.5 17.5H5.5V19.5H7.5V17.5ZM6.5 18.5V17.5H4.5V18.5H6.5Z" fill="#53B2E8" mask="url(#path-11-inside-3)"></path><mask _ngcontent-igf-c14="" fill="white" id="path-13-inside-4"><path _ngcontent-igf-c14="" d="M13.5 17.5H11.5V18.5H13.5V17.5Z"></path></mask><path _ngcontent-igf-c14="" d="M13.5 17.5H11.5V18.5H13.5V17.5Z" fill="#494949"></path><path _ngcontent-igf-c14="" d="M11.5 17.5V16.5H10.5V17.5H11.5ZM13.5 17.5H14.5V16.5H13.5V17.5ZM13.5 18.5V19.5H14.5V18.5H13.5ZM11.5
+                                           18.5H10.5V19.5H11.5V18.5ZM11.5 18.5H13.5V16.5H11.5V18.5ZM12.5 17.5V18.5H14.5V17.5H12.5ZM13.5 17.5
+                                           H11.5V19.5H13.5V17.5ZM12.5 18.5V17.5H10.5V18.5H12.5Z" fill="#53B2E8" mask="url(#path-13-inside-4)"
+                                           ></path><mask _ngcontent-igf-c14="" fill="white" id="path-15-inside-5"><path _ngcontent-igf-c14=""
+                                              d="M19.5 12.5H17.5V13.5H19.5V12.5Z"></path></mask><path _ngcontent-igf-c14="" d="M19.5 12.5H17.5
+                                              V13.5H19.5V12.5Z" fill="#494949"></path><path _ngcontent-igf-c14="" d="M17.5 12.5V11.5H16.5V12.5
+                                              H17.5ZM19.5 12.5H20.5V11.5H19.5V12.5ZM19.5 13.5V14.5H20.5V13.5H19.5ZM17.5 13.5H16.5V14.5H17.5V13
+                                              .5ZM17.5 13.5H19.5V11.5H17.5V13.5ZM18.5 12.5V13.5H20.5V12.5H18.5ZM19.5 12.5H17.5V14.5H19.5V12.5Z
+                                              M18.5 13.5V12.5H16.5V13.5H18.5Z" fill="#53B2E8" mask="url(#path-15-inside-5)"></path><path _ngco
+                                              ntent-igf-c14="" d="M23.5 4.5H1.5V22.5H23.5V4.5Z" stroke="#53B2E8" stroke-linecap="square" strok
+                                              e-miterlimit="10"></path><path _ngcontent-igf-c14="" d="M17.5 4.5V1.5" stroke="#53B2E8" stroke-l
+                                              inecap="square" stroke-miterlimit="10"></path><path _ngcontent-igf-c14="" d="M7.5 4.5V1.5" strok
+                                              e="#53B2E8" stroke-linecap="square" stroke-miterlimit="10"></path><path _ngcontent-igf-c14="" d=
+                                              "M1.5 8.5H23.5" stroke="#53B2E8" stroke-miterlimit="10"></path></svg>
+  
+  
+                                  <br> Dates TBD
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+  
+  
+                  <div class="N_btns step1-btn">
+                      <div class="row">
+                          <div class="col-6">
+                              <div onclick="history.back()" class="back_btn cursor">
+                                  <a>
+                                     Cancel
+                                  </a>
+                              </div>
+                          </div>
+                          <div class="col-6">
+                              <div [ngClass]="{'disable_next':!program.type}"
+                                  (click)="nextStep()"  class="next_btn cursor">
+                                  <a>
+                                      Next
+                                  </a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+  
+  
+  
+          <div class="col-md-8 progress-2" *ngIf='step3'>
+              <div class=" box text-center p-3 bg-white">
+  
+                  <p>
+                  <h2 class="my_heading1">Select the category</h2>
+  
+                  <form>
+                      <div class="N_inputs_container">
+                          <div class="form-group">
+                              <div class="input_outer">
+                                  <div class="ng-autocomplete">
+                                      <ng-autocomplete [data]="searchesCatg" placeholder="Other Activities"
+                                              [searchKeyword]="keyword" (selected)="selectCategory($event)"
+                                              (inputChanged)="onChangeSearch($event)" [itemTemplate]="itemTemplate"
+                                              [notFoundTemplate]="notFoundTemplate">
+                                          </ng-autocomplete>
+  
+                                      <ng-template #itemTemplate let-item>
+                                          <a [innerHTML]="item.name"></a>
+                                      </ng-template>
+  
+                                      <ng-template #notFoundTemplate let-notFound>
+                                          <div *ngIf="" [innerHTML]="notFound"></div>
+                                      </ng-template>
+                                  </div>
+                              </div>
+                          </div>
+  
+                      </div>
+                      <div class="small_boxes">
+                          <div class="row">
+                              <div class="col-3" *ngFor="let category of categories | slice:0:8;" (click)="selectCategory(category)">
+                                  <div class="category_list cat-1234">
+                                      <div class="box-boder" [ngClass]="{'active':category.active}"><img  class="cat_img my_box"
+                                          src="{{category.imageUrl}}" alt=""></div>
+  
+                                      <span class="pt-2" [ngClass]="{'active':category.active}"> {{category.name}}</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </form>
+                  <div class="N_btns step3-btn">
+                      <div class="row">
+                          <div class="col-6">
+                              <div (click)="backStep()" class="back_btn cursor">
+                                  <a>
+                                      back
+                                  </a>
+                              </div>
+                          </div>
+                          <div class="col-6">
+                              <div [ngClass]="{'disable_next':!program.categoryId}" (click)="nextStep()" class="next_btn cursor">
+                                  <a>
+                                      Next
+                                  </a>
+                              </div>
+  
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+  
+  
+  
+  
+  
+  
+          <div class="col-md-8 progress-2" *ngIf='step2'>
+              <div class=" box text-center p-3 bg-white">
+  
+                      <h2 class="my_heading1 drag-upper-spacing">Add Program Information</h2>
+        <!-- <ng-file-drag-drop (uploadedFiles)="UploadImage($event)" [fileConfig]="dragDropConfig"> </ng-file-drag-drop> -->
+  
+                      <!-- <div class="drop-drag">
+                          <div class="drop-box">
+  
+                          </div>
+                      </div> -->
+                      <div class="row">
+                          <div class="col-md-6 mx-auto">
+                                 <div class="files color">
+                                   <input type="file" class="form-control" (change)="UploadImage($event)" multiple="">
+                                 </div>
+                         </div>
+                   </div>
+                      <div class="program-spacing">
+                      <div class="business_name">
+                          <div class="N_container_box_input_heading">
+                              Program name
+                          </div>
+                          <input type="text" placeholder="Type" class="my_inputs"
+                              required  [(ngModel)]="program.name" >
+  
+                      </div>
+  
+                      <div class="about">
+                          <div class="N_container_box_input_heading">
+                              Program DESCRIPTION
+                          </div>
+                          <textarea #ProgramDescription type="text" maxlength="3000" rows="4" class="my_inputs"
+  
+                              placeholder="Type" required [(ngModel)]="program.description">
+  
+                          </textarea>
+                          <span class="text-absolu">({{ProgramDescription.value?.length}} of 3000)</span>
+                      </div>
+                      </div>
+  
+  
+  
+                  <div class="N_btns ">
+                      <div class="row">
+                          <div class="col-6">
+                              <div (click)="backStep()" class="back_btn cursor">
+                                  <a>
+                                      Cancel
+                                  </a>
+                              </div>
+                          </div>
+                          <div class="col-6">
+                              <div  [ngClass]="{'disable_next':!program.name || !program.description}"
+                                  (click)="nextStep()" class="next_btn cursor">
+                                  <a>
+                                      Next
+                                  </a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+  
+  
+  
+          <div class="col-md-8 progress-2" *ngIf='step4'>
+              <div class=" box text-center p-3 bg-white">
+  
+                  <p>
+                      <h2 class="my_heading1">Set-up Time & Price</h2>
+  
+                  <div class="tim-datespacing">
+                      <section>
+                          <div class="container_1">
+                              <div class="row">
+                                  <div class="col-md-12">
+                                      <div class="form-group date_input">
+                                          <label class="custom-label">Dates</label><span class="range-span">(range or every Monday)</span>
+                                          <div class="input-group mb-3">
+                                              <input [owlDateTimeTrigger]="dt3" placeholder="Start Date"
+                                                  class="form-control" [owlDateTime]="dt3" [(ngModel)]="program.date.from"
+                                                  readonly>
+                                              <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+                                              <!-- <input type="text" id="fromDateSelector" class="form-control" placeholder="Start Date"> -->
+                                              <div class="input-group-prepend">
+                                                  <div class="input-group-text custom-text">
+                                                      <img class="arrow" src="assets/right.png">
+                                                  </div>
+                                              </div>
+                                              <input [owlDateTimeTrigger]="dt4" placeholder="End Date"
+                                                  class="form-control" [owlDateTime]="dt4"   [(ngModel)]="program.date.to"
+                                                  readonly>
+                                              <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
+  
+                                          </div>
+  
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </section>
+  
+                      <section>
+                          <div class="container_2">
+                              <div class="row">
+                                  <div class="col-md-12">
+                                      <div class="form-group date_input">
+                                          <label class="custom-label">Time</label>
+                                          <span class="rangeevery-span">monthly or weekly option</span>
+                                          <div class="input-group mb-3">
+                                              <input [owlDateTimeTrigger]="dt5" [owlDateTime]="dt5"
+                                                  placeholder="Start Time" class="form-control"
+                                                  [(ngModel)]="program.time.from"
+                                                  readonly>
+                                              <owl-date-time [pickerType]="'timer'" #dt5></owl-date-time>
+                                              <!-- <input type="text" class="form-control" placeholder="Start Time"> -->
+                                              <div class="input-group-prepend">
+                                                  <div class="input-group-text custom-text">
+                                                      <img class="arrow" src="assets/right.png">
+                                                  </div>
+                                              </div>
+                                              <input [owlDateTimeTrigger]="dt6" [owlDateTime]="dt6"
+                                                  placeholder="End Time" class="form-control"  [(ngModel)]="program.time.to" readonly>
+                                              <owl-date-time [pickerType]="'timer'" #dt6></owl-date-time>
+                                              <!-- <input type="text" class="form-control custom-text" placeholder="End Time"> -->
+                                          </div>
+  
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </section>
+  
+                      <section>
+                          <div class="container_2">
+                              <div class="row">
+                                  <div class="col-md-12">
+                                      <div class="form-group">
+                                          <label class="custom-label">Duration</label>
+  
+                                          <input type="text" class="form-control" placeholder="Type"
+                                              [(ngModel)]="program.duration">
+  
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </section>
+  
+                      <section>
+                          <div class="container_2">
+                              <div class="row">
+                                  <div class="col-md-12">
+                                      <div class="form-group">
+                                          <label class="text_color">IS IT a free activity?</label>
+                                          <div class="adult_assistance">
+                                              <label class="switch notification">
+                                                  <input type="checkbox" [(ngModel)]="isFree">
+                                                  <span class="slider round"></span>
+                                              </label>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </section>
+  
+                      <section *ngIf="!isFree">
+                          <div class="container_2">
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <div class="form-group participant_input">
+                                          <label class="custom-label">Price Per Participant</label>
+  
+                                          <div class="input-group mb-3">
+                                              <div class="input-group-prepend">
+                                                  <div class="input-group-text">
+                                                      $
+                                                  </div>
+                                              </div>
+                                              <input type="text" class="form-control" placeholder="Type"
+                                                  [(ngModel)]="program.pricePerParticipant">
+                                          </div>
+  
+                                      </div>
+                                  </div>
+  
+                                  <div class="col-md-6">
+                                      <div class="form-group participant_input">
+                                          <label class="custom-label">Price For Siblings</label>
+  
+                                          <div class="input-group mb-3">
+                                              <div class="input-group-prepend">
+                                                  <div class="input-group-text">
+                                                      $
+                                                  </div>
+                                              </div>
+                                              <input type="text" class="form-control" placeholder="Type"
+                                                  [(ngModel)]="program.priceForSiblings">
+                                          </div>
+  
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </section>
+  
+                      <div class="another-time">
+                          <span>another time</span>
+                      </div>
+  
+  
+  
+                  </div>
+  
+                  <div class="N_btns step4-btn">
+                      <div class="row">
+                          <div class="col-6">
+                              <div (click)="backStep()" class="back_btn cursor">
+                                  <a>
+                                      back
+                                  </a>
+                              </div>
+                          </div>
+                          <div class="col-6">
+                              <div  [ngClass]="{'disable_next':!program.time.to || !program.time.from || !program.date.from || !program.date.to || !program.duration}" (click)="nextStep()"  class="next_btn cursor">
+                                  <a>
+                                      Next
+                                  </a>
+                              </div>
+  
+  
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+  
+  
+  
+  
+          <div class="col-md-8 progress-2" *ngIf='step5'>
+              <div class=" box text-center p-3 bg-white">
+  
+                  <p>
+                      <h2 class="my_heading1">More Details</h2>
+                         <!-- <p><del>Your information will help us to customized activities according to their age group</del></p> -->
+  
+  
+                 <div class="tim-datespacing">
+  
+  
+  
+                  <section>
+                      <div class="container_2">
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <div class="form-group">
+                                      <label class="custom-label">Default email</label>
+                                      <span class="close-img"><img src="assets/black-cross.png"></span>
+                                      <input type="text" class="form-control" placeholder="john.doe@domain.com"
+                                          [(ngModel)]="program.email" name="programName" required>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </section>
+  
+                  <section>
+                      <div class="container_2">
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <div class="about">
+                                      <div class="N_container_box_input_heading">
+                                          Special Instructions for parents or Participants
+                                      </div>
+                                      <textarea #specialInstruction type="text" ProgramDescription maxlength="3000" rows="4" class="my_inputs"
+  
+                                          placeholder="Type"  [(ngModel)]="program.specialInstructions" required></textarea>
+                                          <span class="text-absolus">({{specialInstruction.value?.length}} of 3000)</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </section>
+  
+                  <section>
+                      <div class="container_2">
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <div class="form-group">
+                                      <label class="text_color">Adult assistance is required</label>
+                                      <div class="adult_assistance">
+                                          <label class="switch notification">
+                                              <input type="checkbox" [(ngModel)]="program.adultAssistanceIsRequried">
+                                              <span class="slider round"></span>
+                                          </label>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </section>
+                  <section>
+                      <div class="container_2">
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <div class="form-group">
+                                      <label class="custom-label">Age Group</label>
+                                      <br>
+                                      <br>
+                                      <ng5-slider [(value)]="minAge" [(highValue)]="maxAge"
+                                          [options]="ageOption">
+                                      </ng5-slider>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </section>
+  
+                  <section>
+                      <div class="container_2">
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <div class="form-group">
+                                      <label class="custom-label">Capacity</label>
+                                      <br>
+                                      <br>
+                                      <ng5-slider [(value)]="minCapacity" [(highValue)]="maxCapacity"
+                                          [options]="capacityOption">
+                                      </ng5-slider>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </section>
+  
+  
+  
+  
+                 </div>
+  
+  
+                  <div class="N_btns step4-btn">
+                      <div class="row">
+                          <div class="col-6">
+                              <div (click)="backStep()" class="back_btn cursor">
+                                  <a>
+                                      back
+                                  </a>
+                              </div>
+                          </div>
+                          <div class="col-6">
+                              <div (click)="nextStep()"  class="next_btn cursor">
+                                  <a>
+                                      Next
+                                  </a>
+                              </div>
+  
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+  
+  
+  
+          <div class="col-md-8 progress-2 " *ngIf='step6'>
+              <div class=" box text-center p-3 bg-white">
+                  <p>
+                      <h2 class="my_heading1">Add Session</h2>
+  
+                      <div class="tim-datespacing last-step">
+  
+                          <section>
+                              <div class="container_2">
+                                  <div class="row">
+                                      <div class="col-md-12">
+                                          <div class="form-group">
+                                              <label class="custom-label">Session name</label>
+                                              <span class="close-img"><img (click)="session.sessionName=''" src="assets/close.png"></span>
+                                              <input type="text" class="form-control" placeholder="My test Session"
+                                                  [(ngModel)]="session.sessionName">
+  
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </section>
+                          <section>
+                              <div class="container_2">
+                                  <div class="row">
+                                      <div class="col-md-12">
+                                          <div class="form-group">
+                                              <label class="custom-label">Session ADDRESS</label>
+  
+                                              <input type="text" class="form-control"  placeholder="Add session address"
+                                                  [(ngModel)]="session.sessionAddress" >
+  
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </section>
+  
+                          <section>
+                              <div class="container_2">
+                                  <div class="row">
+                                      <div class="col-md-12">
+                                          <div class="form-group date_input">
+                                              <label class="custom-label">Date (start and end date)</label>
+                                              <div class="input-group mb-3">
+                                                  <input [owlDateTimeTrigger]="dt11" placeholder="Start Date"
+                                                      class="form-control" [owlDateTime]="dt11" [(ngModel)]="session.sessionStartDate"
+                                                      readonly>
+                                                  <owl-date-time [pickerType]="'calendar'" #dt11></owl-date-time>
+                                                  <!-- <input type="text" id="fromDateSelector" class="form-control" placeholder="Start Date"> -->
+                                                  <div class="input-group-prepend">
+                                                      <div class="input-group-text custom-text">
+                                                          <img class="arrow" src="assets/right.png">
+                                                      </div>
+                                                  </div>
+                                                  <input [owlDateTimeTrigger]="dt12" placeholder="End Date"
+                                                      class="form-control" [owlDateTime]="dt12"   [(ngModel)]="session.sessionEndDate"
+                                                      readonly>
+                                                  <owl-date-time [pickerType]="'calendar'" #dt12></owl-date-time>
+  
+                                              </div>
+  
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </section>
+  
+                          <section>
+                              <div class="container_2">
+                                  <div class="row">
+                                      <div class="col-md-12">
+                                          <div class="form-group date_input">
+                                              <label class="custom-label">Time</label>
+  
+                                              <div class="input-group mb-3">
+                                                  <input [owlDateTimeTrigger]="dt5" [owlDateTime]="dt5"
+                                                      placeholder="Start Time" class="form-control"
+                                                      [(ngModel)]="session.sessionStartTime"
+                                                      readonly>
+                                                  <owl-date-time [pickerType]="'timer'" #dt5></owl-date-time>
+                                                  <!-- <input type="text" class="form-control" placeholder="Start Time"> -->
+                                                  <div class="input-group-prepend">
+                                                      <div class="input-group-text custom-text">
+                                                          <img class="arrow" src="assets/right.png">
+                                                      </div>
+                                                  </div>
+                                                  <input [owlDateTimeTrigger]="dt6" [owlDateTime]="dt6"
+                                                      placeholder="End Time" class="form-control"  [(ngModel)]="session.sessionEndTime"  readonly>
+                                                  <owl-date-time [pickerType]="'timer'" #dt6></owl-date-time>
+                                                  <!-- <input type="text" class="form-control custom-text" placeholder="End Time"> -->
+                                              </div>
+  
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </section>
+  
+                          <section>
+                              <div class="container_2">
+                                  <div class="row">
+                                      <div class="col-md-12">
+                                          <div class="form-group">
+                                              <label class="custom-label">NUMBER OF SEATS</label>
+                                              <input type="text" class="form-control" placeholder="Type"
+                                                  [(ngModel)]="session.noOfSeats">
+  
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </section>
+  
+                          <div class="another-time">
+                              <span>add more session</span>
+                          </div>
+  
+                      </div>
+  
+  
+  
+                  <div class="N_btns ">
+                      <div class="row">
+                          <div class="col-6">
+                              <div (click)="backStep()" class="back_btn cursor">
+                                  <a>
+                                      back
+                                  </a>
+                              </div>
+                          </div>
+                          <div class="col-6">
+                              <div class="next_btn cursor"  [ngClass]="{'disable_next':!session.sessionName || !session.sessionEndTime || !session.sessionStartTime || !session.sessionStartDate || !session.sessionEndDate || !session.sessionAddress || !session.noOfSeats}" (click)="publishProgram()">
+                                  <a>
+                                      PUBLISH
+                                  </a>
+                              </div>
+  
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+  
+      </div>
+  </div>
