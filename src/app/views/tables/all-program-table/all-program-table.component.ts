@@ -39,7 +39,7 @@ export class AllProgramTableComponent implements OnInit, AfterViewInit {
   ];
   rows: Program[];
   dataSource = new MatTableDataSource();
-  @ViewChild(MatSort,{static:true}) sort: MatSort;
+  @ViewChild(MatSort,{static:false}) sort: MatSort;
   temp: any = [];
   ColumnMode = ColumnMode;
   user = new Userr;
@@ -48,7 +48,7 @@ export class AllProgramTableComponent implements OnInit, AfterViewInit {
   selected: {startDate: moment.Moment, endDate: moment.Moment};
   searchText: '';
   isShow = true;
-  searchControl = new FormControl()
+  searchControl = new FormControl();
   loaderPostion = 'center-center';
   loaderType = 'ball-spin-clockwise';
   pageNo: number = 1;
@@ -107,10 +107,9 @@ export class AllProgramTableComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.apiservice.getProgram(this.pageNo, this.pageSize).subscribe((res:any) => {
       this.totalProgramsCount = res.message;})
-
     this.searchControl.valueChanges.subscribe((value) =>{
       this.updateFilter(value);
-    })
+    });
     this.dataSource.sort = this.sort;
       }
 
@@ -390,16 +389,13 @@ export class AllProgramTableComponent implements OnInit, AfterViewInit {
       if(res.isSuccess){
         response = res.data;
         this.dataSource = new MatTableDataSource(response);
-        setTimeout(() => {
-          this.paginator.length = response.length;
-        });
         this.filteredData = response;
       } 
     });
     }
     if (!key) {
       this.rows=[];
-      this.getProgram();
+      this.getSetTabs();
     }
     this.loader.close()
   }
