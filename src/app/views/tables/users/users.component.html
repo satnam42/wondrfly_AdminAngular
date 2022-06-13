@@ -1,7 +1,7 @@
 <!-- <h3 class="mt-0"><b>Filter and Search Table</b></h3> -->
 <div class="container table-header-info mb-30">
-<div class="row">
-  <!-- <div class="col-2">
+  <div class="row">
+    <!-- <div class="col-2">
     <mat-form-field appearance="fill">
       <mat-label>Select Filter</mat-label>
       <mat-select name="defaultFilter"  [(ngModel)]="defaultFilter">
@@ -11,126 +11,123 @@
       </mat-select>
     </mat-form-field>
   </div> -->
-  <div class="col-6 tablesuser-flex">
-    <h4>Total Providers<span class="blue-clr">({{total}})</span></h4>
-    <div class="add-program-btn">
-      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-        <!-- <mat-button-toggle (click)=" deleteProvider()" matTooltip="Delete">
+    <div class="col-6 tablesuser-flex">
+      <h4>Total Providers<span class="blue-clr">({{total}})</span></h4>
+      <div class="add-program-btn">
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+          <!-- <mat-button-toggle (click)=" deleteProvider()" matTooltip="Delete">
           <mat-icon class="danger-clr">delete</mat-icon>
         </mat-button-toggle> -->
-        <mat-button-toggle matTooltip2="Add" (click)="add()" value="add">
-          <mat-icon class="text-success">+ Add Provider</mat-icon>
-        </mat-button-toggle>
-      </mat-button-toggle-group>
-  
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>Change Status</button>
-        <!-- <button mat-menu-item>Item 2</button> -->
-      </mat-menu>
+          <mat-button-toggle matTooltip2="Add" (click)="add()" value="add">
+            <mat-icon class="text-success">+ Add Provider</mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>Change Status</button>
+          <!-- <button mat-menu-item>Item 2</button> -->
+        </mat-menu>
+      </div>
     </div>
-  </div>
-  <div class="col-6">
-    <div class="search-form-info">
-    <mat-form-field class="w-85" appearance="standard" [hidden]="selectedValue=='montclair' || selectedValue=='byDate'">
-      <!-- <mat-label>Search</mat-label> -->
-      <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
-      <button mat-icon-button matSuffix value="search" matTooltip="Search">
-        <mat-icon class="text-primary">search</mat-icon>
-      </button>
-    </mat-form-field>
+    <div class="col-6">
+      <div class="search-form-info">
+        <mat-form-field class="w-85" appearance="standard"
+          [hidden]="selectedValue=='montclair' || selectedValue=='byDate'">
+          <!-- <mat-label>Search</mat-label> -->
+          <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
+          <button mat-icon-button matSuffix value="search" matTooltip="Search">
+            <mat-icon class="text-primary">search</mat-icon>
+          </button>
+        </mat-form-field>
 
-    <mat-form-field class="w-85" appearance="standard" [hidden]="selectedValue!=='byDate'">
-      <mat-label>Selcet Date</mat-label>
-      <input matInput #input 
-       [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" readonly [(ngModel)]="searchDate">
-      <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
-      <button mat-icon-button matSuffix value="search" (click)="getProviderByDate()" matTooltip="Search">
-        <mat-icon class="text-primary">search</mat-icon>
-      </button>
-    </mat-form-field>
+        <mat-form-field class="w-85" appearance="standard" [hidden]="selectedValue!=='byDate'">
+          <mat-label>Selcet Date</mat-label>
+          <input matInput #input [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" readonly [(ngModel)]="searchDate">
+          <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+          <button mat-icon-button matSuffix value="search" (click)="getProviderByDate()" matTooltip="Search">
+            <mat-icon class="text-primary">search</mat-icon>
+          </button>
+        </mat-form-field>
 
-      <!-- <button mat-raised-button value="reset" class="m-2" (click)="reset()" matTooltip="Reset">
+        <!-- <button mat-raised-button value="reset" class="m-2" (click)="reset()" matTooltip="Reset">
         <mat-icon>autorenew</mat-icon>  Reset
       </button> -->
+      </div>
     </div>
   </div>
 </div>
-</div>
 
-<div class="container usertable table-body-info" >
+<div class="container usertable table-body-info">
   <div class="row">
     <div class="col-12">
       <div class="example-container mat-elevation-z8">
         <table mat-table [dataSource]="dataSource" matSort>
           <ng-container matColumnDef="select" sticky>
             <th mat-header-cell class="w-25" *matHeaderCellDef>
-              <mat-checkbox (change)="$event" [checked]="selection.hasValue()"
-                [indeterminate]="selection.hasValue()">
+              <mat-checkbox (change)="$event" [checked]="selection.hasValue()" [indeterminate]="selection.hasValue()">
               </mat-checkbox>
               <mat-label class="checkbox-label">All</mat-label>
             </th>
             <td mat-cell class="w-25" *matCellDef="let row">
               <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-                [checked]="selection.isSelected(row)" >
+                [checked]="selection.isSelected(row)">
               </mat-checkbox>
             </td>
           </ng-container>
-      
+
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
             <td mat-cell *matCellDef="let row"> {{row?.id? row.id:row?._id}} </td>
           </ng-container>
-      
+
           <ng-container matColumnDef="email">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Email  </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Email </th>
             <td mat-cell *matCellDef="let row" (click)="openPopUp(row)"> {{row.email}} </td>
           </ng-container>
-      
+
           <ng-container matColumnDef="firstName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Provider Name </th>
-            <td mat-cell *matCellDef="let row" (click)="openPopUp(row)" > {{row.firstName}} </td>
+            <td mat-cell *matCellDef="let row" (click)="openPopUp(row)"> {{row.firstName}} </td>
           </ng-container>
-      
+
           <ng-container matColumnDef="addressLine1">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
-            <td mat-cell *matCellDef="let row" (click)="openPopUp(row)" >
+            <td mat-cell *matCellDef="let row" (click)="openPopUp(row)">
               {{row.addressLine1}}
-             </td>
+            </td>
           </ng-container>
-      
+
           <ng-container matColumnDef="phoneNumber">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone Number </th>
-            <td mat-cell *matCellDef="let row" (click)="openPopUp(row)" >
+            <td mat-cell *matCellDef="let row" (click)="openPopUp(row)">
               {{row.phoneNumber}}
-             </td>
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="isActivated">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-            <td class="center" mat-cell *matCellDef="let row" >
-              <mat-slide-toggle [checked]="row?.isActivated" color="primary"
-              (change)="activateDeactivate($event,row)">
+            <td class="center" mat-cell *matCellDef="let row">
+              <mat-slide-toggle [checked]="row?.isActivated" color="primary" (change)="activateDeactivate($event,row)">
               </mat-slide-toggle>
-    
-             </td>
+
+            </td>
           </ng-container>
-       
-        <ng-container matColumnDef="freeTrial">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Free Trial </th>
-          <td class="center" mat-cell *matCellDef="let row" >
-            <mat-slide-toggle [checked]="row?.isFreeTrial" color="primary"
-            (change)="trueFalseFreeTrial($event,row)">
-            </mat-slide-toggle>
-           
-           </td>
-        </ng-container>
+
+          <ng-container matColumnDef="freeTrial">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Free Trial </th>
+            <td class="center" mat-cell *matCellDef="let row">
+              <mat-slide-toggle [checked]="row?.isFreeTrial" color="primary" (change)="trueFalseFreeTrial($event,row)">
+              </mat-slide-toggle>
+
+            </td>
+          </ng-container>
           <ng-container matColumnDef="star" stickyEnd>
-            <th mat-header-cell class="w-25" *matHeaderCellDef >Action</th>
+            <th mat-header-cell class="w-25" *matHeaderCellDef>Action</th>
             <td mat-cell class="w-25" *matCellDef="let row">
-              <button  mat-icon-button [matMenuTriggerFor]  ="action">
+              <button mat-icon-button [matMenuTriggerFor]="action">
                 <mat-icon>more_vert</mat-icon>
               </button>
-              <mat-menu #action="matMenu" >
+              <mat-menu #action="matMenu">
                 <button mat-menu-item (click)="copyLink(row.userName)">
                   <span>Copy Link</span>
                 </button>
@@ -141,55 +138,27 @@
                   <span>Manage Programs</span>
                 </button>
                 <button mat-menu-item (click)="edit(row)">
-                  <span >Edit</span>
+                  <span>Edit</span>
                 </button>
                 <button mat-menu-item (click)="deleteProvider(row)">
-                  <span >Delete</span>
+                  <span>Delete</span>
                 </button>
               </mat-menu>
             </td>
-          
+
           </ng-container>
-      
-          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" ></tr>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;">
           </tr>
         </table>
-      
+
       </div>
     </div>
     <div class="col-12">
-      <!-- <div class="pagination-table-info">
-        <div class="pagination-page-no">
-          <div class="pagination-h3">
-            <h3>Page <span class="bold">1</span> of <span class="bold">16</span></h3>
-          </div>
-          <div class="pagination-left-right-btn">
-            <div class="pagination-left-btn"><img src="assets/images/pagination-left-arrow.svg" /></div>
-            <div class="pagination-right-btn"><img src="assets/images/pagination-right-arrow.svg" /></div>
-          </div>
-        </div>
-        <div class="pagination-rpp-info">
-          <div class="rrp-h3"><h3>Rows per page:</h3></div>
-          <div class="rrp-select-info">
-            <select class="rrp-select-no">
-              <option value="20">20</option>
-              <option value="30">30</option>
-              <option value="40">40</option>
-              <option value="50">50</option>
-            </select>
-          </div>
-        </div>
-      </div> -->
-      <mat-paginator [length]="pageLength"
-        [pageSize]="this.pageSize"
-        [pageSizeOptions]="[5, 10, 25, 100]"
-        (page)="pageChanged($event)"
-        aria-label="Select page">
-       </mat-paginator>
+      <mat-paginator [length]="pageLength" [pageSize]="this.pageSize" [pageSizeOptions]="[5, 10, 25, 100]"
+        [showFirstLastButtons]="true" (page)="pageChanged($event)" aria-label="Select page">
+      </mat-paginator>
     </div>
   </div>
 </div>
-
-
-

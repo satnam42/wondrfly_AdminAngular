@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from 'app/shared/services/dataservice.service';
 import { ApiService } from 'app/shared/services/api.service.service';
 import { FileUploader } from 'ng2-file-upload';
-import { Userr } from 'app/shared/models/user.model';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatDialogRef, MatDialog, MatTableDataSource, MatPaginator, PageEvent, MatSort, Sort } from '@angular/material';
@@ -24,7 +23,7 @@ import { ProgramFormComponent } from './program-form/program-form.component';
   styleUrls: ['./all-program-table.component.scss']
 })
 export class AllProgramTableComponent implements OnInit, AfterViewInit {
-  defaultFilter: string='name'
+  defaultFilter: string = 'name'
   isLoading: boolean;
   displayedColumns: string[] = [
     'name',
@@ -39,13 +38,12 @@ export class AllProgramTableComponent implements OnInit, AfterViewInit {
   ];
   rows: Program[];
   dataSource = new MatTableDataSource();
-  @ViewChild(MatSort,{static:false}) sort: MatSort;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
   temp: any = [];
   ColumnMode = ColumnMode;
-  user = new Userr;
   submitted: any;
-  @ViewChild(DaterangepickerDirective, {static: true}) picker: DaterangepickerDirective;
-  selected: {startDate: moment.Moment, endDate: moment.Moment};
+  @ViewChild(DaterangepickerDirective, { static: true }) picker: DaterangepickerDirective;
+  selected: { startDate: moment.Moment, endDate: moment.Moment };
   searchText: '';
   isShow = true;
   searchControl = new FormControl();
@@ -53,7 +51,7 @@ export class AllProgramTableComponent implements OnInit, AfterViewInit {
   loaderType = 'ball-spin-clockwise';
   pageNo: number = 1;
   pageSize = 20;
-  keyword="";
+  keyword = "";
   isScrol = true;
   public uploader: FileUploader = new FileUploader({ url: 'upload_url' });
   public hasBaseDropZoneOver: boolean = false;
@@ -64,8 +62,8 @@ export class AllProgramTableComponent implements OnInit, AfterViewInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   fileData: File = null;
-  formData=new FormData();
-  detailPageUrl:string;
+  formData = new FormData();
+  detailPageUrl: string;
   baseURL = environment.baseURL
   expiredProgram: any;
   filterColumns: string[] = [
@@ -83,9 +81,9 @@ export class AllProgramTableComponent implements OnInit, AfterViewInit {
   filteredData: any;
   activeTab: any;
   totalProgramsCount: any;
-  publishedUnpublishedList: any =[];
+  publishedUnpublishedList: any = [];
   pageLength: any;
-  @ViewChild(MatPaginator,{static: true})paginator!: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   constructor(
     public route: Router,
     private dataservice: DataService,
@@ -105,21 +103,21 @@ export class AllProgramTableComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.apiservice.getProgram(this.pageNo, this.pageSize).subscribe((res:any) => {
-      this.totalProgramsCount = res.message;})
-    this.searchControl.valueChanges.subscribe((value) =>{
+    this.apiservice.getProgram(this.pageNo, this.pageSize).subscribe((res: any) => {
+      this.totalProgramsCount = res.message;
+    })
+    this.searchControl.valueChanges.subscribe((value) => {
       this.updateFilter(value);
     });
     this.dataSource.sort = this.sort;
-      }
+  }
 
-      ngAfterViewInit() {
-        setTimeout(
-          () => {
-              this.dataSource.sort = this.sort;
-           });
-      }
-
+  ngAfterViewInit() {
+    setTimeout(
+      () => {
+        this.dataSource.sort = this.sort;
+      });
+  }
   // view data 
   openPopUp(data) {
     let dialogRef: MatDialogRef<any> = this.dialog.open(DataPopupComponent, {
@@ -151,21 +149,21 @@ export class AllProgramTableComponent implements OnInit, AfterViewInit {
       });
   }
 
- // view data 
- formPopUps(data) {
-  let dialogRef: MatDialogRef<any> = this.dialog.open(ProgramFormComponent, {
-    panelClass: 'program-form',
-    disableClose: true,
-    data: data,
-    // this.name: this.data.firstName
-  })
-  dialogRef.afterClosed()
-    .subscribe(res => {
-      if (!res) {
-        return;
-      }
-    });
-}
+  // view data 
+  formPopUps(data) {
+    let dialogRef: MatDialogRef<any> = this.dialog.open(ProgramFormComponent, {
+      panelClass: 'program-form',
+      disableClose: true,
+      data: data,
+      // this.name: this.data.firstName
+    })
+    dialogRef.afterClosed()
+      .subscribe(res => {
+        if (!res) {
+          return;
+        }
+      });
+  }
 
   copyText(val: string) {
     let selBox = document.createElement('textarea');
@@ -181,22 +179,21 @@ export class AllProgramTableComponent implements OnInit, AfterViewInit {
     document.body.removeChild(selBox);
     this.snack.open('Copied', 'OK', { duration: 500 });
   }
-  
- 
-  form(data,i) {
+
+  form(data, i) {
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopupFormComponent, {
       width: '60%',
       disableClose: true,
       data: data
     })
     dialogRef.afterClosed()
-    .subscribe(res => {
-      if (!res) {
-        // If user press cancel
-        this.rows[i].isExpired=true
-        this.allExpiredProgram()
-      }
-    });
+      .subscribe(res => {
+        if (!res) {
+          // If user press cancel
+          this.rows[i].isExpired = true
+          this.allExpiredProgram()
+        }
+      });
   }
 
   edit(data) {
@@ -204,23 +201,23 @@ export class AllProgramTableComponent implements OnInit, AfterViewInit {
     const url = this.route.serializeUrl(
       this.route.createUrlTree(['forms/edit-program/', data._id])
     );
-    window.open('#'+url, '_blank');
+    window.open('#' + url, '_blank');
   }
 
-  manage(data){
+  manage(data) {
     const url = this.route.serializeUrl(
-      this.route.createUrlTree(['tables/program',data.user])
+      this.route.createUrlTree(['tables/program', data.user])
     );
-    window.open('#'+url, '_blank');
+    window.open('#' + url, '_blank');
   }
-
 
   createDuplicate(data) {
     this.dataservice.setOption(data);
-    this.apiservice.createDuplicateProgram(data._id).subscribe((res:any) => {
-    if(res.isSuccess){
-    this.getProgram()
-}   });
+    this.apiservice.createDuplicateProgram(data._id).subscribe((res: any) => {
+      if (res.isSuccess) {
+        this.getProgram()
+      }
+    });
   }
 
   back() {
@@ -258,18 +255,18 @@ export class AllProgramTableComponent implements OnInit, AfterViewInit {
     });
   }
   // =========================================== online programs =========================================================
-  getOnlinePrograms(){
-    let data =[]
+  getOnlinePrograms() {
+    let data = []
     let filter = `inpersonOrVirtual=online&pageNo=${this.pageNo}&pageSize=${this.pageSize}`;
     this.loader.open();
     this.apiservice.programMultiFilter(filter).subscribe((res: any) => {
       this.loader.close();
       if (res) {
-        res.map(x => x.programs.map(z=>{
+        res.map(x => x.programs.map(z => {
           data.push(z)
-         this.rows = data;
-         this.pageLength = data.length;
-         this.dataSource = new MatTableDataSource(this.rows);
+          this.rows = data;
+          this.pageLength = data.length;
+          this.dataSource = new MatTableDataSource(this.rows);
         }))
       }
     });
@@ -278,39 +275,39 @@ export class AllProgramTableComponent implements OnInit, AfterViewInit {
   // =========================================== published/unpublished programs =========================================================
   getPublishedUnpublished(type) {
     this.loader.open();
-    this.apiservice.getPublishedProgram(this.pageNo,this.pageSize,type).subscribe((res:any) => {
+    this.apiservice.getPublishedProgram(this.pageNo, this.pageSize, type).subscribe((res: any) => {
       this.loader.close();
-    this.publishedUnpublishedList = res;
-    this.pageLength = +this.publishedUnpublishedList.total;
-    this.rows = this.publishedUnpublishedList.items;
-    this.dataSource = new MatTableDataSource(this.rows);
+      this.publishedUnpublishedList = res;
+      this.pageLength = +this.publishedUnpublishedList.total;
+      this.rows = this.publishedUnpublishedList.items;
+      this.dataSource = new MatTableDataSource(this.rows);
     })
     this.loader.close();
   }
   // =========================================== expiring soon programs =========================================================
   getExpiringProgram() {
     this.loader.open();
-    this.apiservice.getExpiringProgram('', '',).subscribe((res:any) => {
+    this.apiservice.getExpiringProgram('', '',).subscribe((res: any) => {
       this.loader.close();
       this.expiredProgram = res;
       this.rows = this.expiredProgram.items;
-    this.dataSource = new MatTableDataSource(this.rows);
+      this.dataSource = new MatTableDataSource(this.rows);
     });
     this.loader.close();
   }
   // =========================================== expired programs =========================================================
   allExpiredProgram() {
     this.loader.open();
-    this.apiservice.allExpiredProgram().subscribe((res:any) => {
+    this.apiservice.allExpiredProgram().subscribe((res: any) => {
       this.loader.close();
       this.allExpired = res;
       this.rows = this.allExpired.items;
-    this.dataSource = new MatTableDataSource(this.rows);
+      this.dataSource = new MatTableDataSource(this.rows);
     });
     this.loader.close();
   }
-    // =========================================== delete program =========================================================
-  deleteProgram(data,indx) {
+  // =========================================== delete program =========================================================
+  deleteProgram(data, indx) {
     this.confirmService.confirm({ message: `Delete ${data.name}?` }).subscribe(res => {
       if (res) {
         this.loader.open();
@@ -341,60 +338,60 @@ export class AllProgramTableComponent implements OnInit, AfterViewInit {
       return;
     }
     {
-       this.stratDate = moment(e.startDate._d).format('YYYY-MM-DD');
-       this.endDate = moment(e.endDate._d).format('YYYY-MM-DD')
-       this.loader.open();
-      this.apiservice.programFilterByDate('from',this.stratDate,this.endDate).subscribe((res:any)=>{
-        if(res.isSuccess){
+      this.stratDate = moment(e.startDate._d).format('YYYY-MM-DD');
+      this.endDate = moment(e.endDate._d).format('YYYY-MM-DD')
+      this.loader.open();
+      this.apiservice.programFilterByDate('from', this.stratDate, this.endDate).subscribe((res: any) => {
+        if (res.isSuccess) {
           response = res.data;
-          this.rows= response
+          this.rows = response
           this.filteredData = response;
           this.isScrol = false;
           this.loader.close();
-        } 
+        }
       })
     }
   }
 
   selectedFilter(value: any) {
     this.selectedValue = value;
-    if(this.selectedValue=='montclair'){
-      this.rows=[];
+    if (this.selectedValue == 'montclair') {
+      this.rows = [];
       this.getMontclairProgram();
-    }else if(this.selectedValue=='byDate' && this.selected){
+    } else if (this.selectedValue == 'byDate' && this.selected) {
     }
   }
 
-  reset(){
-    this.rows=[];
-    this.keyword='';
-    this.defaultFilter='name';
-    this.selectedValue='';
-    this.stratDate=null;
-    this.endDate=null;
+  reset() {
+    this.rows = [];
+    this.keyword = '';
+    this.defaultFilter = 'name';
+    this.selectedValue = '';
+    this.stratDate = null;
+    this.endDate = null;
     // this.picker.clear();
-    this.filteredData=[];
+    this.filteredData = [];
     this.getProgram();
   }
 
   updateFilter(key) {
     var response: any;
     if (key) {
-      if(!this.selectedValue){
-      this.selectedValue=this.defaultFilter;
-    }
-    this.loader.open();
-    this.apiservice.searchProgramFilter(this.selectedValue, key).subscribe((res: any) => {
-      this.loader.close()
-      if(res.isSuccess){
-        response = res.data;
-        this.dataSource = new MatTableDataSource(response);
-        this.filteredData = response;
-      } 
-    });
+      if (!this.selectedValue) {
+        this.selectedValue = this.defaultFilter;
+      }
+      this.loader.open();
+      this.apiservice.searchProgramFilter(this.selectedValue, key).subscribe((res: any) => {
+        this.loader.close()
+        if (res.isSuccess) {
+          response = res.data;
+          this.dataSource = new MatTableDataSource(response);
+          this.filteredData = response;
+        }
+      });
     }
     if (!key) {
-      this.rows=[];
+      this.rows = [];
       this.getSetTabs();
     }
     this.loader.close()
@@ -403,87 +400,87 @@ export class AllProgramTableComponent implements OnInit, AfterViewInit {
     this.csvService.downloadFile(this.rows, 'Total programs');
   }
   onFileChange(ev) {
-    this.fileData= ev.target.files[0];
-    this.formData.append('csv',this.fileData);
-      this.apiservice.programCSVupload(this.formData).subscribe(res => {
-        this.getProgram();
-      });
+    this.fileData = ev.target.files[0];
+    this.formData.append('csv', this.fileData);
+    this.apiservice.programCSVupload(this.formData).subscribe(res => {
+      this.getProgram();
+    });
   }
   routeToDetailPage(data) {
     var programName = data.name;
     programName = programName.toLowerCase();
     this.detailPageUrl = `${this.baseURL}/program/activity-name/${data._id}`
- }
- publishUnpublishProgram(data,program) {
-  var model: any = {
-    programId: program._id,
-    isPublished: data.checked
   }
-  this.apiservice.PublishedProgram (model).subscribe((res:any) => {
-    if(res.isSuccess){
-      this.snack.open('Activity Status changed', 'OK', { duration: 4000 });
-    }else{this.snack.open('Somthing went wrong', 'OK', { duration: 4000 });}
-  });
-}
-trueFalseFreeTrial(e,indx) {
- this.apiservice.trueFalseFreeTrialProgram(this.rows[indx]._id,e.checked).subscribe((res:any)=>{
-  })
-}
+  publishUnpublishProgram(data, program) {
+    var model: any = {
+      programId: program._id,
+      isPublished: data.checked
+    }
+    this.apiservice.PublishedProgram(model).subscribe((res: any) => {
+      if (res.isSuccess) {
+        this.snack.open('Activity Status changed', 'OK', { duration: 4000 });
+      } else { this.snack.open('Somthing went wrong', 'OK', { duration: 4000 }); }
+    });
+  }
+  trueFalseFreeTrial(e, indx) {
+    this.apiservice.trueFalseFreeTrialProgram(this.rows[indx]._id, e.checked).subscribe((res: any) => {
+    })
+  }
   // =========================================== Pagination =========================================================
   pageChanged(event: PageEvent) {
     console.log({ event });
-    window.scroll(0,0);
-   if (event.previousPageIndex > event.pageIndex) {
+    window.scroll(0, 0);
+    if (event.previousPageIndex > event.pageIndex) {
       this.pageSize = event.pageSize;
-       this.pageNo =  this.pageNo!==0? this.pageNo-1 : this.pageNo
-       this.getSetTabs();
+      this.pageNo = this.pageNo !== 0 ? this.pageNo - 1 : this.pageNo
+      this.getSetTabs();
     } else {
-         this.pageSize = event.pageSize;
-      this.pageNo = event.pageIndex+1;
+      this.pageSize = event.pageSize;
+      this.pageNo = event.pageIndex + 1;
       this.getSetTabs();
     }
   }
   // =========================================== programs type Tab =========================================================
-getSetTabs(){
-  this.activatedRoute.queryParams
-    .subscribe((params: any) => {
-      this.activeTab = params.activity;
-      switch (this.activeTab){
-        case  'online': 
-        this.getOnlinePrograms();
-        break;
-        case  'published': 
-        this.getPublishedUnpublished('published');
-        break;
-        case  'unpublished': 
-        this.getPublishedUnpublished('unpublished');
-        break;
-        case  'expiring': 
-        this.getExpiringProgram();
-        break;
-        case  'expired': 
-        this.allExpiredProgram();
-        break;
-        default :
-        this.activeTab=''
-        this.getProgram();   
-      }
-     })
-}
-  // =========================================== change program tabs =========================================================
-activeProgramsTab(tab){
-  const activetab = tab;
-  if(activetab!==''){
-  this.route.navigate(
-    [],
-    { relativeTo: this.activatedRoute, queryParams: {activity:activetab} }
-  );
-  }else{
-    this.route.navigate(
-      [],
-      { relativeTo: this.activatedRoute, queryParams: {} }
-    );
+  getSetTabs() {
+    this.activatedRoute.queryParams
+      .subscribe((params: any) => {
+        this.activeTab = params.activity;
+        switch (this.activeTab) {
+          case 'online':
+            this.getOnlinePrograms();
+            break;
+          case 'published':
+            this.getPublishedUnpublished('published');
+            break;
+          case 'unpublished':
+            this.getPublishedUnpublished('unpublished');
+            break;
+          case 'expiring':
+            this.getExpiringProgram();
+            break;
+          case 'expired':
+            this.allExpiredProgram();
+            break;
+          default:
+            this.activeTab = ''
+            this.getProgram();
+        }
+      })
   }
-}
+  // =========================================== change program tabs =========================================================
+  activeProgramsTab(tab) {
+    const activetab = tab;
+    if (activetab !== '') {
+      this.route.navigate(
+        [],
+        { relativeTo: this.activatedRoute, queryParams: { activity: activetab } }
+      );
+    } else {
+      this.route.navigate(
+        [],
+        { relativeTo: this.activatedRoute, queryParams: {} }
+      );
+    }
+  }
 }
 

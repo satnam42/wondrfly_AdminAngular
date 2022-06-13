@@ -3,7 +3,7 @@ import { TablesService } from '../tables.service';
 import { Router } from '@angular/router';
 import { DataService } from 'app/shared/services/dataservice.service';
 import { ApiService } from 'app/shared/services/api.service.service';
-import {  MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar, MatDialogRef, MatDialog, MatCheckboxChange } from '@angular/material';
+import { MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar, MatDialogRef, MatDialog, MatCheckboxChange } from '@angular/material';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import { FileUploader } from 'ng2-file-upload';
 import { AppConfirmService } from '../../../shared/services/app-confirm/app-confirm.service';
@@ -19,8 +19,8 @@ import { FormControl } from '@angular/forms';
   providers: [TablesService]
 })
 export class ParentTableComponent implements OnInit, OnChanges {
-  defaultFilter: string='name'
-  keyword="";
+  defaultFilter: string = 'name'
+  keyword = "";
   filterColumns: string[] = [
     'name',
     'email',
@@ -65,7 +65,7 @@ export class ParentTableComponent implements OnInit, OnChanges {
     private loader: AppLoaderService,
     private authservice: AuthsService
   ) {
-    this.usersData =authservice.currentUser();
+    this.usersData = authservice.currentUser();
     let config = new MatSnackBarConfig();
     config.verticalPosition = this.verticalPosition;
     config.horizontalPosition = this.horizontalPosition;
@@ -78,7 +78,7 @@ export class ParentTableComponent implements OnInit, OnChanges {
 
   }
 
-  showAnalytics(data){
+  showAnalytics(data) {
     this.route.navigate(['user-analytics', data.id]);
 
   }
@@ -103,7 +103,7 @@ export class ParentTableComponent implements OnInit, OnChanges {
 
 
   onScroll() {
-    if (this.isScrol && this.selectedValue!=="status" && this.keyword=='' ) {
+    if (this.isScrol && this.selectedValue !== "status" && this.keyword == '') {
       this.isScrol = false;
       this.loadMore();
     }
@@ -114,16 +114,16 @@ export class ParentTableComponent implements OnInit, OnChanges {
       userId: parent.id,
       isAmbassador: event.checked
     }
-    this.apiservice.addRemoveAmbassador(addRemove).subscribe((res:any) => {
+    this.apiservice.addRemoveAmbassador(addRemove).subscribe((res: any) => {
       if (res.isSuccess === true) {
-      this.snack.open(res.data.description, 'OK', { duration: 4000 });
+        this.snack.open(res.data.description, 'OK', { duration: 4000 });
       }
     });
   }
 
-  parentLogin(data){
-    this.apiservice.parentLoginById(data.id).subscribe((res:any)=>{
-      if(res.isSuccess){
+  parentLogin(data) {
+    this.apiservice.parentLoginById(data.id).subscribe((res: any) => {
+      if (res.isSuccess) {
         this.authservice.setUserById(res.data)
       }
     })
@@ -150,7 +150,7 @@ export class ParentTableComponent implements OnInit, OnChanges {
     this.getParents();
   }
 
-  deleteParent(data,indx) {
+  deleteParent(data, indx) {
     this.confirmService.confirm({ message: `Delete ${data.firstName}?` }).subscribe(res => {
       if (res) {
         this.isLoading = true;
@@ -158,7 +158,7 @@ export class ParentTableComponent implements OnInit, OnChanges {
           this.parentResponse = res;
           if (this.parentResponse.isSuccess === true) {
             this.snack.open(this.message, 'OK', { duration: 4000 });
-            this.rows.splice(indx,1)
+            this.rows.splice(indx, 1)
             // this.route.navigateByUrl('/tables', { skipLocationChange: true }).then(() => {
             //   this.route.navigate(['tables/paging']);
             // })
@@ -202,56 +202,58 @@ export class ParentTableComponent implements OnInit, OnChanges {
 
   updateFilter(key) {
     var response: any;
-    let filter=``;
-    if(!this.selectedValue){
-      this.selectedValue=this.defaultFilter;
+    let filter = ``;
+    if (!this.selectedValue) {
+      this.selectedValue = this.defaultFilter;
     }
-    if(this.selectedValue=='name'){
-      filter+=`name=${key}`    }
-    else if(this.selectedValue=='email'){
-      filter = `email=${key}`    }
-    if(this.isDeactivated){
-      filter+=`&status=false`
+    if (this.selectedValue == 'name') {
+      filter += `name=${key}`
     }
-    else if(this.isActive){
-      filter+=`&status=true`
+    else if (this.selectedValue == 'email') {
+      filter = `email=${key}`
+    }
+    if (this.isDeactivated) {
+      filter += `&status=false`
+    }
+    else if (this.isActive) {
+      filter += `&status=true`
     }
     console.log('searched value', filter)
     this.apiservice.searchParentFilter(filter).subscribe((res: any) => {
       response = res.data;
       console.log('res search', res)
       this.rows = response;
-      this.isScrol=false;
+      this.isScrol = false;
     });
-    
+
     if (!key && !this.isActive && !this.isDeactivated) {
-      this.rows=[];
+      this.rows = [];
       this.getParents();
     }
   }
 
 
   isActiveChange(ob: MatCheckboxChange) {
-   this.isActive=ob.checked 
-   this.isDeactivated =false;
-   if(this.isActive){
-   this.updateFilter('');
-  }
-  else if(!this.isActive && !this.isDeactivated){
-   this.getParents()
-      }
- } 
-
- isDeactivatedChange(ob: MatCheckboxChange) {
-  this.isDeactivated=ob.checked ; 
-  this.isActive = false;
-  if(this.isDeactivated){
-    this.updateFilter('');
-  }
-     else if(!this.isActive && !this.isDeactivated){
+    this.isActive = ob.checked
+    this.isDeactivated = false;
+    if (this.isActive) {
+      this.updateFilter('');
+    }
+    else if (!this.isActive && !this.isDeactivated) {
       this.getParents()
     }
-} 
+  }
+
+  isDeactivatedChange(ob: MatCheckboxChange) {
+    this.isDeactivated = ob.checked;
+    this.isActive = false;
+    if (this.isDeactivated) {
+      this.updateFilter('');
+    }
+    else if (!this.isActive && !this.isDeactivated) {
+      this.getParents()
+    }
+  }
 
   // updateFilter(event) {
   //   const val = event.target.value.toLowerCase();
@@ -294,18 +296,18 @@ export class ParentTableComponent implements OnInit, OnChanges {
     // this.loader.close();
   }
 
-  reset(){
-    this.rows=[];
-    this.keyword='';
-    this.defaultFilter='name';
-    this.selectedValue='';
-    this.isActive=false;
-    this.isDeactivated=false;
+  reset() {
+    this.rows = [];
+    this.keyword = '';
+    this.defaultFilter = 'name';
+    this.selectedValue = '';
+    this.isActive = false;
+    this.isDeactivated = false;
     this.getParents();
   }
 
   openPopUp(data) {
-     data.round ='new Jersey';
+    data.round = 'new Jersey';
     let dialogRef: MatDialogRef<any> = this.dialog.open(DataPopupComponent, {
       width: '60%',
       disableClose: true,

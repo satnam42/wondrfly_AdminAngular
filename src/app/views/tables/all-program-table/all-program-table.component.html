@@ -1,6 +1,6 @@
 <div class="container table-header-info mb-30">
-    <div class="row">
-        <!-- <div class="col-2">
+  <div class="row">
+    <!-- <div class="col-2">
             <mat-form-field appearance="fill">
             <mat-label>Select Filter</mat-label>
             <mat-select name="defaultFilter"  [(ngModel)]="defaultFilter">
@@ -10,34 +10,36 @@
             </mat-select>
             </mat-form-field>
         </div> -->
-        <div class="col-6 tablesuser-flex">
-            <h4> 
-                Total Activities<span class="blue-clr" [hidden]="selectedValue=='montclair'" > ({{totalProgramsCount}})</span> <span class="blue-clr" [hidden]="selectedValue!=='montclair'" > ({{montTemp?.total}})</span> 
-            </h4>
-            <div class="add-program-btn">
-            <!-- <label class="letsplay_btn ">Import
+    <div class="col-6 tablesuser-flex">
+      <h4>
+        Total Activities<span class="blue-clr" [hidden]="selectedValue=='montclair'"> ({{totalProgramsCount}})</span>
+        <span class="blue-clr" [hidden]="selectedValue!=='montclair'"> ({{montTemp?.total}})</span>
+      </h4>
+      <div class="add-program-btn">
+        <!-- <label class="letsplay_btn ">Import
                         <input  style="display: none;"  accept=".xlsx, .xls, .csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" mat-raised-button type="file" color="primary" #csv_file (change)=" onFileChange($event)" name="myfile">
                     </label> -->
-                <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-                    <mat-button-toggle matTooltip2="Add" (click)="openPopUps('wizard')" value="add">
-                        <mat-icon class="text-success">+ Activity</mat-icon>
-                    </mat-button-toggle>
-                    <!-- <button class="letsplay_btn" data-toggle="modal" (click)="openPopUps('wizard')" data-target="#addNewTopic">
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+          <mat-button-toggle matTooltip2="Add" (click)="openPopUps('wizard')" value="add">
+            <mat-icon class="text-success">+ Activity</mat-icon>
+          </mat-button-toggle>
+          <!-- <button class="letsplay_btn" data-toggle="modal" (click)="openPopUps('wizard')" data-target="#addNewTopic">
                     ADD New Program </button> -->
-            <!-- <button class="letsplay_btn quick_add" data-toggle="modal" (click)="openPopUps('form')" data-target="#addNewTopic">Quick Program Add</button> -->
-                </mat-button-toggle-group>            
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="search-form-info">
-            <mat-form-field class="w-85" appearance="standard" [hidden]="selectedValue=='montclair' || selectedValue=='byDate'">
-            <!-- <mat-label>Search</mat-label> -->
-            <input matInput [formControl]="searchControl" placeholder="Search">
-            <button mat-icon-button matSuffix value="reset" matTooltip="Search">
-                <mat-icon class="text-primary">search</mat-icon>
-            </button>
-            </mat-form-field>
-            <!-- <mat-form-field class="w-85" appearance="standard" *ngIf="selectedValue=='byDate'">
+          <!-- <button class="letsplay_btn quick_add" data-toggle="modal" (click)="openPopUps('form')" data-target="#addNewTopic">Quick Program Add</button> -->
+        </mat-button-toggle-group>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="search-form-info">
+        <mat-form-field class="w-85" appearance="standard"
+          [hidden]="selectedValue=='montclair' || selectedValue=='byDate'">
+          <!-- <mat-label>Search</mat-label> -->
+          <input matInput [formControl]="searchControl" placeholder="Search">
+          <button mat-icon-button matSuffix value="reset" matTooltip="Search">
+            <mat-icon class="text-primary">search</mat-icon>
+          </button>
+        </mat-form-field>
+        <!-- <mat-form-field class="w-85" appearance="standard" *ngIf="selectedValue=='byDate'">
                 <input type="text" matInput
             ngxDaterangepickerMd
             [(ngModel)]="selected"
@@ -46,266 +48,156 @@
             (datesUpdated)="choosedDate($event)"
             name="daterange"/>
             </mat-form-field> -->
-            <!-- <button mat-raised-button value="reset" class="m-2" (click)="reset()"  matTooltip="Reset">
+        <!-- <button mat-raised-button value="reset" class="m-2" (click)="reset()"  matTooltip="Reset">
                 <mat-icon>autorenew</mat-icon>  Reset
             </button> -->
-            </div>
-        </div>
-        <!-- <div class="col-7">
+      </div>
+    </div>
+    <!-- <div class="col-7">
             <div class="search-section">
                 <input type="text" class="search_input" (keyup)="updateFilter($event.target.value)" placeholder="Search By Program Name" [(ngModel)]="searchText" />
                 <i class="fa fa-filter filter-icon" aria-hidden="true" *ngIf="searchText"></i>
                 <i aria-hidden="true" *ngIf="!searchText"></i>
                 <span class="back-search"> -->
-          <!-- <mat-icon>search</mat-icon> -->
-          <!-- <mat-icon style="position:relative;top: 4px; float: right;
+    <!-- <mat-icon>search</mat-icon> -->
+    <!-- <mat-icon style="position:relative;top: 4px; float: right;
                           ">search</mat-icon>
         </span>
             </div> -->
-        
-        </div>
-</div>    
+  </div>
+</div>
 <div class="container">
-    <div class="row">
-        <div class="col-12">
-            <ul class="table-top-links">
-              <!-- <li [ngClass]="{'active': activeTab === 'online'}" ><a (click)="onlinePrograms()">Online Programs</a></li> -->
-              <li [ngClass]="{'active': activeTab === ''}" ><a (click)="activeProgramsTab('')">All Activities <span *ngIf=" activeTab === ''">({{totalProgramsCount}})</span></a></li>
-              <li [ngClass]="{'active': activeTab === 'online'}" ><a (click)="activeProgramsTab('online')">Online Activities<span *ngIf=" activeTab === 'online'">({{rows?.length}})</span></a></li>
-              <li [ngClass]="{'active': activeTab === 'published'}" ><a (click)="activeProgramsTab('published')">Published <span *ngIf=" activeTab === 'published'">({{publishedUnpublishedList?.total}})</span></a></li>
-              <li [ngClass]="{'active': activeTab === 'unpublished'}" ><a (click)="activeProgramsTab('unpublished')">Unpublished <span *ngIf="activeTab === 'unpublished'">({{publishedUnpublishedList?.total}})</span></a></li>
-              <li [ngClass]="{'active': activeTab === 'expiring'}" ><a (click)="activeProgramsTab('expiring')">Expiring Soon <span *ngIf="activeTab === 'expiring'">({{expiredProgram?.items?.length}})</span></a></li>
-              <li [ngClass]="{'active': activeTab === 'expired'}" ><a (click)="activeProgramsTab('expired')">Expired <span *ngIf="activeTab === 'expired'">({{allExpired?.items?.length}})</span>
-                <span class="ml-5" style="color: rgb(51, 49, 49); font: bolder;" *ngIf="keyword || stratDate"> Results 
-                    <span *ngIf="stratDate || keyword &&  filteredData?.length"> ({{filteredData?.length}})</span>
-                    <span *ngIf="keyword && !filteredData?.length"> (0)</span>
-                 </span></a>
-              </li>
-            </ul>
-        </div>  
-    </div>
-    <div class="row  usertable table-body-info">
-        <div class="col-12">
-          <div class="example-container mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource" matSort>
-              <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Activity Name </th>
-                <td mat-cell *matCellDef="let row"> 
-                  <span (click)="routeToDetailPage(row)"> <a  href="{{detailPageUrl}}" target="_blank">{{row?.name}}</a></span>
-                </td>
-              </ng-container>
-          
-              <ng-container matColumnDef="programOwner">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Provider Name </th>
-                <td mat-cell *matCellDef="let row" (click)="openPopUp(row)" >
-                  {{row.programOwner}}
-                 </td>
-              </ng-container>
-          
-              <ng-container matColumnDef="addresses">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
-                <td mat-cell *matCellDef="let row" (click)="openPopUp(row)" >
-                  {{row.addresses}}
-                 </td>
-              </ng-container>
-          
-              <ng-container matColumnDef="pricePerParticipant">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
-                <td mat-cell *matCellDef="let row" (click)="openPopUp(row)" >
-                  <span *ngIf="row?.isFree">Free</span>
-                  <span *ngIf="!row?.isFree"><span>${{row?.pricePerParticipant}}</span><span *ngIf="row?.pricePeriod?.periodAmount">/{{row?.pricePeriod?.periodAmount}}</span></span>
-                 </td>
-              </ng-container>
-              <ng-container matColumnDef="type">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
-                <td mat-cell *matCellDef="let row" (click)="openPopUp(row)">
-                  {{row.type}}
-                 </td>
-              </ng-container>
-
-              <ng-container matColumnDef="expiredIn">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Expired In </th>
-                <td mat-cell *matCellDef="let row" >
-                    <span *ngIf="!row?.isDateNotMention && !row?.isExpired"><counter [isProgram]="true" [futureString]="row?.date?.to"></counter></span>
-                    <span  *ngIf="row?.isDateNotMention && !row?.isExpired">Date Not Mentioned</span>
-                    <span  *ngIf="row?.isExpired" style="background: red;padding: 3px 10px;color: #fff;">Expired</span>
-                 </td>
-              </ng-container>
-          
-          
-              <ng-container matColumnDef="isPublished">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-                <td class="center" mat-cell *matCellDef="let row" >
-                  <mat-slide-toggle [checked]="row?.isPublished" color="primary" (change)="publishUnpublishProgram($event,row)">
-                  </mat-slide-toggle>
-                 </td>
-              </ng-container>
-           
-            <ng-container matColumnDef="isFreeTrial">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Free Trial </th>
-              <td class="center" mat-cell *matCellDef="let row" >
-                <mat-slide-toggle [checked]="row?.isFreeTrial" color="primary"
-                (change)="trueFalseFreeTrial($event,row)">
-                </mat-slide-toggle>
-               </td>
-            </ng-container>
-              <ng-container matColumnDef="star" stickyEnd>
-                <th mat-header-cell class="w-25" *matHeaderCellDef >Action</th>
-                <td mat-cell class="w-25" *matCellDef="let row; let i = index">
-                  <button  mat-icon-button [matMenuTriggerFor]  ="action">
-                    <mat-icon>more_vert</mat-icon>
-                  </button>
-                  <mat-menu #action="matMenu" >
-                    <button mat-menu-item (click)="createDuplicate(row)">
-                        <mat-icon class="col-blue">file_copy</mat-icon>Duplicate
-                      </button>
-
-                    <button mat-menu-item (click)="formPopUps(row)">
-        <mat-icon class="col-blue">edit</mat-icon>Edit Popup
-      </button>
-      <button mat-menu-item (click)="edit(row)">
-        <mat-icon class="col-blue">edit</mat-icon>Edit
-      </button>
-                    <button mat-menu-item (click)="deleteProgram(row,i)">
-        <i class="icon col-blue mat-icon fa fa-trash-o" aria-hidden="true"></i>Delete
-      </button>
-       <button mat-menu-item (click)="manage(row)">
-        <mat-icon class="col-blue">open_in_new</mat-icon>Manage
-      </button>
-      <button mat-menu-item (click)="form(row,i)">
-        <mat-icon class="col-blue">timer_off</mat-icon>Set to be Expired
-      </button>
-                  </mat-menu>
-                </td>
-              
-              </ng-container>
-          
-              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" ></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-              </tr>
-            </table>
-          
-          </div>
-        </div>
-        <div class="col-12" [hidden]="activeTab === 'expiring' || activeTab === 'expired' || searchControl.value">
-          <mat-paginator [length]="pageLength"
-            [pageSize]="this.pageSize"
-            [pageSizeOptions]="[5, 10, 25, 100]"
-            (page)="pageChanged($event)"
-            aria-label="Select page">
-           </mat-paginator>
-        </div>
-      </div>
-
-    <!-- <div class="row">
+  <div class="row">
     <div class="col-12">
-    <div class="search-results table-body-info"  *ngIf="rows.length">
-        <table>
-            <tbody>
-                <tr>
-                    <th class="left">
-                        Program Name
-                    </th>
-                   
-                    <th>
-                        Provider Name
-                    </th>
-                    <th>
-                        Address
-                    </th>
-                    <th>
-                        Price
-                    </th>
-                    <th>
-                        Type
-                    </th>
-                    <th>
-                        Expired in
-                    </th>
+      <ul class="table-top-links">
+        <!-- <li [ngClass]="{'active': activeTab === 'online'}" ><a (click)="onlinePrograms()">Online Programs</a></li> -->
+        <li [ngClass]="{'active': activeTab === ''}"><a (click)="activeProgramsTab('')">All Activities <span
+              *ngIf=" activeTab === ''">({{totalProgramsCount}})</span></a></li>
+        <li [ngClass]="{'active': activeTab === 'online'}"><a (click)="activeProgramsTab('online')">Online
+            Activities<span *ngIf=" activeTab === 'online'">({{rows?.length}})</span></a></li>
+        <li [ngClass]="{'active': activeTab === 'published'}"><a (click)="activeProgramsTab('published')">Published
+            <span *ngIf=" activeTab === 'published'">({{publishedUnpublishedList?.total}})</span></a></li>
+        <li [ngClass]="{'active': activeTab === 'unpublished'}"><a
+            (click)="activeProgramsTab('unpublished')">Unpublished <span
+              *ngIf="activeTab === 'unpublished'">({{publishedUnpublishedList?.total}})</span></a></li>
+        <li [ngClass]="{'active': activeTab === 'expiring'}"><a (click)="activeProgramsTab('expiring')">Expiring Soon
+            <span *ngIf="activeTab === 'expiring'">({{expiredProgram?.items?.length}})</span></a></li>
+        <li [ngClass]="{'active': activeTab === 'expired'}"><a (click)="activeProgramsTab('expired')">Expired <span
+              *ngIf="activeTab === 'expired'">({{allExpired?.items?.length}})</span>
+            <span class="ml-5" style="color: rgb(51, 49, 49); font: bolder;" *ngIf="keyword || stratDate"> Results
+              <span *ngIf="stratDate || keyword &&  filteredData?.length"> ({{filteredData?.length}})</span>
+              <span *ngIf="keyword && !filteredData?.length"> (0)</span>
+            </span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row  usertable table-body-info">
+    <div class="col-12">
+      <div class="example-container mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Activity Name </th>
+            <td mat-cell *matCellDef="let row">
+              <span (click)="routeToDetailPage(row)"> <a href="{{detailPageUrl}}"
+                  target="_blank">{{row?.name}}</a></span>
+            </td>
+          </ng-container>
 
-                    <th >
-                        Published
-                    </th>
-                    <th >
-                        Free Trial
-                    </th>
-                    <th >
-                    </th>
-                </tr>
-                <tr *ngFor="let row of rows; let i = index">
-                    <td class="left">
-                        <span (click)="routeToDetailPage(row)"> <a  href="{{detailPageUrl}}" target="_blank">{{row?.name}}</a></span>
-                    </td>
-                    <td>
-                        <span (click)="openPopUp(row)">{{row?.programOwner}}</span>
-                    </td>
-                    <td>
-                        <span (click)="openPopUp(row)">{{row?.addresses}}</span>
-                    </td>
-                    <td>
-                        <span (click)="openPopUp(row)" *ngIf="row?.isFree">Free</span>
-                        <span *ngIf="!row?.isFree"><span (click)="openPopUp(row)">${{row?.pricePerParticipant}}</span><span *ngIf="row?.pricePeriod?.periodAmount">/{{row?.pricePeriod?.periodAmount}}</span></span>
-                    </td>
-                    <td>
-                        <span (click)="openPopUp(row)">{{row.type}}</span>
-                    </td>
-                    <td>
-                        <span *ngIf="!row?.isDateNotMention && !row?.isExpired"><counter [isProgram]="true" [futureString]="row?.date?.to"></counter></span>
-                        <span  *ngIf="row?.isDateNotMention && !row?.isExpired">Date Not Mentioned</span>
-                        <span  *ngIf="row?.isExpired" style="background: red;padding: 3px 10px;color: #fff;">Expired</span>
-                    </td>
-                    <td class="center">
-                        <mat-slide-toggle [checked]="row?.isPublished" color="primary"
-                        (change)="publishUnpublishProgram($event,row)">
-                    </mat-slide-toggle>
+          <ng-container matColumnDef="programOwner">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Provider Name </th>
+            <td mat-cell *matCellDef="let row" (click)="openPopUp(row)">
+              {{row.programOwner}}
+            </td>
+          </ng-container>
 
-                    </td>
-                    <td class="center">
-                        <mat-slide-toggle [checked]="row?.isFreeTrial" color="primary"
-                        (change)="trueFalseFreeTrial($event,i)">
-                    </mat-slide-toggle>
+          <ng-container matColumnDef="addresses">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+            <td mat-cell *matCellDef="let row" (click)="openPopUp(row)">
+              {{row.addresses}}
+            </td>
+          </ng-container>
 
-                    </td>
-                    <td>
-                        <button mat-icon-button [matMenuTriggerFor]="msgMenu" class="hidden-on-open">
-              <mat-icon class="text-muted">more_vert</mat-icon>
-            </button>
-                        <mat-menu #msgMenu="matMenu">
-                            <button mat-menu-item (click)="createDuplicate(row)">
-                                <mat-icon class="col-blue">file_copy</mat-icon>Duplicate
-                              </button>
+          <ng-container matColumnDef="pricePerParticipant">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+            <td mat-cell *matCellDef="let row" (click)="openPopUp(row)">
+              <span *ngIf="row?.isFree">Free</span>
+              <span *ngIf="!row?.isFree"><span>${{row?.pricePerParticipant}}</span><span
+                  *ngIf="row?.pricePeriod?.periodAmount">/{{row?.pricePeriod?.periodAmount}}</span></span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+            <td mat-cell *matCellDef="let row" (click)="openPopUp(row)">
+              {{row.type}}
+            </td>
+          </ng-container>
 
-                            <button mat-menu-item (click)="edit(row)">
-                <mat-icon class="col-blue">edit</mat-icon>Edit
+          <ng-container matColumnDef="expiredIn">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Expired In </th>
+            <td mat-cell *matCellDef="let row">
+              <span *ngIf="!row?.isDateNotMention && !row?.isExpired">
+                <counter [isProgram]="true" [futureString]="row?.date?.to"></counter>
+              </span>
+              <span *ngIf="row?.isDateNotMention && !row?.isExpired">Date Not Mentioned</span>
+              <span *ngIf="row?.isExpired" style="background: red;padding: 3px 10px;color: #fff;">Expired</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="isPublished">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            <td class="center" mat-cell *matCellDef="let row">
+              <mat-slide-toggle [checked]="row?.isPublished" color="primary"
+                (change)="publishUnpublishProgram($event,row)">
+              </mat-slide-toggle>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="isFreeTrial">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Free Trial </th>
+            <td class="center" mat-cell *matCellDef="let row">
+              <mat-slide-toggle [checked]="row?.isFreeTrial" color="primary" (change)="trueFalseFreeTrial($event,row)">
+              </mat-slide-toggle>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="star" stickyEnd>
+            <th mat-header-cell class="w-25" *matHeaderCellDef>Action</th>
+            <td mat-cell class="w-25" *matCellDef="let row; let i = index">
+              <button mat-icon-button [matMenuTriggerFor]="action">
+                <mat-icon>more_vert</mat-icon>
               </button>
-                            <button mat-menu-item (click)="deleteProgram(row,i)">
-                <i class="icon col-blue mat-icon fa fa-trash-o" aria-hidden="true"></i>Delete
-              </button>
-               <button mat-menu-item (click)="manage(row)">
-                <mat-icon class="col-blue">open_in_new</mat-icon>Manage
-              </button>
-              <button mat-menu-item (click)="form(row,i)">
-                <mat-icon class="col-blue">timer_off</mat-icon>Set to be Expired
-              </button>
-                       
-                        </mat-menu>
-
-                    </td>
-
-                </tr>
-            </tbody>
+              <mat-menu #action="matMenu">
+                <button mat-menu-item (click)="createDuplicate(row)">
+                  <mat-icon class="col-blue">file_copy</mat-icon>Duplicate
+                </button>
+                <button mat-menu-item (click)="formPopUps(row)">
+                  <mat-icon class="col-blue">edit</mat-icon>Edit Popup
+                </button>
+                <button mat-menu-item (click)="edit(row)">
+                  <mat-icon class="col-blue">edit</mat-icon>Edit
+                </button>
+                <button mat-menu-item (click)="deleteProgram(row,i)">
+                  <i class="icon col-blue mat-icon fa fa-trash-o" aria-hidden="true"></i>Delete
+                </button>
+                <button mat-menu-item (click)="manage(row)">
+                  <mat-icon class="col-blue">open_in_new</mat-icon>Manage
+                </button>
+                <button mat-menu-item (click)="form(row,i)">
+                  <mat-icon class="col-blue">timer_off</mat-icon>Set to be Expired
+                </button>
+              </mat-menu>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+          </tr>
         </table>
+      </div>
     </div>
+    <div class="col-12" [hidden]="activeTab === 'expiring' || activeTab === 'expired' || searchControl.value">
+      <mat-paginator [length]="pageLength" [showFirstLastButtons]="true" [pageSize]="this.pageSize"
+        [pageSizeOptions]="[5, 10, 25, 100]" (page)="pageChanged($event)" aria-label="Select page">
+      </mat-paginator>
     </div>
-
-    <div class="col-12" [hidden]="activeTab === 'expiring' || activeTab === 'expired'">
-        <mat-paginator [length]="pageLength"
-        [pageSize]="this.pageSize"
-        [pageSizeOptions]="[5, 10, 25, 100]"
-        (page)="pageChanged($event)"
-        aria-label="Select page">
-       </mat-paginator>
-    </div>
-    </div> -->
-
+  </div>
 </div>

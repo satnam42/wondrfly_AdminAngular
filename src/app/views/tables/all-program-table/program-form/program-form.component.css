@@ -1,6 +1,5 @@
 
 .bg-img {  
-        background-image: url('/assets/Squiggle-blue 1.png');
         width: auto;
         height: auto;
         background-color:#82c7ee;
@@ -457,6 +456,7 @@
                 align-items: baseline;
                 position: absolute;
                 left:13%;
+                cursor: pointer;
             }
             .dots-info1 {
                 top:19%;  
