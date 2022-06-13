@@ -21,16 +21,16 @@ import { TopicFormComponent } from './topic-form/topic-form.component';
 export class TopicsComponent implements OnInit {
   defaultFilter: string='name'
   displayedColumns: any[] = [
-    'id',
     'name',
-    'star',
+    'url',
+    'star'
   ];
   filterColumns: string[] = [
     'firstName',
     'montclair',
     'byDate'
   ];
-  dataSource: MatTableDataSource<any>;
+  dataSource = new MatTableDataSource();
   selection = new SelectionModel<any>(true, []);
 
   @ViewChild(MatPaginator,{static:false}) paginator!: MatPaginator;
@@ -126,12 +126,13 @@ export class TopicsComponent implements OnInit {
   getTopics() {
     this.loader.open();
     this.apiservice.getTopics().subscribe(res => {
+      this.loader.close();
       console.log(res)
       this.temp = res;
       if (this.temp.data) {
         this.rows = this.temp.data.reverse();
+        this.dataSource = new MatTableDataSource(this.rows);
       }
-      this.loader.close();
     });
   }
 
@@ -146,21 +147,13 @@ export class TopicsComponent implements OnInit {
         this.getTopics();
       });
   }
-
-  logs(): void {
-    let dialogRef: MatDialogRef<any> = this.dialog.open(SearchedKeywordsComponent, {
-      width: '70%',
-      disableClose: true,
-    })
-    dialogRef.afterClosed()
-  }
   
   deleteTopic(data,indx) {
-    this.confirmService.confirm({ message: `Delete ${data.keywordName}?` }).subscribe(res => {
+    this.confirmService.confirm({ message: `Delete ${data.Name}?` }).subscribe(res => {
       if (res) {
         this.loader.open();
         this.isLoading = true;
-        this.apiservice.deleteKeyword(data._id).subscribe(res => {
+        this.apiservice.deleteTopic(data._id).subscribe(res => {
           var response: any = res;
           if (response.isSuccess === true) {
             this.rows.splice(indx, 1);

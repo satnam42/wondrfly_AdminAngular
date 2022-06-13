@@ -1518,7 +1518,7 @@ keyWordActivateDeactivate(model): Observable<any[]> {
 //=============================================== search Topic crud ========================================
 getTopics(): Observable<any> {
     const subject = new Subject<any>();
-    this.http.get(`${this.root}/searchtopic/list`, this.getHeaders()).subscribe((responseData: any) => {
+    this.http.get(`${this.root}/searchTopics/list`, this.getHeaders()).subscribe((responseData: any) => {
         subject.next(responseData);
     }, (error) => {
         subject.next(error.error);
@@ -1527,7 +1527,7 @@ getTopics(): Observable<any> {
 }
 addSearchTopic(model): Observable<any[]> {
     const subject = new Subject<any[]>();
-    this.http.post(`${this.root}/searchtopic/create`, model, this.getHeaders()).subscribe((responseData) => {
+    this.http.post(`${this.root}/searchTopics/create`, model, this.getHeaders()).subscribe((responseData) => {
         this.userResponse = responseData;
         subject.next(this.userResponse);
     }, (error) => {
@@ -1537,7 +1537,7 @@ addSearchTopic(model): Observable<any[]> {
 }
 updateSearchTopic(id,data): Observable<any[]> {
     const subject = new Subject<any[]>();
-    this.http.put(`${this.root}/searchtopic/update/${id}`,data,this.getHeaders()).subscribe((responseData:any) => {
+    this.http.put(`${this.root}/searchTopics/update/${id}`,data,this.getHeaders()).subscribe((responseData:any) => {
         subject.next(responseData);
     }, (error) => {
         subject.next(error.error);
@@ -1546,7 +1546,7 @@ updateSearchTopic(id,data): Observable<any[]> {
 }
 topicActivateDeactivate(model): Observable<any[]> {
     const subject = new Subject<any[]>();
-    this.http.put(`${this.root}/searchtopic/activeOrDeactive?id=${model.id}&isActivated=${model.isActivated}`,'',this.getHeaders()).subscribe((responseData) => {
+    this.http.put(`${this.root}/searchTopics/activeOrDeactive?id=${model.id}&isActivated=${model.isActivated}`,'',this.getHeaders()).subscribe((responseData) => {
         // this.getHeaders() 
         this.categoryResponse = responseData;
         subject.next(this.categoryResponse);
@@ -1557,7 +1557,7 @@ topicActivateDeactivate(model): Observable<any[]> {
 }
 deleteTopic(id): Observable<any[]> {
     const subject = new Subject<any[]>();
-    this.http.delete(`${this.root}/searchtopic/remove/${id}`,this.getHeaders()).subscribe((responseData:any) => {
+    this.http.delete(`${this.root}/searchTopics/remove/${id}`,this.getHeaders()).subscribe((responseData:any) => {
         subject.next(responseData);
     }, (error) => {
         subject.next(error.error);
@@ -1566,7 +1566,7 @@ deleteTopic(id): Observable<any[]> {
 }
 searchTopic(key): Observable<any> {
     const subject = new Subject<any>();
-    this.http.get(`${this.root}/searchtopic/search?name=${key}`, this.getHeaders()).subscribe((responseData:any) => {
+    this.http.get(`${this.root}/searchTopics/search?name=${key}`, this.getHeaders()).subscribe((responseData:any) => {
         if(responseData.isSuccess){
             this.userResponse = responseData;
             subject.next(this.userResponse);
