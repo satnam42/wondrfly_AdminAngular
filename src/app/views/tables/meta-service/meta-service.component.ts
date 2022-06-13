@@ -1,7 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar, MatDialog, MatSnackBarConfig, MatDialogRef, MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar, MatDialog, MatSnackBarConfig, MatDialogRef } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import { Userr } from 'app/shared/models/user.model';
@@ -10,19 +10,20 @@ import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.s
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { environment } from 'environments/environment';
 import { DataPopupComponent } from '../data-popup/data-popup.component';
-import { SearchedKeywordsComponent } from '../searched-keywords/searched-keywords.component';
-import { TopicFormComponent } from './topic-form/topic-form.component';
+import { MetaFormComponent } from './meta-form/meta-form.component';
 
 @Component({
-  selector: 'app-topics',
-  templateUrl: './topics.component.html',
-  styleUrls: ['./topics.component.scss']
+  selector: 'app-meta-service',
+  templateUrl: './meta-service.component.html',
+  styleUrls: ['./meta-service.component.scss']
 })
-export class TopicsComponent implements OnInit {
+export class MetaServiceComponent implements OnInit {
   defaultFilter: string = 'name'
   displayedColumns: any[] = [
-    'name',
-    'url',
+    'pageName',
+    'title',
+    'keywords',
+    'description',
     'star'
   ];
   filterColumns: string[] = [
@@ -120,12 +121,12 @@ export class TopicsComponent implements OnInit {
     if (page.offset == 1) {
       this.pageNo = 2
     }
-    this.getTopics();
+    this.getMetaService();
   }
 
-  getTopics() {
+  getMetaService() {
     this.loader.open();
-    this.apiservice.getTopics().subscribe(res => {
+    this.apiservice.getMetaService().subscribe(res => {
       this.loader.close();
       console.log(res)
       this.temp = res;
@@ -137,24 +138,25 @@ export class TopicsComponent implements OnInit {
   }
 
   editDataPopup(data): void {
-    let dialogRef: MatDialogRef<any> = this.dialog.open(TopicFormComponent, {
+    let dialogRef: MatDialogRef<any> = this.dialog.open(MetaFormComponent, {
       width: '50%',
       disableClose: true,
       data: data
     })
     dialogRef.afterClosed()
       .subscribe(res => {
-        this.getTopics();
+        this.getMetaService();
       });
   }
 
-  deleteTopic(data, indx) {
-    this.confirmService.confirm({ message: `Delete ${data.Name}?` }).subscribe(res => {
+  deleteMetaData(data, indx) {
+    this.confirmService.confirm({ message: `Delete ${data.pageName}?` }).subscribe(res => {
       if (res) {
-        this.apiservice.deleteTopic(data._id).subscribe(res => {
+        this.isLoading = true;
+        this.apiservice.deleteMetaService(data._id).subscribe(res => {
           var response: any = res;
           if (response.isSuccess === true) {
-            this.getTopics();
+            this.getMetaService();
             this.snack.open(this.message, 'OK', { duration: 4000 });
           } else {
             let msg = "Something Went Wrong!";
@@ -177,6 +179,6 @@ export class TopicsComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.getTopics();
+    this.getMetaService();
   }
 }

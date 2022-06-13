@@ -26,7 +26,7 @@ export class ApiService {
 
 
     constructor(private http: HttpClient) {
-       
+
     }
     // --------------------access token------------------------
     getHeaders() {
@@ -62,7 +62,7 @@ export class ApiService {
         return header;
 
     }
-   
+
     login(model): Observable<Userr> {
         const subject = new Subject<Userr>();
         this.http.post(`${this.root}/users/login`, model, { headers: null }).subscribe((responseData: any) => {
@@ -100,7 +100,7 @@ export class ApiService {
         return subject.asObservable();
 
     }
-    categoryImageUpload(formdata,id) {
+    categoryImageUpload(formdata, id) {
         const subject = new Subject<any>();
         this.http.put(`${this.root}/categories/uploadPic/${id}`, formdata, this.getImageHeader()).subscribe((response) => {
             subject.next(response);
@@ -111,7 +111,7 @@ export class ApiService {
         return subject.asObservable();
 
     }
-    subCategoryImageUpload(apiType,formdata,id) {
+    subCategoryImageUpload(apiType, formdata, id) {
         const subject = new Subject<any>();
         this.http.put(`${this.root}/${apiType}/uploadImage/${id}`, formdata, this.getImageHeader()).subscribe((response) => {
             subject.next(response);
@@ -122,7 +122,7 @@ export class ApiService {
         return subject.asObservable();
 
     }
-    subCategoryIconUpload(apiType,formdata,id) {
+    subCategoryIconUpload(apiType, formdata, id) {
         const subject = new Subject<any>();
         this.http.put(`${this.root}/${apiType}/uploadIcon/${id}`, formdata, this.getImageHeader()).subscribe((response) => {
             subject.next(response);
@@ -133,7 +133,7 @@ export class ApiService {
         return subject.asObservable();
 
     }
-    subCategoryLogoUpload(apiType,formdata,id) {
+    subCategoryLogoUpload(apiType, formdata, id) {
         const subject = new Subject<any>();
         this.http.put(`${this.root}/${apiType}/uploadLogo/${id}`, formdata, this.getImageHeader()).subscribe((response) => {
             subject.next(response);
@@ -144,7 +144,7 @@ export class ApiService {
         return subject.asObservable();
 
     }
-    subCategoryPatternUpload(apiType,formdata,id) {
+    subCategoryPatternUpload(apiType, formdata, id) {
         const subject = new Subject<any>();
         this.http.put(`${this.root}/${apiType}/uploadPattern/${id}`, formdata, this.getImageHeader()).subscribe((response) => {
             subject.next(response);
@@ -179,9 +179,9 @@ export class ApiService {
         return subject.asObservable();
 
     }
-       // -------------------------- get Tag By Category Id ------------------------->
+    // -------------------------- get Tag By Category Id ------------------------->
 
-       getTagByCategoryId(id): Observable<User> {
+    getTagByCategoryId(id): Observable<User> {
         const subject = new Subject<User>();
         this.http.get(`${this.root}/tags/byCategoryId?catrgoryIds=${id}`, this.getHeaders()).subscribe((responseData: any) => {
             const dataModel = responseData;
@@ -203,9 +203,9 @@ export class ApiService {
         });
         return subject.asObservable();
     }
-    activateDeactivateCategory(isActivated,id): Observable<Category[]> {
+    activateDeactivateCategory(isActivated, id): Observable<Category[]> {
         const subject = new Subject<Category[]>();
-        this.http.put(`${this.root}/categories/activeOrDeactive?id=${id}&isActivated=${isActivated}`,'',this.getHeaders()).subscribe((responseData) => {
+        this.http.put(`${this.root}/categories/activeOrDeactive?id=${id}&isActivated=${isActivated}`, '', this.getHeaders()).subscribe((responseData) => {
             // this.getHeaders() 
             this.categoryResponse = responseData;
             subject.next(this.categoryResponse);
@@ -248,8 +248,8 @@ export class ApiService {
         return subject.asObservable();
     }
 
-      // -------------------get Provider users by Date-------------------
-  providerByDate(date): Observable<Userr[]> {
+    // -------------------get Provider users by Date-------------------
+    providerByDate(date): Observable<Userr[]> {
         const subject = new Subject<Userr[]>();
         this.http.get(`${this.root}/providers/searchCreateModifiedDate?date=${date}`, { headers: null }).subscribe((responseData) => {
             this.userResponse = responseData;
@@ -260,11 +260,11 @@ export class ApiService {
         return subject.asObservable();
     }
 
-// -------------------beta users-------------------
+    // -------------------beta users-------------------
 
     betaProgramUsers(): Observable<Userr[]> {
         const subject = new Subject<Userr[]>();
-        this.http.get(`${this.root}/invitation/list`,this.getHeaders()).subscribe((responseData) => {
+        this.http.get(`${this.root}/invitation/list`, this.getHeaders()).subscribe((responseData) => {
             this.userResponse = responseData;
             subject.next(this.userResponse);
         }, (error) => {
@@ -272,32 +272,32 @@ export class ApiService {
         });
         return subject.asObservable();
     }
-// -------------------approve all beta users -------------------
+    // -------------------approve all beta users -------------------
 
-approveAllBetaUsers(): Observable<Userr[]> {
-    const subject = new Subject<Userr[]>();
-    this.http.post(`${this.root}/invitation/approveAll`,'',this.getHeaders()).subscribe((responseData) => {
-        this.userResponse = responseData;
-        subject.next(this.userResponse);
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
-// -------------------approve or decline beta user -------------------
+    approveAllBetaUsers(): Observable<Userr[]> {
+        const subject = new Subject<Userr[]>();
+        this.http.post(`${this.root}/invitation/approveAll`, '', this.getHeaders()).subscribe((responseData) => {
+            this.userResponse = responseData;
+            subject.next(this.userResponse);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+    // -------------------approve or decline beta user -------------------
 
-approveOrDeclineById(type,id): Observable<Userr[]> {
-    const subject = new Subject<Userr[]>();
-    this.http.put(`${this.root}/invitation/approveOrDecline?type=${type}&id=${id}`,'',this.getHeaders()).subscribe((responseData) => {
-        this.userResponse = responseData;
-        subject.next(this.userResponse);
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
-// -------------------get all children-------------------
-    getChildren(number,size): Observable<Child[]> {
+    approveOrDeclineById(type, id): Observable<Userr[]> {
+        const subject = new Subject<Userr[]>();
+        this.http.put(`${this.root}/invitation/approveOrDecline?type=${type}&id=${id}`, '', this.getHeaders()).subscribe((responseData) => {
+            this.userResponse = responseData;
+            subject.next(this.userResponse);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+    // -------------------get all children-------------------
+    getChildren(number, size): Observable<Child[]> {
         const subject = new Subject<Child[]>();
         this.http.get(`${this.root}/child/list?pageNo=${number}&pageSize=${size}`, this.getHeaders()).subscribe((responseData) => {
             this.userResponse = responseData;
@@ -322,7 +322,7 @@ approveOrDeclineById(type,id): Observable<Userr[]> {
 
     getUserById(id): Observable<Userr[]> {
         const subject = new Subject<Userr[]>();
-        this.http.get(`${this.root}/users/getById/${id}`,this.getHeaders()).subscribe((responseData) => {
+        this.http.get(`${this.root}/users/getById/${id}`, this.getHeaders()).subscribe((responseData) => {
             this.userResponse = responseData;
             subject.next(this.userResponse.data);
         }, (error) => {
@@ -334,7 +334,7 @@ approveOrDeclineById(type,id): Observable<Userr[]> {
     uploadUserImage(id, model): Observable<any> {
         const subject = new Subject<any>();
         this.http.put(`${this.root}/users/uploadProfilePic/${id}`, model, this.getImageHeader()).subscribe((response) => {
-           subject.next(response);
+            subject.next(response);
         }, (error) => {
             subject.next(error.error);
         }
@@ -364,8 +364,8 @@ approveOrDeclineById(type,id): Observable<Userr[]> {
         return subject.asObservable();
     }
 
-      // ----------------------------------------Program filtesrs---------------------------------------------
-      searchParentFilter(filter): Observable<Program> {
+    // ----------------------------------------Program filtesrs---------------------------------------------
+    searchParentFilter(filter): Observable<Program> {
         const subject = new Subject<Program>();
         this.http.get(`${this.root}/parents/searchByNameEmailStatus?${filter}`, this.getHeaders()).subscribe((responseData: any) => {
             subject.next(responseData);
@@ -374,10 +374,10 @@ approveOrDeclineById(type,id): Observable<Userr[]> {
         });
         return subject.asObservable();
     }
-    
+
     deleteUser(id): Observable<Userr[]> {
         const subject = new Subject<Userr[]>();
-        this.http.put(`${this.root}/users/delete?id=${id}`,'', this.getHeaders()).subscribe((responseData) => {
+        this.http.put(`${this.root}/users/delete?id=${id}`, '', this.getHeaders()).subscribe((responseData) => {
             this.userResponse = responseData;
             subject.next(this.userResponse);
         }, (error) => {
@@ -475,9 +475,9 @@ approveOrDeclineById(type,id): Observable<Userr[]> {
         const subject = new Subject<Child[]>();
         this.http.delete(`${this.root}/categories/delete/${id}`, this.getHeaders()).subscribe((responseData) => {
             response = responseData;
-            subject.next(response);  
+            subject.next(response);
 
-        }, (error) => {   
+        }, (error) => {
             subject.next(error.error);
         });
         return subject.asObservable();
@@ -505,9 +505,9 @@ approveOrDeclineById(type,id): Observable<Userr[]> {
         });
         return subject.asObservable();
     }
-    activateDeactivateTag(id,isActivated): Observable<Tag> {
+    activateDeactivateTag(id, isActivated): Observable<Tag> {
         const subject = new Subject<Tag>();
-        this.http.put(`${this.root}/tags/activeOrDeactive?id=${id}&isActivated=${isActivated}`,'', this.getHeaders()).subscribe((responseData: any) => {
+        this.http.put(`${this.root}/tags/activeOrDeactive?id=${id}&isActivated=${isActivated}`, '', this.getHeaders()).subscribe((responseData: any) => {
             subject.next(responseData);
         }, (error) => {
             subject.next(error.error);
@@ -548,8 +548,8 @@ approveOrDeclineById(type,id): Observable<Userr[]> {
         return subject.asObservable();
     }
 
-     // ----------------------------------------Program filtesrs by Date---------------------------------------------
-     programFilterByDate(value, from,to): Observable<Program> {
+    // ----------------------------------------Program filtesrs by Date---------------------------------------------
+    programFilterByDate(value, from, to): Observable<Program> {
         const subject = new Subject<Program>();
         this.http.get(`${this.root}/programs/histogram?period=${value}&fromDate=${from}&toDate=${to}`, this.getHeaders()).subscribe((responseData: any) => {
             subject.next(responseData);
@@ -575,18 +575,18 @@ approveOrDeclineById(type,id): Observable<Userr[]> {
         this.http.put(`${this.root}/programs/update/${id}`, model, this.getHeaders()).subscribe(res => {
             this.userResponse = res;
             subject.next(this.userResponse);
-           }, error => {
+        }, error => {
             subject.next(error.error);
         });
         return subject.asObservable();
     }
-    
+
     trueFalseFreeTrialProgram(programId, isFreeTrial): Observable<Program[]> {
         const subject = new Subject<Program[]>();
         this.http.put(`${this.root}/programs/freeTrail?programId=${programId}&isFreeTrial=${isFreeTrial}`, '', this.getHeaders()).subscribe(res => {
             this.userResponse = res;
             subject.next(this.userResponse);
-           }, error => {
+        }, error => {
             subject.next(error.error);
         });
         return subject.asObservable();
@@ -596,7 +596,7 @@ approveOrDeclineById(type,id): Observable<Userr[]> {
         this.http.put(`${this.root}/providers/freeTrail?userId=${providerId}&isFreeTrial=${isFreeTrial}`, '', this.getHeaders()).subscribe(res => {
             this.userResponse = res;
             subject.next(this.userResponse);
-           }, error => {
+        }, error => {
             subject.next(error.error);
         });
         return subject.asObservable();
@@ -621,10 +621,10 @@ approveOrDeclineById(type,id): Observable<Userr[]> {
         });
         return subject.asObservable();
     }
-    
+
     createDuplicateProgram(programId): Observable<Program> {
         const subject = new Subject<Program>();
-        this.http.put(`${this.root}/programs/duplicateCreate/${programId}`,'', this.getHeaders()).subscribe((responseData: any) => {
+        this.http.put(`${this.root}/programs/duplicateCreate/${programId}`, '', this.getHeaders()).subscribe((responseData: any) => {
             subject.next(responseData);
         }, (error) => {
             subject.next(error.error);
@@ -643,8 +643,8 @@ approveOrDeclineById(type,id): Observable<Userr[]> {
         });
         return subject.asObservable();
     }
-   
-   
+
+
     getProgramByProvider(userId, pageNo, pageSize): Observable<Program> {
         const subject = new Subject<Program>();
         this.http.get(`${this.root}/programs/byProvider?userId=${userId}&pageNo=${pageNo}&pageSize=${pageSize}`, this.getHeaders()).subscribe((responseData: any) => {
@@ -675,7 +675,7 @@ approveOrDeclineById(type,id): Observable<Userr[]> {
         });
         return subject.asObservable();
     }
-        // -------------------------- get Program by id  end------------------------->
+    // -------------------------- get Program by id  end------------------------->
 
     programActiveInActive(id, status) {
         const subject = new Subject<Program[]>();
@@ -741,7 +741,7 @@ approveOrDeclineById(type,id): Observable<Userr[]> {
 
 
 
-    getProviderVerifiedOrNot(pageNo,pageSize,type): Observable<Userr> {
+    getProviderVerifiedOrNot(pageNo, pageSize, type): Observable<Userr> {
         const subject = new Subject<Userr>();
         this.http.get(`${this.root}/providers/isVerifiedOrNot?pageNo=${pageNo}&pageSize=${pageSize}&type=${type}`, this.getHeaders()).subscribe((responseData: any) => {
             subject.next(responseData);
@@ -799,7 +799,7 @@ approveOrDeclineById(type,id): Observable<Userr[]> {
 
 
 
-    
+
 
     providerListByFilter(city, state, country, source, type, sex, pageSize, pageNo): Observable<Userr> {
         let querry: any;
@@ -842,8 +842,8 @@ approveOrDeclineById(type,id): Observable<Userr[]> {
 
     updateProvider(model): Observable<Userr[]> {
         const subject = new Subject<Userr[]>();
-        this.http.put(`${this.root}/providers/update/${model.id}`, model,  this.getHeaders()).subscribe(res => {
-            let response:any = res;
+        this.http.put(`${this.root}/providers/update/${model.id}`, model, this.getHeaders()).subscribe(res => {
+            let response: any = res;
             subject.next(response);
         }, (error) => {
             subject.next(error.error);
@@ -1202,7 +1202,7 @@ approveOrDeclineById(type,id): Observable<Userr[]> {
     }
 
     publishUnpublishMultiplePrograms(model): Observable<any[]> {
-    console.log(model)
+        console.log(model)
         const subject = new Subject<any[]>();
         console.log(model)
         this.http.post(`${this.root}/programs/bulkPublishOrUnpublish`, model, this.getHeaders()).subscribe((responseData: any) => {
@@ -1239,8 +1239,8 @@ approveOrDeclineById(type,id): Observable<Userr[]> {
         return subject.asObservable();
     }
 
-     // ---------------------------------------------Expired program ------------------------------------------------------------
-     allExpiredProgram(): Observable<Program[]> {
+    // ---------------------------------------------Expired program ------------------------------------------------------------
+    allExpiredProgram(): Observable<Program[]> {
         const subject = new Subject<Program[]>();
         this.http.get(`${this.root}/programs/expired`, this.getHeaders()).subscribe((responseData: any) => {
             this.userResponse = responseData;
@@ -1297,285 +1297,347 @@ approveOrDeclineById(type,id): Observable<Userr[]> {
         return subject.asObservable();
     }
 
-// ----------------------------- search category -------------------------->
+    // ----------------------------- search category -------------------------->
 
-searchCategory(key): Observable<Category> {
-    const subject = new Subject<Category>();
-    this.http.get(`${this.root}/categories/search?name=${key}`, this.getHeaders()).subscribe((responseData: any) => {
-        if (responseData.statusCode !== 200) {
-            throw new Error('This request has failed ' + responseData.status);
-        }
-        const dataModel = responseData;
-        if (!dataModel.isSuccess) {
-            if (responseData.status === 200) {
-                // this.toasty.error(dataModel.error);
-                throw new Error(dataModel.code || dataModel.message || 'failed');
-            } else {
-                throw new Error(responseData.status + '');
+    searchCategory(key): Observable<Category> {
+        const subject = new Subject<Category>();
+        this.http.get(`${this.root}/categories/search?name=${key}`, this.getHeaders()).subscribe((responseData: any) => {
+            if (responseData.statusCode !== 200) {
+                throw new Error('This request has failed ' + responseData.status);
             }
-        }
-        subject.next(responseData);
-    }, (error) => {
-        const dataModel = error;
-        subject.next(dataModel.error);
-    });
-    return subject.asObservable();
-}
+            const dataModel = responseData;
+            if (!dataModel.isSuccess) {
+                if (responseData.status === 200) {
+                    // this.toasty.error(dataModel.error);
+                    throw new Error(dataModel.code || dataModel.message || 'failed');
+                } else {
+                    throw new Error(responseData.status + '');
+                }
+            }
+            subject.next(responseData);
+        }, (error) => {
+            const dataModel = error;
+            subject.next(dataModel.error);
+        });
+        return subject.asObservable();
+    }
 
-feedbackList(): Observable<any[]> {
-    const subject = new Subject<any[]>();
-    this.http.get(`${this.root}/feedback/list`, this.getHeaders()).subscribe((responseData) => {
-        this.userResponse = responseData;
-        subject.next(this.userResponse);
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
-
-// =========================feedback survey API's START----------------------------
-feedbackSurveyList(): Observable<any[]> {
-    const subject = new Subject<any[]>();
-    this.http.get(`${this.root}/justfeedback/list`, this.getHeaders()).subscribe((responseData:any) => {
-        subject.next(responseData.data);
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
-feedbackSurveyCreate(data): Observable<any[]> {
-    const subject = new Subject<any[]>();
-    this.http.post(`${this.root}/justfeedback/create`, data,this.getHeaders()).subscribe((responseData:any) => {
-           subject.next(responseData);
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
-feedbackSurveyUpdate(data): Observable<any[]> {
-    const subject = new Subject<any[]>();
-    this.http.put(`${this.root}/justfeedback/update`,data,this.getHeaders()).subscribe((responseData:any) => {
-        subject.next(responseData);
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
-feedbackSurveyDelete(id): Observable<any[]> {
-    const subject = new Subject<any[]>();
-    this.http.delete(`${this.root}/justfeedback/deleteFeedback/${id}`,this.getHeaders()).subscribe((responseData:any) => {
-        subject.next(responseData);
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
-// =========================feedback survey API's END----------------------------
-
-programCSVupload(csv): Observable<any> {
-    const subject = new Subject<any>();
-    this.http.post(`${this.root}/programs/uploadExcel`, csv,{ headers: null }).subscribe((responseData: any) => {
-        subject.next(responseData);
-    }, (error) => {
-        subject.next(error.error);
-
-    });
-
-    return subject.asObservable();
-}
-
-providerCSVupload(csv): Observable<any> {
-    const subject = new Subject<any>();
-    this.http.post(`${this.root}/providers/uploadExcel`, csv,{ headers: null }).subscribe((responseData: any) => {
-        subject.next(responseData);
-    }, (error) => {
-        subject.next(error.error);
-
-    });
-
-    return subject.asObservable();
-}
-
-//=========================feedback survey API's START----------------------------
-getRoles(): Observable<any[]> {
-    const subject = new Subject<any[]>();
-    this.http.get(`${this.root}/role/list`, this.getHeaders()).subscribe((responseData:any) => {
-        subject.next(responseData.data);
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
-
-
-//=========================getParentAnalytics by Id API----------------------------
-getParentAnalytics(id): Observable<any[]> {
-    const subject = new Subject<any[]>();
-    this.http.get(`${this.root}/parents/getSearchHistory/${id}`, this.getHeaders()).subscribe((responseData:any) => {
-        subject.next(responseData.data);
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
-
-
-        // =============================================Graph analytics Programs ====================================================
-        analyticsGraphProgram(value): Observable<Program> {
-            const subject = new Subject<Program>();
-            this.http.get(`${this.root}/programs/histogram?period=${value}`, this.getHeaders()).subscribe((responseData: any) => {
-                subject.next(responseData);
-            }, (error) => {
-                subject.next(error.error);
-            });
-            return subject.asObservable();
-        }
-
-         // =============================================Graph analytics Providers ====================================================
-         analyticsGraphProviders(value): Observable<Program> {
-            const subject = new Subject<Program>();
-            this.http.get(`${this.root}/providers/histogram?period=${value}`, this.getHeaders()).subscribe((responseData: any) => {
-                subject.next(responseData);
-            }, (error) => {
-                subject.next(error.error);
-            });
-            return subject.asObservable();
-        }
-// Filter Keywords CRUD   ==========================================================================================
-addKeyword(model): Observable<any[]> {
-    const subject = new Subject<any[]>();
-    this.http.post(`${this.root}/filterkeys/create`, model, this.getHeaders()).subscribe((responseData) => {
-        this.userResponse = responseData;
-        subject.next(this.userResponse);
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
-searchMultipleKeywords(key): Observable<any> {
-    const subject = new Subject<any>();
-    this.http.get(`${this.root}/freetextSearch/search?text=${key}`, this.getHeaders()).subscribe((responseData:any) => {
-        if(responseData.isSuccess){
+    feedbackList(): Observable<any[]> {
+        const subject = new Subject<any[]>();
+        this.http.get(`${this.root}/feedback/list`, this.getHeaders()).subscribe((responseData) => {
             this.userResponse = responseData;
             subject.next(this.userResponse);
-        }
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
 
-updateKeyword(id,data): Observable<any[]> {
-    const subject = new Subject<any[]>();
-    this.http.put(`${this.root}/filterkeys/update/${id}`,data,this.getHeaders()).subscribe((responseData:any) => {
-        subject.next(responseData);
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
-deleteKeyword(id): Observable<any[]> {
-    const subject = new Subject<any[]>();
-    this.http.delete(`${this.root}/filterkeys/deleteFilterkey/${id}`,this.getHeaders()).subscribe((responseData:any) => {
-        subject.next(responseData);
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
+    // =========================feedback survey API's START----------------------------
+    feedbackSurveyList(): Observable<any[]> {
+        const subject = new Subject<any[]>();
+        this.http.get(`${this.root}/justfeedback/list`, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData.data);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+    feedbackSurveyCreate(data): Observable<any[]> {
+        const subject = new Subject<any[]>();
+        this.http.post(`${this.root}/justfeedback/create`, data, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+    feedbackSurveyUpdate(data): Observable<any[]> {
+        const subject = new Subject<any[]>();
+        this.http.put(`${this.root}/justfeedback/update`, data, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+    feedbackSurveyDelete(id): Observable<any[]> {
+        const subject = new Subject<any[]>();
+        this.http.delete(`${this.root}/justfeedback/deleteFeedback/${id}`, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+    // =========================feedback survey API's END----------------------------
 
-getKeyword(): Observable<any> {
-    const subject = new Subject<any>();
-    this.http.get(`${this.root}/filterkeys/list`, this.getHeaders()).subscribe((responseData: any) => {
-        subject.next(responseData);
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
+    programCSVupload(csv): Observable<any> {
+        const subject = new Subject<any>();
+        this.http.post(`${this.root}/programs/uploadExcel`, csv, { headers: null }).subscribe((responseData: any) => {
+            subject.next(responseData);
+        }, (error) => {
+            subject.next(error.error);
 
-getKeywordSearchedList(): Observable<any> {
-    const subject = new Subject<any>();
-    this.http.get(`${this.root}/freetextSearch/list`, this.getHeaders()).subscribe((responseData: any) => {
-        subject.next(responseData);
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
+        });
 
-keyWordActivateDeactivate(model): Observable<any[]> {
-    const subject = new Subject<any[]>();
-    this.http.put(`${this.root}/filterkeys/activeOrDeactive?id=${model.id}&isActivated=${model.isActivated}`,'',this.getHeaders()).subscribe((responseData) => {
-        // this.getHeaders() 
-        this.categoryResponse = responseData;
-        subject.next(this.categoryResponse);
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
-//=============================================== search Topic crud ========================================
-getTopics(): Observable<any> {
-    const subject = new Subject<any>();
-    this.http.get(`${this.root}/searchTopics/list`, this.getHeaders()).subscribe((responseData: any) => {
-        subject.next(responseData);
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
-addSearchTopic(model): Observable<any[]> {
-    const subject = new Subject<any[]>();
-    this.http.post(`${this.root}/searchTopics/create`, model, this.getHeaders()).subscribe((responseData) => {
-        this.userResponse = responseData;
-        subject.next(this.userResponse);
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
-updateSearchTopic(id,data): Observable<any[]> {
-    const subject = new Subject<any[]>();
-    this.http.put(`${this.root}/searchTopics/update/${id}`,data,this.getHeaders()).subscribe((responseData:any) => {
-        subject.next(responseData);
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
-topicActivateDeactivate(model): Observable<any[]> {
-    const subject = new Subject<any[]>();
-    this.http.put(`${this.root}/searchTopics/activeOrDeactive?id=${model.id}&isActivated=${model.isActivated}`,'',this.getHeaders()).subscribe((responseData) => {
-        // this.getHeaders() 
-        this.categoryResponse = responseData;
-        subject.next(this.categoryResponse);
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
-deleteTopic(id): Observable<any[]> {
-    const subject = new Subject<any[]>();
-    this.http.delete(`${this.root}/searchTopics/remove/${id}`,this.getHeaders()).subscribe((responseData:any) => {
-        subject.next(responseData);
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
-searchTopic(key): Observable<any> {
-    const subject = new Subject<any>();
-    this.http.get(`${this.root}/searchTopics/search?name=${key}`, this.getHeaders()).subscribe((responseData:any) => {
-        if(responseData.isSuccess){
+        return subject.asObservable();
+    }
+
+    providerCSVupload(csv): Observable<any> {
+        const subject = new Subject<any>();
+        this.http.post(`${this.root}/providers/uploadExcel`, csv, { headers: null }).subscribe((responseData: any) => {
+            subject.next(responseData);
+        }, (error) => {
+            subject.next(error.error);
+
+        });
+
+        return subject.asObservable();
+    }
+
+    //=========================feedback survey API's START----------------------------
+    getRoles(): Observable<any[]> {
+        const subject = new Subject<any[]>();
+        this.http.get(`${this.root}/role/list`, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData.data);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+
+
+    //=========================getParentAnalytics by Id API----------------------------
+    getParentAnalytics(id): Observable<any[]> {
+        const subject = new Subject<any[]>();
+        this.http.get(`${this.root}/parents/getSearchHistory/${id}`, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData.data);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+
+
+    // =============================================Graph analytics Programs ====================================================
+    analyticsGraphProgram(value): Observable<Program> {
+        const subject = new Subject<Program>();
+        this.http.get(`${this.root}/programs/histogram?period=${value}`, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+
+    // =============================================Graph analytics Providers ====================================================
+    analyticsGraphProviders(value): Observable<Program> {
+        const subject = new Subject<Program>();
+        this.http.get(`${this.root}/providers/histogram?period=${value}`, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+    // Filter Keywords CRUD   ==========================================================================================
+    addKeyword(model): Observable<any[]> {
+        const subject = new Subject<any[]>();
+        this.http.post(`${this.root}/filterkeys/create`, model, this.getHeaders()).subscribe((responseData) => {
             this.userResponse = responseData;
             subject.next(this.userResponse);
-        }
-    }, (error) => {
-        subject.next(error.error);
-    });
-    return subject.asObservable();
-}
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+    searchMultipleKeywords(key): Observable<any> {
+        const subject = new Subject<any>();
+        this.http.get(`${this.root}/freetextSearch/search?text=${key}`, this.getHeaders()).subscribe((responseData: any) => {
+            if (responseData.isSuccess) {
+                this.userResponse = responseData;
+                subject.next(this.userResponse);
+            }
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+
+    updateKeyword(id, data): Observable<any[]> {
+        const subject = new Subject<any[]>();
+        this.http.put(`${this.root}/filterkeys/update/${id}`, data, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+    deleteKeyword(id): Observable<any[]> {
+        const subject = new Subject<any[]>();
+        this.http.delete(`${this.root}/filterkeys/deleteFilterkey/${id}`, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+
+    getKeyword(): Observable<any> {
+        const subject = new Subject<any>();
+        this.http.get(`${this.root}/filterkeys/list`, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+
+    getKeywordSearchedList(): Observable<any> {
+        const subject = new Subject<any>();
+        this.http.get(`${this.root}/freetextSearch/list`, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+
+    keyWordActivateDeactivate(model): Observable<any[]> {
+        const subject = new Subject<any[]>();
+        this.http.put(`${this.root}/filterkeys/activeOrDeactive?id=${model.id}&isActivated=${model.isActivated}`, '', this.getHeaders()).subscribe((responseData) => {
+            // this.getHeaders() 
+            this.categoryResponse = responseData;
+            subject.next(this.categoryResponse);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+    //=============================================== search Topic crud ========================================
+    getTopics(): Observable<any> {
+        const subject = new Subject<any>();
+        this.http.get(`${this.root}/searchTopics/list`, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+    addSearchTopic(model): Observable<any[]> {
+        const subject = new Subject<any[]>();
+        this.http.post(`${this.root}/searchTopics/create`, model, this.getHeaders()).subscribe((responseData) => {
+            this.userResponse = responseData;
+            subject.next(this.userResponse);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+    updateSearchTopic(id, data): Observable<any[]> {
+        const subject = new Subject<any[]>();
+        this.http.put(`${this.root}/searchTopics/update/${id}`, data, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+    topicActivateDeactivate(model): Observable<any[]> {
+        const subject = new Subject<any[]>();
+        this.http.put(`${this.root}/searchTopics/activeOrDeactive?id=${model.id}&isActivated=${model.isActivated}`, '', this.getHeaders()).subscribe((responseData) => {
+            // this.getHeaders() 
+            this.categoryResponse = responseData;
+            subject.next(this.categoryResponse);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+    deleteTopic(id): Observable<any[]> {
+        const subject = new Subject<any[]>();
+        this.http.delete(`${this.root}/searchTopics/remove/${id}`, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+    searchTopic(key): Observable<any> {
+        const subject = new Subject<any>();
+        this.http.get(`${this.root}/searchTopics/search?name=${key}`, this.getHeaders()).subscribe((responseData: any) => {
+            if (responseData.isSuccess) {
+                this.userResponse = responseData;
+                subject.next(this.userResponse);
+            }
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+
+    //=============================================== search Topic crud ========================================
+    getMetaService(): Observable<any> {
+        const subject = new Subject<any>();
+        this.http.get(`${this.root}/metaservice/list`, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+    addMetaService(model): Observable<any[]> {
+        const subject = new Subject<any[]>();
+        this.http.post(`${this.root}/metaservice/create`, model, this.getHeaders()).subscribe((responseData) => {
+            this.userResponse = responseData;
+            subject.next(this.userResponse);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+    updateMetaService(id, data): Observable<any[]> {
+        const subject = new Subject<any[]>();
+        this.http.put(`${this.root}/metaservice/update/${id}`, data, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+    MetaServiceActivateDeactivate(model): Observable<any[]> {
+        const subject = new Subject<any[]>();
+        this.http.put(`${this.root}/metaservice/activeOrDeactive?id=${model.id}&isActivated=${model.isActivated}`, '', this.getHeaders()).subscribe((responseData) => {
+            // this.getHeaders() 
+            this.categoryResponse = responseData;
+            subject.next(this.categoryResponse);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+    deleteMetaService(id): Observable<any[]> {
+        const subject = new Subject<any[]>();
+        this.http.delete(`${this.root}/metaservice/remove/${id}`, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+    searchMetaService(key): Observable<any> {
+        const subject = new Subject<any>();
+        this.http.get(`${this.root}/metaservice/search?name=${key}`, this.getHeaders()).subscribe((responseData: any) => {
+            if (responseData.isSuccess) {
+                this.userResponse = responseData;
+                subject.next(this.userResponse);
+            }
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
 
 }
 

@@ -69,8 +69,9 @@ export class NavigationService {
         { name: 'Programs List', state: 'all-program' },
         { name: 'Categories', state: 'category' },
         { name: 'Tags', state: 'tag' },
-        {name: 'Keywords',state: 'keyword'},
-        {name: 'Topics',state: 'topics'},
+        { name: 'Meta-Service', state: 'meta-service' },
+        { name: 'Keywords', state: 'keyword' },
+        { name: 'Topics', state: 'topics' },
       ]
     },
 
@@ -96,7 +97,7 @@ export class NavigationService {
     //   icon: 'person',
     //   state: 'beta-program/enrolled',
     // },
- 
+
     {
       name: 'Children',
       type: 'link',

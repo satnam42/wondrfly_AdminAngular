@@ -310,16 +310,12 @@ export class AllProgramTableComponent implements OnInit, AfterViewInit {
   deleteProgram(data, indx) {
     this.confirmService.confirm({ message: `Delete ${data.name}?` }).subscribe(res => {
       if (res) {
-        this.loader.open();
-        this.isLoading = true;
         this.apiservice.deleteProgram(data._id).subscribe(res => {
           var response: any = res;
           if (response.isSuccess === true) {
-            this.rows.splice(indx, 1);
-            this.loader.close();
+            this.getProgram();
             this.snack.open(this.message, 'OK', { duration: 4000 });
           } else {
-            this.loader.close();
             let msg = "Something Went Wrong!";
             this.snack.open(msg, 'OK', { duration: 4000 });
           }

@@ -1,0 +1,75 @@
+<!-- <div *ngIf="!isTable"> -->
+<div class="title_heading">
+  <h2 class="title addform" [hidden]="editData">
+    Add Data
+  </h2>
+  <h2 class="title addform" [hidden]="!editData">
+    Update Data
+  </h2>
+  <span (click)="dialogRef.close()">
+    <mat-icon>close</mat-icon>
+  </span>
+</div>
+<div class="container addform">
+  <div class="row pt-3 pb-3">
+    <div class="col-6">
+      <form [formGroup]="metaForm">
+
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Page Name</mat-label>
+          <input type="text" matInput [formControl]="metaForm.controls['pageName']" [(ngModel)]="metaData.pageName"
+            placeholder="Page Name">
+          <mat-error *ngIf="metaForm.controls.pageName?.errors?.required" required>
+            Page Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+    <div class="col-6">
+      <form [formGroup]="metaForm">
+
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Meta-Title</mat-label>
+          <input type="text" matInput [formControl]="metaForm.controls['title']" [(ngModel)]="metaData.title"
+            placeholder="Meta-Title">
+          <mat-error *ngIf="metaForm.controls.title?.errors?.required" required>
+            Meta-Title is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+
+  <div class="row pt-3 pb-3">
+    <div class="col-6">
+      <form [formGroup]="metaForm">
+
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Meta-Keywords</mat-label>
+          <textarea type="text" matInput [formControl]="metaForm.controls['keywords']" [(ngModel)]="metaData.keywords"
+            placeholder="Meta-Keywords"></textarea>
+          <mat-error *ngIf="metaForm.controls.keywords?.errors?.required" required>
+            Meta-Keywords is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+    <div class="col-6">
+      <form [formGroup]="metaForm">
+
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Meta-Description</mat-label>
+          <textarea type="text" matInput [formControl]="metaForm.controls['description']"
+            [(ngModel)]="metaData.description" placeholder="Meta-Description"></textarea>
+          <mat-error *ngIf="metaForm.controls.description?.errors?.required" required>
+            Meta-Description is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+
+</div>
+<div class="col-12 button-form pb-3">
+  <button type="submit" mat-raised-button [disabled]="!metaForm.valid" (click)="onSubmit()">Submit</button>
+</div>

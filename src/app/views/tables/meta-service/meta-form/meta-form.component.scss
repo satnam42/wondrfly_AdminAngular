@@ -1,0 +1,143 @@
+mat-form-field {
+    width: 100%;
+  }
+  
+  .button-form
+    button.mat-focus-indicator.mat-raised-button.mat-button-base.mat-primary {
+    margin: 0px 20px 0px 0px;
+  }
+  
+  .button-form {
+    display: block;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  .float-right {
+    float: right;
+  }
+  
+  .mat-form-field {
+    width: 100%;
+    height: 85px;
+  }
+  
+  .example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  
+  h2 {
+    padding-right: 70px;
+  }
+  
+  
+  
+  
+  
+  body {
+    height: 100%;
+  }
+  
+  body {
+    overflow: hidden;
+    background-color: #fafafa;
+    color: rgba(0, 0, 0, 0.87);
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  
+  h2.title {
+    margin-top: 15px;
+  }
+  
+  .title {
+    text-align: center;
+  }
+  
+  .mat-card {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  .removePadding .mat-dialog-container {
+    padding: 0px;
+  }
+  
+  .mat-raised-button {
+    background-color: #4dcaf0 !important;
+    color: white !important;
+  }
+  
+  .bg-white{
+    background-color: white !important;
+    color: #4dcaf0 !important;
+  }
+  .container.addform {
+    max-width: 1300px;
+  }
+  .addform-btn {
+    float: left;
+    margin-left: 40px;
+  }
+  h2.title.addform {
+    font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+    letter-spacing: normal;
+    margin: 0 0 16px;
+  }
+  ::ng-deep .egret-navy .mat-form-field-appearance-outline .mat-form-field-outline {
+    height: 50px;
+  }
+  
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    top: 10px !important;
+  }
+  ::ng-deep .uploader .form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 10px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 26px;}
+
+    .title_heading {
+        justify-content: space-between;
+        display: flex;
+    }
+    .title_heading span{
+      cursor: pointer;
+    }
+
+    .example-section {
+      margin: 12px 0;
+    }
+    
+    .example-margin {
+      margin: 0 12px;
+    }
+    
+    ul {
+      list-style-type: none;
+      margin-top: 4px;
+    }
+
+  ul.ul-tag-col-6 label {display: block;width: 100%;}
+  ul.ul-tag-col-6 {display: flex;flex-wrap: wrap;}  
+  ul.ul-tag-col-6 li {flex: 50%;width: 50%;}

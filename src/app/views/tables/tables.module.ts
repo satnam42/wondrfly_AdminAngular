@@ -66,13 +66,15 @@ import { CategoryTableComponent } from './category-table/category-table.componen
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { KeywordComponent } from './keyword/keyword.component';
 import { KeywordFormComponent } from '../forms/keyword-form/keyword-form.component';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Ng5SliderModule } from 'ng5-slider';
 import { SearchedKeywordsComponent } from './searched-keywords/searched-keywords.component';
 import { TopicsComponent } from './topics/topics.component';
 import { TopicFormComponent } from './topics/topic-form/topic-form.component';
 import { ProgramFormComponent } from './all-program-table/program-form/program-form.component';
 import { AgmCoreModule } from '@agm/core';
+import { MetaServiceComponent } from './meta-service/meta-service.component';
+import { MetaFormComponent } from './meta-service/meta-form/meta-form.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -114,7 +116,7 @@ import { AgmCoreModule } from '@agm/core';
     MatExpansionModule,
     NgxEchartsModule,
     MatSelectModule,
-    ScrollingModule, 
+    ScrollingModule,
     MatButtonToggleModule,
     SharedModule,
     CalendarModule.forRoot({
@@ -177,9 +179,11 @@ import { AgmCoreModule } from '@agm/core';
     SearchedKeywordsComponent,
     TopicsComponent,
     TopicFormComponent,
-    ProgramFormComponent
-    
+    ProgramFormComponent,
+    MetaServiceComponent,
+    MetaFormComponent
+
   ],
-  entryComponents: [SearchProviderPopupComponent, DuplicacyDataPopupComponent,TopicFormComponent,ProgramFormComponent, SearchedKeywordsComponent, ProviderDataPopupComponent,KeywordFormComponent, ProgramDataPopupComponent,UsersComponent,EditFormComponent,AllUserComponent]
+  entryComponents: [SearchProviderPopupComponent, MetaFormComponent, DuplicacyDataPopupComponent, TopicFormComponent, ProgramFormComponent, SearchedKeywordsComponent, ProviderDataPopupComponent, KeywordFormComponent, ProgramDataPopupComponent, UsersComponent, EditFormComponent, AllUserComponent]
 })
 export class TablesModule { }

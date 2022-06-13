@@ -5,24 +5,25 @@ import { Router } from '@angular/router';
 import { ApiService } from 'app/shared/services/api.service.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { KeywordFormComponent } from 'app/views/forms/keyword-form/keyword-form.component';
+
 @Component({
-  selector: 'app-topic-form',
-  templateUrl: './topic-form.component.html',
-  styleUrls: ['./topic-form.component.scss']
+  selector: 'app-meta-form',
+  templateUrl: './meta-form.component.html',
+  styleUrls: ['./meta-form.component.scss']
 })
-export class TopicFormComponent implements OnInit {
-  topicForm: FormGroup;
+export class MetaFormComponent implements OnInit {
+  metaForm: FormGroup;
   editData: boolean;
   submitted: boolean;
   providerResponse: any;
-  message: string = 'Keyword Added Successfully !';
+  message: string = 'Meta-service Added Successfully !';
   action: boolean = true;
   setAutoHide: boolean = true;
   autoHide: number = 4000;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   isEmpty: any;
-  topicData: any
+  metaData: any
   constructor(
     private apiservice: ApiService,
     public dialog: MatDialog,
@@ -32,54 +33,53 @@ export class TopicFormComponent implements OnInit {
     private snack: MatSnackBar,
     private route: Router,
   ) {
-    this.topicData = data;
-    this.isEmpty = Object.keys(this.topicData).length === 0;
+    this.metaData = data;
+    this.isEmpty = Object.keys(this.metaData).length === 0;
   }
 
   ngOnInit() {
     if (this.isEmpty) {
       this.editData = false;
     } else { this.editData = true }
-    this.topicForm = new FormGroup({
-      Name: new FormControl('', Validators.required),
-      url: new FormControl('', Validators.required),
+    this.metaForm = new FormGroup({
+      pageName: new FormControl('', Validators.required),
+      title: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
+      keywords: new FormControl('', Validators.required),
     });
   }
-  addTopic() {
-    this.apiservice.addSearchTopic(this.topicForm.value).subscribe((res: any) => {
+  addMetaService() {
+    this.apiservice.addMetaService(this.metaForm.value).subscribe((res: any) => {
       console.log(res)
       if (res.isSuccess === true) {
         this.snack.open(this.message, 'OK', { duration: 7000 });
         this.dialogRef.close();
-        this.route.navigate(['tables/topics']);
+        this.route.navigate(['tables/meta-service']);
       } else {
         let msg = 'Somthing went wrong!';
         this.snack.open(msg, 'OK', { duration: 7000 });
       }
     })
   }
-  updateTopic() {
-    this.apiservice.updateSearchTopic(this.topicData._id, this.topicData).subscribe((res: any) => {
+  updateMetaService() {
+    this.apiservice.updateMetaService(this.metaData._id, this.metaData).subscribe((res: any) => {
       console.log(res)
       if (res.isSuccess === true) {
         this.dialogRef.close();
-        this.snack.open(this.message, 'OK', { duration: 7000 });
-        this.route.navigate(['tables/topics']);
+        this.snack.open('Data Updated', 'OK', { duration: 7000 });
+        this.route.navigate(['tables/meta-service']);
       } else {
         let msg = 'Somthing went wrong!';
         this.snack.open(msg, 'OK', { duration: 7000 });
       }
     })
   }
-
-
-
   onSubmit() {
     this.submitted = true;
     if (this.editData) {
-      this.updateTopic();
+      this.updateMetaService();
     } else {
-      this.addTopic();
+      this.addMetaService();
     }
   }
 }
