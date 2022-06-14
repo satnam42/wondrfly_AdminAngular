@@ -22,10 +22,9 @@ export class logsComponent implements OnInit {
   deleteKeyword(id,indx) {
     this.apiservice.deleteSearchedFreeText(id).subscribe(res => {
       console.log(res)
-      this.data.splice(indx,1)
-      // if(res.isSuccess){
-      //   this.data.splice(indx,1)
-      // }
+      if(res.isSuccess){
+        this.data.splice(indx,1)
+      }
     });
   }
   // searchKeyword(txt) {

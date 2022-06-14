@@ -1517,7 +1517,7 @@ export class ApiService {
 
     deleteSearchedFreeText(id): Observable<any> {
         const subject = new Subject<any>();
-        this.http.delete(`${this.root}/freetextSearch/delete/${id}`, this.getHeaders()).subscribe((responseData: any) => {
+        this.http.delete(`${this.root}/freetextSearch/remove/${id}`, this.getHeaders()).subscribe((responseData: any) => {
             subject.next(responseData);
         }, (error) => {
             subject.next(error.error);
