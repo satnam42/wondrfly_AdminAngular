@@ -4,6 +4,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar, MatDialog, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 import { RolespopupComponent } from 'app/rolespopup/rolespopup.component';
+import { Userr } from 'app/shared/models/user.model';
 import { ApiService } from 'app/shared/services/api.service.service';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
@@ -12,36 +13,19 @@ import { EditFormComponent } from 'app/views/components/edit-form/edit-form.comp
 import { Observable } from 'rxjs';
 import { finalize, share } from 'rxjs/operators';
 import { DataPopupComponent } from '../data-popup/data-popup.component';
-
-export interface UserData {
-  id: string;
-  firstName: string;
-  isActivated: boolean;
-  phoneNumber: string;
-  email: string;
-  addressLine1: string;
-  country:string;
-  progress:string;
-  zipCode:string;
-  role:string;
-  updatedOn:string;
-  state:string;
-}
-
 @Component({
   selector: 'app-all-user',
   templateUrl: './all-user.component.html',
   styleUrls: ['./all-user.component.scss']
 })
 export class AllUserComponent implements OnInit {
-
+  user: Userr[];
   displayedColumns: any[] = [
-    'id',
     'firstName',
     'role',
     'email',
     'addressLine1',
-    'phoneNumber',      
+    'phoneNumber',
     'updatedOn',
     'isActivated',
     'star',
@@ -61,11 +45,13 @@ export class AllUserComponent implements OnInit {
     'isActivated',
 
   ];
-  dataSource: MatTableDataSource<UserData>;
-  selection = new SelectionModel<UserData>(true, []);
+  dataSource = new MatTableDataSource<Userr>();
+  selection = new SelectionModel<Userr>(true, []);
 
-  @ViewChild(MatPaginator,{static:false}) paginator!: MatPaginator;
-  @ViewChild(MatSort,{static:false}) sort!: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: false }) set content(sort: MatSort) {
+    this.dataSource.sort = sort;
+  }
   selectedValue: any;
 
   isLoading: boolean;
@@ -77,8 +63,7 @@ export class AllUserComponent implements OnInit {
   showReset = false;
   pageNo = 1;
   pageSize = 20;
-
-  users: any=[];
+  users: any = [];
   public news: Array<any> = [];
 
   private currentPage = 1;
@@ -100,57 +85,51 @@ export class AllUserComponent implements OnInit {
     // private confirmationDialogService: ConfirmationDialogService,
     // private spinner: NgxSpinnerService
   ) {
-    // this.users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
-    // this.data = Object.assign(this.users);
-    // this.dataSource = new MatTableDataSource(this.users);
     this.getUser()
-   
   }
 
   ngOnInit() {
-    // this.spinner.show();
-    this.getList();
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
-    // this.dataSource.filterPredicate = (data: any, filtersJson: string) => {
-    //   const matchFilter: any[] = [];
-    //   const filters = JSON.parse(filtersJson);
 
-    //   filters.forEach((filter: any) => {
-    //     const val = data[filter.id] === null ? '' : data[filter.id];
-    //     matchFilter.push(
-    //       val.toLowerCase().includes(filter.value.toLowerCase())
-    //     );
-    //   });
-    //   return matchFilter.every(Boolean);
-    // };
-    // this.spinner.hide();
   }
 
-  getUser(){
+  getUser() {
     this.loader.open()
-    this.apiservice.getUsers('all', this.pageNo, 120).subscribe((res:any) => {
-      this.total = res.total;
-      this.users = this.news.concat(res.items);
+    this.apiservice.getUsers('all', this.pageNo, this.pageSize).subscribe((res: any) => {
       this.loader.close()
-      // this.data = res.items;
-      this.pageSize += 20;
-      this.dataSource = new MatTableDataSource(this.users);
+      this.total = res.total;
+      this.user = res.items;
+      this.dataSource = new MatTableDataSource(this.user);
     })
-    this.loader.close()
+  }
+
+  // =========================================== Pagination =========================================================
+  pageChanged(event) {
+    event.pageSize
+    if (event.pageSize > this.pageSize || event.pageSize < this.pageSize) {
+      this.pageNo = event.pageIndex + 1;
+      this.pageSize = event.pageSize;
+      this.getUser();
+    }
+    else if (event.previousPageIndex > event.pageIndex) {
+      this.pageNo = this.pageNo !== 0 ? this.pageNo - 1 : this.pageNo
+      this.getUser();
+    } else {
+      this.pageNo = event.pageIndex + 1;
+      this.getUser();
+    }
   }
 
   reset() {
     this.getUser()
   }
 
-  activateDeactivate(data,user) {
-    this.apiservice.userActiveInActive(user.id,data.checked).subscribe((res:any) => {
-      if(res.isSuccess){
-       this.snack.open('User status changed', 'OK', { duration: 4000 });
+  activateDeactivate(data, user) {
+    this.apiservice.userActiveInActive(user.id, data.checked).subscribe((res: any) => {
+      if (res.isSuccess) {
+        this.snack.open('User status changed', 'OK', { duration: 4000 });
         // this.snack.open('Program published', 'OK', { duration: 4000 });
         // this.rows[indx].isPublished = booleanValue
-      }else{this.snack.open('Somthing went wrong', 'OK', { duration: 4000 });}
+      } else { this.snack.open('Somthing went wrong', 'OK', { duration: 4000 }); }
     });
   }
 
@@ -160,11 +139,11 @@ export class AllUserComponent implements OnInit {
   }
   edit(data) {
     this.dataservice.setOption(data);
-    if(data._id){
+    if (data._id) {
       data.id = data._id
-    } if(data.role=="parent"){
+    } if (data.role == "parent") {
       this.router.navigate(['forms/parent-update']);
-    }else{
+    } else {
       this.router.navigate(['forms/provider-update', data.id]);
     }
   }
@@ -238,13 +217,12 @@ export class AllUserComponent implements OnInit {
     this.selection.select(...this.dataSource.data);
   }
 
-  checkboxLabel(row?: UserData): string {
+  checkboxLabel(row?: Userr): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
-      row.id + 1
-    }`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1
+      }`;
   }
 
   selectedFilter(value: any) {
@@ -265,13 +243,13 @@ export class AllUserComponent implements OnInit {
     // if (this.dataSource.paginator) {
     //   this.dataSource.paginator.firstPage();
     // }
-    if(filterValue){
-      this.apiservice.searchProviderByName(filterValue).subscribe((res:any) => {
+    if (filterValue) {
+      this.apiservice.searchProviderByName(filterValue).subscribe((res: any) => {
         this.data = res;
         this.dataSource = new MatTableDataSource(this.data);
       })
     }
-    else{
+    else {
       this.reset()
     }
 
@@ -310,7 +288,7 @@ export class AllUserComponent implements OnInit {
           var response: any = res;
           if (response.isSuccess) {
             this.getUser()
-           this.snack.open('User Deleted', 'OK', { duration: 4000 });
+            this.snack.open('User Deleted', 'OK', { duration: 4000 });
           } else {
             let msg = "Something Went Wrong!";
             this.snack.open(msg, 'OK', { duration: 4000 });
