@@ -6,24 +6,24 @@ import { ApiService } from 'app/shared/services/api.service.service';
   styleUrls: ['./logs.component.scss']
 })
 export class logsComponent implements OnInit {
-   data:any;
+  data: any;
   constructor(private apiservice: ApiService
-) { }
+  ) { }
 
   ngOnInit() {
-    this.getKeywordSearchedList()
+    this.getKeywordSearchedList();
   }
 
   getKeywordSearchedList() {
     this.apiservice.getKeywordSearchedList().subscribe(res => {
-      this.data= res.data.reverse();
+      this.data = res.data.reverse();
     });
   }
-  deleteKeyword(id,indx) {
+  deleteKeyword(id, indx) {
     this.apiservice.deleteSearchedFreeText(id).subscribe(res => {
       console.log(res)
-      if(res.isSuccess){
-        this.data.splice(indx,1)
+      if (res.isSuccess) {
+        this.data.splice(indx, 1)
       }
     });
   }
@@ -122,7 +122,7 @@ export class logsComponent implements OnInit {
   //               win.opener = null;
   //               win.focus();
   //         }
- 
+
   //       } else {
   //         var url = `https://wondrfly.ml/search`;
   //         var win = window.open(url, '_blank');

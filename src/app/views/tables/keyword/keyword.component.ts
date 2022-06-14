@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar, MatDialog, MatSnackBarConfig, MatDialogRef, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import { ApiService } from 'app/shared/services/api.service.service';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
@@ -14,6 +14,8 @@ export interface Keywords {
   keywordName: string;
   keywordType: string;
   isActivated: boolean;
+  text: string;
+  createdOn: Date;
 }
 @Component({
   selector: 'app-keyword',
@@ -22,24 +24,17 @@ export interface Keywords {
 })
 export class KeywordComponent implements OnInit {
   defaultFilter: string = 'name'
-  displayedColumns: any[] = [
-    'keywordName',
-    'keywordType',
-    'isActivated',
-    'star'
-  ];
+  displayedColumns: any[] = [];
   dataSource = new MatTableDataSource<Keywords>();
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) set content(sort: MatSort) {
     this.dataSource.sort = sort;
   }
   isLoading: boolean;
-  usersData: any = {};
   rows: any = [];
   temp: any = [];
   ColumnMode = ColumnMode;
   submitted: any;
-  publishedPrograms: any;
   searchText: '';
   isShow = true;
   searchControl = new FormControl()
@@ -56,6 +51,7 @@ export class KeywordComponent implements OnInit {
   baseURL = environment.baseURL
   keywordData: any;
   keywordRow: any;
+  activeTab: any;
   constructor(
     public route: Router,
     private apiservice: ApiService,
@@ -63,14 +59,14 @@ export class KeywordComponent implements OnInit {
     private confirmService: AppConfirmService,
     private loader: AppLoaderService,
     private dialog: MatDialog,
+    private activatedRoute: ActivatedRoute,
   ) {
     let config = new MatSnackBarConfig();
     config.verticalPosition = this.verticalPosition;
     config.horizontalPosition = this.horizontalPosition;
     config.duration = this.setAutoHide ? this.autoHide : 0;
-    this.getKeywords();
+    this.getSetTabs();
   }
-
 
   // view data 
   openPopUp(data) {
@@ -100,6 +96,18 @@ export class KeywordComponent implements OnInit {
     });
   }
 
+  getKeywordSearchedList() {
+    this.loader.open();
+    this.apiservice.getKeywordSearchedList().subscribe(res => {
+      this.loader.close();
+      this.temp = res;
+      if (this.temp.data) {
+        this.rows = this.temp.data;
+        this.dataSource = new MatTableDataSource(this.rows.reverse());
+      }
+    });
+  }
+
   editDataPopup(data): void {
     let dialogRef: MatDialogRef<any> = this.dialog.open(KeywordFormComponent, {
       width: '50%',
@@ -112,23 +120,15 @@ export class KeywordComponent implements OnInit {
       });
   }
 
-  logs() {
-    this.route.navigate(['/tables/logs'])
-    // let dialogRef: MatDialogRef<any> = this.dialog.open(SearchedKeywordsComponent, {
-    //   width: '70%',
-    //   disableClose: true,
-    // })
-    // dialogRef.afterClosed()
-  }
-
-  deleteKeyword(data, indx) {
+  deleteKeyword(data) {
     this.confirmService.confirm({ message: `Delete ${data.keywordName}?` }).subscribe(res => {
       if (res) {
         this.isLoading = true;
         this.apiservice.deleteKeyword(data._id).subscribe(res => {
           var response: any = res;
           if (response.isSuccess === true) {
-            this.getKeywords();
+            this.rows = this.rows.filter((u) => u._id !== data._id);
+            this.dataSource = new MatTableDataSource(this.rows);
             this.snack.open(this.message, 'OK', { duration: 4000 });
           } else {
             let msg = "Something Went Wrong!";
@@ -138,6 +138,21 @@ export class KeywordComponent implements OnInit {
       }
     })
   }
+
+  deleteSearchedKeyword(row) {
+    this.apiservice.deleteSearchedFreeText(row._id).subscribe(res => {
+      console.log(res)
+      if (res.isSuccess) {
+        this.rows = this.rows.filter((u) => u._id !== row._id);
+        this.dataSource = new MatTableDataSource(this.rows);
+        this.snack.open('Deleted Successfully', 'OK', { duration: 4000 });
+      } else {
+        let msg = "Something Went Wrong!";
+        this.snack.open(msg, 'OK', { duration: 4000 });
+      }
+    });
+  }
+
   activateDeactivateKeyword(data, id) {
     var model: any = {
       id: id,
@@ -148,6 +163,47 @@ export class KeywordComponent implements OnInit {
       } else { this.snack.open('Somthing went wrong', 'OK', { duration: 4000 }); }
     });
   }
+  // =========================================== change program tabs =========================================================
+  activeProgramsTab(tab) {
+    const activetab = tab;
+    if (activetab !== '') {
+      this.route.navigate(
+        [],
+        { relativeTo: this.activatedRoute, queryParams: { activity: activetab } }
+      );
+    } else {
+      this.route.navigate(
+        [],
+        { relativeTo: this.activatedRoute, queryParams: {} }
+      );
+    }
+  }
+
+  // =========================================== programs type Tab =========================================================
+  getSetTabs() {
+    this.activatedRoute.queryParams
+      .subscribe((params: any) => {
+        this.activeTab = params.activity;
+        switch (this.activeTab) {
+          case 'logs':
+            let column2 = ['text',
+              'createdOn',
+              'star'];
+            this.displayedColumns = column2;
+            this.getKeywordSearchedList()
+            break;
+          default:
+            let column = ['keywordName',
+              'keywordType',
+              'isActivated',
+              'star']
+            this.displayedColumns = column;
+            this.activeTab = ''
+            this.getKeywords();
+        }
+      })
+  }
+
   ngOnInit() {
   }
 }
