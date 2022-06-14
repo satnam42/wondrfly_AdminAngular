@@ -7,8 +7,8 @@
 <hr>
 <div class="container-fluid">
   <mat-chip-list aria-label="Fish selection">
-    <mat-chip (click)="searchKeyword(chip.text)" class="chips cursor" *ngFor="let chip of data">{{chip.text}}
-      <!-- <mat-icon>cancel</mat-icon> -->
+    <mat-chip  class="chips cursor" *ngFor="let chip of data;let i =index"><span>{{chip.text}}</span>{{chip.text}}
+      <mat-icon (click)="deleteKeyword(chip._id,i)">cancel</mat-icon>
     </mat-chip>
   </mat-chip-list>
 </div>

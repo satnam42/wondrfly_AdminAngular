@@ -1,20 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Router } from '@angular/router';
 import { ApiService } from 'app/shared/services/api.service.service';
-import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
-import { KeywordFormComponent } from 'app/views/forms/keyword-form/keyword-form.component';
-
 @Component({
-  selector: 'app-searched-keywords',
-  templateUrl: './searched-keywords.component.html',
-  styleUrls: ['./searched-keywords.component.scss']
+  selector: 'app-logs',
+  templateUrl: './logs.component.html',
+  styleUrls: ['./logs.component.scss']
 })
-export class SearchedKeywordsComponent implements OnInit {
+export class logsComponent implements OnInit {
    data:any;
-  constructor(private apiservice: ApiService,private loader: AppLoaderService,private router:Router,
-    public dialog: MatDialog,
-    public dialogRef: MatDialogRef<KeywordFormComponent>,) { }
+  constructor(private apiservice: ApiService
+) { }
 
   ngOnInit() {
     this.getKeywordSearchedList()

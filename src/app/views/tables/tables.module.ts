@@ -75,6 +75,7 @@ import { ProgramFormComponent } from './all-program-table/program-form/program-f
 import { AgmCoreModule } from '@agm/core';
 import { MetaServiceComponent } from './meta-service/meta-service.component';
 import { MetaFormComponent } from './meta-service/meta-form/meta-form.component';
+import { logsComponent } from './logs/logs.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -181,7 +182,8 @@ import { MetaFormComponent } from './meta-service/meta-form/meta-form.component'
     TopicFormComponent,
     ProgramFormComponent,
     MetaServiceComponent,
-    MetaFormComponent
+    MetaFormComponent,
+    logsComponent
 
   ],
   entryComponents: [SearchProviderPopupComponent, MetaFormComponent, DuplicacyDataPopupComponent, TopicFormComponent, ProgramFormComponent, SearchedKeywordsComponent, ProviderDataPopupComponent, KeywordFormComponent, ProgramDataPopupComponent, UsersComponent, EditFormComponent, AllUserComponent]

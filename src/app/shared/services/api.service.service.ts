@@ -1515,6 +1515,15 @@ export class ApiService {
         return subject.asObservable();
     }
 
+    deleteSearchedFreeText(id): Observable<any> {
+        const subject = new Subject<any>();
+        this.http.delete(`${this.root}/freetextSearch/delete/${id}`, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
     keyWordActivateDeactivate(model): Observable<any[]> {
         const subject = new Subject<any[]>();
         this.http.put(`${this.root}/filterkeys/activeOrDeactive?id=${model.id}&isActivated=${model.isActivated}`, '', this.getHeaders()).subscribe((responseData) => {

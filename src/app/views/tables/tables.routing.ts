@@ -38,6 +38,7 @@ import { KeywordComponent } from './keyword/keyword.component';
 import { SearchedKeywordsComponent } from './searched-keywords/searched-keywords.component';
 import { TopicsComponent } from './topics/topics.component';
 import { MetaServiceComponent } from './meta-service/meta-service.component';
+import { logsComponent } from './logs/logs.component';
 export const TablesRoutes: Routes = [
   {
     path: '',
@@ -253,6 +254,11 @@ export const TablesRoutes: Routes = [
         path: 'meta-service',
         component: MetaServiceComponent,
         data: { title: 'META-SERVICE' }
+      },
+      {
+        path: 'logs',
+        component: logsComponent,
+        data: { title: 'LOGS' }
       },
     ]
   },

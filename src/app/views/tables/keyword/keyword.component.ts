@@ -132,12 +132,13 @@ export class KeywordComponent implements OnInit {
       });
   }
 
-  logs(): void {
-    let dialogRef: MatDialogRef<any> = this.dialog.open(SearchedKeywordsComponent, {
-      width: '70%',
-      disableClose: true,
-    })
-    dialogRef.afterClosed()
+  logs() {
+    this.route.navigate(['/tables/logs'])
+    // let dialogRef: MatDialogRef<any> = this.dialog.open(SearchedKeywordsComponent, {
+    //   width: '70%',
+    //   disableClose: true,
+    // })
+    // dialogRef.afterClosed()
   }
   
   deleteKeyword(data,indx) {
