@@ -14,7 +14,7 @@ export class UserAnalyticsComponent implements OnInit {
   providers: any[];
   categories: any[];
   subCategories: any[];
-
+  freeText: any[];
   constructor(private apiservice: ApiService, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe(params => {
       this.id = params['id'];
@@ -43,7 +43,6 @@ export class UserAnalyticsComponent implements OnInit {
   }
   getfreeTextByParentId() {
     this.apiservice.getfreeTextByParentId(this.id).subscribe(res => {
-      console.log('freetext searched', res)
-    })
+      this.freeText= res.reverse()    })
   }
 }
