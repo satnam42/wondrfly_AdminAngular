@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from 'app/shared/services/dataservice.service';
@@ -22,7 +22,7 @@ import { ProgramFormComponent } from './program-form/program-form.component';
   templateUrl: './all-program-table.component.html',
   styleUrls: ['./all-program-table.component.scss']
 })
-export class AllProgramTableComponent implements OnInit, AfterViewInit {
+export class AllProgramTableComponent implements OnInit {
   defaultFilter: string = 'name'
   isLoading: boolean;
   displayedColumns: string[] = [
@@ -38,7 +38,10 @@ export class AllProgramTableComponent implements OnInit, AfterViewInit {
   ];
   rows: Program[];
   dataSource = new MatTableDataSource();
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: false }) set content(sort: MatSort) {
+    this.dataSource.sort = sort;
+  }
   temp: any = [];
   ColumnMode = ColumnMode;
   submitted: any;
@@ -83,7 +86,6 @@ export class AllProgramTableComponent implements OnInit, AfterViewInit {
   totalProgramsCount: any;
   publishedUnpublishedList: any = [];
   pageLength: any;
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   constructor(
     public route: Router,
     private dataservice: DataService,
@@ -109,14 +111,6 @@ export class AllProgramTableComponent implements OnInit, AfterViewInit {
     this.searchControl.valueChanges.subscribe((value) => {
       this.updateFilter(value);
     });
-    this.dataSource.sort = this.sort;
-  }
-
-  ngAfterViewInit() {
-    setTimeout(
-      () => {
-        this.dataSource.sort = this.sort;
-      });
   }
   // view data 
   openPopUp(data) {
@@ -124,7 +118,6 @@ export class AllProgramTableComponent implements OnInit, AfterViewInit {
       width: '60%',
       disableClose: true,
       data: data,
-      // this.name: this.data.firstName
     })
     dialogRef.afterClosed()
       .subscribe(res => {

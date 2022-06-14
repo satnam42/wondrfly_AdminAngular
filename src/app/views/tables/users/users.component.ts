@@ -15,7 +15,7 @@ import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.serv
 import { DataService } from 'app/shared/services/dataservice.service';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import {share} from 'rxjs/operators';
+import { share } from 'rxjs/operators';
 import { DataPopupComponent } from '../data-popup/data-popup.component';
 
 @Component({
@@ -27,11 +27,10 @@ export class UsersComponent implements OnInit {
   userr: Userr;
   displayedColumns: any[] = [
     'select',
-    'id',
     'firstName',
     'email',
     'addressLine1',
-    'phoneNumber',      
+    'phoneNumber',
     'isActivated',
     'freeTrial',
     'star',
@@ -41,15 +40,16 @@ export class UsersComponent implements OnInit {
     'montclair',
     'byDate'
   ];
-  defaultFilter: string ='firstName';
-  dataSource: MatTableDataSource<Userr>;
+  defaultFilter: string = 'firstName';
+  dataSource = new MatTableDataSource();
   selection = new SelectionModel<Userr>(true, []);
-
-  @ViewChild(MatPaginator,{static:false}) paginator!: MatPaginator;
-  @ViewChild(MatSort,{static:false}) sort!: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: false }) set content(sort: MatSort) {
+    this.dataSource.sort = sort;
+  }
   selectedValue: any;
-  byDate= new FormControl();
-  searchDate:any;
+  byDate = new FormControl();
+  searchDate: any;
   isLoading: boolean;
   rows: any = [];
   temp: any = [];
@@ -60,7 +60,7 @@ export class UsersComponent implements OnInit {
   pageNo = 1;
   pageSize = 20;
   pageLength: any;
-  users: any=[];
+  users: any = [];
   public news: Array<any> = [];
 
   private currentPage = 1;
@@ -86,7 +86,7 @@ export class UsersComponent implements OnInit {
     // this.data = Object.assign(this.users);
     // this.dataSource = new MatTableDataSource(this.users);
     this.getProvider()
-   
+
   }
 
   ngOnInit() {
@@ -112,79 +112,79 @@ export class UsersComponent implements OnInit {
     // this.spinner.hide();
   }
 
-  activateDeactivate(data,user) {
-    this.apiservice.userActiveInActive(user.id,data.checked).subscribe((res:any) => {
-      if(res.isSuccess){
-       this.snack.open('User status changed', 'OK', { duration: 4000 });
+  activateDeactivate(data, user) {
+    this.apiservice.userActiveInActive(user.id, data.checked).subscribe((res: any) => {
+      if (res.isSuccess) {
+        this.snack.open('User status changed', 'OK', { duration: 4000 });
         // this.snack.open('Program published', 'OK', { duration: 4000 });
         // this.rows[indx].isPublished = booleanValue
-      }else{this.snack.open('Somthing went wrong', 'OK', { duration: 4000 });}
+      } else { this.snack.open('Somthing went wrong', 'OK', { duration: 4000 }); }
     });
   }
-  
-  setOrUnsetFreeTrial(data,user) {
+
+  setOrUnsetFreeTrial(data, user) {
 
   }
   // =========================================== Get provider List =========================================================
-  getProvider(){
+  getProvider() {
     this.loader.open()
-    this.apiservice.getUsers(this.provider, this.pageNo, this.pageSize).subscribe((res:any) => {
+    this.apiservice.getUsers(this.provider, this.pageNo, this.pageSize).subscribe((res: any) => {
       this.loader.close()
       this.total = res.total;
-      this.temp=res;
-      this.pageLength=this.temp.message; 
+      this.temp = res;
+      this.pageLength = this.temp.message;
       if (this.temp.items) {
         this.users = this.temp.items;
         this.dataSource = new MatTableDataSource(this.users);
         this.isScrol = true;
-        this.selectedValue=this.defaultFilter;
+        this.selectedValue = this.defaultFilter;
       }
     })
   }
   // =========================================== Pagination =========================================================
   pageChanged(event) {
     event.pageSize
-    if(event.pageSize>this.pageSize || event.pageSize<this.pageSize){
-      this.pageNo = event.pageIndex+1;
-      this.pageSize= event.pageSize;
+    if (event.pageSize > this.pageSize || event.pageSize < this.pageSize) {
+      this.pageNo = event.pageIndex + 1;
+      this.pageSize = event.pageSize;
       this.getProvider();
     }
     else if (event.previousPageIndex > event.pageIndex) {
-       this.pageNo =  this.pageNo!==0? this.pageNo-1 : this.pageNo
-       this.getProvider();
+      this.pageNo = this.pageNo !== 0 ? this.pageNo - 1 : this.pageNo
+      this.getProvider();
     } else {
-      this.pageNo = event.pageIndex+1;
+      this.pageNo = event.pageIndex + 1;
       this.getProvider();
     }
   }
 
   reset() {
-    this.defaultFilter='firstName';
-    this.selectedValue='';
+    this.defaultFilter = 'firstName';
+    this.selectedValue = '';
     this.getProvider();
   }
 
-  getMontclairProvider(){
+  getMontclairProvider() {
     this.loader.open()
-    this.apiservice.getMontclairProvider(this.pageNo, 120).subscribe((res:any) => {
+    this.apiservice.getMontclairProvider(this.pageNo, 120).subscribe((res: any) => {
       this.total = res.total
       this.users = this.news.concat(res.items);
       this.loader.close()
       // this.data = res.items;
       this.dataSource = new MatTableDataSource(this.users);
-      this.isScrol=true;
+      this.isScrol = true;
     })
   }
 
-  getProviderByDate(){
+  getProviderByDate() {
     this.loader.open()
-    this.searchDate =  moment(this.searchDate).format("YYYY-MM-DD");
-    this.apiservice.providerByDate(this.searchDate).subscribe((res:any) => {
+    this.searchDate = moment(this.searchDate).format("YYYY-MM-DD");
+    this.apiservice.providerByDate(this.searchDate).subscribe((res: any) => {
       this.total = res.data.length;
       this.users = this.news.concat(res.data);
       // this.data = res.items;
       this.dataSource = new MatTableDataSource(this.users);
-      this.isScrol=true;
+      this.isScrol = true;
       this.loader.close();
     })
   }
@@ -195,7 +195,7 @@ export class UsersComponent implements OnInit {
   }
   edit(data) {
     this.dataservice.setOption(data);
-    if(data._id){
+    if (data._id) {
       data.id = data._id
     }
     this.router.navigate(['forms/provider-form-update', data.id]);
@@ -206,7 +206,7 @@ export class UsersComponent implements OnInit {
       if (res) {
         this.isLoading = true;
         this.loader.open()
-        if(user._id){
+        if (user._id) {
           user.id = user._id
         }
         this.apiservice.deleteUser(user.id).subscribe(res => {
@@ -214,7 +214,7 @@ export class UsersComponent implements OnInit {
           var response: any = res;
           if (response.isSuccess) {
             this.getProvider()
-           this.snack.open('User Deleted', 'OK', { duration: 4000 });
+            this.snack.open('User Deleted', 'OK', { duration: 4000 });
           } else {
             let msg = "Something Went Wrong!";
             this.snack.open(msg, 'OK', { duration: 4000 });
@@ -224,11 +224,11 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  manage(data){
-    if(data._id){
+  manage(data) {
+    if (data._id) {
       data.id = data._id
     }
-    this.router.navigate(['tables/program',data.id]);
+    this.router.navigate(['tables/program', data.id]);
   }
 
   removeSelectedRows() {
@@ -284,7 +284,7 @@ export class UsersComponent implements OnInit {
       this.selection.clear();
       return;
     }
-    this.selection.select(...this.dataSource.data);
+    // this.selection.select(this.dataSource.data);
   }
 
   // checkboxLabel(row?: UserData): string {
@@ -298,8 +298,8 @@ export class UsersComponent implements OnInit {
 
   selectedFilter(value: any) {
     this.selectedValue = value;
-    if(this.selectedValue=='montclair'){
-      this.users=[];
+    if (this.selectedValue == 'montclair') {
+      this.users = [];
       this.dataSource = new MatTableDataSource(this.users);
       this.getMontclairProvider();
     }
@@ -307,13 +307,13 @@ export class UsersComponent implements OnInit {
 
   applyFilter($event: any) {
     let filterValue = $event.target.value;
-    if(filterValue){
-      this.apiservice.searchProviderByName(filterValue).subscribe((res:any) => {
+    if (filterValue) {
+      this.apiservice.searchProviderByName(filterValue).subscribe((res: any) => {
         this.data = res;
         this.dataSource = new MatTableDataSource(this.data);
       })
     }
-    else{
+    else {
       this.reset()
     }
 
@@ -322,16 +322,16 @@ export class UsersComponent implements OnInit {
   loadMore() {
     // this.pageSize += 20;
     this.pageNo += 1;
-    if(this.selectedValue=='montclair'){
+    if (this.selectedValue == 'montclair') {
       this.getMontclairProvider();
-    }else{this.getProvider();}
+    } else { this.getProvider(); }
   }
-    // this.getNews(this.currentPage)
-    //   .pipe(finalize(() => this.onFinalize()))
-    //   .subscribe((news: any) => {
-    //     this.currentPage++;
-    //     this.news = this.news.concat(news.items);
-    //   });
+  // this.getNews(this.currentPage)
+  //   .pipe(finalize(() => this.onFinalize()))
+  //   .subscribe((news: any) => {
+  //     this.currentPage++;
+  //     this.news = this.news.concat(news.items);
+  //   });
 
   getNews(page: number = 1): Observable<any> {
     if (this.request$) {
@@ -346,17 +346,17 @@ export class UsersComponent implements OnInit {
     this.request$ = null;
   }
 
-  trueFalseFreeTrial(e,row) {
-    this.apiservice.trueFalseFreeTrialProvider(row.id,e.checked).subscribe((res:any)=>{
-     })
-   }
-copyLink(username){
-  if(username){
-    navigator.clipboard.writeText(`wondrfly.ml/p/${username}`).then().catch(e => console.error(e));
-  }else{
-    navigator.clipboard.writeText(`wondrfly.ml`).then().catch(e => console.error(e));
+  trueFalseFreeTrial(e, row) {
+    this.apiservice.trueFalseFreeTrialProvider(row.id, e.checked).subscribe((res: any) => {
+    })
   }
-}
+  copyLink(username) {
+    if (username) {
+      navigator.clipboard.writeText(`wondrfly.ml/p/${username}`).then().catch(e => console.error(e));
+    } else {
+      navigator.clipboard.writeText(`wondrfly.ml`).then().catch(e => console.error(e));
+    }
+  }
 }
 
 
