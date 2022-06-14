@@ -1419,6 +1419,17 @@ export class ApiService {
         return subject.asObservable();
     }
 
+    //=========================getfreeTextByParentId  API----------------------------
+    getfreeTextByParentId(id): Observable<any[]> {
+        const subject = new Subject<any[]>();
+        this.http.get(`${this.root}/freetextSearch/listByParentId/${id}`, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData.data);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+
 
     // =============================================Graph analytics Programs ====================================================
     analyticsGraphProgram(value): Observable<Program> {

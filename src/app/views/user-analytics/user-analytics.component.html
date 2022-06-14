@@ -5,7 +5,7 @@
     <!-- -----------------Programs tab---------------- -->
 
     <mat-tab label="Programs">
-      
+
       <mat-card-content>
         <table class="default-table mat-box-shadow" style="width: 100%" *ngIf="programs?.length">
           <thead>
@@ -20,26 +20,26 @@
           <tbody>
             <tr *ngFor="let item of programs | slice:0:30">
               <td>
-                <span > {{item?.program?.name}}</span>
-            </td>
-            <td>
-              <span > {{item?.program?.addresses}}</span>
-          </td>
-          <td>
-            <span >$ {{item?.program?.pricePerParticipant}}</span>
-        </td>
-        <td>
-          <span > {{item?.createdOn | date:'medium'}}</span>
-      </td>
+                <span> {{item?.program?.name}}</span>
+              </td>
+              <td>
+                <span> {{item?.program?.addresses}}</span>
+              </td>
+              <td>
+                <span>$ {{item?.program?.pricePerParticipant}}</span>
+              </td>
+              <td>
+                <span> {{item?.createdOn | date:'medium'}}</span>
+              </td>
             </tr>
           </tbody>
-          
+
         </table>
 
 
-      <div *ngIf="!programs?.length" class="p-3">
-        <h3 style="color: rgb(66, 65, 65);">No Data Found!</h3>
-      </div>
+        <div *ngIf="!programs?.length" class="p-3">
+          <h3 style="color: rgb(66, 65, 65);">No Data Found!</h3>
+        </div>
       </mat-card-content>
     </mat-tab>
     <!-- ------------------------------------------------------------------ -->
@@ -47,7 +47,7 @@
     <!-- ---------------------------------Providers tab-------------------------- -->
 
     <mat-tab label="Providers">
-      
+
       <mat-card-content>
         <table class="default-table mat-box-shadow" style="width: 100%" *ngIf="providers?.length">
           <thead>
@@ -62,33 +62,33 @@
           <tbody>
             <tr *ngFor="let item of providers | slice:0:30">
               <td>
-                <span > {{item?.provider?.firstName}}</span>
-            </td>
-            <td>
-              <span > {{item?.provider?.email}}</span>
-          </td>
-          <td>
-            <span > {{item?.provider?.addressLine1}}</span>
-        </td>
-        <td>
-          <span > {{item?.createdOn | date:'medium'}}</span>
-      </td>
+                <span> {{item?.provider?.firstName}}</span>
+              </td>
+              <td>
+                <span> {{item?.provider?.email}}</span>
+              </td>
+              <td>
+                <span> {{item?.provider?.addressLine1}}</span>
+              </td>
+              <td>
+                <span> {{item?.createdOn | date:'medium'}}</span>
+              </td>
             </tr>
           </tbody>
-         
+
         </table>
 
 
-      <div *ngIf="!providers?.length" class="p-3">
-        <h3 style="color: rgb(59, 58, 58);">No Data Found!</h3>
-      </div>
+        <div *ngIf="!providers?.length" class="p-3">
+          <h3 style="color: rgb(59, 58, 58);">No Data Found!</h3>
+        </div>
       </mat-card-content>
     </mat-tab>
     <!-- -------------------------------------------------------- -->
 
     <!-- ---------------------Categories tab -------------------------------- -->
     <mat-tab label="Categories">
-      
+
       <mat-card-content>
         <table class="default-table mat-box-shadow" style="width: 100%" *ngIf="categories?.length">
           <thead>
@@ -102,71 +102,111 @@
           <tbody>
             <tr *ngFor="let item of categories | slice:0:30">
               <td>
-                <span > {{item?.category?.name}}</span>
-            </td>
-            <td>
-              <span > {{item?.category?.description}}</span>
-          </td>
-          <td>
-            <span > {{item?.category?._id}}</span>
-        </td>
-        <td>
-          <span > {{item?.createdOn | date:'medium'}}</span>
-      </td>
+                <span> {{item?.category?.name}}</span>
+              </td>
+              <td>
+                <span> {{item?.category?.description}}</span>
+              </td>
+              <td>
+                <span> {{item?.category?._id}}</span>
+              </td>
+              <td>
+                <span> {{item?.createdOn | date:'medium'}}</span>
+              </td>
             </tr>
           </tbody>
         </table>
 
 
-      <div *ngIf="!categories?.length" class="p-3">
-        <h3 style="color: rgb(66, 65, 65);">No Data Found!</h3>
-      </div>
+        <div *ngIf="!categories?.length" class="p-3">
+          <h3 style="color: rgb(66, 65, 65);">No Data Found!</h3>
+        </div>
       </mat-card-content>
     </mat-tab>
-   <!-- -------------------------------------------------------------------- -->
+    <!-- -------------------------------------------------------------------- -->
 
-   <!-- ------------------Sub Categories------------------------- -->
-   
-   <mat-tab label="Sub-categories">
-      
-    <mat-card-content>
-      <table class="default-table mat-box-shadow" style="width: 100%" *ngIf="subCategories?.length">
-        <thead>
-          <tr>
-            <th width="30%">Name</th>
-            <th>Description</th>
-            <th>Id</th>
-            <th>Searched On</th>
-            <!-- <th>Actions</th> -->
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of subCategories | slice:0:30">
-            <td>
-              <span > {{item?.subCategory?.name}}</span>
-          </td>
-          <td>
-            <span > {{item?.subCategory?.description}}</span>
-        </td>
-        <td>
-          <span > {{item?.subCategory?._id}}</span>
-      </td>
-      <td>
-        <span > {{item?.createdOn | date:'medium'}}</span>
-    </td>
-          </tr>
-        </tbody>
-      
-      </table>
+    <!-- ------------------Sub Categories------------------------- -->
 
-      <div *ngIf="!subCategories?.length" class="p-3">
-        <h3 style="color: rgb(71, 70, 70);">No Data Found!</h3>
-      </div>
+    <mat-tab label="Sub-categories">
+
+      <mat-card-content>
+        <table class="default-table mat-box-shadow" style="width: 100%" *ngIf="subCategories?.length">
+          <thead>
+            <tr>
+              <th width="30%">Name</th>
+              <th>Description</th>
+              <th>Id</th>
+              <th>Searched On</th>
+              <!-- <th>Actions</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of subCategories | slice:0:30">
+              <td>
+                <span> {{item?.subCategory?.name}}</span>
+              </td>
+              <td>
+                <span> {{item?.subCategory?.description}}</span>
+              </td>
+              <td>
+                <span> {{item?.subCategory?._id}}</span>
+              </td>
+              <td>
+                <span> {{item?.createdOn | date:'medium'}}</span>
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+
+        <div *ngIf="!subCategories?.length" class="p-3">
+          <h3 style="color: rgb(71, 70, 70);">No Data Found!</h3>
+        </div>
 
 
-    </mat-card-content>
-  </mat-tab>
-    
+      </mat-card-content>
+    </mat-tab>
+
     <!-- ----------------------------------------------------------------- -->
+    <!-- -----------------Programs tab---------------- -->
+
+    <mat-tab label="Free-text">
+
+      <mat-card-content>
+        <table class="default-table mat-box-shadow" style="width: 100%" *ngIf="programs?.length">
+          <thead>
+            <tr>
+              <th width="30%">Name</th>
+              <th>Address</th>
+              <th>Price</th>
+              <th>Visited On</th>
+              <!-- <th>Actions</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of programs | slice:0:30">
+              <td>
+                <span> {{item?.program?.name}}</span>
+              </td>
+              <td>
+                <span> {{item?.program?.addresses}}</span>
+              </td>
+              <td>
+                <span>$ {{item?.program?.pricePerParticipant}}</span>
+              </td>
+              <td>
+                <span> {{item?.createdOn | date:'medium'}}</span>
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+
+
+        <div *ngIf="!programs?.length" class="p-3">
+          <h3 style="color: rgb(66, 65, 65);">No Data Found!</h3>
+        </div>
+      </mat-card-content>
+    </mat-tab>
   </mat-tab-group>
 </mat-card>

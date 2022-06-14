@@ -15,30 +15,35 @@ export class UserAnalyticsComponent implements OnInit {
   categories: any[];
   subCategories: any[];
 
-  constructor(private apiservice: ApiService,private activatedRoute: ActivatedRoute) {
+  constructor(private apiservice: ApiService, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe(params => {
       this.id = params['id'];
-     }) 
-   }
-
-  ngOnInit() {
-    this.getAnalyticsData();
-  }
-
-  getAnalyticsData(){
-    console.log(this.id)
-    this.apiservice.getParentAnalytics(this.id).subscribe(res =>{
-     this.searchedData =  res;
-     this.programs= this.searchedData.filter(e => e.program);
-     this.categories= this.searchedData.filter(e => e.category);
-     this.providers= this.searchedData.filter(e => e.provider);
-     this.subCategories= this.searchedData.filter(e => e.subCategory);
-    this.programs.reverse();
-   this.categories.reverse();
-   this.providers.reverse();
-    this.subCategories.reverse();
-    this.searchedData.reverse();
     })
   }
 
+  ngOnInit() {
+    this.getAnalyticsData();
+    this.getfreeTextByParentId();
+  }
+
+  getAnalyticsData() {
+    console.log(this.id)
+    this.apiservice.getParentAnalytics(this.id).subscribe(res => {
+      this.searchedData = res;
+      this.programs = this.searchedData.filter(e => e.program);
+      this.categories = this.searchedData.filter(e => e.category);
+      this.providers = this.searchedData.filter(e => e.provider);
+      this.subCategories = this.searchedData.filter(e => e.subCategory);
+      this.programs.reverse();
+      this.categories.reverse();
+      this.providers.reverse();
+      this.subCategories.reverse();
+      this.searchedData.reverse();
+    })
+  }
+  getfreeTextByParentId() {
+    this.apiservice.getfreeTextByParentId(this.id).subscribe(res => {
+      console.log('freetext searched', res)
+    })
+  }
 }
