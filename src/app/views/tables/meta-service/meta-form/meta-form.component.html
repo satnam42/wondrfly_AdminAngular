@@ -44,7 +44,7 @@
     <div class="col-6">
       <form [formGroup]="metaForm">
 
-        <mat-form-field class="example-full-width" appearance="outline">
+        <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Meta-Keywords</mat-label>
           <textarea type="text" matInput [formControl]="metaForm.controls['keywords']" [(ngModel)]="metaData.keywords"
             placeholder="Meta-Keywords"></textarea>
@@ -57,7 +57,7 @@
     <div class="col-6">
       <form [formGroup]="metaForm">
 
-        <mat-form-field class="example-full-width" appearance="outline">
+        <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Meta-Description</mat-label>
           <textarea type="text" matInput [formControl]="metaForm.controls['description']"
             [(ngModel)]="metaData.description" placeholder="Meta-Description"></textarea>

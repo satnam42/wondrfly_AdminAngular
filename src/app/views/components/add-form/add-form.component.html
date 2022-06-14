@@ -9,233 +9,232 @@
         </button> -->
 </h2>
 <div class="container addform">
-<div class="row pt-3 pb-3">
-  <div class="col-6">
-    <form [formGroup]="addUserForm" >
-      <mat-form-field class="example-full-width" appearance="outline">            
-        <mat-label>Name</mat-label>
-        <input type="text" matInput [formControl]="addUserForm.controls['firstName']" required [(ngModel)]="user.firstName" placeholder="User Name">
-        <mat-error *ngIf="addUserForm.controls.firstName?.errors?.required">
-          User Name is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
+  <div class="row pt-3 pb-3">
+    <div class="col-6">
+      <form [formGroup]="addUserForm">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Name</mat-label>
+          <input type="text" matInput [formControl]="addUserForm.controls['firstName']" required
+            [(ngModel)]="user.firstName" placeholder="User Name">
+          <mat-error *ngIf="addUserForm.controls.firstName?.errors?.required">
+            User Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>UserId</mat-label>
-        <input type="text" matInput [formControl]="addUserForm.controls['userName']" required [(ngModel)]="user.userName" placeholder="User Id">
-        <mat-error *ngIf="addUserForm.controls.userName?.errors?.required">
-          User Id is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>UserId</mat-label>
+          <input type="text" matInput [formControl]="addUserForm.controls['userName']" required
+            [(ngModel)]="user.userName" placeholder="User Id">
+          <mat-error *ngIf="addUserForm.controls.userName?.errors?.required">
+            User Id is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Email</mat-label>
-        <input type="email" matInput  [formControl]="addUserForm.controls['email']" required [(ngModel)]="user.email" placeholder="Email">
-        <mat-error *ngIf="addUserForm.controls.email?.errors?.email">
-          Please enter a valid email address
-        </mat-error>
-        <mat-error *ngIf="addUserForm.controls.email?.errors?.required">
-          Email is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput [formControl]="addUserForm.controls['email']" required [(ngModel)]="user.email"
+            placeholder="Email">
+          <mat-error *ngIf="addUserForm.controls.email?.errors?.email">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="addUserForm.controls.email?.errors?.required">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Select Category</mat-label>
-        <mat-select [formControl]="addUserForm.controls['categoryIds']" multiple #itemValue required (selectionChange)="changeItem($event.value)" 
-                            [(ngModel)]="user.categoryIds" required>
-                
-                              <mat-option selected value="single" *ngFor='let item of categoriesList' 
-                               [value]="item.id" >{{item.name}}</mat-option>
-                              
-                
-                            </mat-select>
-      </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Select Category</mat-label>
+          <mat-select [formControl]="addUserForm.controls['categoryIds']" multiple #itemValue required
+            (selectionChange)="changeItem($event.value)" [(ngModel)]="user.categoryIds" required>
 
-      <div class="example-full-width" >
-        <mat-label class="sub-categoryheading">Sub Category</mat-label>
-        <ng-autocomplete [data]="tags" [searchKeyword]="keyword" (selected)='selectEvent($event)'
-        (inputChanged)='onChangeSearch($event)' [itemTemplate]="itemTemplate"
-        [notFoundTemplate]="notFoundTemplate">
-      </ng-autocomplete>
-  
-      <ng-template #itemTemplate let-item>
-        <a [innerHTML]="item.name"></a>
-      </ng-template>
-  
-      <ng-template #notFoundTemplate let-notFound>
-        <div *ngIf="tags.length" [innerHTML]="notFound"></div>
-      </ng-template>
-      </div>
-      <mat-form-field class="full-width">
-        <mat-chip-list>
-          <mat-chip *ngFor="let t of tag" [selectable]="selectable"
-              [removable]="removable" (removed)="remove(t)">
+            <mat-option selected value="single" *ngFor='let item of categoriesList' [value]="item.id">{{item.name}}
+            </mat-option>
+
+
+          </mat-select>
+        </mat-form-field>
+
+        <div class="example-full-width">
+          <mat-label class="sub-categoryheading">Sub Category</mat-label>
+          <ng-autocomplete [data]="tags" [searchKeyword]="keyword" (selected)='selectEvent($event)'
+            (inputChanged)='onChangeSearch($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+          </ng-autocomplete>
+
+          <ng-template #itemTemplate let-item>
+            <a [innerHTML]="item.name"></a>
+          </ng-template>
+
+          <ng-template #notFoundTemplate let-notFound>
+            <div *ngIf="tags.length" [innerHTML]="notFound"></div>
+          </ng-template>
+        </div>
+        <mat-form-field class="full-width">
+          <mat-chip-list>
+            <mat-chip *ngFor="let t of tag" [selectable]="selectable" [removable]="removable" (removed)="remove(t)">
               {{t.name}}<span *ngIf="!t?.name">{{t}}</span>
               <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-          </mat-chip>
-      </mat-chip-list>
-      </mat-form-field>
-      
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Source</mat-label>
-        <mat-select name="source" [formControl]="addUserForm.controls['source']"
-        [(ngModel)]="user.source" multiple>
-        <mat-option   *ngFor="let src of source" value="{{src}}">{{src}}</mat-option>
-    </mat-select>
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Location</mat-label>
-        <input matInput name="provider_other_locations" placeholder="Location" (click)="openMap()"
-            [formControl]="addUserForm.controls['location']" [(ngModel)]="user.location" readonly> 
+            </mat-chip>
+          </mat-chip-list>
+        </mat-form-field>
 
-        <!-- <mat-error *ngIf="form.controls.location?.errors?.required">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Source</mat-label>
+          <mat-select name="source" [formControl]="addUserForm.controls['source']" [(ngModel)]="user.source" multiple>
+            <mat-option *ngFor="let src of source" value="{{src}}">{{src}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Location</mat-label>
+          <input matInput name="provider_other_locations" placeholder="Location" (click)="openMap()"
+            [formControl]="addUserForm.controls['location']" [(ngModel)]="user.location" readonly>
+
+          <!-- <mat-error *ngIf="form.controls.location?.errors?.required">
           Location Name is <strong>required</strong>
         </mat-error> -->
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Website</mat-label>
-        <input matInput name="website" placeholder="Your Website (http://example.com)"
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Website</mat-label>
+          <input matInput name="website" placeholder="Your Website (http://example.com)"
             [formControl]="addUserForm.controls['website']" [(ngModel)]="user.website">
-        <mat-error *ngIf="addUserForm.controls.website?.errors?.required">
-          website Name is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Facebook Rating</mat-label>
-        <input matInput name="facebookRating" placeholder="Facebook Rating"  [formControl]="addUserForm.controls['facebookRating']"
-                             type=number [(ngModel)]="user.rating.facebookRating">
-      </mat-form-field>
+          <mat-error *ngIf="addUserForm.controls.website?.errors?.required">
+            website Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Facebook Rating</mat-label>
+          <input matInput name="facebookRating" placeholder="Facebook Rating"
+            [formControl]="addUserForm.controls['facebookRating']" type=number [(ngModel)]="user.rating.facebookRating">
+        </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Number of facebook users</mat-label>
-        <input matInput name="numberOfFacebook" placeholder="Number of facebook users"  [formControl]="addUserForm.controls['numberOfFacebook']"
-        type=number [(ngModel)]="user.rating.numberOfFacebook">
-      </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Number of facebook users</mat-label>
+          <input matInput name="numberOfFacebook" placeholder="Number of facebook users"
+            [formControl]="addUserForm.controls['numberOfFacebook']" type=number
+            [(ngModel)]="user.rating.numberOfFacebook">
+        </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Google Rating</mat-label>
-        <input matInput name="googleRating" placeholder="Google Rating"  [formControl]="addUserForm.controls['googleRating']"
-                            type=number [(ngModel)]="user.rating.googleRating">
-      </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Google Rating</mat-label>
+          <input matInput name="googleRating" placeholder="Google Rating"
+            [formControl]="addUserForm.controls['googleRating']" type=number [(ngModel)]="user.rating.googleRating">
+        </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Number of google users</mat-label>
-        <input matInput name="numberOfGoogle" placeholder="Number of google users"  [formControl]="addUserForm.controls['numberOfGoogle']"
-                            type=number [(ngModel)]="user.rating.numberOfGoogle">
-      </mat-form-field>
-      
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Number of google users</mat-label>
+          <input matInput name="numberOfGoogle" placeholder="Number of google users"
+            [formControl]="addUserForm.controls['numberOfGoogle']" type=number [(ngModel)]="user.rating.numberOfGoogle">
+        </mat-form-field>
 
-      <!-- <div class="uploader">
+
+        <!-- <div class="uploader">
         <input type="file" class="form-control" placeholder="Profile Image">
       </div> -->
 
-    </form>
-  </div>
+      </form>
+    </div>
 
-  <div class="col-6">
-    <form [formGroup]="addUserForm">
+    <div class="col-6">
+      <form [formGroup]="addUserForm">
 
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Address</mat-label>
-        <input matInput name="addressLine1" placeholder="Address"
-        [formControl]="addUserForm.controls['addressLine1']" [(ngModel)]="user.addressLine1" >
-        <mat-error *ngIf="addUserForm.controls.addressLine1?.errors?.required">
-          Address is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>City</mat-label>
-         <input matInput name="city" placeholder="City" [formControl]="addUserForm.controls['city']"
-          [(ngModel)]="user.city">
-        <mat-error *ngIf="addUserForm.controls.city?.errors?.required">
-          City is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>State</mat-label>
-          <input matInput name="state" placeholder="State"
-         [formControl]="addUserForm.controls['state']" [(ngModel)]="user.state">
-        <mat-error *ngIf="addUserForm.controls.state?.errors?.required">
-          State Name is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>County</mat-label>
-        <input matInput name="country" placeholder="County"
-            [formControl]="addUserForm.controls['country']" [(ngModel)]="user.country">
-        <mat-error *ngIf="addUserForm.controls.country?.errors?.required">
-          Country is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Phone number</mat-label>
-        <input matInput name="phoneNumber" placeholder="Phone number"
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Address</mat-label>
+          <input matInput name="addressLine1" placeholder="Address" [formControl]="addUserForm.controls['addressLine1']"
+            [(ngModel)]="user.addressLine1">
+          <mat-error *ngIf="addUserForm.controls.addressLine1?.errors?.required">
+            Address is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>City</mat-label>
+          <input matInput name="city" placeholder="City" [formControl]="addUserForm.controls['city']"
+            [(ngModel)]="user.city">
+          <mat-error *ngIf="addUserForm.controls.city?.errors?.required">
+            City is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>State</mat-label>
+          <input matInput name="state" placeholder="State" [formControl]="addUserForm.controls['state']"
+            [(ngModel)]="user.state">
+          <mat-error *ngIf="addUserForm.controls.state?.errors?.required">
+            State Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>County</mat-label>
+          <input matInput name="country" placeholder="County" [formControl]="addUserForm.controls['country']"
+            [(ngModel)]="user.country">
+          <mat-error *ngIf="addUserForm.controls.country?.errors?.required">
+            Country is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Phone number</mat-label>
+          <input matInput name="phoneNumber" placeholder="Phone number"
             [formControl]="addUserForm.controls['phoneNumber']" [(ngModel)]="user.phoneNumber">
-        <mat-error *ngIf="addUserForm.controls.phoneNumber?.errors?.required">
-          Phone Number is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Active Status</mat-label>
-        <mat-select name="activeStatus" [formControl]="addUserForm.controls['activeStatus']"
+          <mat-error *ngIf="addUserForm.controls.phoneNumber?.errors?.required">
+            Phone Number is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Active Status</mat-label>
+          <mat-select name="activeStatus" [formControl]="addUserForm.controls['activeStatus']"
             [(ngModel)]="user.activeStatus">
             <mat-option value="Open">Open</mat-option>
             <mat-option value="Expired">Expired</mat-option>
             <mat-option value="Wrong County">Wrong County</mat-option>
-        </mat-select>
-      </mat-form-field>
+          </mat-select>
+        </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Cycle</mat-label>
-                            <input matInput name="cycle" placeholder="Cycle"  [formControl]="addUserForm.controls['cycle']"
-                             [(ngModel)]="user.cycle">
-      </mat-form-field>    
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Cycle</mat-label>
+          <input matInput name="cycle" placeholder="Cycle" [formControl]="addUserForm.controls['cycle']"
+            [(ngModel)]="user.cycle">
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Notes</mat-label>
-        <textarea matInput   [formControl]="addUserForm.controls['note']" [(ngModel)]="user.note"></textarea>
-        <mat-error *ngIf="addUserForm.controls.note?.errors?.required">
-          Note is <strong>required</strong>
-        </mat-error>
-    </mat-form-field>   
+        <mat-form-field appearance="fill">
+          <mat-label>Notes</mat-label>
+          <textarea matInput [formControl]="addUserForm.controls['note']" [(ngModel)]="user.note"></textarea>
+          <mat-error *ngIf="addUserForm.controls.note?.errors?.required">
+            Note is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Links</mat-label>
-      <mat-chip-list #chipList>
-        <mat-chip *ngFor="let chip of sourceUrls"
-        [removable]="removable"
-        (removed)="removeSourceUrl(chip)">{{ chip }}
-            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
-        <input placeholder="Enter OR Paste Links Here "
-                                  [matChipInputFor]="chipList"
-                                  [matChipInputAddOnBlur]="true"
-                                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                  (matChipInputTokenEnd)="addSourceUrl($event)"  (paste)="pasteSourceUrl($event)"/>
-    </mat-chip-list>
-    </mat-form-field>
-    <mat-form-field class="example-full-width" appearance="outline">
-      <mat-label>Yelp Rating</mat-label>
-      <input matInput name="yelpRating" placeholder="Google Rating"  [formControl]="addUserForm.controls['yelpRating']"
-                          type=number [(ngModel)]="user.rating.yelpRating">
-    </mat-form-field>
-    <mat-form-field class="example-full-width" appearance="outline">
-      <mat-label>Number of yelp users</mat-label>
-      <input matInput name="numberOfYelp" placeholder="Number of yelp users"  [formControl]="addUserForm.controls['numberOfYelp']"
-                          type=number [(ngModel)]="user.rating.numberOfYelp">
-    </mat-form-field>
-    <mat-form-field class="example-full-width" appearance="outline">
-      <mat-label>Number of instagram followers</mat-label>
-      <input matInput name="instagramFollowers" placeholder="Number of instagram Followers"  [formControl]="addUserForm.controls['instagramFollowers']"
-                          type=number [(ngModel)]="user.rating.instagramFollowers">
-    </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Links</mat-label>
+          <mat-chip-list #chipList>
+            <mat-chip *ngFor="let chip of sourceUrls" [removable]="removable" (removed)="removeSourceUrl(chip)">
+              {{ chip }}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Enter OR Paste Links Here " [matChipInputFor]="chipList" [matChipInputAddOnBlur]="true"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addSourceUrl($event)"
+              (paste)="pasteSourceUrl($event)" />
+          </mat-chip-list>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Yelp Rating</mat-label>
+          <input matInput name="yelpRating" placeholder="Google Rating"
+            [formControl]="addUserForm.controls['yelpRating']" type=number [(ngModel)]="user.rating.yelpRating">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Number of yelp users</mat-label>
+          <input matInput name="numberOfYelp" placeholder="Number of yelp users"
+            [formControl]="addUserForm.controls['numberOfYelp']" type=number [(ngModel)]="user.rating.numberOfYelp">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Number of instagram followers</mat-label>
+          <input matInput name="instagramFollowers" placeholder="Number of instagram Followers"
+            [formControl]="addUserForm.controls['instagramFollowers']" type=number
+            [(ngModel)]="user.rating.instagramFollowers">
+        </mat-form-field>
 
-    </form>
+      </form>
+    </div>
   </div>
-</div>
-<div class="col-12 button-form pb-3">
-  <button type="submit" mat-raised-button [disabled]="addUserForm.invalid" (click)="onSubmit()">Submit</button>
-</div>
+  <div class="col-12 button-form pb-3">
+    <button type="submit" mat-raised-button [disabled]="addUserForm.invalid" (click)="onSubmit()">Submit</button>
+  </div>
 </div>
 
 <!-- </div> -->

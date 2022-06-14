@@ -11,6 +11,12 @@ import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.serv
 import { environment } from 'environments/environment';
 import { DataPopupComponent } from '../data-popup/data-popup.component';
 import { MetaFormComponent } from './meta-form/meta-form.component';
+export interface metaData {
+  pageName: string;
+  title: string;
+  keywords: string;
+  description: string;
+}
 
 @Component({
   selector: 'app-meta-service',
@@ -31,11 +37,13 @@ export class MetaServiceComponent implements OnInit {
     'montclair',
     'byDate'
   ];
-  dataSource = new MatTableDataSource();
+  dataSource = new MatTableDataSource<metaData>();
   selection = new SelectionModel<any>(true, []);
 
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort!: MatSort;
+  @ViewChild(MatSort, { static: false }) set content(sort: MatSort) {
+    this.dataSource.sort = sort;
+  }
   isLoading: boolean;
   usersData: any = {};
   rows: any = [];

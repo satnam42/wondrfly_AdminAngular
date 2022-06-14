@@ -9,204 +9,191 @@
         </button> -->
 </h2>
 <div class="container addform">
-<div class="row pt-3 pb-3">
-  <div class="col-6">
-    <form >
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Name</mat-label>
-        <input type="text" matInput placeholder="User Name" required name="firstName" [(ngModel)]="user.firstName">
-      </mat-form-field>
+  <div class="row pt-3 pb-3">
+    <div class="col-6">
+      <form>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Name</mat-label>
+          <input type="text" matInput placeholder="User Name" required name="firstName" [(ngModel)]="user.firstName">
+        </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>UserId</mat-label>
-        <input type="text" matInput placeholder="User Id" required name="UserId" [(ngModel)]="user.userName">
-      </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>UserId</mat-label>
+          <input type="text" matInput placeholder="User Id" required name="UserId" [(ngModel)]="user.userName">
+        </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Email</mat-label>
-        <input type="email" matInput  name="email" required [(ngModel)]="user.email" placeholder="Email" readonly>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput name="email" required [(ngModel)]="user.email" placeholder="Email" readonly>
 
-      </mat-form-field>
+        </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Select Category</mat-label>
-        <mat-select name="categoryIds"  multiple #itemValue [(ngModel)]="user.categoryIds" >
-                              <mat-option selected value="single" *ngFor='let item of categoriesList' 
-                               [value]="item.id" >{{item.name}}</mat-option>
-                            </mat-select>
-      </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Select Category</mat-label>
+          <mat-select name="categoryIds" multiple #itemValue [(ngModel)]="user.categoryIds">
+            <mat-option selected value="single" *ngFor='let item of categoriesList' [value]="item.id">{{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <div class="example-full-width" >
-        <mat-label class="sub-categoryheading">Sub Category</mat-label>
-        <ng-autocomplete [data]="tags" [searchKeyword]="keyword" (selected)='selectEvent($event)'
-        (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-        [notFoundTemplate]="notFoundTemplate">
-      </ng-autocomplete>
-  
-      <ng-template #itemTemplate let-item>
-        <a [innerHTML]="item.name"></a>
-      </ng-template>
-  
-      <ng-template #notFoundTemplate let-notFound>
-        <div *ngIf="tags.length" [innerHTML]="notFound"></div>
-      </ng-template>
-      </div>
-      <mat-form-field class="full-width">
-        <mat-chip-list>
-          <mat-chip *ngFor="let t of tag" [selectable]="selectable"
-              [removable]="removable" (removed)="remove(t)">
+        <div class="example-full-width">
+          <mat-label class="sub-categoryheading">Sub Category</mat-label>
+          <ng-autocomplete [data]="tags" [searchKeyword]="keyword" (selected)='selectEvent($event)'
+            (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+            [notFoundTemplate]="notFoundTemplate">
+          </ng-autocomplete>
+
+          <ng-template #itemTemplate let-item>
+            <a [innerHTML]="item.name"></a>
+          </ng-template>
+
+          <ng-template #notFoundTemplate let-notFound>
+            <div *ngIf="tags.length" [innerHTML]="notFound"></div>
+          </ng-template>
+        </div>
+        <mat-form-field class="full-width">
+          <mat-chip-list>
+            <mat-chip *ngFor="let t of tag" [selectable]="selectable" [removable]="removable" (removed)="remove(t)">
               {{t.name}}<span *ngIf="!t?.name">{{t}}</span>
               <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-          </mat-chip>
-      </mat-chip-list>
-      </mat-form-field>
-      
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Source</mat-label>
-        <mat-select name="source"
-        [(ngModel)]="user.source" multiple>
-        <mat-option   *ngFor="let src of source" value="{{src}}">{{src}}</mat-option>
-    </mat-select>
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Location</mat-label>
-        <input matInput name="provider_other_locations" placeholder="Location" (click)="openMap()"
-             [(ngModel)]="user.addressLine1" readonly> 
+            </mat-chip>
+          </mat-chip-list>
+        </mat-form-field>
 
-        <!-- <mat-error *ngIf="form.controls.location?.errors?.required">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Source</mat-label>
+          <mat-select name="source" [(ngModel)]="user.source" multiple>
+            <mat-option *ngFor="let src of source" value="{{src}}">{{src}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Location</mat-label>
+          <input matInput name="provider_other_locations" placeholder="Location" (click)="openMap()"
+            [(ngModel)]="user.addressLine1" readonly>
+
+          <!-- <mat-error *ngIf="form.controls.location?.errors?.required">
           Location Name is <strong>required</strong>
         </mat-error> -->
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Website</mat-label>
-        <input matInput name="website" placeholder="Your Website (http://example.com)"
-          [(ngModel)]="user.website">
-  
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Facebook Rating</mat-label>
-        <input matInput name="facebookRating" placeholder="Facebook Rating"  
-                             type=number [(ngModel)]="user.rating.facebookRating">
-      </mat-form-field>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Website</mat-label>
+          <input matInput name="website" placeholder="Your Website (http://example.com)" [(ngModel)]="user.website">
 
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Number of facebook users</mat-label>
-        <input matInput name="numberOfFacebook" placeholder="Number of facebook users" 
-        type=number [(ngModel)]="user.rating.numberOfFacebook">
-      </mat-form-field>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Facebook Rating</mat-label>
+          <input matInput name="facebookRating" placeholder="Facebook Rating" type=number
+            [(ngModel)]="user.rating.facebookRating">
+        </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Google Rating</mat-label>
-        <input matInput name="googleRating" placeholder="Google Rating"  
-                            type=number [(ngModel)]="user.rating.googleRating">
-      </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Number of facebook users</mat-label>
+          <input matInput name="numberOfFacebook" placeholder="Number of facebook users" type=number
+            [(ngModel)]="user.rating.numberOfFacebook">
+        </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Number of google users</mat-label>
-        <input matInput name="numberOfGoogle" placeholder="Number of google users" 
-                            type=number [(ngModel)]="user.rating.numberOfGoogle">
-      </mat-form-field>
-      
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Google Rating</mat-label>
+          <input matInput name="googleRating" placeholder="Google Rating" type=number
+            [(ngModel)]="user.rating.googleRating">
+        </mat-form-field>
 
-      <!-- <div class="uploader">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Number of google users</mat-label>
+          <input matInput name="numberOfGoogle" placeholder="Number of google users" type=number
+            [(ngModel)]="user.rating.numberOfGoogle">
+        </mat-form-field>
+
+
+        <!-- <div class="uploader">
         <input type="file" class="form-control" placeholder="Profile Image">
       </div> -->
 
-    </form>
-  </div>
+      </form>
+    </div>
 
-  <div class="col-6">
-    <form>
+    <div class="col-6">
+      <form>
 
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Address</mat-label>
-        <input matInput name="addressLine1" placeholder="Address"
-       [(ngModel)]="user.addressLine1" >
- 
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>City</mat-label>
-         <input matInput name="city" placeholder="City" 
-          [(ngModel)]="user.city">
-    
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>State</mat-label>
-          <input matInput name="state" placeholder="State"
-        [(ngModel)]="user.state">
-     
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>County</mat-label>
-        <input matInput name="country" placeholder="County"
-         [(ngModel)]="user.country">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Address</mat-label>
+          <input matInput name="addressLine1" placeholder="Address" [(ngModel)]="user.addressLine1">
 
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Phone number</mat-label>
-        <input matInput name="phoneNumber" placeholder="Phone number"
-        [(ngModel)]="user.phoneNumber">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>City</mat-label>
+          <input matInput name="city" placeholder="City" [(ngModel)]="user.city">
 
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Active Status</mat-label>
-        <mat-select name="activeStatus"
-            [(ngModel)]="user.activeStatus">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>State</mat-label>
+          <input matInput name="state" placeholder="State" [(ngModel)]="user.state">
+
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>County</mat-label>
+          <input matInput name="country" placeholder="County" [(ngModel)]="user.country">
+
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Phone number</mat-label>
+          <input matInput name="phoneNumber" placeholder="Phone number" [(ngModel)]="user.phoneNumber">
+
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Active Status</mat-label>
+          <mat-select name="activeStatus" [(ngModel)]="user.activeStatus">
             <mat-option value="Open">Open</mat-option>
             <mat-option value="Expired">Expired</mat-option>
             <mat-option value="Wrong County">Wrong County</mat-option>
-        </mat-select>
-      </mat-form-field>
+          </mat-select>
+        </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Cycle</mat-label>
-                            <input matInput name="cycle" placeholder="Cycle" 
-                             [(ngModel)]="user.cycle">
-      </mat-form-field>    
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Cycle</mat-label>
+          <input matInput name="cycle" placeholder="Cycle" [(ngModel)]="user.cycle">
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Notes</mat-label>
-        <textarea matInput  name="note" [(ngModel)]="user.note" ></textarea>
-    
-    </mat-form-field>   
+        <mat-form-field appearance="fill">
+          <mat-label>Notes</mat-label>
+          <textarea matInput name="note" [(ngModel)]="user.note"></textarea>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Links</mat-label>
-      <mat-chip-list #chipList>
-        <mat-chip *ngFor="let chip of sourceUrls"
-        [removable]="removable"
-        (removed)="removeSourceUrl(chip)">{{ chip }}
-            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
-        <input placeholder="Enter OR Paste Links Here "
-                                  [matChipInputFor]="chipList"
-                                  [matChipInputAddOnBlur]="true"
-                                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                  (matChipInputTokenEnd)="addSourceUrl($event)"  (paste)="pasteSourceUrl($event)"/>
-    </mat-chip-list>
-    </mat-form-field>
-    <mat-form-field class="example-full-width" appearance="outline">
-      <mat-label>Yelp Rating</mat-label>
-      <input matInput name="yelpRating" placeholder="Google Rating"
-                          type=number [(ngModel)]="user.rating.yelpRating">
-    </mat-form-field>
-    <mat-form-field class="example-full-width" appearance="outline">
-      <mat-label>Number of yelp users</mat-label>
-      <input matInput name="numberOfYelp" placeholder="Number of yelp users" 
-                          type=number [(ngModel)]="user.rating.numberOfYelp">
-    </mat-form-field>
-    <mat-form-field class="example-full-width" appearance="outline">
-      <mat-label>Number of instagram followers</mat-label>
-      <input matInput name="instagramFollowers" placeholder="Number of instagram Followers"
-                          type=number [(ngModel)]="user.rating.instagramFollowers">
-    </mat-form-field>
+        </mat-form-field>
 
-    </form>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Links</mat-label>
+          <mat-chip-list #chipList>
+            <mat-chip *ngFor="let chip of sourceUrls" [removable]="removable" (removed)="removeSourceUrl(chip)">
+              {{ chip }}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Enter OR Paste Links Here " [matChipInputFor]="chipList" [matChipInputAddOnBlur]="true"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addSourceUrl($event)"
+              (paste)="pasteSourceUrl($event)" />
+          </mat-chip-list>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Yelp Rating</mat-label>
+          <input matInput name="yelpRating" placeholder="Google Rating" type=number
+            [(ngModel)]="user.rating.yelpRating">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Number of yelp users</mat-label>
+          <input matInput name="numberOfYelp" placeholder="Number of yelp users" type=number
+            [(ngModel)]="user.rating.numberOfYelp">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Number of instagram followers</mat-label>
+          <input matInput name="instagramFollowers" placeholder="Number of instagram Followers" type=number
+            [(ngModel)]="user.rating.instagramFollowers">
+        </mat-form-field>
+
+      </form>
+    </div>
   </div>
-</div>
-<div class="col-12 button-form pb-3">
-  <button type="submit" mat-raised-button (click)="onSubmit()">Submit</button>
-</div>
+  <div class="col-12 button-form pb-3">
+    <button type="submit" mat-raised-button (click)="onSubmit()">Submit</button>
+  </div>
 </div>
 
 <!-- </div> -->
