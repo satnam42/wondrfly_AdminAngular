@@ -13,6 +13,7 @@ import { ApiService } from 'app/shared/services/api.service.service';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { DataService } from 'app/shared/services/dataservice.service';
+import { environment } from 'environments/environment';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
@@ -25,6 +26,7 @@ import { DataPopupComponent } from '../data-popup/data-popup.component';
 })
 export class UsersComponent implements OnInit {
   userr: Userr;
+  baseUrl = environment.baseURL;
   displayedColumns: any[] = [
     'select',
     'firstName',
@@ -352,9 +354,9 @@ export class UsersComponent implements OnInit {
   }
   copyLink(username) {
     if (username) {
-      navigator.clipboard.writeText(`wondrfly.ml/p/${username}`).then().catch(e => console.error(e));
+      navigator.clipboard.writeText(`${this.baseUrl}p/${username}`).then().catch(e => console.error(e));
     } else {
-      navigator.clipboard.writeText(`wondrfly.ml`).then().catch(e => console.error(e));
+      navigator.clipboard.writeText(`${this.baseUrl}`).then().catch(e => console.error(e));
     }
   }
 }

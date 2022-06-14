@@ -124,19 +124,16 @@
               </button>
               <mat-menu #action="matMenu">
                 <button mat-menu-item (click)="copyLink(row.userName)">
-                  <span>Copy Link</span>
-                </button>
-                <button mat-menu-item (click)="openPopUp(row)">
-                  <span>View</span>
+                  <mat-icon class="col-blue">file_copy</mat-icon>Copy Url
                 </button>
                 <button mat-menu-item (click)="manage(row)">
-                  <span>Manage Programs</span>
+                  <mat-icon class="col-blue">list</mat-icon>Manage
                 </button>
                 <button mat-menu-item (click)="edit(row)">
-                  <span>Edit</span>
+                  <mat-icon class="col-blue">edit</mat-icon>Edit
                 </button>
                 <button mat-menu-item (click)="deleteProvider(row)">
-                  <span>Delete</span>
+                  <mat-icon class="col-blue">delete</mat-icon>Delete
                 </button>
               </mat-menu>
             </td>

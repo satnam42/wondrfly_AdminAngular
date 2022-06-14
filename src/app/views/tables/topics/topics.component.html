@@ -65,11 +65,14 @@
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #action="matMenu">
+                <button mat-menu-item (click)="copyLink(row.Name)">
+                  <mat-icon class="col-blue">file_copy</mat-icon>Copy Url
+                </button>
                 <button mat-menu-item (click)="editDataPopup(row)">
-                  <span>Edit</span>
+                  <mat-icon class="col-blue">edit</mat-icon>Edit
                 </button>
                 <button mat-menu-item (click)="deleteTopic(row)">
-                  <span>Delete</span>
+                  <mat-icon class="col-blue">delete</mat-icon>Delete
                 </button>
               </mat-menu>
             </td>

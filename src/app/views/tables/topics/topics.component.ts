@@ -137,6 +137,13 @@ export class TopicsComponent implements OnInit {
       } else { this.snack.open('Somthing went wrong', 'OK', { duration: 4000 }); }
     });
   }
+  copyLink(name) {
+    if (name) {
+      navigator.clipboard.writeText(`${this.baseURL}topic/${name}`).then().catch(e => console.error(e));
+    } else {
+      navigator.clipboard.writeText(`${this.baseURL}`).then().catch(e => console.error(e));
+    }
+  }
   ngOnInit() {
   }
 }
