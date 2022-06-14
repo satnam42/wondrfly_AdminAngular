@@ -153,13 +153,14 @@ export class KeywordComponent implements OnInit {
     });
   }
 
-  activateDeactivateKeyword(data, id) {
+  activateDeactivateKeyword(data, row) {
     var model: any = {
-      id: id,
+      id: row._id,
       isActivated: data.checked
     }
     this.apiservice.keyWordActivateDeactivate(model).subscribe((res: any) => {
       if (res.isSuccess) {
+        this.snack.open('Status Changed', 'OK', { duration: 4000 });
       } else { this.snack.open('Somthing went wrong', 'OK', { duration: 4000 }); }
     });
   }
