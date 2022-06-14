@@ -1,3 +1,66 @@
+.add-activity-body {position: relative;overflow: hidden;}
+.sidebar-progress {background: #DCF3FF;border-radius: 0px;padding: 30px 35px;height: 100%;}
+.sidebar-progress .progress-box {position: fixed;}
+.sidebar-top-h3 h3 {font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 26px;line-height: 39px;color: #828282;margin-bottom: 0px;}
+.sidebar-progress .dots-info{margin-bottom: 20px;cursor: pointer;}
+.sidebar-progress .cicle-dots .dots-info h3 {font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 18px;line-height: 27px;color: #828282;margin-bottom: 0px;}
+.sidebar-progress .cicle-dots .dots-info .prog_text.active{color: #53B2E8;}
+
+.btn-save-close-info {display: flex;justify-content: end;position: relative;width: 100%;padding: 15px;}
+.btn-save-close {font-family: 'Poppins';font-style: normal;font-weight: 600;font-size: 12px;line-height: 18px;text-align: center;letter-spacing: 0.02em;text-transform: uppercase;color: #FFFFFF;background: #53B2E8;border: 1px solid #53B2E8;border-radius: 20px;padding: 8px 14px;display: flex;column-gap: 8px;}
+.main-body-content h2.h2 {font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 18px;line-height: 18px;color: #494949;margin-bottom: 30px;}
+.height-equal-scroll{height: 100%;max-height: 740px;min-height: 740px;}
+.label-heading {font-family: 'Poppins';font-style: normal;font-weight: 600;font-size: 12px;line-height: 18px;letter-spacing: 0.01em;text-transform: capitalize;color: #494949;margin-bottom: 4px;}
+.input-field {border: 1px solid #E5E9EC;border-radius: 20px;padding: 13px 15px;margin-bottom: 15px;width: 100%;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;letter-spacing: 0.001em;color: #748494;background-color: #fff;}
+.input-field:focus-visible {outline: unset;}
+.input-icon-field {position: relative;}
+.input-icon-field .input-field {padding-right: 40px;}
+.input-icon-field img {position: absolute;right: 18px;top: 15px;}
+.joining-link-clr .input-field::placeholder {color: #53B2E8;text-decoration-line: underline;}
+
+select.select-down-icon {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url(/assets/images/select-down-icon.svg);
+    background-repeat: no-repeat;
+    background-position: 97% center;
+    padding-right: 30px;
+}
+
+.mb-20{margin-bottom: 40px;}
+.mb-30{margin-bottom: 40px;}
+.mb-40{margin-bottom: 40px;}
+
+.checkbox {display: inline-block;position: relative;padding-left: 20px;cursor: pointer;
+    -webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
+.checkbox input {position: absolute;opacity: 0;cursor: pointer;height: 0;width: 0;}
+.checkbox .checkbox__checkmark {position: absolute;top: 2px;left: 0;height: 14px;width: 14px;
+background-color: #fff;border: 1px solid #77C6E9;transition: background-color 0.25s ease;border-radius: 1   px;}
+.checkbox .checkbox__checkmark:after {content: "";position: absolute;left: 4px;top: 1px;width: 4px;
+height: 8px;border: solid #77C6E9;border-width: 0 1px 1px 0;transform: rotate(45deg);opacity: 0;transition: opacity 0.25s ease;}
+.checkbox input:checked ~ .checkbox__checkmark:after {opacity: 1;}
+.checkbox .checkbox__body {font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 14px;line-height: 18px;color: #494949;}
+.checkbox-blue-box .checkbox .checkbox__checkmark:after {left: -1px;top: -1px;width: 14px;height: 14px;background-color: #53B2E8;border: 1px solid #77C6E9;transform: unset;}
+
+.multi-step-scroll-form {position: relative;display: block;height: calc(100vh - 20vh);max-height: 740px;width: 100%;overflow: hidden;overflow-y: scroll;padding: 30px 15% 0px 0px;margin-bottom: 0px;}
+.multi-step-scroll-form::-webkit-scrollbar-track{background-color: #DCF3FF;}
+.multi-step-scroll-form::-webkit-scrollbar{width: 10px;background-color: #DCF3FF;}
+.multi-step-scroll-form::-webkit-scrollbar-thumb{background-color: #53B2E8;border-radius: 10px;}
+
+::ng-deep  .ng5-slider {width: 80%!important;margin-top: 0 !important;}
+::ng-deep .ng5-slider .ng5-slider-pointer {width: 14px !important;height: 14px !important;top: -3px !important;background-color: #fff !important;}
+::ng-deep .ng5-slider .ng5-slider-pointer:after {position: absolute!important;top: 1px!important;left: 1px!important;width: 12px!important;height: 12px!important;border-radius: 7px!important;background-color: #53B2E8!important;}
+::ng-deep .ng5-slider .ng5-slider-bar {width: 100%!important;height: 8px!important;z-index: 1!important;border-radius: 2px!important;}
+::ng-deep .ngx-slider .ngx-slider-selection {background-color: #53B2E8 !important;}
+::ng-deep .ng5-slider .ng5-slider-bubble {font-family: 'Poppins';font-style: normal;font-weight: 500;font-size: 10px !important;line-height: 15px;text-align: justify;letter-spacing: 0.01em;text-transform: uppercase;color: #494949 !important;top: 15px !important;}
+
+.grid-capacity-row {
+    display: grid;
+    grid-template-columns: 75% auto;
+}
+
+/* end css */
 
 .bg-img {  
         width: auto;
@@ -325,15 +388,7 @@
                 line-height: 27px;
                 color: #494949;
             }       
-            .progress-box {
-                position: absolute;
-                width: 321px;
-                height: 644px;
-                left: 0px;
-                top: 0px;
-                background: #DCF3FF;
-                border-radius: 0px;
-            }
+            
             .progress-box .bar-cl{
                 background: #53B2E8;
                 border-radius: 20px;
@@ -341,12 +396,6 @@
             .progress-box .bar-cl2{
                 background: #53B2E8;
                 border-radius: 20px;
-            }
-            .col-md-4.progress-1 {
-               
-            }
-            .col-md-8.progress-2 {
-               
             }
             .horizontal{
                 border-radius: 20px;
@@ -451,98 +500,43 @@
                 color: #858585;
                 padding-left: 11px;
             }
-            .dots-info{
-                display: flex;
-                align-items: baseline;
-                position: absolute;
-                left:13%;
-                cursor: pointer;
-            }
-            .dots-info1 {
-                top:19%;  
-            }
             .dots-info1 .dot.active {
                 background: #53B2E8;
                 color: #E0E0E0;
             }
-            .dots-info1 .prog_text.active{
-                color: #53B2E8;
-            }
     
-            .dots-info2 {
-                 top:28%; 
-            }
             .dots-info2 .dot.active {
                 background: #53B2E8;
                 color: #E0E0E0;
             }
-            .dots-info2 .prog_text.active{
-                color: #53B2E8;
-            }
+ 
     
-            .dots-info3 {
-                top:38%;
-            }
             .dots-info3 .dot.active {
                 background: #53B2E8;
                 color: #E0E0E0;
             } 
-            .dots-info3 .prog_text.active{
-                color: #53B2E8;
-            }
+  
     
-            .dots-info4 {
-                top:48%;
-            }
             .dots-info4 .dot.active {
                 background: #53B2E8;
                 color: #E0E0E0;
             } 
-            .dots-info4 .prog_text.active{
-                color: #53B2E8;
-            }
-    
-            .dots-info5 {
-                top:58%;
-            }
+  
             .dots-info5 .dot.active {
                 background: #53B2E8;
                 color: #E0E0E0;
             }
-            .dots-info5 .prog_text.active{
-                color: #53B2E8;
-            }
-    
-            .dots-info6 {
-                top:68%;
-            }
+
             .dots-info6 .dot.active {
                 background: #53B2E8;
                 color: #E0E0E0;
             }
-            .dots-info6 .prog_text.active{
-                color: #53B2E8;
-            }
-    
-            .dots-info7 {
-                top:78%;
-            }
+
             .dots-info7 .dot.active {
                 background: #53B2E8;
                 color: #E0E0E0;
             }
-            .dots-info7 .prog_text.active{
-                color: #53B2E8;
-            }
     
-            .cicle-dots h3 {
-                font-style: normal;
-                font-weight: normal;
-                font-size: 18px;
-                line-height: 50px;
-                margin-left: 15px;
-                color: #828282;
-            }
             .box-threespacing {
                 padding:40px;
                 margin-top: 20px;

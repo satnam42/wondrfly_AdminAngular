@@ -1,7 +1,7 @@
 import { MapsAPILoader } from '@agm/core';
-import { AfterViewChecked, Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, Inject, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatDialog, MatSnackBar, MatSnackBarConfig, MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatDialog, MatSnackBar, MatSnackBarConfig, MatAutocompleteSelectedEvent, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router } from '@angular/router';
 import { Category } from 'app/shared/models/category.model';
 import { Program } from 'app/shared/models/program.model';
@@ -51,17 +51,16 @@ export class ProgramFormComponent implements OnInit, AfterViewChecked {
   };
   //  ng5slider start age group
 
-  minAge: number = 6;
-  maxAge: number = 12;
+  minAge: number = 3;
+  maxAge: number = 10;
 
   ageOption: Options = {
-    step: 0.5,
     floor: 0,
-    ceil: 20,
-    translate: (value: any): string => {
+    ceil: 15,
+    step: 0.5,
+    translate: (value: number): string => {
       return value + ' YRS';
     }
-
   };
   // ng5slider end
 
@@ -114,8 +113,11 @@ export class ProgramFormComponent implements OnInit, AfterViewChecked {
   @ViewChild('search', { static: true })
   public searchElementRef: ElementRef;
 
-  constructor(private fb: FormBuilder, private dialog: MatDialog,
+  constructor(private fb: FormBuilder,
     private apiservice: ApiService,
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<ProgramFormComponent>,
     private snack: MatSnackBar,
     private router: Router,
     private mapsAPILoader: MapsAPILoader,
@@ -301,37 +303,6 @@ export class ProgramFormComponent implements OnInit, AfterViewChecked {
         this.step7 = true;
         break;
     }
-  }
-
-
-  backStep() {
-    window.scroll(0, 0);
-    if (this.step2) {
-      this.step1 = true;
-      this.step2 = false;
-      this.progressBarVaue -= 10;
-    }
-    else if (this.step3) {
-      this.step2 = true;
-      this.step3 = false;
-      this.progressBarVaue -= 16;
-    }
-    else if (this.step4) {
-      this.step3 = true;
-      this.step4 = false;
-      this.progressBarVaue -= 16;
-    }
-    else if (this.step5) {
-      this.step4 = true;
-      this.step5 = false;
-      this.progressBarVaue -= 16;
-    }
-    else if (this.step6) {
-      this.step5 = true;
-      this.step6 = false;
-      this.progressBarVaue -= 100;
-    }
-
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {

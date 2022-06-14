@@ -619,5 +619,12 @@ background-color: rgb(231, 149, 149);
 
 .program-form .mat-dialog-container {
     padding: 0px !important;
+}
+
+/* add activity form popup css */
+.add-activity-form-info .mat-dialog-container {
+    padding: 0px!important;
+    margin: 0px;
     overflow: hidden;
 }
+/* end add activity form popup css */

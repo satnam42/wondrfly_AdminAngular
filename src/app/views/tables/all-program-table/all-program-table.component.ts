@@ -145,7 +145,7 @@ export class AllProgramTableComponent implements OnInit {
   // view data 
   formPopUps(data) {
     let dialogRef: MatDialogRef<any> = this.dialog.open(ProgramFormComponent, {
-      panelClass: 'program-form',
+      panelClass: 'add-activity-form-info',
       disableClose: true,
       data: data,
       // this.name: this.data.firstName
