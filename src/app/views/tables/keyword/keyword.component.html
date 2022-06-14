@@ -30,86 +30,55 @@
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container table-body-info">
     <div class="row">
         <div class="col-12">
-            <div class="search-results table-body-info" #scrollToTop infiniteScroll [infiniteScrollDistance]="2"
-                [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="false" *ngIf="rows.length">
-                <table>
-                    <tbody>
-                        <tr>
-                            <th class="left">
-                                Keyword Name
-                            </th>
-                            <th>
-                                Keyword Type
-                            </th>
-                            <th>
-                                Is Activated
-                            </th>
-                            <th>
-                            </th>
-                        </tr>
-                        <tr *ngFor="let row of rows | filter : searchText; let i = index">
-                            <td class="left">
-                                <span> {{row.keywordName}}</span>
-                            </td>
+            <div class="example-container mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource" matSort>
 
-                            <td>
-                                <span (click)="openPopUp(row)">{{row.keywordType}}</span>
-                            </td>
-                            <td>
-                                <mat-slide-toggle [checked]="row?.isActivated" color="primary"
-                                    (change)="activateDeactivateKeyword($event,row._id)">
-                                </mat-slide-toggle>
-                            </td>
-                            <td>
-                                <button mat-icon-button [matMenuTriggerFor]="msgMenu" class="hidden-on-open">
-                                    <mat-icon class="text-muted">more_vert</mat-icon>
+                    <ng-container matColumnDef="keywordName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Keyword Name </th>
+                        <td mat-cell *matCellDef="let row" (click)="openPopUp(row)"> {{row?.keywordName}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="keywordType">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Keyword Type </th>
+                        <td mat-cell *matCellDef="let row" (click)="openPopUp(row)"> {{row?.keywordType}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="isActivated">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                        <td class="center" mat-cell *matCellDef="let row">
+                            <mat-slide-toggle [checked]="row?.isActivated" color="primary"
+                                (change)="activateDeactivateKeyword($event,row)">
+                            </mat-slide-toggle>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="star" stickyEnd>
+                        <th mat-header-cell class="w-25" *matHeaderCellDef>Action</th>
+                        <td mat-cell class="w-25" *matCellDef="let row">
+                            <button mat-icon-button [matMenuTriggerFor]="action">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #action="matMenu">
+
+                                <button mat-menu-item (click)="editDataPopup(row)">
+                                    <mat-icon class="col-blue">edit</mat-icon>Edit
                                 </button>
-                                <mat-menu #msgMenu="matMenu">
+                                <button mat-menu-item (click)="deleteKeyword(row)">
+                                    <mat-icon class="col-blue">delete</mat-icon>Delete
+                                </button>
+                            </mat-menu>
+                        </td>
+                    </ng-container>
 
-
-                                    <button mat-menu-item (click)="editDataPopup(row)">
-                                        <mat-icon class="col-blue">edit</mat-icon>Edit
-                                    </button>
-                                    <button mat-menu-item (click)="deleteKeyword(row,i)">
-                                        <mat-icon class="col-blue">delete</mat-icon>Edit
-                                    </button>
-
-                                </mat-menu>
-
-                            </td>
-
-                        </tr>
-                    </tbody>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                    </tr>
                 </table>
             </div>
-        </div>
 
-        <!-- <div class="col-12">
-      <div class="pagination-table-info">
-        <div class="pagination-page-no">
-          <div class="pagination-h3">
-            <h3>Page <span class="bold">1</span> of <span class="bold">16</span></h3>
-          </div>
-          <div class="pagination-left-right-btn">
-            <div class="pagination-left-btn"><img src="assets/images/pagination-left-arrow.svg" /></div>
-            <div class="pagination-right-btn"><img src="assets/images/pagination-right-arrow.svg" /></div>
-          </div>
         </div>
-        <div class="pagination-rpp-info">
-          <div class="rrp-h3"><h3>Rows per page:</h3></div>
-          <div class="rrp-select-info">
-            <select class="rrp-select-no">
-              <option value="20">20</option>
-              <option value="30">30</option>
-              <option value="40">40</option>
-              <option value="50">50</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div> -->
     </div>
 </div>
