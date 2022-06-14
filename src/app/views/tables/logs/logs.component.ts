@@ -16,7 +16,7 @@ export class logsComponent implements OnInit {
 
   getKeywordSearchedList() {
     this.apiservice.getKeywordSearchedList().subscribe(res => {
-      this.data= res.data;
+      this.data= res.data.reverse();
     });
   }
   deleteKeyword(id,indx) {

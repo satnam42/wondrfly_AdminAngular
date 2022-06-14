@@ -14,7 +14,9 @@
                             <th class="left">
                              Name
                             </th>
-                           
+                            <th>
+                              Searched On
+                             </th>
                             <th>
                             </th>
                         </tr>
@@ -22,6 +24,9 @@
                             <td class="left">
                                 <span> {{row.text}}</span>
                             </td>
+                            <td>
+                              <span>{{row.createdOn | date :'MMM d, y, h:mm a'}}</span>
+                          </td>
                             <td>
                                 <button mat-icon-button [matMenuTriggerFor]="msgMenu" class="hidden-on-open">
                                     <mat-icon class="text-muted">more_vert</mat-icon>
