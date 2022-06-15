@@ -148,6 +148,10 @@
                     <div class="box-content bg-white">
                         <h2 class="h2">Activity Details</h2>
                         <div class="active-info-form">
+                            <div class="btn-online-in-person-info mb-30">
+                                <button class="btn-multipal active">Online</button>
+                                <button class="btn-multipal">In person</button>
+                            </div>
                             <div class="field-group">
                                 <div class="label-heading">
                                     Presenter
@@ -161,7 +165,7 @@
                                 <textarea #ProgramDescription type="text" maxlength="3000" rows="4" class="input-field"
                                     placeholder="Type" required [(ngModel)]="program.description">
                                 </textarea>
-                                <span class="text-absolu">({{ProgramDescription.value?.length}} of 3000)</span>
+                                <!-- <span class="text-absolu">({{ProgramDescription.value?.length}} of 3000)</span> -->
                             </div>
                             <div class="field-group">
                                 <div class="label-heading">
@@ -172,7 +176,7 @@
                                     <img src="/assets/images/pensil-blue-icon.svg"/>
                                 </div>
                             </div>
-                            <div class="field-group">
+                            <div class="field-group mb-20">
                                 <div class="grid-capacity-row">
                                     <div>
                                         <div class="label-heading">
@@ -200,256 +204,236 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-
-                    <!-- <div class="box text-center p-3 bg-white">
-                        <h2 class="h2">Add Program Information</h2>
-                        <div class="row">
-                            <div class="col-md-6 mx-auto">
-                                <div class="files color">
-                                    <input type="file" class="form-control" (change)="UploadImage($event)" multiple="">
+                            <div class="field-group">
+                                <div class="btn-slide-toggle-info">
+                                    <div class="btn-slide-toggle">
+                                        <mat-slide-toggle  color="primary"> </mat-slide-toggle>
+                                    </div>
+                                    <label class="slide-toggle-txt">Outdoor activity</label>
                                 </div>
                             </div>
                         </div>
-                    </div> -->
-
+                    </div>
                 </div>
                 <!-- end Activity Details popup -->
 
                 <!-- Start Date & Time popup -->
                 <div class="date-time-popup height-equal-scroll">
-                    <div class="box text-center p-3 bg-white">
-                        <h2 class="h2">Set-up Time & Price</h2>
-                        <div class="tim-datespacing">
-                            <section>
-                                <div class="container_1">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group date_input">
-                                                <label class="custom-label">Dates</label><span class="range-span">(range or
-                                                    every Monday)</span>
-                                                <div class="input-group mb-3">
-                                                    <!-- <input [owlDateTimeTrigger]="dt3" placeholder="Start Date"
-                                                        class="form-control" [owlDateTime]="dt3"
-                                                        [(ngModel)]="program.date.from" readonly>
-                                                    <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time> -->
-                                                    <!-- <input type="text" id="fromDateSelector" class="form-control" placeholder="Start Date"> -->
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text custom-text">
-                                                            <img class="arrow" src="assets/right.png">
-                                                        </div>
-                                                    </div>
-                                                    <!-- <input [owlDateTimeTrigger]="dt4" placeholder="End Date"
-                                                        class="form-control" [owlDateTime]="dt4"
-                                                        [(ngModel)]="program.date.to" readonly>
-                                                    <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time> -->
-                                                </div>
-                                            </div>
-                                        </div>
+                    <div class="box-content bg-white">
+                        <h2 class="h2">Days & Time</h2>
+                        <div class="active-info-form">
+                            <div class="field-group mb-15">
+                                <div class="label-heading">
+                                    Dates
+                                </div>
+                                <div class="btn-start-end-date">
+                                    <div class="btn-start-date">
+                                        <div><h3>Start Date</h3></div>
+                                        <div><img src="/assets/images/bi-calendar.svg"/></div>
+                                    </div>
+                                    <div class="btn-mid-arrow">
+                                        <img src="/assets/images/btn-mid-arrow.svg" />
+                                    </div>
+                                    <div class="btn-end-date">
+                                        <div><h3>End Date</h3></div>
+                                        <div><img src="/assets/images/bi-calendar.svg" /></div>
                                     </div>
                                 </div>
-                            </section>
-
-                            <section>
-                                <div class="container_2">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group date_input">
-                                                <label class="custom-label">Time</label>
-                                                <span class="rangeevery-span">monthly or weekly option</span>
-                                                <div class="input-group mb-3">
-                                                    <!-- <input [owlDateTimeTrigger]="dt5" [owlDateTime]="dt5"
-                                                        placeholder="Start Time" class="form-control"
-                                                        [(ngModel)]="program.time.from" readonly>
-                                                    <owl-date-time [pickerType]="'timer'" #dt5></owl-date-time> -->
-                                                    <!-- <input type="text" class="form-control" placeholder="Start Time"> -->
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text custom-text">
-                                                            <img class="arrow" src="assets/right.png">
-                                                        </div>
-                                                    </div>
-                                                    <!-- <input [owlDateTimeTrigger]="dt6" [owlDateTime]="dt6"
-                                                        placeholder="End Time" class="form-control"
-                                                        [(ngModel)]="program.time.to" readonly>
-                                                    <owl-date-time [pickerType]="'timer'" #dt6></owl-date-time> -->
-                                                    <!-- <input type="text" class="form-control custom-text" placeholder="End Time"> -->
-                                                </div>
-                                            </div>
-                                        </div>
+                            </div>
+                            <div class="field-group mb-10">
+                                <div class="checkboxes__item">
+                                    <label class="checkbox">
+                                      <input type="checkbox"/>
+                                      <div class="checkbox__checkmark"></div>
+                                      <div class="checkbox__body">Dates are flexible</div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="field-group mb-10">
+                                <div class="label-heading">
+                                    Days
+                                </div>
+                                <div class="weekday-ceckboxes-info checkbox-circle-box checkbox-blue-box">
+                                    <div class="checkboxes__item">
+                                        <label class="checkbox">
+                                            <input type="checkbox"/>
+                                            <div class="checkbox__checkmark"></div>
+                                            <div class="checkbox__body">Mon</div>
+                                        </label>
+                                    </div>
+                                    <div class="checkboxes__item">
+                                        <label class="checkbox">
+                                            <input type="checkbox"/>
+                                            <div class="checkbox__checkmark"></div>
+                                            <div class="checkbox__body">Tue</div>
+                                        </label>
+                                    </div>
+                                    <div class="checkboxes__item">
+                                        <label class="checkbox">
+                                            <input type="checkbox"/>
+                                            <div class="checkbox__checkmark"></div>
+                                            <div class="checkbox__body">Wed</div>
+                                        </label>
+                                    </div>
+                                    <div class="checkboxes__item">
+                                        <label class="checkbox">
+                                            <input type="checkbox"/>
+                                            <div class="checkbox__checkmark"></div>
+                                            <div class="checkbox__body">Thur</div>
+                                        </label>
+                                    </div>
+                                    <div class="checkboxes__item">
+                                        <label class="checkbox">
+                                            <input type="checkbox"/>
+                                            <div class="checkbox__checkmark"></div>
+                                            <div class="checkbox__body">Fri</div>
+                                        </label>
+                                    </div>
+                                    <div class="checkboxes__item">
+                                        <label class="checkbox">
+                                            <input type="checkbox"/>
+                                            <div class="checkbox__checkmark"></div>
+                                            <div class="checkbox__body">Sat</div>
+                                        </label>
+                                    </div>
+                                    <div class="checkboxes__item">
+                                        <label class="checkbox">
+                                            <input type="checkbox"/>
+                                            <div class="checkbox__checkmark"></div>
+                                            <div class="checkbox__body">Sun</div>
+                                        </label>
                                     </div>
                                 </div>
-                            </section>
-
-                            <section>
-                                <div class="container_2">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="custom-label">Duration</label>
-
-                                                <input type="text" class="form-control" placeholder="Type"
-                                                    [(ngModel)]="program.duration">
-
-                                            </div>
-                                        </div>
+                            </div>
+                            <div class="field-group mb-30">
+                                <div class="label-heading">
+                                    Time
+                                </div>                         
+                                <ng5-slider [(value)]="minAge" [(highValue)]="maxAge" [options]="ageOption">
+                                </ng5-slider>
+                            </div>
+                            <div class="field-group mb-10">
+                                <div class="weekday-list-info">
+                                    <div><h3><span class="bold">Monday |</span> 8am - 2pm</h3></div>
+                                    <div><h3><span class="bold">Tuesday |</span> 8am - 2pm</h3></div>   
+                                    <div><h3><span class="bold">Wednesday |</span> 8am - 2pm</h3></div>
+                                    <div><h3><span class="bold">Thursday |</span> 8am - 2pm</h3></div>
+                                    <div><h3><span class="bold">Friday |</span> 8am - 2pm</h3></div> 
+                                    <div><h3><span class="bold">Saturday |</span> 8am - 2pm</h3></div>  
+                                </div>
+                            </div>
+                            <div class="field-group">
+                                <div class="gird-date-time checkbox-blue-box">
+                                    <div class="checkboxes__item">
+                                        <label class="checkbox">
+                                            <input type="checkbox"/>
+                                            <div class="checkbox__checkmark"></div>
+                                            <div class="checkbox__body">Date is not available</div>
+                                        </label>
+                                    </div>
+                                    <div class="checkboxes__item">
+                                        <label class="checkbox">
+                                            <input type="checkbox"/>
+                                            <div class="checkbox__checkmark"></div>
+                                            <div class="checkbox__body">Time is not available</div>
+                                        </label>
                                     </div>
                                 </div>
-                            </section>
-
-                            <section>
-                                <div class="container_2">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="text_color">IS IT a free activity?</label>
-                                                <div class="adult_assistance">
-                                                    <label class="switch notification">
-                                                        <input type="checkbox" [(ngModel)]="isFree">
-                                                        <span class="slider round"></span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-
-                            <section *ngIf="!isFree">
-                                <div class="container_2">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group participant_input">
-                                                <label class="custom-label">Price Per Participant</label>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">
-                                                            $
-                                                        </div>
-                                                    </div>
-                                                    <input type="text" class="form-control" placeholder="Type"
-                                                        [(ngModel)]="program.pricePerParticipant">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group participant_input">
-                                                <label class="custom-label">Price For Siblings</label>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">
-                                                            $
-                                                        </div>
-                                                    </div>
-                                                    <input type="text" class="form-control" placeholder="Type"
-                                                        [(ngModel)]="program.priceForSiblings" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <div class="another-time">
-                                <span>another time</span>
                             </div>
                         </div>
-                    </div>
+                    </div>    
                 </div>
                 <!-- end Date & Time popup -->
 
                 <!-- Start Pricing popup -->
                 <div class="pricing-info-popup height-equal-scroll">
-                    <div class="box text-center p-3 bg-white">
-                        <h2 class="my_heading1">More Details</h2>
-                        <!-- <p><del>Your information will help us to customized activities according to their age group</del></p> -->
-    
-                        <div class="tim-datespacing">
-                            <section>
-                                <div class="container_2">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="custom-label">Default email</label>
-                                                <span class="close-img"><img src="assets/black-cross.png"></span>
-                                                <input type="text" class="form-control" placeholder="john.doe@domain.com"
-                                                    [(ngModel)]="program.email" name="programName" required>
+                    <div class="box-content bg-white">
+                        <h2 class="h2">Pricing</h2>
+                        <div class="active-info-form">
+                            <div class="field-group mb-20">
+                                <div class="btn-slide-toggle-info">
+                                    <div class="btn-slide-toggle">
+                                        <mat-slide-toggle  color="primary"> </mat-slide-toggle>
+                                    </div>
+                                    <label class="slide-toggle-txt">Free Program</label>
+                                </div>
+                            </div>
+                            <div class="field-group mb-15">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="label-heading">
+                                            Price Per Participant 
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">$</div>
                                             </div>
+                                            <input type="text" class="form-control" placeholder="Add.." [(ngModel)]="program.pricePerParticipant">
                                         </div>
                                     </div>
                                 </div>
-                            </section>
-    
-                            <section>
-                                <div class="container_2">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="about">
-                                                <div class="N_container_box_input_heading">
-                                                    Special Instructions for parents or Participants
-                                                </div>
-                                                <textarea #specialInstruction type="text" ProgramDescription
-                                                    maxlength="3000" rows="4" class="my_inputs" placeholder="Type"
-                                                    [(ngModel)]="program.specialInstructions" required></textarea>
-                                                <span class="text-absolus">({{specialInstruction.value?.length}} of
-                                                    3000)</span>
+                            </div>
+                            <div class="field-group mb-20">
+                                <div class="checkbox-blue-box">
+                                    <div class="checkboxes__item">
+                                        <label class="checkbox">
+                                          <input type="checkbox"/>
+                                          <div class="checkbox__checkmark"></div>
+                                          <div class="checkbox__body">Free DEMO is available</div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field-group mb-15">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="label-heading">
+                                            Estimated Price Per Hour
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">$</div>
                                             </div>
+                                            <input type="text" class="form-control" placeholder="Add.." [(ngModel)]="program.pricePerParticipant">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="label-heading">
+                                            Calculated Price Per Hour
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">$</div>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Add.." [(ngModel)]="program.pricePerParticipant">
                                         </div>
                                     </div>
                                 </div>
-                            </section>
-    
-                            <section>
-                                <div class="container_2">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="text_color">Adult assistance is required</label>
-                                                <div class="adult_assistance">
-                                                    <label class="switch notification">
-                                                        <input type="checkbox"
-                                                            [(ngModel)]="program.adultAssistanceIsRequried">
-                                                        <span class="slider round"></span>
-                                                    </label>
-                                                </div>
-                                            </div>
+                            </div>
+                            <div class="field-group mb-20">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="label-heading">
+                                            Price Per Sibling
                                         </div>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">$</div>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Add.." [(ngModel)]="program.priceForSiblings" />
+                                         </div>
                                     </div>
                                 </div>
-                            </section>
-                            <section>
-                                <div class="container_2">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="custom-label">Age Group</label>
-                                                <br>
-                                                <br>
-                                                <ng5-slider [(value)]="minAge" [(highValue)]="maxAge" [options]="ageOption">
-                                                </ng5-slider>
-                                            </div>
-                                        </div>
+                            </div>
+                            
+                            <div class="field-group">
+                                <div class="btn-slide-toggle-info">
+                                    <div class="btn-slide-toggle">
+                                        <mat-slide-toggle  color="primary"> </mat-slide-toggle>
                                     </div>
+                                    <label class="slide-toggle-txt">Is it a prorated program?</label>
                                 </div>
-                            </section>
-    
-                            <section>
-                                <div class="container_2">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="custom-label">Capacity</label>
-                                                <br>
-                                                <br>
-                                                <ng5-slider [(value)]="minCapacity" [(highValue)]="maxCapacity"
-                                                    [options]="capacityOption">
-                                                </ng5-slider>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -457,132 +441,79 @@
 
                 <!-- Start Special Instructions popup -->
                 <div class="special-instructions-popup height-equal-scroll">
-                    <div class="box text-center p-3 bg-white">
-                        <h2 class="h2">Add Session</h2>
-                        <div class="tim-datespacing last-step">
-                            <section>
-                                <div class="container_2">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="custom-label">Session name</label>
-                                                <span class="close-img"><img (click)="session.sessionName=''"
-                                                        src="assets/close.png"></span>
-                                                <input type="text" class="form-control" placeholder="My test Session"
-                                                    [(ngModel)]="session.sessionName">
-    
-                                            </div>
-                                        </div>
-                                    </div>
+                    <div class="box-content bg-white">
+                        <h2 class="h2">Special Instructions</h2>
+                        <div class="active-info-form">
+                            <div class="field-group">
+                                <div class="label-heading">
+                                    Special Instructions
                                 </div>
-                            </section>
-                            <section>
-                                <div class="container_2">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="custom-label">Session ADDRESS</label>
-    
-                                                <input type="text" class="form-control" placeholder="Add session address"
-                                                    [(ngModel)]="session.sessionAddress">
-    
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-    
-                            <section>
-                                <div class="container_2">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group date_input">
-                                                <label class="custom-label">Date (start and end date)</label>
-                                                <div class="input-group mb-3">
-                                                    <!-- <input [owlDateTimeTrigger]="dt11" placeholder="Start Date"
-                                                        class="form-control" [owlDateTime]="dt11"
-                                                        [(ngModel)]="session.sessionStartDate" readonly>
-                                                    <owl-date-time [pickerType]="'calendar'" #dt11></owl-date-time> -->
-                                                    <!-- <input type="text" id="fromDateSelector" class="form-control" placeholder="Start Date"> -->
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text custom-text">
-                                                            <img class="arrow" src="assets/right.png">
-                                                        </div>
-                                                    </div>
-                                                    <!-- <input [owlDateTimeTrigger]="dt12" placeholder="End Date"
-                                                        class="form-control" [owlDateTime]="dt12"
-                                                        [(ngModel)]="session.sessionEndDate" readonly>
-                                                    <owl-date-time [pickerType]="'calendar'" #dt12></owl-date-time> -->
-    
-                                                </div>
-    
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-    
-                            <section>
-                                <div class="container_2">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group date_input">
-                                                <label class="custom-label">Time</label>
-    
-                                                <div class="input-group mb-3">
-                                                    <!-- <input [owlDateTimeTrigger]="dt5" [owlDateTime]="dt5"
-                                                        placeholder="Start Time" class="form-control"
-                                                        [(ngModel)]="session.sessionStartTime" readonly>
-                                                    <owl-date-time [pickerType]="'timer'" #dt5></owl-date-time> -->
-                                                    <!-- <input type="text" class="form-control" placeholder="Start Time"> -->
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text custom-text">
-                                                            <img class="arrow" src="assets/right.png">
-                                                        </div>
-                                                    </div>
-                                                    <!-- <input [owlDateTimeTrigger]="dt6" [owlDateTime]="dt6"
-                                                        placeholder="End Time" class="form-control"
-                                                        [(ngModel)]="session.sessionEndTime" readonly>
-                                                    <owl-date-time [pickerType]="'timer'" #dt6></owl-date-time> -->
-                                                    <!-- <input type="text" class="form-control custom-text" placeholder="End Time"> -->
-                                                </div>
-    
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-    
-                            <section>
-                                <div class="container_2">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="custom-label">NUMBER OF SEATS</label>
-                                                <input type="text" class="form-control" placeholder="Type"
-                                                    [(ngModel)]="session.noOfSeats">
-    
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-    
-                            <div class="another-time">
-                                <span>add more session</span>
+                                <textarea #ProgramDescription type="text" maxlength="3000" rows="4" class="input-field"
+                                    placeholder="Type" required [(ngModel)]="program.description">
+                                </textarea>
+                                <!-- <span class="text-absolu">({{ProgramDescription.value?.length}} of 3000)</span> -->
                             </div>
-    
+                            <div class="field-group mb-15">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="label-heading">
+                                            Booking Can’t Be Cancelled Before
+                                        </div>
+                                        <div class="field-days-hours-marge">
+                                            <input type="text" placeholder="Days" class="input-field" >
+                                            <select class="input-field select-down-icon">
+                                                <option value="Hours">Hours</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                            </select>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field-group">
+                                <div class="btn-slide-toggle-info">
+                                    <div class="btn-slide-toggle">
+                                        <mat-slide-toggle  color="primary"> </mat-slide-toggle>
+                                    </div>
+                                    <label class="slide-toggle-txt"><span class="font-weight-600">Child May Be Droped Off</span> (Adult supervision is not required)</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <!-- end Special Instructions popup -->
 
                 <!-- Start Source popup -->
-                <!-- <div class="source-info-popup">
-                
-                </div> -->
+                <div class="source-info-popup height-equal-scroll">
+                    <div class="box-content bg-white">
+                        <h2 class="h2">Source</h2>
+                        <div class="active-info-form">
+                            <div class="field-group">
+                                <div class="label-heading">
+                                    Source
+                                </div>
+                                <select class="input-field select-down-icon">
+                                    <option value="Camps">Camps</option>
+                                    <option value="Semesters">Semesters</option>
+                                    <option value="Drop-ins">Drop-ins</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="field-group">
+                                <div class="label-heading">
+                                    Platform Source Link
+                                </div>
+                                <input type="url" class="input-field" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- end Source popup -->
-
 
               </div>
             </div>  

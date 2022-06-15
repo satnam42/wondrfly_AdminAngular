@@ -623,6 +623,7 @@ background-color: rgb(231, 149, 149);
 
 /* add activity form popup css */
 .add-activity-form-info .mat-dialog-container {
+    width: 1000px;
     padding: 0px!important;
     margin: 0px;
     overflow: hidden;
