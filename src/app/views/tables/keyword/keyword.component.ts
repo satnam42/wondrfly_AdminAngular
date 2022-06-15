@@ -141,7 +141,6 @@ export class KeywordComponent implements OnInit {
 
   deleteSearchedKeyword(row) {
     this.apiservice.deleteSearchedFreeText(row._id).subscribe(res => {
-      console.log(res)
       if (res.isSuccess) {
         this.rows = this.rows.filter((u) => u._id !== row._id);
         this.dataSource = new MatTableDataSource(this.rows);

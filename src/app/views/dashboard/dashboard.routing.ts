@@ -16,6 +16,7 @@ export const DashboardRoutes: Routes = [
   {
     path: 'analytics',
     component: AnalyticsComponent,
+    data: { title: 'ADMIN' }
   },
   {
     path: 'crypto',

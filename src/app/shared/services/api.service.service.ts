@@ -1202,9 +1202,7 @@ export class ApiService {
     }
 
     publishUnpublishMultiplePrograms(model): Observable<any[]> {
-        console.log(model)
         const subject = new Subject<any[]>();
-        console.log(model)
         this.http.post(`${this.root}/programs/bulkPublishOrUnpublish`, model, this.getHeaders()).subscribe((responseData: any) => {
             this.userResponse = responseData;
             subject.next(this.userResponse);

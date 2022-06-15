@@ -9,6 +9,7 @@ import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.s
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatDialogRef, MatDialog } from '@angular/material';
 import { ProgramDataPopupComponent } from './program-data-popup/program-data-popup.component';
+import { Program } from 'app/shared/models/program.model';
 @Component({
   selector: 'app-program-table',
   templateUrl: './program-table.component.html',
@@ -16,14 +17,13 @@ import { ProgramDataPopupComponent } from './program-data-popup/program-data-pop
 })
 export class ProgramTableComponent implements OnInit {
   isLoading: boolean;
-  usersData: any = {};
-  rows: any = [];
+  rows: Program[];
   pageNo: number = 1;
   pageSize: number;
-  temp: any = [];
+  temp: Program[];
   ColumnMode = ColumnMode;
   user = new Userr;
-  pageLimit = 10;
+  pageLimit = 100;
   submitted: any;
   isShow = true;
   public uploader: FileUploader = new FileUploader({ url: 'upload_url' });
@@ -58,7 +58,6 @@ export class ProgramTableComponent implements OnInit {
 
   getUserById(id) {
     this.apiservice.getUserById(id).subscribe((res: any) => {
-      console.log('resss', res)
       this.user = res
       this.user._id = this.user.id
     })
@@ -82,7 +81,7 @@ export class ProgramTableComponent implements OnInit {
     this.route.navigate(['forms/edit-program', data._id]);
   }
   back() {
-    this.route.navigate(['tables/all-program']);
+    history.back();
   }
 
   showHideButton() {
@@ -97,38 +96,29 @@ export class ProgramTableComponent implements OnInit {
     window.open('#' + url, '_blank');
   }
 
-  addProgram() {
-    // this.route.navigate(['forms/program', this.user._id]);
-    const url = this.route.serializeUrl(
-      this.route.createUrlTree(['forms/program', this.user._id])
-    );
-    window.open('#' + url, '_blank');
-  }
-
   getProgram() {
     this.isLoading = true;
     this.pageSize = 200;
     this.loader.open();
-    this.apiservice.getAllProgramByUser(this.user._id, this.pageNo, this.pageSize).subscribe(res => {
+    this.apiservice.getAllProgramByUser(this.user._id, this.pageNo, this.pageSize).subscribe((res: any) => {
       this.temp = res;
+      this.temp = this.temp.filter(program => !program.isExpired);
       this.rows = this.temp.reverse();
       this.loader.close();
       this.isLoading = false;
     });
   }
   publishUnpublishMultiplePrograms() {
-    console.log(this.selectedActivityIds.programIds)
-    if(this.selectedActivityIds.programIds.length<20){
+    if (this.selectedActivityIds.programIds.length < 20) {
       this.apiservice.publishUnpublishMultiplePrograms(this.selectedActivityIds).subscribe((res: any) => {
-        console.log(res)
-        if(res.isSuccess){
+        if (res.isSuccess) {
           this.snack.open(res.data, 'OK', { duration: 5000 });
-          this.selectedActivityIds.programIds=[]
+          this.selectedActivityIds.programIds = []
           this.getProgram();
         }
       });
-    }else{
-    this.snack.open('Please select less than 20 Activities!', 'OK', { duration: 5000 });
+    } else {
+      this.snack.open('Please select less than 20 Activities!', 'OK', { duration: 5000 });
     }
   }
   publishUnpublishProgram(data, program) {
@@ -139,8 +129,7 @@ export class ProgramTableComponent implements OnInit {
     this.apiservice.PublishedProgram(model).subscribe((res: any) => {
       console.log(res)
       if (res.isSuccess) {
-        // this.snack.open('Program published', 'OK', { duration: 4000 });
-        // this.rows[indx].isPublished = booleanValue
+        this.snack.open('Program status changed', 'OK', { duration: 4000 });
       } else { this.snack.open('Somthing went wrong', 'OK', { duration: 4000 }); }
     });
   }
@@ -150,23 +139,6 @@ export class ProgramTableComponent implements OnInit {
       this.selectedActivityIds.programIds.push(row._id)
     } else {
       this.selectedActivityIds.programIds.splice(index, 1)
-    }
-  }
-  publishOrUnpublishMultiple() {
-  }
-  programActiveInActive(program) {
-    let programStatus = '';
-    if (program.status === 'active') {
-      programStatus = 'inactive';
-      this.apiservice.programActiveInActive(program._id, programStatus).subscribe(res => {
-        this.getProgram();
-      });
-    }
-    else {
-      programStatus = 'active';
-      this.apiservice.programActiveInActive(program._id, programStatus).subscribe(res => {
-        this.getProgram();
-      });
     }
   }
 
@@ -203,7 +175,7 @@ export class ProgramTableComponent implements OnInit {
     const val = event.target.value;
     if (val) {
       this.apiservice.searchProgram(val).subscribe((res: any) => {
-        this.rows = res.filter(item=>item.user===this.user._id)
+        this.rows = res.filter(item => item.user === this.user._id)
       });
     } else {
       this.getProgram();

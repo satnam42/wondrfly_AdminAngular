@@ -2,9 +2,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource, MatPaginator, MatSort, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar, MatDialog, MatSnackBarConfig, MatDialogRef } from '@angular/material';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { ColumnMode } from '@swimlane/ngx-datatable';
-import { Userr } from 'app/shared/models/user.model';
 import { ApiService } from 'app/shared/services/api.service.service';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
@@ -45,11 +44,9 @@ export class MetaServiceComponent implements OnInit {
     this.dataSource.sort = sort;
   }
   isLoading: boolean;
-  usersData: any = {};
   rows: any = [];
   temp: any = [];
   ColumnMode = ColumnMode;
-  user = new Userr;
   submitted: any;
   publishedPrograms: any;
   searchText: '';
@@ -57,10 +54,7 @@ export class MetaServiceComponent implements OnInit {
   searchControl = new FormControl()
   loaderPostion = 'center-center';
   loaderType = 'ball-spin-clockwise';
-  pageNo: number = 1;
-  pageSize = 20;
   keyword = "";
-  isScrol = true;
   message: string = 'Keyword Deleted Successfully!';
   action: boolean = true;
   setAutoHide: boolean = true;
@@ -77,14 +71,11 @@ export class MetaServiceComponent implements OnInit {
     public route: Router,
     private apiservice: ApiService,
     private snack: MatSnackBar,
-    private activatedRoute: ActivatedRoute,
     private confirmService: AppConfirmService,
     private loader: AppLoaderService,
     private dialog: MatDialog,
   ) {
-    this.activatedRoute.params.subscribe(params => {
-      this.user._id = params['id'];
-    });
+    this.getMetaService();
     let config = new MatSnackBarConfig();
     config.verticalPosition = this.verticalPosition;
     config.horizontalPosition = this.horizontalPosition;
@@ -109,34 +100,10 @@ export class MetaServiceComponent implements OnInit {
       });
   }
 
-  onScroll() {
-    if (this.isScrol && this.keyword == '') {
-      this.isScrol = false;
-      this.loadMore();
-    }
-  }
-
-  loadMore() {
-    this.loaderType = 'three-bounce';
-    this.loaderPostion = 'bottom-center';
-    // this.pageSize += 20;
-    this.pageNo += 1;
-  }
-
-  setPage(page) {
-    this.pageNo = page.offset;
-    this.pageSize = page.pageSize;
-    if (page.offset == 1) {
-      this.pageNo = 2
-    }
-    this.getMetaService();
-  }
-
   getMetaService() {
     this.loader.open();
     this.apiservice.getMetaService().subscribe(res => {
       this.loader.close();
-      console.log(res)
       this.temp = res;
       if (this.temp.data) {
         this.rows = this.temp.data.reverse();
@@ -174,19 +141,8 @@ export class MetaServiceComponent implements OnInit {
       }
     })
   }
-  activateDeactivateTopic(data, id) {
-    var model: any = {
-      id: id,
-      isActivated: data.checked
-    }
-    this.apiservice.keyWordActivateDeactivate(model).subscribe((res: any) => {
-      if (res.isSuccess) {
-        // this.snack.open('Program published', 'OK', { duration: 4000 });
-        // this.rows[indx].isPublished = booleanValue
-      } else { this.snack.open('Somthing went wrong', 'OK', { duration: 4000 }); }
-    });
-  }
+
   ngOnInit() {
-    this.getMetaService();
+
   }
 }

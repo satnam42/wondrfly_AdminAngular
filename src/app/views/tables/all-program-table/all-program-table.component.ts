@@ -42,7 +42,7 @@ export class AllProgramTableComponent implements OnInit {
   @ViewChild(MatSort, { static: false }) set content(sort: MatSort) {
     this.dataSource.sort = sort;
   }
-  temp: any = [];
+  temp: any;
   ColumnMode = ColumnMode;
   submitted: any;
   @ViewChild(DaterangepickerDirective, { static: true }) picker: DaterangepickerDirective;
@@ -240,13 +240,14 @@ export class AllProgramTableComponent implements OnInit {
   getMontclairProgram() {
     this.loader.open();
     this.apiservice.getMontclairProgram(this.pageNo, this.pageSize).subscribe(res => {
-      this.montTemp = res;
-      if (this.montTemp.items) {
-        this.rows = this.rows.concat(this.montTemp.items);
-        this.isScrol = true;
+      this.temp = res;
+      if (this.temp.isSuccess) {
+        this.pageLength = +this.temp.message;
+        this.rows = this.temp.items;
+        this.dataSource = new MatTableDataSource(this.rows);
       }
-      this.loader.close();
     });
+    this.loader.close();
   }
   // =========================================== online programs =========================================================
   getOnlinePrograms() {
@@ -399,7 +400,7 @@ export class AllProgramTableComponent implements OnInit {
   routeToDetailPage(data) {
     var programName = data.name;
     programName = programName.toLowerCase();
-    this.detailPageUrl = `${this.baseURL}/program/activity-name/${data._id}`
+    this.detailPageUrl = `${this.baseURL}/program/activity-name/${data._id}/filter`
   }
   publishUnpublishProgram(data, program) {
     var model: any = {
@@ -449,6 +450,9 @@ export class AllProgramTableComponent implements OnInit {
             break;
           case 'expired':
             this.allExpiredProgram();
+            break;
+          case 'montclair':
+            this.getMontclairProgram();
             break;
           default:
             this.activeTab = ''

@@ -12,8 +12,7 @@
         </div> -->
     <div class="col-6 tablesuser-flex">
       <h4>
-        Total Activities<span class="blue-clr" [hidden]="selectedValue=='montclair'"> ({{totalProgramsCount}})</span>
-        <span class="blue-clr" [hidden]="selectedValue!=='montclair'"> ({{montTemp?.total}})</span>
+        Total Activities<span class="blue-clr"> ({{totalProgramsCount}})</span>
       </h4>
       <div class="add-program-btn">
         <!-- <label class="letsplay_btn ">Import
@@ -71,18 +70,25 @@
     <div class="col-12">
       <ul class="table-top-links">
         <!-- <li [ngClass]="{'active': activeTab === 'online'}" ><a (click)="onlinePrograms()">Online Programs</a></li> -->
-        <li [ngClass]="{'active': activeTab === ''}"><a (click)="activeProgramsTab('')">All Activities <span
+        <li [ngClass]="{'active': activeTab === ''}"><a (click)="activeProgramsTab('')"> All Activities <span
               *ngIf=" activeTab === ''">({{totalProgramsCount}})</span></a></li>
+
         <li [ngClass]="{'active': activeTab === 'online'}"><a (click)="activeProgramsTab('online')">Online
             Activities<span *ngIf=" activeTab === 'online'">({{rows?.length}})</span></a></li>
-        <li [ngClass]="{'active': activeTab === 'published'}"><a (click)="activeProgramsTab('published')">Published
+
+        <li [ngClass]="{'active': activeTab === 'published'}"><a (click)="activeProgramsTab('published')"> Published
             <span *ngIf=" activeTab === 'published'">({{publishedUnpublishedList?.total}})</span></a></li>
-        <li [ngClass]="{'active': activeTab === 'unpublished'}"><a
-            (click)="activeProgramsTab('unpublished')">Unpublished <span
-              *ngIf="activeTab === 'unpublished'">({{publishedUnpublishedList?.total}})</span></a></li>
-        <li [ngClass]="{'active': activeTab === 'expiring'}"><a (click)="activeProgramsTab('expiring')">Expiring Soon
+
+        <li [ngClass]="{'active': activeTab === 'unpublished'}"><a (click)="activeProgramsTab('unpublished')">
+            Unpublished <span *ngIf="activeTab === 'unpublished'">({{publishedUnpublishedList?.total}})</span></a></li>
+
+        <li [ngClass]="{'active': activeTab === 'montclair'}"><a (click)="activeProgramsTab('montclair')"> Montclair
+            <span *ngIf="activeTab === 'montclair'">({{temp?.message}})</span></a></li>
+
+        <li [ngClass]="{'active': activeTab === 'expiring'}"><a (click)="activeProgramsTab('expiring')"> Expiring Soon
             <span *ngIf="activeTab === 'expiring'">({{expiredProgram?.items?.length}})</span></a></li>
-        <li [ngClass]="{'active': activeTab === 'expired'}"><a (click)="activeProgramsTab('expired')">Expired <span
+
+        <li [ngClass]="{'active': activeTab === 'expired'}"><a (click)="activeProgramsTab('expired')"> Expired <span
               *ngIf="activeTab === 'expired'">({{allExpired?.items?.length}})</span>
             <span class="ml-5" style="color: rgb(51, 49, 49); font: bolder;" *ngIf="keyword || stratDate"> Results
               <span *ngIf="stratDate || keyword &&  filteredData?.length"> ({{filteredData?.length}})</span>
