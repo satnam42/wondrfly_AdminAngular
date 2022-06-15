@@ -270,7 +270,6 @@ export class AllProgramTableComponent implements OnInit {
   getPublishedUnpublished(type) {
     this.loader.open();
     this.apiservice.getPublishedProgram(this.pageNo, this.pageSize, type).subscribe((res: any) => {
-      console.log(res.items)
       this.loader.close();
       this.publishedUnpublishedList = res;
       this.pageLength = +this.publishedUnpublishedList.total;
@@ -419,7 +418,6 @@ export class AllProgramTableComponent implements OnInit {
   }
   // =========================================== Pagination =========================================================
   pageChanged(event: PageEvent) {
-    console.log({ event });
     window.scroll(0, 0);
     if (event.previousPageIndex > event.pageIndex) {
       this.pageSize = event.pageSize;

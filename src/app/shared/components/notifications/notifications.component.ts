@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { MatSidenav } from '@angular/material';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
@@ -11,13 +10,13 @@ export class NotificationsComponent implements OnInit {
 
   // Dummy notifications
   notifications = [
-    // {
-    //   message: 'New contact added',
-    //   icon: 'assignment_ind',
-    //   time: '1 min ago',
-    //   route: '/inbox',
-    //   color: 'primary'
-    // },
+    {
+      message: 'New contact added',
+      icon: 'assignment_ind',
+      time: '1 min ago',
+      route: '/inbox',
+      color: 'primary'
+    },
     // {
     //   message: 'New message',
     //   icon: 'chat',
@@ -32,7 +31,7 @@ export class NotificationsComponent implements OnInit {
     //   route: '/charts',
     //   color: 'warn'
     // }
-     {
+    {
       message: 'Add Alerts',
       icon: 'report',
       // time: '4 min ago',
