@@ -28,15 +28,15 @@
 
         </mat-form-field>
 
-        <mat-form-field class="example-full-width" appearance="outline">
+        <!-- <mat-form-field class="example-full-width" appearance="outline">
           <mat-label>Select Category</mat-label>
           <mat-select name="categoryIds" multiple #itemValue [(ngModel)]="user.categoryIds">
             <mat-option selected value="single" *ngFor='let item of categoriesList' [value]="item.id">{{item.name}}
             </mat-option>
           </mat-select>
-        </mat-form-field>
+        </mat-form-field> -->
 
-        <div class="example-full-width">
+        <!-- <div class="example-full-width">
           <mat-label class="sub-categoryheading">Sub Category</mat-label>
           <ng-autocomplete [data]="tags" [searchKeyword]="keyword" (selected)='selectEvent($event)'
             (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
@@ -50,15 +50,15 @@
           <ng-template #notFoundTemplate let-notFound>
             <div *ngIf="tags.length" [innerHTML]="notFound"></div>
           </ng-template>
-        </div>
-        <mat-form-field class="full-width">
+        </div> -->
+        <!-- <mat-form-field class="full-width">
           <mat-chip-list>
             <mat-chip *ngFor="let t of tag" [selectable]="selectable" [removable]="removable" (removed)="remove(t)">
               {{t.name}}<span *ngIf="!t?.name">{{t}}</span>
               <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
             </mat-chip>
           </mat-chip-list>
-        </mat-form-field>
+        </mat-form-field> -->
 
         <mat-form-field class="example-full-width" appearance="outline">
           <mat-label>Source</mat-label>
@@ -102,6 +102,19 @@
           <mat-label>Number of google users</mat-label>
           <input matInput name="numberOfGoogle" placeholder="Number of google users" type=number
             [(ngModel)]="user.rating.numberOfGoogle">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Links</mat-label>
+          <mat-chip-list #chipList>
+            <mat-chip *ngFor="let chip of sourceUrls" [removable]="removable" (removed)="removeSourceUrl(chip)">
+              {{ chip }}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Enter OR Paste Links Here " [matChipInputFor]="chipList" [matChipInputAddOnBlur]="true"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addSourceUrl($event)"
+              (paste)="pasteSourceUrl($event)" />
+          </mat-chip-list>
         </mat-form-field>
 
 
@@ -160,18 +173,6 @@
 
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Links</mat-label>
-          <mat-chip-list #chipList>
-            <mat-chip *ngFor="let chip of sourceUrls" [removable]="removable" (removed)="removeSourceUrl(chip)">
-              {{ chip }}
-              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-            </mat-chip>
-            <input placeholder="Enter OR Paste Links Here " [matChipInputFor]="chipList" [matChipInputAddOnBlur]="true"
-              [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addSourceUrl($event)"
-              (paste)="pasteSourceUrl($event)" />
-          </mat-chip-list>
-        </mat-form-field>
         <mat-form-field class="example-full-width" appearance="outline">
           <mat-label>Yelp Rating</mat-label>
           <input matInput name="yelpRating" placeholder="Google Rating" type=number

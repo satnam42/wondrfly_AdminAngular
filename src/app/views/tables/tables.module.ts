@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import {
-  MatInputModule, MatPaginatorModule, MatIconModule, MatTableModule, MatSortModule, MatButtonModule, MatCardModule, MatMenuModule, MatChipsModule, MatTooltipModule, MatListModule, MatDialogModule, MatSnackBarModule, MatSlideToggleModule, MatGridListModule, MatCheckboxModule, MatRadioModule, MatProgressBarModule, MatTabsModule, MatOptionModule, MatAutocompleteModule, MatExpansionModule, MatSelectModule, MatButtonToggleModule
-} from '@angular/material';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TablesRoutes } from './tables.routing';
 import { ProviderTableComponent } from './provider-table/provider-table.component';
@@ -66,7 +63,6 @@ import { CategoryTableComponent } from './category-table/category-table.componen
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { KeywordComponent } from './keyword/keyword.component';
 import { KeywordFormComponent } from '../forms/keyword-form/keyword-form.component';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Ng5SliderModule } from 'ng5-slider';
 import { SearchedKeywordsComponent } from './searched-keywords/searched-keywords.component';
 import { TopicsComponent } from './topics/topics.component';
@@ -76,50 +72,27 @@ import { AgmCoreModule } from '@agm/core';
 import { MetaServiceComponent } from './meta-service/meta-service.component';
 import { MetaFormComponent } from './meta-service/meta-form/meta-form.component';
 import { logsComponent } from './logs/logs.component';
+import { SharedMaterialModule } from 'app/shared/shared-material.module';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     Ng2SearchPipeModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatTableModule,
-    MatInputModule,
     Ng5SliderModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    MatChipsModule,
-    MatTooltipModule,
-    MatDialogModule,
-    MatDatepickerModule,
     NgxDatatableModule,
-    MatListModule,
-    MatIconModule,
     InfiniteScrollModule,
-    MatButtonModule,
-    MatCardModule,
-    MatMenuModule,
-    MatSlideToggleModule,
-    MatGridListModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    MatTabsModule,
-    MatProgressBarModule,
     FlexLayoutModule,
     ChartsModule,
-    MatOptionModule,
-    MatAutocompleteModule,
-    MatSnackBarModule,
     FileUploadModule,
     SharedPipesModule,
     AutocompleteLibModule,
-    MatExpansionModule,
     NgxEchartsModule,
-    MatSelectModule,
     ScrollingModule,
-    MatButtonToggleModule,
     SharedModule,
+    SharedMaterialModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,

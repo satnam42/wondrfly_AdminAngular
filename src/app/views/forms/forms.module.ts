@@ -4,31 +4,6 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-import {
-  MatInputModule,
-  MatDatepickerModule,
-  MatNativeDateModule,
-  MatListModule,
-  MatCardModule,
-  MatProgressBarModule,
-  MatRadioModule,
-  MatCheckboxModule,
-  MatButtonModule,
-  MatIconModule,
-  MatStepperModule,
-  MatOptionModule,
-  MatSelectModule,
-  MatSnackBarModule,
-  MatMenuModule,
-  MatChipsModule,
-  MatAutocompleteModule,
-  MatRippleModule,
-  MatButtonToggleModule,
-  MatSlideToggleModule,
-  MatSliderModule,
-  MatDialogModule,
-  MatTabsModule
-} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { QuillModule } from 'ngx-quill';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -57,43 +32,22 @@ import { ProgramLocationComponent } from './program-form/program-location/progra
 import { AgmCoreModule } from '@agm/core';
 import { ProviderQuickFormComponent } from './provider-quick-form/provider-quick-form.component';
 import { AddFormComponent } from '../components/add-form/add-form.component';
+import { SharedMaterialModule } from 'app/shared/shared-material.module';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MatSelectModule,
-    MatOptionModule,
     FormsModule,
-    MatInputModule,
-    MatListModule,
-    MatCardModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatProgressBarModule,
-    MatRadioModule,
-    MatCheckboxModule,
     Ng5SliderModule,
-    MatMenuModule,
-    MatTabsModule,
     AutocompleteLibModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    MatButtonModule,
-    MatIconModule,
-    MatStepperModule,
     FlexLayoutModule,
     QuillModule,
-    MatSnackBarModule,
     NgxDatatableModule,
     FileUploadModule,
-    MatChipsModule,
-    MatAutocompleteModule,
-    MatRippleModule,
-    MatButtonToggleModule,
-    MatSlideToggleModule,
-    MatSliderModule,
-    MatDialogModule,
+    SharedMaterialModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyD_5P0pxn1q9hvvTeCr3YCsDhLJoHwxs2c',
       libraries: ['places']
@@ -119,8 +73,8 @@ import { AddFormComponent } from '../components/add-form/add-form.component';
     AddFormComponent,
     ProgramLocationComponent,
     UpdateBatchPopupComponent,
-  UpdateFormComponent,],
+    UpdateFormComponent,],
   providers: [],
-  entryComponents: [ ProgramLocationComponent, AddBatchComponent, UpdateBatchPopupComponent]
+  entryComponents: [ProgramLocationComponent, AddBatchComponent, UpdateBatchPopupComponent]
 })
 export class AppFormsModule { }

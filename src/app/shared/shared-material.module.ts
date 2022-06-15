@@ -21,10 +21,7 @@ import {
   MatTreeModule,
   MatBadgeModule,
   MatBottomSheetModule,
-  MatDividerModule
-} from "@angular/material";
-
-import {
+  MatDividerModule,
   MatButtonModule,
   MatInputModule,
   MatAutocompleteModule,
@@ -42,7 +39,6 @@ import {
   MatListModule
 } from "@angular/material";
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
-
 @NgModule({
   exports: [
     MatCheckboxModule,
@@ -84,4 +80,4 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
     MatDividerModule
   ]
 })
-export class SharedMaterialModule {}
+export class SharedMaterialModule { }

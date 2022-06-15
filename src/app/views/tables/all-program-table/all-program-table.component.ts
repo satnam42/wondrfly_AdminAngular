@@ -198,8 +198,9 @@ export class AllProgramTableComponent implements OnInit {
   }
 
   manage(data) {
+    let id = data.user ? data.user : data.userId;
     const url = this.route.serializeUrl(
-      this.route.createUrlTree(['tables/program', data.user])
+      this.route.createUrlTree(['tables/program', id])
     );
     window.open('#' + url, '_blank');
   }
@@ -269,6 +270,7 @@ export class AllProgramTableComponent implements OnInit {
   getPublishedUnpublished(type) {
     this.loader.open();
     this.apiservice.getPublishedProgram(this.pageNo, this.pageSize, type).subscribe((res: any) => {
+      console.log(res.items)
       this.loader.close();
       this.publishedUnpublishedList = res;
       this.pageLength = +this.publishedUnpublishedList.total;
