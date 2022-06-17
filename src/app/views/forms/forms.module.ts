@@ -67,10 +67,9 @@ import { SharedMaterialModule } from 'app/shared/shared-material.module';
     AddBatchComponent,
     AddBatchComponent,
     AddFormComponent,
-    ProgramLocationComponent,
     UpdateBatchPopupComponent,
     UpdateFormComponent,],
   providers: [],
-  entryComponents: [ProgramLocationComponent, AddBatchComponent, UpdateBatchPopupComponent]
+  entryComponents: [AddBatchComponent, UpdateBatchPopupComponent]
 })
 export class AppFormsModule { }

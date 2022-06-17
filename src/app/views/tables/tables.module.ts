@@ -68,7 +68,6 @@ import { AgmCoreModule } from '@agm/core';
 import { MetaServiceComponent } from './meta-service/meta-service.component';
 import { MetaFormComponent } from './meta-service/meta-form/meta-form.component';
 import { SharedMaterialModule } from 'app/shared/shared-material.module';
-import { LocationDialogComponent } from './location-dialog/location-dialog.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -148,9 +147,7 @@ import { LocationDialogComponent } from './location-dialog/location-dialog.compo
     ProgramFormComponent,
     MetaServiceComponent,
     MetaFormComponent,
-    LocationDialogComponent
-
   ],
-  entryComponents: [SearchProviderPopupComponent, MetaFormComponent, LocationDialogComponent, DuplicacyDataPopupComponent, TopicFormComponent, ProgramFormComponent, ProviderDataPopupComponent, KeywordFormComponent, ProgramDataPopupComponent, UsersComponent, EditFormComponent, AllUserComponent]
+  entryComponents: [SearchProviderPopupComponent, MetaFormComponent, DuplicacyDataPopupComponent, TopicFormComponent, ProgramFormComponent, ProviderDataPopupComponent, KeywordFormComponent, ProgramDataPopupComponent, UsersComponent, EditFormComponent, AllUserComponent]
 })
 export class TablesModule { }

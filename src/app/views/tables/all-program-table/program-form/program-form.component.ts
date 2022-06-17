@@ -3,7 +3,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatDialog, MatSnackBar, MatSnackBarConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Globals } from 'app/shared/helpers/globalfunctions';
 import { Program } from 'app/shared/models/program.model';
 import { Userr } from 'app/shared/models/user.model';
 import { ApiService } from 'app/shared/services/api.service.service';
@@ -15,8 +14,6 @@ import * as moment from 'moment';
 import { FileUploader } from 'ng2-file-upload';
 import { Options } from 'ng5-slider';
 import { Observable } from 'rxjs';
-import { LocationDialogComponent } from '../../location-dialog/location-dialog.component';
-
 @Component({
   selector: 'app-program-form',
   templateUrl: './program-form.component.html',
@@ -241,7 +238,7 @@ export class ProgramFormComponent implements OnInit {
   }
 
   openMap() {
-    let dialogRef: MatDialogRef<any> = this.dialog.open(LocationDialogComponent, {
+    let dialogRef: MatDialogRef<any> = this.dialog.open(ProgramLocationComponent, {
       width: '50%',
       disableClose: true,
     })

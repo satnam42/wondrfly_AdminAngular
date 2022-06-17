@@ -22,6 +22,7 @@ import { ActiveUser } from './shared/services/auth/auth.guard';
 import { AuthsService } from './shared/services/auth.service';
 import { LocalStorageService } from './shared/services/local-storage.service';
 import { Globals } from './shared/helpers/globalfunctions';
+import { ProgramLocationComponent } from './views/forms/program-form/program-location/program-location.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -54,8 +55,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     InMemoryWebApiModule.forRoot(InMemoryDataService, { passThruUnknownUrl: true }),
     RouterModule.forRoot(rootRouterConfig, { useHash: true }),
   ],
-  declarations: [AppComponent, NotificationComponent, DataPopupComponent, RolespopupComponent],
-  entryComponents: [DataPopupComponent, RolespopupComponent],
+  declarations: [AppComponent, NotificationComponent,ProgramLocationComponent, DataPopupComponent, RolespopupComponent],
+  entryComponents: [DataPopupComponent,ProgramLocationComponent, RolespopupComponent],
   providers: [
     ActiveUser,
     AuthsService,

@@ -403,7 +403,7 @@
           <mat-form-field class="full-width" (click)="openMap()">
             <mat-label>Location</mat-label>
             <input matInput placeholder="Type" [formControl]="secondFormGroup.controls['location']"
-              [(ngModel)]="program.location" required>
+              [(ngModel)]="program.location" readonly required>
           </mat-form-field>
         </div>
         <br>

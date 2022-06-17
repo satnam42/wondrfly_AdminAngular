@@ -3,16 +3,6 @@ import { AdminLayoutComponent } from './shared/components/layouts/admin-layout/a
 import { AuthLayoutComponent } from './shared/components/layouts/auth-layout/auth-layout.component';
 import { UserGuard } from './shared/services/auth/auth.guard';
 export const rootRouterConfig: Routes = [
-  // {
-  //   path: '',
-  //   redirectTo: 'home',
-  //   pathMatch: 'full'
-  // },
-  // {
-  //   path: 'home',
-  //   loadChildren: () => import('./views/home/home.module').then(m => m.HomeModule),
-  //   data: { title: 'Choose A Demo' }
-  // },
   {
     path: '',
     redirectTo: 'sessions/signin',
@@ -68,10 +58,10 @@ export const rootRouterConfig: Routes = [
         path: 'calendar',
         loadChildren: () => import('./views/app-calendar/app-calendar.module').then(m => m.AppCalendarModule),
       },
-      {
-        path: 'chat',
-        loadChildren: () => import('./views/app-chats/app-chats.module').then(m => m.AppChatsModule),
-      },
+      // {
+      //   path: 'chat',
+      //   loadChildren: () => import('./views/app-chats/app-chats.module').then(m => m.AppChatsModule),
+      // },
 
     ]
   },
