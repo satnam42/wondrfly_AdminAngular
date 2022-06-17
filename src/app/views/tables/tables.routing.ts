@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-// import { CalenderComponent } from './calender/calender.component';
 import { ProviderTableComponent } from './provider-table/provider-table.component';
 import { CategoryTableComponent } from './category-table/category-table.component';
 import { TagTableComponent } from './tag-table/tag-table.component';
@@ -17,9 +16,7 @@ import { AddactivityComponent } from './addactivity/addactivity.component';
 import { UpdateActivityComponent } from './update-activity/update-activity.component';
 import { ProviderReportComponent } from './provider-report/provider-report.component';
 import { ProgramReportComponent } from './program-report/program-report.component';
-import { PublishedProgramsComponent } from './published-programs/published-programs.component';
 import { EditProviderListComponent } from './edit-provider-list/edit-provider-list.component';
-import { UnPublishedProgramsComponent } from './un-published-programs/un-published-programs.component';
 import { ForumComponent } from './forum/forum.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { DuplicacyComponent } from './duplicacy/duplicacy.component';
@@ -30,15 +27,12 @@ import { ChildrenTableComponent } from './children-table/children-table.componen
 import { UsersComponent } from './users/users.component';
 import { FeedbackSurveyComponent } from './feedback-survey/feedback-survey.component';
 import { AllUserComponent } from './all-user/all-user.component';
-import { OnlineProgramsComponent } from './online-programs/online-programs.component';
 import { ExpiredProgramsComponent } from './expired-programs/expired-programs.component';
 import { AllExpiredComponent } from './all-expired/all-expired.component';
 import { ParentTableComponent } from './parent-table/parent-table.component';
 import { KeywordComponent } from './keyword/keyword.component';
-import { SearchedKeywordsComponent } from './searched-keywords/searched-keywords.component';
 import { TopicsComponent } from './topics/topics.component';
 import { MetaServiceComponent } from './meta-service/meta-service.component';
-import { logsComponent } from './logs/logs.component';
 export const TablesRoutes: Routes = [
   {
     path: '',
@@ -185,16 +179,6 @@ export const TablesRoutes: Routes = [
         data: { title: 'providerReport', breadcrumb: 'providerReport' }
       },
       {
-        path: 'published',
-        component: PublishedProgramsComponent,
-        data: { title: 'PUBLISHED', breadcrumb: 'published' }
-      },
-      {
-        path: 'unpublish',
-        component: UnPublishedProgramsComponent,
-        data: { title: 'UNPUBLISHED', breadcrumb: 'unpublish' }
-      },
-      {
         path: 'expiring',
         component: ExpiredProgramsComponent,
         data: { title: 'EXPIRING', breadcrumb: 'expired' }
@@ -205,11 +189,6 @@ export const TablesRoutes: Routes = [
         data: { title: 'EXPIRED', breadcrumb: 'expired' }
       },
       {
-        path: 'online-programs',
-        component: OnlineProgramsComponent,
-        data: { title: 'online-programs', breadcrumb: 'online-programs' }
-      },
-      {
         path: 'edit-Provider/:id',
         component: EditProviderListComponent,
         data: { title: 'EDIT-PROVIDER', breadcrumb: 'edit-providersss' }
@@ -218,10 +197,6 @@ export const TablesRoutes: Routes = [
         path: 'forum',
         component: ForumComponent,
       },
-      // {
-      //   path: 'addNotifications',
-      //   component: AddNotificationComponent,
-      // },
       {
         path: 'notifications',
         component: NotificationsComponent,
@@ -254,11 +229,6 @@ export const TablesRoutes: Routes = [
         path: 'meta-service',
         component: MetaServiceComponent,
         data: { title: 'META-SERVICE' }
-      },
-      {
-        path: 'logs',
-        component: logsComponent,
-        data: { title: 'LOGS' }
       },
     ]
   },

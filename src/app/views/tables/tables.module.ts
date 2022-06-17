@@ -33,10 +33,8 @@ import { AddactivityComponent } from './addactivity/addactivity.component';
 import { UpdateActivityComponent } from './update-activity/update-activity.component';
 import { ProgramReportComponent } from './program-report/program-report.component';
 import { ProviderReportComponent } from './provider-report/provider-report.component';
-import { PublishedProgramsComponent } from './published-programs/published-programs.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { EditProviderListComponent } from './edit-provider-list/edit-provider-list.component';
-import { UnPublishedProgramsComponent } from './un-published-programs/un-published-programs.component';
 import { ForumComponent } from './forum/forum.component';
 import { AddNotificationComponent } from './add-notification/add-notification.component';
 import { NotificationsComponent } from './notifications/notifications.component';
@@ -54,7 +52,6 @@ import { UsersComponent } from './users/users.component';
 import { EditFormComponent } from '../components/edit-form/edit-form.component';
 import { FeedbackSurveyComponent } from './feedback-survey/feedback-survey.component';
 import { AllUserComponent } from './all-user/all-user.component';
-import { OnlineProgramsComponent } from './online-programs/online-programs.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { ExpiredProgramsComponent } from './expired-programs/expired-programs.component';
 import { AllExpiredComponent } from './all-expired/all-expired.component';
@@ -64,14 +61,12 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { KeywordComponent } from './keyword/keyword.component';
 import { KeywordFormComponent } from '../forms/keyword-form/keyword-form.component';
 import { Ng5SliderModule } from 'ng5-slider';
-import { SearchedKeywordsComponent } from './searched-keywords/searched-keywords.component';
 import { TopicsComponent } from './topics/topics.component';
 import { TopicFormComponent } from './topics/topic-form/topic-form.component';
 import { ProgramFormComponent } from './all-program-table/program-form/program-form.component';
 import { AgmCoreModule } from '@agm/core';
 import { MetaServiceComponent } from './meta-service/meta-service.component';
 import { MetaFormComponent } from './meta-service/meta-form/meta-form.component';
-import { logsComponent } from './logs/logs.component';
 import { SharedMaterialModule } from 'app/shared/shared-material.module';
 import { LocationDialogComponent } from './location-dialog/location-dialog.component';
 @NgModule({
@@ -131,9 +126,7 @@ import { LocationDialogComponent } from './location-dialog/location-dialog.compo
     UpdateActivityComponent,
     ProgramReportComponent,
     ProviderReportComponent,
-    PublishedProgramsComponent,
     EditProviderListComponent,
-    UnPublishedProgramsComponent,
     ForumComponent,
     AddNotificationComponent,
     NotificationsComponent,
@@ -146,21 +139,18 @@ import { LocationDialogComponent } from './location-dialog/location-dialog.compo
     EditFormComponent,
     FeedbackSurveyComponent,
     AllUserComponent,
-    OnlineProgramsComponent,
     ExpiredProgramsComponent,
     AllExpiredComponent,
     KeywordComponent,
     KeywordFormComponent,
-    SearchedKeywordsComponent,
     TopicsComponent,
     TopicFormComponent,
     ProgramFormComponent,
     MetaServiceComponent,
     MetaFormComponent,
-    logsComponent,
     LocationDialogComponent
 
   ],
-  entryComponents: [SearchProviderPopupComponent, MetaFormComponent, LocationDialogComponent, DuplicacyDataPopupComponent, TopicFormComponent, ProgramFormComponent, SearchedKeywordsComponent, ProviderDataPopupComponent, KeywordFormComponent, ProgramDataPopupComponent, UsersComponent, EditFormComponent, AllUserComponent]
+  entryComponents: [SearchProviderPopupComponent, MetaFormComponent, LocationDialogComponent, DuplicacyDataPopupComponent, TopicFormComponent, ProgramFormComponent, ProviderDataPopupComponent, KeywordFormComponent, ProgramDataPopupComponent, UsersComponent, EditFormComponent, AllUserComponent]
 })
 export class TablesModule { }
