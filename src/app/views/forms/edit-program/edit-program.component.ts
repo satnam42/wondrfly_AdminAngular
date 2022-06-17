@@ -25,33 +25,33 @@ export class EditProgramComponent implements OnInit {
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
   fourthFormGroup: FormGroup;
-  startDate:any = new Date;
-  endDate:any = new Date;
-  startTime:number;
-  endTime:number;
-  source:any=['Combined','Facebook','Linkedin','Library','Recreation','Instagram','Google','Indeed','Craiglist'];
+  startDate: any = new Date;
+  endDate: any = new Date;
+  startTime: number;
+  endTime: number;
+  source: any = ['Combined', 'Facebook', 'Linkedin', 'Library', 'Recreation', 'Instagram', 'Google', 'Indeed', 'Craiglist'];
   user = new Userr;
   program = new Program;
-  duration:any;
-  programDetail:any;
+  duration: any;
+  programDetail: any;
   programTOBatchPopup = new Program;
   imgResponse: any;
   fileData: File = null;
   msg: string;
   imagePath;
   imgURL: any;
-intrests: any =[];
+  intrests: any = [];
 
   //  ng5slider start age group
-ageGroup:any={
-  from: 0,
-  to: 0,
-}
+  ageGroup: any = {
+    from: 0,
+    to: 0,
+  }
 
-capacity:any={
-  minCapacity: 0,
-  maxCapacity: 0,
-}
+  capacity: any = {
+    minCapacity: 0,
+    maxCapacity: 0,
+  }
 
   locationData: any = {
     address: '',
@@ -59,7 +59,7 @@ capacity:any={
     lng: ''
   };
 
-  durationTime: any= {
+  durationTime: any = {
     hours: 0,
     minutes: 0
   }
@@ -96,9 +96,9 @@ capacity:any={
   tags: any = [];
   sessions: any = [];
 
-  daysValue: any=[];
-  days:any={};
-  
+  daysValue: any = [];
+  days: any = {};
+
   // ng5slider end
 
   public uploader: FileUploader = new FileUploader({ url: 'upload_url' });
@@ -109,15 +109,15 @@ capacity:any={
     periodAmount: string,
     periodCount: number
   }
-  timePeriodDuration:number
+  timePeriodDuration: number
   perTimePeriod: string
-  catId:any=[]
+  catId: any = []
   action: boolean = true;
   setAutoHide: boolean = true;
   autoHide: number = 4000;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
-  categoriesList:any = [];
+  categoriesList: any = [];
   isResponse = false;
   tag: any = [];
   constructor(
@@ -133,7 +133,7 @@ capacity:any={
 
     this.activatedRoute.params.subscribe(params => {
       this.program._id = params['id'];
-      if(this.program._id){  this.getProgramById() }
+      if (this.program._id) { this.getProgramById() }
     });
     let config = new MatSnackBarConfig();
     config.verticalPosition = this.verticalPosition;
@@ -166,10 +166,11 @@ capacity:any={
       isTimeNotMention: new FormControl(false),
       daysValue: new FormControl(['',]),
       isExpired: new FormControl(false),
-     
+      proof_reader_notes: new FormControl(['',]),
+
     });
 
-    this.secondFormGroup = new FormGroup({ 
+    this.secondFormGroup = new FormGroup({
       isproRated: new FormControl(false),
       isFree: new FormControl(false),
       days: new FormControl(['',]),
@@ -178,8 +179,8 @@ capacity:any={
       perTimePeriod: new FormControl(['',]),
       timePeriodDuration: new FormControl(['',]),
       extractionDate: new FormControl(['',]),
-      duHours: new FormControl(['',Validators.required]),
-      duMinutes: new FormControl(['',Validators.required]),
+      duHours: new FormControl(['', Validators.required]),
+      duMinutes: new FormControl(['', Validators.required]),
       adultAssistanceIsRequried: new FormControl(false),
       addresses: new FormControl(['',]),
       hours: new FormControl(['',]),
@@ -190,6 +191,9 @@ capacity:any={
       sourceUrl: new FormControl(['',]),
       cycle: new FormControl(['']),
       activeStatus: new FormControl(['']),
+      last_reviewed: new FormControl(['']),
+      per_hour_rate: new FormControl(['']),
+      cycle_time: new FormControl(['']),
     });
   }
 
@@ -236,7 +240,7 @@ capacity:any={
     const index = this.tag.indexOf(t);
     if (index >= 0) {
       this.tag.splice(index, 1);
-    }   
+    }
   }
 
   fileSelect(event) {
@@ -274,67 +278,68 @@ capacity:any={
     }
   }
 
-  updateProgram() {  
+  updateProgram() {
     const dateFormat = "YYYY-MM-DD";
-    this.program.ageGroup =this.ageGroup
-    this.program.capacity.min =this.capacity.minCapacity
-    this.program.capacity.max =this.capacity.maxCapacity
+    this.program.ageGroup = this.ageGroup
+    this.program.capacity.min = this.capacity.minCapacity
+    this.program.capacity.max = this.capacity.maxCapacity
     this.program.duration = this.durationTime
     this.program.pricePeriod.periodAmount = this.perTimePeriod
     this.program.pricePeriod.periodCount = this.timePeriodDuration
     this.program.subCategoryIds = this.tag
-    this.program.time.from = this.timechange.tools_replaceAll(this.startTime, ":",".");
-    this.program.time.to = this.timechange.tools_replaceAll(this.endTime, ":",".");
-    this.program.realTime.from = this.timechange.tools_replaceAll(this.startTime, ":",".");
-    this.program.realTime.to = this.timechange.tools_replaceAll(this.endTime, ":",".");
+    this.program.time.from = this.timechange.tools_replaceAll(this.startTime, ":", ".");
+    this.program.time.to = this.timechange.tools_replaceAll(this.endTime, ":", ".");
+    this.program.realTime.from = this.timechange.tools_replaceAll(this.startTime, ":", ".");
+    this.program.realTime.to = this.timechange.tools_replaceAll(this.endTime, ":", ".");
     this.program.date.from = moment(this.startDate).format(dateFormat)
     this.program.date.to = moment(this.endDate).format(dateFormat)
-    var datesDiff:any =  Math.round((this.endDate - this.startDate)/(1000*60*60*24));
-    var days:any = [];
+    var datesDiff: any = Math.round((this.endDate - this.startDate) / (1000 * 60 * 60 * 24));
+    var days: any = [];
     let i = 0;
-let loop:any = new Date(this.startDate);
-if(datesDiff==0){
-  days.push(moment(loop).format('dddd'))
- }
-else{
-while (i <= datesDiff) {
-       days.push(moment(loop).format('dddd')) 
- let newDate = loop.setDate(loop.getDate() + 1);
- i++;
- loop = new Date(newDate);
-}
-}
+    let loop: any = new Date(this.startDate);
+    if (datesDiff == 0) {
+      days.push(moment(loop).format('dddd'))
+    }
+    else {
+      while (i <= datesDiff) {
+        days.push(moment(loop).format('dddd'))
+        let newDate = loop.setDate(loop.getDate() + 1);
+        i++;
+        loop = new Date(newDate);
+      }
+    }
 
-for(let i in this.daysValue){
-let dayValue = this.daysValue[i]
-switch (dayValue){
-  case 'sunday':
-    this.days.sunday=true;
-    break;
-    case 'monday':
-      this.days.monday=true
-      break;
-      case 'tuesday':
-        this.days.tuesday=true
-        break;
-        case 'wednesday':
-          this.days.wednesday=true
+    for (let i in this.daysValue) {
+      let dayValue = this.daysValue[i]
+      switch (dayValue) {
+        case 'sunday':
+          this.days.sunday = true;
           break;
-          case 'thursday':
-            this.days.thursday=true
-            break;
-            case 'friday':
-              this.days.friday=true
-              break;
-              case 'saturday':
-                this.days.saturday=true
-                break;
-}}
-  this.program.days= this.days
-    if(typeof this.program.isFree==='string'){this.program.isFree=false}
-    if(typeof this.program.isFav==='string'){this.program.isFav=false}
-    if(typeof this.program.adultAssistanceIsRequried==='string'){this.program.adultAssistanceIsRequried=false}
-    if(typeof this.program.isFree==='string'){this.program.isFav=false}
+        case 'monday':
+          this.days.monday = true
+          break;
+        case 'tuesday':
+          this.days.tuesday = true
+          break;
+        case 'wednesday':
+          this.days.wednesday = true
+          break;
+        case 'thursday':
+          this.days.thursday = true
+          break;
+        case 'friday':
+          this.days.friday = true
+          break;
+        case 'saturday':
+          this.days.saturday = true
+          break;
+      }
+    }
+    this.program.days = this.days
+    if (typeof this.program.isFree === 'string') { this.program.isFree = false }
+    if (typeof this.program.isFav === 'string') { this.program.isFav = false }
+    if (typeof this.program.adultAssistanceIsRequried === 'string') { this.program.adultAssistanceIsRequried = false }
+    if (typeof this.program.isFree === 'string') { this.program.isFav = false }
     var response: any;
     // if (this.batchData) {
     //   for (let i = 0; i <= totalBatch; i++) {
@@ -348,14 +353,14 @@ switch (dayValue){
     //   }
     // }
     // this.loader.open();
-   
+
     this.apiservice.updateProgram(this.program._id, this.program).subscribe(res => {
       response = res;
       this.loader.close();
       if (response.isSuccess === true) {
         let msg = "Program Updated successfully";
         this.snack.open(msg, 'OK', { duration: 4000 });
-        this.route.navigate(['tables/program',response.data.user])
+        this.route.navigate(['tables/program', response.data.user])
       } else {
         let msg = "Somthing went wrong";
         this.snack.open(msg, 'ERROR', { duration: 4000 });
@@ -364,89 +369,91 @@ switch (dayValue){
     });
   }
 
-  getCategories(){
+  getCategories() {
     this.apiservice.getCategory().subscribe(res => {
       this.categoriesList = res;
     })
   }
-  
-  changeItem(event){
-    this.program.categoryId=event
+
+  changeItem(event) {
+    this.program.categoryId = event
   }
-  
-  changetags(event){
-    this.tags=event
+
+  changetags(event) {
+    this.tags = event
   }
- 
+
   getQuantity(event) {
-    this.numbers= []
-     this.title = ''
+    this.numbers = []
+    this.title = ''
     let n
-    if(event==='Month'){
-      n=12
-      this.title= 'SELECT NUMBER OF MONTHS'
+    if (event === 'Month') {
+      n = 12
+      this.title = 'SELECT NUMBER OF MONTHS'
     }
-    else if(event==='Hour'){
-      n=24
-      this.title= 'SELECT NUMBER OF HOURS'
+    else if (event === 'Hour') {
+      n = 24
+      this.title = 'SELECT NUMBER OF HOURS'
     }
-    else if(event==='Day'){
-      n=31
-      this.title= 'SELECT NUMBER OF DAYS'
+    else if (event === 'Day') {
+      n = 31
+      this.title = 'SELECT NUMBER OF DAYS'
     }
-    else if(event==='Week'){
-      n=52
-      this.title= 'SELECT NUMBER OF weeks'
-    }else{
-      n=50
-      this.title ='SELECT LIMIT'
+    else if (event === 'Week') {
+      n = 52
+      this.title = 'SELECT NUMBER OF weeks'
+    } else {
+      n = 50
+      this.title = 'SELECT LIMIT'
     }
     for (let i = 1; i <= n; i++) {
       this.numbers.push(i)
     }
   }
-  
+
   submit() {
     this.updateProgram();
   }
   getProgramById() {
     this.changeItem(this.program.category)
     this.apiservice.getProgramById(this.program._id).subscribe(res => {
+      console.log(res)
       this.program = res;
-      let daysValue:any= []
+      let daysValue: any = []
       daysValue = Object.keys(this.program.days);
-   this.daysValue = daysValue.filter((key)=> {
+      this.daysValue = daysValue.filter((key) => {
         return this.program.days[key]
-    })
-      this.ageGroup.from=this.program.ageGroup.from 
-      this.ageGroup.to=this.program.ageGroup.to 
-      this.capacity.minCapacity=this.program.capacity.min 
-      this.capacity.maxCapacity=this.program.capacity.max 
-      this.tag =this.program.subCategoryIds
-      this.perTimePeriod =this.program.pricePeriod.periodAmount;
-      this.timePeriodDuration=this.program.pricePeriod.periodCount
-      if(this.program.date.from==null || this.program.date.from==undefined || this.program.date.from==''){
-      this.startDate=new Date();
-      this.endDate=new Date();
-      }else{
+      })
+      this.ageGroup.from = this.program.ageGroup.from
+      this.ageGroup.to = this.program.ageGroup.to
+      this.capacity.minCapacity = this.program.capacity.min
+      this.capacity.maxCapacity = this.program.capacity.max
+      this.tag = this.program.subCategoryIds
+      this.perTimePeriod = this.program.pricePeriod.periodAmount;
+      this.timePeriodDuration = this.program.pricePeriod.periodCount
+      if (this.program.date.from == null || this.program.date.from == undefined || this.program.date.from == '') {
+        this.startDate = new Date();
+        this.endDate = new Date();
+      } else {
         this.startDate = this.program.date.from;
         this.endDate = this.program.date.to;
       }
-      let timestart =this.program.time.from ; 
+      let timestart = this.program.time.from;
       let timeend = this.program.time.to;
-      this.startTime = this.timechange.tools_replaceAll(timestart.toFixed(2), ".",":"); 
-      this.endTime = this.timechange.tools_replaceAll(timeend.toFixed(2), ".",":"); 
-      this.durationTime.hours= this.program.duration.hours;
-      this.durationTime.minutes= this.program.duration.minutes;  
+      this.startTime = this.timechange.tools_replaceAll(timestart.toFixed(2), ".", ":");
+      this.endTime = this.timechange.tools_replaceAll(timeend.toFixed(2), ".", ":");
+      this.durationTime.hours = this.program.duration.hours;
+      this.durationTime.minutes = this.program.duration.minutes;
       // this.startTime.getHours() + ':' + this.endTime.getMinutes()
-      if(this.program.category.length){
-      for(let category of this.program.category){
-        this.catId.push(category._id)
-        this.program.categoryId=this.catId
-   }} else
-   {this.catId.push(this.program.category._id)
-     this.program.categoryId=this.catId
-    }
+      if (this.program.category.length) {
+        for (let category of this.program.category) {
+          this.catId.push(category._id)
+          this.program.categoryId = this.catId
+        }
+      } else {
+        this.catId.push(this.program.category._id)
+        this.program.categoryId = this.catId
+      }
     })
   }
 

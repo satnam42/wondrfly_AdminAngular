@@ -1,7 +1,7 @@
 import { COMMA, ENTER, SEMICOLON, SPACE, TAB } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {MatChipInputEvent, MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material';
+import { MatChipInputEvent, MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Userr } from 'app/shared/models/user.model';
@@ -24,14 +24,14 @@ export class AddFormComponent implements OnInit {
   options: string[] = ['One', 'Two', 'Three'];
   filteredOptions!: Observable<string[]>;
 
-  addUserForm:FormGroup;
+  addUserForm: FormGroup;
   user = new Userr;
   tag: any = [];
   keyword = 'name';
   FormData: any;
   submitted: boolean;
   usersData: any = {};
-  formData={};
+  formData = {};
   responseData: any;
   res: any[];
   providerResponse: any;
@@ -43,22 +43,22 @@ export class AddFormComponent implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   tags: [];
-  categoryIds:[]
+  categoryIds: []
   categoriesList: any;
   subCategories: any;
   selectable = true;
   removable = true;
   addOnBlur = true;
-  readonly separatorKeysCodes = [ENTER,COMMA,SPACE,TAB,SEMICOLON] as const;
-  sourceUrls=[];
+  readonly separatorKeysCodes = [ENTER, COMMA, SPACE, TAB, SEMICOLON] as const;
+  sourceUrls = [];
   locationData: any = {
     address: '',
     lat: '',
     lng: ''
   };
-  source:any=['Combined','Facebook','Linkedin','Library','Recreation','Instagram','Google','Indeed','Craiglist'];
+  source: any = ['Combined', 'Facebook', 'Linkedin', 'Library', 'Recreation', 'Instagram', 'Google', 'Indeed', 'Craiglist'];
 
- 
+
   // dataSource: any = [];
   // isTable: Boolean = false;
   // localdata: any;
@@ -68,7 +68,7 @@ export class AddFormComponent implements OnInit {
   constructor(
     private apiservice: ApiService,
     public dialog: MatDialog,
-    private dataservice :DataService,
+    private dataservice: DataService,
     private loader: AppLoaderService,
     private snack: MatSnackBar,
     private route: Router,
@@ -88,7 +88,7 @@ export class AddFormComponent implements OnInit {
         initial[name] = XLSX.utils.sheet_to_json(sheet);
         return initial;
       }, {});
-    
+
       // for(let user of json)
       // const dataString = JSON.stringify(jsonData);
       // document.getElementById('output').innerHTML = dataString.slice(0, 300).concat("...");
@@ -98,7 +98,7 @@ export class AddFormComponent implements OnInit {
 
   ngOnInit() {
     this.getCategories()
-       this.filteredOptions = this.myControl.valueChanges.pipe(
+    this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
     );
@@ -130,7 +130,6 @@ export class AddFormComponent implements OnInit {
       location: new FormControl('',),
       source: new FormControl([],),
       sourceLinks: new FormControl([],),
-
       state: new FormControl('',),
       note: new FormControl('',),
       subCategoryIds: new FormControl('',),
@@ -144,7 +143,11 @@ export class AddFormComponent implements OnInit {
       yelpRating: new FormControl('',),
       numberOfYelp: new FormControl('',),
       instagramFollowers: new FormControl('',),
-  });
+      proof_reader_notes: new FormControl('',),
+      cancellation_and_refund: new FormControl('',),
+      cycle_time: new FormControl(Number),
+      last_reviewed: new FormControl(Date,),
+    });
   }
 
   getErrorMessage() {
@@ -165,14 +168,14 @@ export class AddFormComponent implements OnInit {
   }
 
 
-  getCategories(){
+  getCategories() {
     this.apiservice.getCategory().subscribe(res => {
       this.categoriesList = res;
     })
   }
-  
-  changeItem(event){
-    this.categoryIds=event
+
+  changeItem(event) {
+    this.categoryIds = event
   }
 
 
@@ -180,11 +183,11 @@ export class AddFormComponent implements OnInit {
     const index = this.tag.indexOf(t);
     if (index >= 0) {
       this.tag.splice(index, 1);
-    } 
+    }
   }
 
- 
-// ----------------------------------------------sub category---------------------------------------------------------
+
+  // ----------------------------------------------sub category---------------------------------------------------------
   selectEvent(item) {
     const index: number = this.tag.indexOf(item);
     if (this.tag.indexOf(item) === -1) {
@@ -205,7 +208,7 @@ export class AddFormComponent implements OnInit {
     // And reassign the 'data' which is binded to 'data' property.
   }
 
- 
+
   // ----------------------------------------map location--------------------------------------------------
   openMap() {
     let dialogRef: MatDialogRef<any> = this.dialog.open(ProgramLocationComponent, {
@@ -246,10 +249,11 @@ export class AddFormComponent implements OnInit {
   addProvider() {
     this.user.password = "123456";
     this.user.role = "provider";
-    this.user.subCategoryIds= this.tag
-    this.user.categoryIds= this.categoryIds
+    this.user.subCategoryIds = this.tag
+    this.user.categoryIds = this.categoryIds
     this.user.sourceUrl = this.sourceUrls;
     this.loader.open();
+    console.log(this.user)
     this.apiservice.addProvider(this.user).subscribe((res) => {
       console.log(res)
       this.providerResponse = res;
@@ -261,30 +265,30 @@ export class AddFormComponent implements OnInit {
         if (this.providerResponse.isSuccess === false && this.providerResponse.error === 'Email already resgister') {
           let msg = 'Email already registered!';
           this.snack.open(msg, 'OK', { duration: 7000 });
-        }else 
-        if (this.providerResponse.isSuccess === false && this.providerResponse.error === 'userName already resgister') {
-          let msg = 'UserId is already registered!';
-          this.snack.open(msg, 'OK', { duration: 7000 });
-        }
-        else {
-          let msg = 'Something Went Wrong!';
-          this.snack.open(msg, 'OK', { duration: 7000 });
-        }
+        } else
+          if (this.providerResponse.isSuccess === false && this.providerResponse.error === 'userName already resgister') {
+            let msg = 'UserId is already registered!';
+            this.snack.open(msg, 'OK', { duration: 7000 });
+          }
+          else {
+            let msg = 'Something Went Wrong!';
+            this.snack.open(msg, 'OK', { duration: 7000 });
+          }
       }
     });
 
   }
   onSubmit() {
     this.submitted = true;
-    return this.addProvider();  
+    return this.addProvider();
   }
   removeSourceUrl(sourceUrl) {
-  const index = this.sourceUrls.indexOf(sourceUrl);
+    const index = this.sourceUrls.indexOf(sourceUrl);
 
-  if (index >= 0) {
-    this.sourceUrls.splice(index, 1);
-  } 
-}
+    if (index >= 0) {
+      this.sourceUrls.splice(index, 1);
+    }
+  }
   addSourceUrl(event: MatChipInputEvent) {
     const value = (event.value || '').trim();
     if (value) {
@@ -298,13 +302,13 @@ export class AddFormComponent implements OnInit {
   pasteSourceUrl(event: ClipboardEvent): void {
     event.preventDefault();
     event.clipboardData
-    .getData('Text')
-    .split(/;|,|\n/)
-    .forEach(value => {
-    if(value.trim()){
-    this.sourceUrls.push(value.trim());
-    }
-    })
-    }
+      .getData('Text')
+      .split(/;|,|\n/)
+      .forEach(value => {
+        if (value.trim()) {
+          this.sourceUrls.push(value.trim());
+        }
+      })
+  }
 
 }

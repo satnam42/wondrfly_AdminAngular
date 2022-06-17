@@ -1,20 +1,20 @@
 
 export class Userr {
-    expiredIn:any={}
-    time:any;
-    acceptance:boolean;
-    date:string;
-    approvalDate:string;
-    name:string;
+    expiredIn: any = {}
+    time: any;
+    acceptance: boolean;
+    date: string;
+    approvalDate: string;
+    name: string;
     id: string;
     _id: string;
-    banners:any= [];
+    banners: any = [];
     isActivated: boolean;
     isSuccess: boolean;
     userId: string;
     age: string;
     firstName: string;
-    userName:string;
+    userName: string;
     lastName: string;
     addressLine1: string;
     addressLine2: string;
@@ -58,40 +58,44 @@ export class Userr {
     ssn: string;
     deviceToken: string;
     location: string;
-    source:any = [];
-    sourceUrl:any = [];
+    source: any = [];
+    sourceUrl: any = [];
     state: string;
     note: string;
     tier: string;
     fullAddress: string;
     isAmbassador: boolean;
     isPublished: boolean;
-    alias : string;
+    alias: string;
     categoryIds = [];
-    cycle:string;
-    subCategoryIds:any =[];
+    cycle: string;
+    subCategoryIds: any = [];
     activeStatus: string;
-    rating: any ={};
-    linkedin:string
-    bio:string
-    links:any=[]
-    tagsId:any=[]
-    interests:any=[]
-    healthAndSafety:any = []
-    logo:string
-    street:string
-    secondaryPhonenumber:string
-    categories:any=[]
-    isInvited:any
-    inviter:string;
-    ipAddress:string;
-    bookedActivityFor:string;
-    occupation:string;
-    lookingkidsActivityIn:string;
-    willActive:string;
-    wantWondrflyBetaUserBecause:string;
-    bookedActivityInLastMonths:string;
-    approvedBy:any={}
+    rating: any = {};
+    linkedin: string
+    bio: string
+    links: any = []
+    tagsId: any = []
+    interests: any = []
+    healthAndSafety: any = []
+    logo: string
+    street: string
+    secondaryPhonenumber: string
+    categories: any = []
+    isInvited: any
+    inviter: string;
+    ipAddress: string;
+    bookedActivityFor: string;
+    occupation: string;
+    lookingkidsActivityIn: string;
+    willActive: string;
+    wantWondrflyBetaUserBecause: string;
+    bookedActivityInLastMonths: string;
+    approvedBy: any = {};
+    cancellation_and_refund: string;
+    cycle_time: number;
+    last_reviewed = new Date();
+    proof_reader_notes: string;
 
     constructor(obj?: any) {
         if (!obj) {
@@ -156,12 +160,12 @@ export class Userr {
         this.alias = obj.alias
         this.categoryIds = obj.categoryIds
         this.cycle = obj.cycle
-        this.subCategoryIds= obj.subCategoryIds
+        this.subCategoryIds = obj.subCategoryIds
         this.activeStatus = obj.activeStatus
         this.age = obj.age
         this.rating = obj.rating
         this.linkedin = obj.linkedin
-        this.bio =obj.bio
+        this.bio = obj.bio
         this.links = obj.links
         this.tagsId = obj.tagsId
         this.interests = obj.interests

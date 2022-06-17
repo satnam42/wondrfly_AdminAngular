@@ -30,27 +30,21 @@
           <mat-form-field class="full-width">
             <mat-label>PROGRAM TYPE</mat-label>
             <mat-select [formControl]="firstFormGroup.controls['type']" [(ngModel)]="program.type" required>
-
-              <mat-option selected value="Drops-in">Drops-in</mat-option>
+              <mat-option selected value="Drops-in">Drop-ins</mat-option>
               <mat-option value="Camps">Camps</mat-option>
               <mat-option value="Semesters">Semesters</mat-option>
-              <!-- <mat-option value="Ondemand">Ondemand</mat-option> -->
               <mat-option value="Other">Other</mat-option>
-
-
             </mat-select>
           </mat-form-field>
         </div>
         <br>
+
         <div class="pl-3 pr-3">
           <mat-form-field class="full-width">
             <mat-label>SELECT CATEGORY</mat-label>
             <mat-select [formControl]="firstFormGroup.controls['categoryId']" #itemValue
               (selectionChange)="changeItem($event.value)" [(ngModel)]="program.categoryId" required multiple>
-
               <mat-option selected *ngFor='let item of categoriesList' [value]="item.id">{{item.name}}</mat-option>
-
-
             </mat-select>
           </mat-form-field>
         </div>
@@ -73,17 +67,16 @@
               (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
               [notFoundTemplate]="notFoundTemplate">
             </ng-autocomplete>
-
             <ng-template #itemTemplate let-item>
               <a [innerHTML]="item.name"></a>
             </ng-template>
-
             <ng-template #notFoundTemplate let-notFound>
               <div *ngIf="tags?.tags?.length" [innerHTML]="notFound"></div>
             </ng-template>
           </div>
         </div>
         <br />
+
         <div class="pl-3 pr-3">
           <mat-form-field class="full-width">
             <mat-chip-list>
@@ -101,7 +94,6 @@
             <mat-label>INPERSON OR VIRTUAL ?</mat-label>
             <mat-select [formControl]="firstFormGroup.controls['inpersonOrVirtual']"
               [(ngModel)]="program.inpersonOrVirtual" required>
-
               <mat-option selected value="Inperson">Inperson</mat-option>
               <mat-option value="Virtual">Virtual</mat-option>
             </mat-select>
@@ -113,7 +105,6 @@
             <mat-label>INDOOR OR OUTDOOR ?</mat-label>
             <mat-select [formControl]="firstFormGroup.controls['indoorOroutdoor']" [(ngModel)]="program.indoorOroutdoor"
               required>
-
               <mat-option selected value="Indoor">Indoor</mat-option>
               <mat-option value="Outdoor">Outdoor</mat-option>
               <mat-option value="Both">Both</mat-option>
@@ -128,10 +119,8 @@
               [formControl]="firstFormGroup.controls['description']" [(ngModel)]="program.description"
               required></textarea>
             <mat-hint align="end">{{Description.value?.length  || 0}} / 3000</mat-hint>
-
           </mat-form-field>
         </div>
-
         <br />
 
         <div class="pl-3 pr-3">
@@ -166,15 +155,11 @@
         <div class="pl-3 pr-3">
           <div class="full-width">
             <mat-label style="color: rgb(118, 118, 118);">AGE GROUP</mat-label>
-            <!-- <mat-slider thumbLabel="true" min="1" max="5" step="1" value="3"></mat-slider>
-            <textarea matInput hidden></textarea> -->
             <ng5-slider [(value)]="minAge" [(highValue)]="maxAge" [options]="ageOption">
             </ng5-slider>
           </div>
         </div>
-
         <br />
-
 
         <div class="pl-3 pr-3">
           <div>
@@ -182,12 +167,11 @@
             </mat-label>
             &nbsp;&nbsp;<mat-slide-toggle [formControl]="firstFormGroup.controls['isDateNotMention']"
               [(ngModel)]="program.isDateNotMention"><span class="text-invisible"></span></mat-slide-toggle>
-
           </div>
         </div>
         <br />
-        <div *ngIf="!program.isDateNotMention">
 
+        <div *ngIf="!program.isDateNotMention">
           <div class="pl-3 pr-3">
             <mat-form-field class="full-width">
               <mat-label>START DATE</mat-label>
@@ -196,7 +180,6 @@
               <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
             </mat-form-field>
           </div>
-
           <br />
 
           <div class="pl-3 pr-3">
@@ -232,21 +215,18 @@
             </mat-label>
             &nbsp;&nbsp;<mat-slide-toggle [formControl]="firstFormGroup.controls['isTimeNotMention']"
               [(ngModel)]="program.isTimeNotMention"><span class="text-invisible"></span></mat-slide-toggle>
-
           </div>
         </div>
         <br />
-        <div *ngIf="!program.isTimeNotMention">
 
+        <div *ngIf="!program.isTimeNotMention">
           <div class="pl-3 pr-3">
             <mat-form-field class="full-width">
               <mat-label>START TIME</mat-label>
               <input matInput name="startTime" type='time' [formControl]="firstFormGroup.controls['startTime']"
                 [(ngModel)]="startTime" placeholder="Start Time">
-              <!-- <owl-date-time [pickerType]="'timer'" #dt3></owl-date-time> -->
             </mat-form-field>
           </div>
-
           <br />
 
           <div class="pl-3 pr-3">
@@ -254,12 +234,21 @@
               <mat-label>END TIME</mat-label>
               <input matInput name="endTime" type='time' [formControl]="firstFormGroup.controls['endTime']"
                 [(ngModel)]="endTime" placeholder="End Time">
-              <!-- <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time> -->
             </mat-form-field>
           </div>
         </div>
         <br />
 
+        <div class="pl-3 pr-3">
+          <mat-form-field class="full-width">
+            <mat-label>PROOFREADER NOTE</mat-label>
+            <textarea matInput #proof_reader_notes maxlength="3000" placeholder="Type"
+              [formControl]="firstFormGroup.controls['proof_reader_notes']"
+              [(ngModel)]="program.proof_reader_notes"></textarea>
+            <mat-hint align="end">{{proof_reader_notes.value?.length  || 0}} / 3000</mat-hint>
+          </mat-form-field>
+        </div>
+        <br />
 
         <div class="pl-3 pr-3">
           <div>
@@ -267,44 +256,28 @@
             </mat-label>
             &nbsp; &nbsp;&nbsp; <mat-slide-toggle [formControl]="firstFormGroup.controls['isproRated']"
               [(ngModel)]="program.isproRated"><span class="text-invisible"></span></mat-slide-toggle>
-
           </div>
         </div>
-        <br>
-        <!-- <div>
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
-          </div> -->
+        <br><br>
       </form>
     </div>
 
-
     <div fxFlex="100" fxFlex.gt-xs="50" class="pr-2">
-      <!-- </mat-step> -->
-
-      <!-- <mat-step [stepControl]="secondFormGroup"> -->
       <form [formGroup]="secondFormGroup">
-        <!-- <ng-template matStepLabel>Add Program: Basic Details</ng-template> -->
-
         <!-- <mat-form-field class=" pl-3 pr-3">
-
             <input matInput type="file" formControlName="imageUpload" (change)="onFileChanged($event)" />
           </mat-form-field>
-
           <br /> -->
-
-
-
         <div class="pl-3 pr-3">
           <div>
             <mat-label style="font-size: 0.875rem !important; color:rgb(118, 118, 118);">IS IT A FREE PROGRAM ?
             </mat-label>
             &nbsp; &nbsp;&nbsp; <mat-slide-toggle [formControl]="secondFormGroup.controls['isFree']"
               [(ngModel)]="program.isFree"><span class="text-invisible"></span></mat-slide-toggle>
-
           </div>
         </div>
 
-        <br /><br><br>
+        <br /><br>
         <div *ngIf="!program.isFree">
           <div class="pl-3 pr-3">
             <mat-form-field class="full-width">
@@ -338,7 +311,7 @@
             </mat-form-field>
           </div><br>
 
-          <div class="pl-3 pr-3">
+          <div class="pl-3 pr-3" *ngIf="perTimePeriod">
             <mat-form-field class="full-width">
               <mat-label>{{title}}</mat-label>
               <mat-select [formControl]="secondFormGroup.controls['timePeriodDuration']"
@@ -347,42 +320,44 @@
               </mat-select>
             </mat-form-field>
           </div>
-
-
           <br>
 
           <div class="pl-3 pr-3">
             <mat-form-field class="full-width">
               <mat-label>PRICE FOR SIBLINGS</mat-label>
-              <input matInput type='number' name="pricee" placeholder="Type" [(ngModel)]="program.priceForSiblings"
-                [formControl]="secondFormGroup.controls['priceForSiblings']">
+              <input matInput type='number' name="priceForSiblings" placeholder="Type"
+                [(ngModel)]="program.priceForSiblings" [formControl]="secondFormGroup.controls['priceForSiblings']">
               <span matPrefix>$&nbsp;</span>
-
             </mat-form-field>
           </div>
         </div>
         <br />
 
-
-
         <div class="pl-3 pr-3">
+          <mat-form-field class="full-width">
+            <mat-label>PER HOUR RATE</mat-label>
+            <input matInput type='text' name="per_hour_rate" placeholder="Type" [(ngModel)]="program.per_hour_rate"
+              [formControl]="secondFormGroup.controls['per_hour_rate']">
+            <span matPrefix>$&nbsp;</span>
+          </mat-form-field>
+        </div>
+        <br />
+
+        <!-- <div class="pl-3 pr-3">
           <mat-form-field class="hours">
             <input matInput name="duration" min="0" type="number"
               oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
               maxlength="2" [formControl]="secondFormGroup.controls['duration']" [(ngModel)]="durationTime.hours"
               placeholder="Hours">
           </mat-form-field>
-
-
           <span class="dot">:</span>
-
           <mat-form-field class="minutes">
             <input matInput name="duration" min="0" type="number"
               oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
               maxlength="2" [formControl]="secondFormGroup.controls['duration']" [(ngModel)]="durationTime.minutes"
               placeholder="Minutes">
           </mat-form-field>
-        </div><br>
+        </div><br> -->
 
         <div class="pl-3 pr-3">
           <mat-form-field class="full-width">
@@ -448,12 +423,8 @@
             </mat-label>
             <mat-slide-toggle [formControl]="secondFormGroup.controls['adultAssistanceIsRequried']"
               [(ngModel)]="program.adultAssistanceIsRequried"><span class="text-invisible"></span></mat-slide-toggle>
-
           </div>
         </div>
-
-
-
         <br />
 
         <div class="pl-3 pr-3">
@@ -465,8 +436,6 @@
             </ng5-slider>
           </div>
         </div>
-
-
         <br />
 
         <div class="pl-3 pr-3">
@@ -511,9 +480,22 @@
 
         <div class="pl-3 pr-3">
           <mat-form-field class="full-width">
-            <mat-label>CYCLE</mat-label>
-            <input matInput placeholder="days" [formControl]="secondFormGroup.controls['cycle']"
-              [(ngModel)]="program.cycle">
+            <mat-label>CYCLE TIME</mat-label>
+            <input matInput type="number" placeholder="cycle time"
+              [formControl]="secondFormGroup.controls['cycle_time']" [(ngModel)]="program.cycle_time">
+          </mat-form-field>
+        </div>
+        <br>
+
+        <div class="pl-3 pr-3">
+          <mat-form-field class="full-width">
+            <mat-label>LAST REVIEWED</mat-label>
+            <input matInput [matDatepicker]="pickerCycle" [formControl]="secondFormGroup.controls['last_reviewed']"
+              [(ngModel)]="program.last_reviewed">
+            <mat-datepicker-toggle matSuffix [for]="pickerCycle">
+              <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #pickerCycle></mat-datepicker>
           </mat-form-field>
         </div>
         <br>

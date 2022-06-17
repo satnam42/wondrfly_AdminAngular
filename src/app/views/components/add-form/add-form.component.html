@@ -125,6 +125,18 @@
             [formControl]="addUserForm.controls['numberOfGoogle']" type=number [(ngModel)]="user.rating.numberOfGoogle">
         </mat-form-field>
 
+        <mat-form-field appearance="fill">
+          <mat-label>Cancellation & Refund</mat-label>
+          <textarea matInput name="cancellation_and_refund"
+            [formControl]="addUserForm.controls['cancellation_and_refund']"
+            [(ngModel)]="user.cancellation_and_refund"></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Proof Reader Note</mat-label>
+          <textarea matInput name="proof_reader_notes" [formControl]="addUserForm.controls['proof_reader_notes']"
+            [(ngModel)]="user.proof_reader_notes"></textarea>
+        </mat-form-field>
+
         <mat-form-field appearance="fill" class="full-width">
           <mat-label>Links</mat-label>
           <mat-chip-list #chipList>
@@ -200,9 +212,19 @@
         </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="outline">
-          <mat-label>Cycle</mat-label>
-          <input matInput name="cycle" placeholder="Cycle" [formControl]="addUserForm.controls['cycle']"
-            [(ngModel)]="user.cycle">
+          <mat-label>Cycle Time</mat-label>
+          <input matInput name="cycle" type="number" placeholder="Cycle" [formControl]="addUserForm.controls['cycle']"
+            [(ngModel)]="user.cycle_time">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Last Reviewed</mat-label>
+          <input matInput [matDatepicker]="pickerCycle" [formControl]="addUserForm.controls['last_reviewed']"
+            [(ngModel)]="user.last_reviewed">
+          <mat-datepicker-toggle matSuffix [for]="pickerCycle">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #pickerCycle></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field appearance="fill">

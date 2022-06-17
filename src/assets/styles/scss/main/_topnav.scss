@@ -80,9 +80,9 @@
 		background: #ffffff;
 		color: rgba(0,0,0,.87);
 		/* has to be the same number as the "line-height" of "nav a" */
-		top: 48px; 
-		transform: translateY(-100px);
-		transition: all 0.3s ease-in-out;
+		top: 47px; 
+		// transform: translateY(-10px);
+		transition: all 0.5s ease-in-out;
 		z-index: -1;
 	}
 

@@ -252,8 +252,9 @@ export class WizardComponent implements OnInit {
       endTime: new FormControl(['',]),
       isDateNotMention: new FormControl(false),
       isTimeNotMention: new FormControl(false),
-      isproRated: new FormControl(false),
       dayss: new FormControl(['',]),
+      isproRated: new FormControl(false),
+      proof_reader_notes: new FormControl(['',]),
 
     });
     this.secondFormGroup = new FormGroup({
@@ -261,6 +262,7 @@ export class WizardComponent implements OnInit {
       days: new FormControl(['',]),
       pricePerParticipant: new FormControl(['',]),
       priceForSiblings: new FormControl(['',]),
+      per_hour_rate: new FormControl(['',]),
       perTimePeriod: new FormControl(['',]),
       timePeriodDuration: new FormControl(['',]),
       extractionDate: new FormControl(['',]),
@@ -275,6 +277,8 @@ export class WizardComponent implements OnInit {
       sourceUrl: new FormControl(['',]),
       cycle: new FormControl(['']),
       activeStatus: new FormControl(['']),
+      last_reviewed: new FormControl(['']),
+      cycle_time: new FormControl(['']),
     });
 
 
@@ -369,7 +373,6 @@ export class WizardComponent implements OnInit {
           break;
       }
     }
-
     const dateFormat = "YYYY-MM-DD";
     this.program.duration = this.durationTime
     this.program.pricePeriod.periodAmount = this.perTimePeriod
@@ -389,7 +392,6 @@ export class WizardComponent implements OnInit {
     this.program.date.to = moment(this.endDate).format(dateFormat)
     this.program.extractionDate = moment(this.extractionDate).format(dateFormat)
     this.program.subCategoryIds = this.tag;
-
     var datesDiff: any = Math.round((this.endDate - this.startDate) / (1000 * 60 * 60 * 24));
     var days: any = [];
     let i = 0;
@@ -405,7 +407,6 @@ export class WizardComponent implements OnInit {
         loop = new Date(newDate);
       }
     }
-
     this.program.days = this.days
     if (this.sessions.length > 0) {
       this.program.sessions = this.sessions;
@@ -421,8 +422,9 @@ export class WizardComponent implements OnInit {
       this.snack.open(msg, 'ERROR', { duration: 4000 });
     } else {
       this.loader.open();
-
+      console.log(this.program, 'before')
       this.apiservice.addProgram(this.program).subscribe((res: any) => {
+        console.log(res, 'after')
         this.loader.close();
         if (res.isSuccess === true) {
           this.snack.open('Program Added successfully', 'OK', { duration: 5000 });
@@ -431,7 +433,6 @@ export class WizardComponent implements OnInit {
       });
     }
     this.loader.close();
-
   }
 
   submit() {

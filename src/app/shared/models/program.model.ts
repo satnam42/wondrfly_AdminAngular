@@ -63,6 +63,11 @@ export class Program {
         to: 0
     }
     isExpired: boolean = false;
+    per_hour_rate: any;
+    last_reviewed = new Date();
+    cycle_time: number;
+    proof_reader_notes: string;
+
     constructor(obj?: any) {
 
         if (!obj) {
