@@ -115,11 +115,10 @@ export class UsersComponent implements OnInit {
   }
 
   activateDeactivate(data, user) {
-    this.apiservice.userActiveInActive(user.id, data.checked).subscribe((res: any) => {
+    let id = user.id ? user.id : user._id;
+    this.apiservice.userActiveInActive(id, data.checked).subscribe((res: any) => {
       if (res.isSuccess) {
         this.snack.open('User status changed', 'OK', { duration: 4000 });
-        // this.snack.open('Program published', 'OK', { duration: 4000 });
-        // this.rows[indx].isPublished = booleanValue
       } else { this.snack.open('Somthing went wrong', 'OK', { duration: 4000 }); }
     });
   }

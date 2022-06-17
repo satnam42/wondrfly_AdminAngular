@@ -629,3 +629,9 @@ background-color: rgb(231, 149, 149);
     overflow: hidden;
 }
 /* end add activity form popup css */
+
+/* mat checkbox blue color */
+.egret-navy .mat-pseudo-checkbox-checked, .egret-navy .mat-pseudo-checkbox-indeterminate, .egret-navy .mat-accent .mat-pseudo-checkbox-checked, .egret-navy .mat-accent .mat-pseudo-checkbox-indeterminate {
+    background: #53B2E8;
+}
+/* end mat checkbox blue color */

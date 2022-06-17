@@ -16,24 +16,24 @@ export class Program {
     date: any = {}
     ageGroup: any = {};
     bookingCancelledIn: any = {};
-    duration:any = {};
-    isFree: boolean;
-    isproRated:boolean;
+    duration: any = {};
+    isFree: boolean = false;
+    isproRated: boolean = false;
     isPublished: boolean;
-    isDateNotMention:boolean;
-    isTimeNotMention:boolean;
+    isDateNotMention: boolean = false;
+    isTimeNotMention: boolean = false;
     pricePerParticipant: string;
     priceForSiblings: string;
     specialInstructions: string;
-    adultAssistanceIsRequried: boolean;
+    adultAssistanceIsRequried: boolean = false;
     capacity: any = {};
-    emails= [];
+    emails = [];
     sessions: any[];
     status: string;
     programCoverPic: string;
     userId: string;
     addresses: [];
-    categoryId:any=[];
+    categoryId: any = [];
     tags: any = [];
     days: any = [];
     timelinePics: any[];
@@ -43,26 +43,26 @@ export class Program {
     lat: string;
     lng: string;
     categoryIds: [];
-    programImage:any;
+    programImage: any;
     indoorOroutdoor: string;
     subCategoryIds: [];
     source: [];
-    sourceUrl : [];
-    cycle : string
+    sourceUrl: [];
+    cycle: string
     activeStatus: string;
     city: string;
-    category:any=[];
+    category: any = [];
     alias: string;
-    perTimePeriod:string
-    pricePeriod: any= {}
+    perTimePeriod: string
+    pricePeriod: any = {}
     inpersonOrVirtual: string;
     extractionDate: Date;
     proofreaderRating: string;
-    realTime:any= {
-        from:0,
-        to:0
-    }   
-    isExpired: boolean; 
+    realTime: any = {
+        from: 0,
+        to: 0
+    }
+    isExpired: boolean = false;
     constructor(obj?: any) {
 
         if (!obj) {
@@ -89,8 +89,8 @@ export class Program {
         this.bookingCancelledIn = obj.bookingCancelledIn;
         this.duration = obj.duration;
         this.isFree = obj.isFree;
-        this.isDateNotMention= obj.isDateNotMention;
-        this.isTimeNotMention= obj.isTimeNotMention;
+        this.isDateNotMention = obj.isDateNotMention;
+        this.isTimeNotMention = obj.isTimeNotMention;
         this.pricePerParticipant = obj.pricePerParticipant;
         this.priceForSiblings = obj.priceForSiblings;
         this.specialInstructions = obj.specialInstructions;
@@ -115,10 +115,10 @@ export class Program {
         this.activeStatus = obj.activeStatus
         this.city = obj.city
         this.alias = obj.alias
-        this.perTimePeriod =obj.perTimePeriod
-        this.pricePeriod= obj.pricePeriod
+        this.perTimePeriod = obj.perTimePeriod
+        this.pricePeriod = obj.pricePeriod
         this.inpersonOrVirtual = obj.inpersonOrVirtual
-        this.extractionDate=obj.extractionDate
+        this.extractionDate = obj.extractionDate
         this.proofreaderRating = obj.proofreaderRating
         this.days = obj.days
     }

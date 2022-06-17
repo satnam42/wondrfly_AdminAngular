@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Observable } from 'rxjs';
-import {  MatSliderChange, MatDialogRef, MatDialog, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
+import { MatDialogRef, MatDialog, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
 import { FileUploader } from 'ng2-file-upload';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Userr } from 'app/shared/models/user.model';
@@ -26,8 +26,8 @@ export class WizardComponent implements OnInit {
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
   fourthFormGroup: FormGroup;
-  startDate:any = new Date;
-  endDate:any = new Date;
+  startDate: any = new Date;
+  endDate: any = new Date;
   startTime: number;
   endTime: number;
   extractionDate = new Date;
@@ -36,13 +36,13 @@ export class WizardComponent implements OnInit {
   msg: string;
   imagePath;
   imgURL: any;
-  duration:any;
+  duration: any;
   bookingCancelledIn = {
     days: "",
     hours: ""
   };
 
-  durationTime: any= {
+  durationTime: any = {
     hours: 0,
     minutes: 0
   }
@@ -57,7 +57,7 @@ export class WizardComponent implements OnInit {
     periodAmount: string,
     periodCount: number
   }
-  timePeriodDuration:number
+  timePeriodDuration: number
   perTimePeriod: string
 
   time = {
@@ -69,7 +69,7 @@ export class WizardComponent implements OnInit {
     to: new Date(this.endDate)
   };
   user = new Userr;
-  program:any = new Program;
+  program: any = new Program;
   sessions: any = {};
 
   //  ng5slider start age group
@@ -100,15 +100,17 @@ export class WizardComponent implements OnInit {
     }
 
   };
-  daysValue:any = []
-  days:any =
-    {sunday:false,
-    monday:false,
-    tuesday:false,
-    wednesday:false,
-    thursday:false,
-    friday:false,
-    saturday:false,}
+  daysValue: any = []
+  days: any =
+    {
+      sunday: false,
+      monday: false,
+      tuesday: false,
+      wednesday: false,
+      thursday: false,
+      friday: false,
+      saturday: false,
+    }
 
   // ng5slider end
 
@@ -140,9 +142,9 @@ export class WizardComponent implements OnInit {
   autoHide: number = 4000;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
-  categoriesList:any =[];
+  categoriesList: any = [];
   tagByCategory: any[];
-  source:any=['Combined','Facebook','Linkedin','Library','Recreation','Instagram','Google','Indeed','Craiglist'];
+  source: any = ['Combined', 'Facebook', 'Linkedin', 'Library', 'Recreation', 'Instagram', 'Google', 'Indeed', 'Craiglist'];
   constructor(private fb: FormBuilder,
     private apiservice: ApiService,
     private dialog: MatDialog,
@@ -151,7 +153,7 @@ export class WizardComponent implements OnInit {
     private route: Router,
     private dataservice: DataService,
     private snack: MatSnackBar,
-    private timechange:Globals) {
+    private timechange: Globals) {
     this.activatedRoute.params.subscribe(params => {
       this.user._id = params['id'];
     });
@@ -177,7 +179,7 @@ export class WizardComponent implements OnInit {
         // this.loader.open();
       });
   }
- 
+
   onChangeSearch(key: string) {
     this.tags = []
     this.apiservice.searchTag(key).subscribe((res: any) => {
@@ -193,7 +195,7 @@ export class WizardComponent implements OnInit {
     const index = this.tag.indexOf(t);
     if (index >= 0) {
       this.tag.splice(index, 1);
-    }   
+    }
   }
 
 
@@ -233,13 +235,13 @@ export class WizardComponent implements OnInit {
   ngOnInit() {
     this.getCategories()
     this.firstFormGroup = new FormGroup({
-      name: new FormControl(['',]),
-      type: new FormControl(['',]),
-      categoryId: new FormControl(['',]),
+      name: new FormControl(['',], Validators.required),
+      type: new FormControl(['',], Validators.required),
+      categoryId: new FormControl(['', Validators.required]),
       subCategory: new FormControl(['']),
-      inpersonOrVirtual: new FormControl(['',]),
-      indoorOroutdoor: new FormControl(['',]),
-      description: new FormControl(['',]),
+      inpersonOrVirtual: new FormControl(['', Validators.required]),
+      indoorOroutdoor: new FormControl(['', Validators.required]),
+      description: new FormControl(['', Validators.required]),
       specialInstructions: new FormControl(['',]),
       email: new FormControl(['', Validators.email]),
       presenter: new FormControl(['',]),
@@ -249,12 +251,12 @@ export class WizardComponent implements OnInit {
       startTime: new FormControl(['',]),
       endTime: new FormControl(['',]),
       isDateNotMention: new FormControl(false),
-      isTimeNotMention: new FormControl(false), 
+      isTimeNotMention: new FormControl(false),
       isproRated: new FormControl(false),
       dayss: new FormControl(['',]),
-     
+
     });
-    this.secondFormGroup = new FormGroup({ 
+    this.secondFormGroup = new FormGroup({
       isFree: new FormControl(false),
       days: new FormControl(['',]),
       pricePerParticipant: new FormControl(['',]),
@@ -262,28 +264,28 @@ export class WizardComponent implements OnInit {
       perTimePeriod: new FormControl(['',]),
       timePeriodDuration: new FormControl(['',]),
       extractionDate: new FormControl(['',]),
-      duration: new FormControl(['',Validators.required]),
+      duration: new FormControl(['']),
       adultAssistanceIsRequried: new FormControl(false),
-      addresses: new FormControl(['',]),
+      addresses: new FormControl(['', Validators.required]),
       hours: new FormControl(['',]),
       joiningLink: new FormControl(['',]),
-      location: new FormControl(['']),
+      location: new FormControl(['', Validators.required]),
       city: new FormControl(['']),
       source: new FormControl(['',]),
       sourceUrl: new FormControl(['',]),
       cycle: new FormControl(['']),
       activeStatus: new FormControl(['']),
     });
-    
-  
-    
 
 
-      // email: ['',],
-      // special_instruction: ['',],
-      // isAdult_assistance: [true,],
-      // booking_cancle_before: ['',],
-      // address: ['',]
+
+
+
+    // email: ['',],
+    // special_instruction: ['',],
+    // isAdult_assistance: [true,],
+    // booking_cancle_before: ['',],
+    // address: ['',]
 
   }
 
@@ -330,40 +332,43 @@ export class WizardComponent implements OnInit {
   }
 
   addProgram() {
-    if (this.daysValue.length==0){
-      this.days =  {
-        sunday:false,
-        monday:false,
-        tuesday:false,
-        wednesday:false,
-        thursday:false,
-        friday:false,
-        saturday:false,}    }
-    for(let i in this.daysValue){
-    let dayValue = this.daysValue[i]
-    switch (dayValue){
-      case 'sunday':
-        this.days.sunday=true;
-        break;
-        case 'monday':
-          this.days.monday=true
+    if (this.daysValue.length == 0) {
+      this.days = {
+        sunday: false,
+        monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+        saturday: false,
+      }
+    }
+    for (let i in this.daysValue) {
+      let dayValue = this.daysValue[i]
+      switch (dayValue) {
+        case 'sunday':
+          this.days.sunday = true;
           break;
-          case 'tuesday':
-            this.days.tuesday=true
-            break;
-            case 'wednesday':
-              this.days.wednesday=true
-              break;
-              case 'thursday':
-                this.days.thursday=true
-                break;
-                case 'friday':
-                  this.days.friday=true
-                  break;
-                  case 'saturday':
-                    this.days.saturday=true
-                    break;
-    }}
+        case 'monday':
+          this.days.monday = true
+          break;
+        case 'tuesday':
+          this.days.tuesday = true
+          break;
+        case 'wednesday':
+          this.days.wednesday = true
+          break;
+        case 'thursday':
+          this.days.thursday = true
+          break;
+        case 'friday':
+          this.days.friday = true
+          break;
+        case 'saturday':
+          this.days.saturday = true
+          break;
+      }
+    }
 
     const dateFormat = "YYYY-MM-DD";
     this.program.duration = this.durationTime
@@ -376,56 +381,56 @@ export class WizardComponent implements OnInit {
     this.program.ageGroup.to = this.maxAge
     this.program.userId = this.user._id;
     this.program.bookingCancelledIn = this.bookingCancelledIn;
-    this.program.time.from = this.timechange.tools_replaceAll(this.startTime, ":",".");
-    this.program.time.to = this.timechange.tools_replaceAll(this.endTime, ":",".");
+    this.program.time.from = this.timechange.tools_replaceAll(this.startTime, ":", ".");
+    this.program.time.to = this.timechange.tools_replaceAll(this.endTime, ":", ".");
     this.program.realTime.from = this.program.time.from;
     this.program.realTime.to = this.program.time.to;
     this.program.date.from = moment(this.startDate).format(dateFormat)
     this.program.date.to = moment(this.endDate).format(dateFormat)
-    this.program.extractionDate =  moment(this.extractionDate).format(dateFormat)
+    this.program.extractionDate = moment(this.extractionDate).format(dateFormat)
     this.program.subCategoryIds = this.tag;
-    
-    var datesDiff:any =  Math.round((this.endDate - this.startDate)/(1000*60*60*24));
-     var days:any = [];
-     let i = 0;
-let loop:any = new Date(this.startDate);
-if(datesDiff==0){
-   days.push(moment(loop).format('dddd'))
-  }
-else{
-while (i <= datesDiff) {
-        days.push(moment(loop).format('dddd')) 
-  let newDate = loop.setDate(loop.getDate() + 1);
-  i++;
-  loop = new Date(newDate);
-}
-}
 
-   this.program.days= this.days
+    var datesDiff: any = Math.round((this.endDate - this.startDate) / (1000 * 60 * 60 * 24));
+    var days: any = [];
+    let i = 0;
+    let loop: any = new Date(this.startDate);
+    if (datesDiff == 0) {
+      days.push(moment(loop).format('dddd'))
+    }
+    else {
+      while (i <= datesDiff) {
+        days.push(moment(loop).format('dddd'))
+        let newDate = loop.setDate(loop.getDate() + 1);
+        i++;
+        loop = new Date(newDate);
+      }
+    }
+
+    this.program.days = this.days
     if (this.sessions.length > 0) {
       this.program.sessions = this.sessions;
     }
-    if(this.durationTime.hours>24 || this.durationTime.hours==null){
-      this.durationTime.hours=0
+    if (this.durationTime.hours > 24 || this.durationTime.hours == null) {
+      this.durationTime.hours = 0
       let msg = "Please enter valid hours";
-        this.snack.open(msg, 'ERROR', { duration: 4000 });
+      this.snack.open(msg, 'ERROR', { duration: 4000 });
     }
-    else if(this.durationTime.minutes>59 || this.durationTime.minutes==null){
-      this.durationTime.minutes=0
+    else if (this.durationTime.minutes > 59 || this.durationTime.minutes == null) {
+      this.durationTime.minutes = 0
       let msg = "Please enter valid minutes";
-        this.snack.open(msg, 'ERROR', { duration: 4000 });
-    }else{
-    this.loader.open();
- 
-    this.apiservice.addProgram(this.program).subscribe((res:any) => {
-      this.loader.close();
-      if (res.isSuccess === true) {
-        this.snack.open('Program Added successfully', 'OK', { duration: 5000 });
-        this.route.navigate(['tables/program', this.user._id]);
-      }
-    });
-  }
-   this.loader.close();
+      this.snack.open(msg, 'ERROR', { duration: 4000 });
+    } else {
+      this.loader.open();
+
+      this.apiservice.addProgram(this.program).subscribe((res: any) => {
+        this.loader.close();
+        if (res.isSuccess === true) {
+          this.snack.open('Program Added successfully', 'OK', { duration: 5000 });
+          this.route.navigate(['tables/program', this.user._id]);
+        }
+      });
+    }
+    this.loader.close();
 
   }
 
@@ -433,58 +438,58 @@ while (i <= datesDiff) {
     this.addProgram();
   }
 
-getCategories(){
-  this.apiservice.getCategory().subscribe(res => {
-    this.categoriesList = res;
-    this.categoriesList = this.categoriesList.filter((item) => item.isActivated === true);
+  getCategories() {
+    this.apiservice.getCategory().subscribe(res => {
+      this.categoriesList = res;
+      this.categoriesList = this.categoriesList.filter((item) => item.isActivated === true);
 
-  })
-}
-
-changeItem(event){
-  this.program.categoryId=event
-  // this.getTagsByCategory()
-}
-
-changetags(event){
-  this.tags=event
-}
-
-// getTagsByCategory(){
-//   this.apiservice.getTagsByCategory(this.program.categoryId).subscribe((res:any) => {
-//     this.tagByCategory = res.data;
-//   })
-// }
-
-getQuantity(event) {
-  this.numbers= []
-   this.title = ''
-  let n
-  if(event==='Month'){
-    n=12
-    this.title= 'SELECT NUMBER OF MONTHS'
-  }
-  else if(event==='Hour'){
-    n=24
-    this.title= 'SELECT NUMBER OF HOURS'
-  }
-  else if(event==='Day'){
-    n=31
-    this.title= 'SELECT NUMBER OF DAYS'
-  }
-  else if(event==='Week'){
-    n=52
-    this.title= 'SELECT NUMBER OF weeks'
-  }else{
-    n=50
-    this.title ='SELECT LIMIT'
-  }
-  for (let i = 1; i <= n; i++) {
-    this.numbers.push(i)
-
+    })
   }
 
-}
+  changeItem(event) {
+    this.program.categoryId = event
+    // this.getTagsByCategory()
+  }
+
+  changetags(event) {
+    this.tags = event
+  }
+
+  // getTagsByCategory(){
+  //   this.apiservice.getTagsByCategory(this.program.categoryId).subscribe((res:any) => {
+  //     this.tagByCategory = res.data;
+  //   })
+  // }
+
+  getQuantity(event) {
+    this.numbers = []
+    this.title = ''
+    let n
+    if (event === 'Month') {
+      n = 12
+      this.title = 'SELECT NUMBER OF MONTHS'
+    }
+    else if (event === 'Hour') {
+      n = 24
+      this.title = 'SELECT NUMBER OF HOURS'
+    }
+    else if (event === 'Day') {
+      n = 31
+      this.title = 'SELECT NUMBER OF DAYS'
+    }
+    else if (event === 'Week') {
+      n = 52
+      this.title = 'SELECT NUMBER OF weeks'
+    } else {
+      n = 50
+      this.title = 'SELECT LIMIT'
+    }
+    for (let i = 1; i <= n; i++) {
+      this.numbers.push(i)
+
+    }
+
+  }
 
 
 

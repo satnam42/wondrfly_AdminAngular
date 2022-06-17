@@ -50,6 +50,7 @@
     "highlight.js": "9.15.6",
     "hopscotch": "0.3.1",
     "install": "0.12.2",
+    "jquery": "^3.6.0",
     "moment": "2.24.0",
     "ng-autocomplete": "^1.0.0",
     "ng-pick-datetime": "^7.0.0",

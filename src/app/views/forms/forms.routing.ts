@@ -7,7 +7,6 @@ import { ProviderFormComponent } from './provider-form/provider-form.component';
 import { ParentFormComponent } from './parent-form/parent-form.component';
 import { CategoryFormComponent } from './category-form/category-form.component';
 import { ChildFormComponent } from './child-form/child-form.component';
-import { ProgramFormComponent } from './program-form/program-form.component';
 import { AdminFormComponent } from './admin-form/admin-form.component';
 import { EditProgramComponent } from './edit-program/edit-program.component';
 import { AddcategoryFormComponent } from './addcategory-form/addcategory-form.component';
@@ -27,77 +26,72 @@ export const FormsRoutes: Routes = [
     {
       path: 'upload',
       component: FileUploadComponent,
-      data: { title: 'Upload'}
+      data: { title: 'Upload' }
     }, {
       path: 'wizard/:id',
       component: WizardComponent,
-      data: { title: 'ADD-PROGRAM'}
+      data: { title: 'ADD-PROGRAM' }
     },
     {
       path: 'edit-program/:id',
       component: EditProgramComponent,
-      data: { title: 'EDIT-PROGRAM'}
+      data: { title: 'EDIT-PROGRAM' }
     },
     {
       path: 'parent',
       component: ParentFormComponent,
-      data: { title: 'PARENT'}
+      data: { title: 'PARENT' }
     },
     {
       path: 'parent-update',
       component: ParentUpdateFormComponent,
-      data: { title: 'UPDATE-PARENT'}
+      data: { title: 'UPDATE-PARENT' }
     },
     {
       path: 'add-category',
       component: AddcategoryFormComponent,
-      data: { title: 'ADD-CATEGORY'}
+      data: { title: 'ADD-CATEGORY' }
     },
     {
       path: 'category',
       component: CategoryFormComponent,
-      data: { title: 'CATEGORY'}
+      data: { title: 'CATEGORY' }
     },
     {
       path: 'child/:id',
       component: ChildFormComponent,
-      data: { title: 'CHILD'}
+      data: { title: 'CHILD' }
     },
     {
       path: 'provider',
       component: ProviderFormComponent,
-      data: { title: 'PROVIDER'}
+      data: { title: 'PROVIDER' }
     },
     {
       path: 'provider-update/:id',
       component: ProviderUpdateFormComponent,
-      data: { title: 'UPDATE-PROVIDER'}
-    },
-    {
-      path: 'program/:id',
-      component: ProgramFormComponent,
-      data: { title: 'PROGRAM'}
+      data: { title: 'UPDATE-PROVIDER' }
     },
     {
       path: 'provider-quick',
       component: ProviderQuickFormComponent,
-      data: { title: 'ADD-PROVIDER'}
+      data: { title: 'ADD-PROVIDER' }
     },
     {
       path: 'admin',
       component: AdminFormComponent,
-      data: { title: 'ADMIN'}
+      data: { title: 'ADMIN' }
     },
     {
-      path:'provider-form',
+      path: 'provider-form',
       component: AddFormComponent,
-      data: { title: 'ADD-PROVIDER'}
+      data: { title: 'ADD-PROVIDER' }
     },
     {
-      path:'provider-form-update/:id',
+      path: 'provider-form-update/:id',
       component: UpdateFormComponent,
-      data: { title: 'UPDATE-PROVIDER'}
+      data: { title: 'UPDATE-PROVIDER' }
     },
-   ]
+    ]
   }
 ];

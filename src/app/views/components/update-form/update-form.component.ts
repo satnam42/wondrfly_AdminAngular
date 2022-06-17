@@ -39,15 +39,15 @@ export class UpdateFormComponent implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   subCategories: any;
-  source:any=['Combined','Facebook','Linkedin','Library','Recreation','Instagram','Google','Indeed','Craiglist'];
+  source: any = ['Combined', 'Facebook', 'Linkedin', 'Library', 'Recreation', 'Instagram', 'Google', 'Indeed', 'Craiglist'];
   tags: [];
   tag: any = [];
-  categoryIds:any =[]
+  categoryIds: any = []
   categoriesList: any
   selectable: boolean = true;
   removable: boolean = true;
-  sourceUrls:any =[];
-  readonly separatorKeysCodes = [ENTER,COMMA,SPACE,TAB,SEMICOLON] as const;
+  sourceUrls: any = [];
+  readonly separatorKeysCodes = [ENTER, COMMA, SPACE, TAB, SEMICOLON] as const;
   constructor(
     public dataRoute: ActivatedRoute,
     private dataservice: DataService,
@@ -55,11 +55,11 @@ export class UpdateFormComponent implements OnInit {
     private snack: MatSnackBar,
     private dialog: MatDialog,
     private loader: AppLoaderService,
-    private activatedRoute :ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private route: Router) {
-      this.activatedRoute.params.subscribe(params => {
-        this.user.id = params['id'];
-      });
+    this.activatedRoute.params.subscribe(params => {
+      this.user.id = params['id'];
+    });
   }
   back() {
     history.back();
@@ -69,18 +69,19 @@ export class UpdateFormComponent implements OnInit {
     this.apiservice.getUserById(this.user.id).subscribe((res: any) => {
       this.user = res;
       this.tag = this.user.subCategoryIds;
-      if(this.user.categories.length){
-        for(let category of this.user.categories){
+      if (this.user.categories.length) {
+        for (let category of this.user.categories) {
           this.categoryIds.push(category._id)
-          this.user.categoryIds=this.categoryIds
-     }}
+          this.user.categoryIds = this.categoryIds
+        }
+      }
       this.sourceUrls = this.user.sourceUrl;
     })
   }
 
   updateProvider() {
-     var user:any = {
-       id:this.user.id,
+    var user: any = {
+      id: this.user.id,
       firstName: this.user.firstName,
       userName: this.user.userName,
       lastName: this.user.lastName,
@@ -99,14 +100,14 @@ export class UpdateFormComponent implements OnInit {
       addressLine2: this.user.addressLine2,
       about: this.user.about,
       bio: this.user.bio,
-      categoryIds:this.user.categoryIds,
-      subCategoryIds: this.tag,
+      categoryIds: [],
+      subCategoryIds: [],
       links: this.sourceUrls,
       cycle: this.user.cycle,
-      tagsId:[],
+      tagsId: [],
       isAmbassador: this.user.isAmbassador,
-      interests:this.user.interests,
-      healthAndSafety:this.user.healthAndSafety,
+      interests: this.user.interests,
+      healthAndSafety: this.user.healthAndSafety,
       city: this.user.city,
       country: this.user.country,
       state: this.user.state,
@@ -114,42 +115,42 @@ export class UpdateFormComponent implements OnInit {
       location: this.user.location,
       note: this.user.note,
       securityQuestion: this.user.securityQuestion,
-      answer:this.user.answer ,
-      zipCode:this.user.zipCode ,
-      logo:this.user.logo ,
+      answer: this.user.answer,
+      zipCode: this.user.zipCode,
+      logo: this.user.logo,
       source: this.user.source,
-      sourceUrl:this.sourceUrls,
-      rating:this.user.rating
+      sourceUrl: this.sourceUrls,
+      rating: this.user.rating
     }
- this.user.sourceUrl=   this.sourceUrls ;
- this.loader.open();
+    this.user.sourceUrl = this.sourceUrls;
+    this.loader.open();
     this.apiservice.updateProvider(user).subscribe(res => {
       this.providerResponse = res;
       this.loader.close();
       if (this.providerResponse.isSuccess === true) {
         this.snack.open(this.message, 'OK', { duration: 4000 })
         this.route.navigate(['tables/providers']);
-      }else 
-      if (this.providerResponse.isSuccess === false && this.providerResponse.error === 'userName already resgister') {
-        let msg = 'UserId is already registered!';
-        this.snack.open(msg, 'OK', { duration: 7000 });
-      }
-       else {
-        let msg = "Something Went Wrong!";
-        this.snack.open(msg, 'OK', { duration: 4000 });
-      }
+      } else
+        if (this.providerResponse.isSuccess === false && this.providerResponse.error === 'userName already resgister') {
+          let msg = 'UserId is already registered!';
+          this.snack.open(msg, 'OK', { duration: 7000 });
+        }
+        else {
+          let msg = "Something Went Wrong!";
+          this.snack.open(msg, 'OK', { duration: 4000 });
+        }
     });
   }
   ngOnChange() {
   }
 
   ngOnInit() {
-    this.getUserById() 
+    this.getUserById()
     this.getCategories();
     this.getTags()
     if (this.user === undefined) {
       this.route.navigate(['tables/provider']);
-    }  
+    }
     // let user = JSON.parse(this.dataRoute.snapshot.params['objectProducts'])
     // tslint:disable-next-line:prefer-const
     // let password = new FormControl('', Validators.required);
@@ -157,28 +158,28 @@ export class UpdateFormComponent implements OnInit {
     // let confirmPassword = new FormControl('', CustomValidators.equalTo(password));
   }
 
-  getCategories(){
+  getCategories() {
     this.apiservice.getCategory().subscribe(res => {
       this.categoriesList = res;
     })
   }
-  
-  changeItem(event){
-    this.categoryIds=event
+
+  changeItem(event) {
+    this.categoryIds = event
   }
-  
+
   // changetags(event){
   //   this.tags=event
   // }
-  
-  getTags(){
-    this.apiservice.getTags().subscribe((res:any) => {
+
+  getTags() {
+    this.apiservice.getTags().subscribe((res: any) => {
       this.subCategories = res;
     })
   }
 
-                                // search tags
-   remove(item): void {
+  // search tags
+  remove(item): void {
     const index = this.tag.indexOf(item);
 
     if (index >= 0) {
@@ -209,18 +210,18 @@ export class UpdateFormComponent implements OnInit {
 
   onFocused(e) {
     // do something when input is focused
-  }                           
+  }
 
 
 
 
   removeSourceUrl(sourceUrl) {
     const index = this.sourceUrls.indexOf(sourceUrl);
-  
+
     if (index >= 0) {
       this.sourceUrls.splice(index, 1);
     }
-   
+
   }
   addSourceUrl(event: MatChipInputEvent) {
     const value = (event.value || '').trim();
@@ -235,15 +236,15 @@ export class UpdateFormComponent implements OnInit {
   pasteSourceUrl(event: ClipboardEvent): void {
     event.preventDefault();
     event.clipboardData
-    .getData('Text')
-    .split(/;|,|\n/)
-    .forEach(value => {
-    if(value.trim()){
-    this.sourceUrls.push(value.trim());
-    }
-    })
-    }
-  
+      .getData('Text')
+      .split(/;|,|\n/)
+      .forEach(value => {
+        if (value.trim()) {
+          this.sourceUrls.push(value.trim());
+        }
+      })
+  }
+
 
   onSubmit() {
     this.submitted = true;

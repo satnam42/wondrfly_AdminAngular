@@ -73,6 +73,7 @@ import { MetaServiceComponent } from './meta-service/meta-service.component';
 import { MetaFormComponent } from './meta-service/meta-form/meta-form.component';
 import { logsComponent } from './logs/logs.component';
 import { SharedMaterialModule } from 'app/shared/shared-material.module';
+import { LocationDialogComponent } from './location-dialog/location-dialog.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -156,9 +157,10 @@ import { SharedMaterialModule } from 'app/shared/shared-material.module';
     ProgramFormComponent,
     MetaServiceComponent,
     MetaFormComponent,
-    logsComponent
+    logsComponent,
+    LocationDialogComponent
 
   ],
-  entryComponents: [SearchProviderPopupComponent, MetaFormComponent, DuplicacyDataPopupComponent, TopicFormComponent, ProgramFormComponent, SearchedKeywordsComponent, ProviderDataPopupComponent, KeywordFormComponent, ProgramDataPopupComponent, UsersComponent, EditFormComponent, AllUserComponent]
+  entryComponents: [SearchProviderPopupComponent, MetaFormComponent, LocationDialogComponent, DuplicacyDataPopupComponent, TopicFormComponent, ProgramFormComponent, SearchedKeywordsComponent, ProviderDataPopupComponent, KeywordFormComponent, ProgramDataPopupComponent, UsersComponent, EditFormComponent, AllUserComponent]
 })
 export class TablesModule { }

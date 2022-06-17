@@ -4,29 +4,29 @@
     <!-- <mat-divider></mat-divider> -->
   </mat-card-title>
   <!-- <mat-card-content> -->
-    <!-- <mat-horizontal-stepper [linear]="true" #stepper>
+  <!-- <mat-horizontal-stepper [linear]="true" #stepper>
 
       <mat-step [stepControl]="firstFormGroup"> -->
-        <div fxLayout="row wrap">
-          <div fxFlex="100" fxFlex.gt-xs="50" class="pr-2">
-        <form [formGroup]="firstFormGroup">
-          <!-- <ng-template matStepLabel>Add Program: Select Type</ng-template> -->
+  <div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-xs="50" class="pr-2">
+      <form [formGroup]="firstFormGroup">
+        <!-- <ng-template matStepLabel>Add Program: Select Type</ng-template> -->
 
-          <!-- <mat-form-field class="full-width" (click)="openMap()">
+        <!-- <mat-form-field class="full-width" (click)="openMap()">
             <mat-label>Alias</mat-label>
             <input matInput placeholder="Type" [formControl]="firstFormGroup.controls['alias']"
               [(ngModel)]="program.alias" required>
           </mat-form-field><br> -->
-          <div class="pl-3 pr-3">
+        <div class="pl-3 pr-3">
           <mat-form-field class="full-width">
             <mat-label>PROGRAM NAME</mat-label>
             <input matInput placeholder="Type" [formControl]="firstFormGroup.controls['name']"
               [(ngModel)]="program.name" required>
           </mat-form-field>
-          </div>
-          <br />
+        </div>
+        <br />
 
-          <div class="pl-3 pr-3">
+        <div class="pl-3 pr-3">
           <mat-form-field class="full-width">
             <mat-label>PROGRAM TYPE</mat-label>
             <mat-select [formControl]="firstFormGroup.controls['type']" [(ngModel)]="program.type" required>
@@ -40,24 +40,23 @@
 
             </mat-select>
           </mat-form-field>
-          </div>
-          <br>
-          <div class="pl-3 pr-3">
+        </div>
+        <br>
+        <div class="pl-3 pr-3">
           <mat-form-field class="full-width">
             <mat-label>SELECT CATEGORY</mat-label>
-            <mat-select [formControl]="firstFormGroup.controls['categoryId']" #itemValue (selectionChange)="changeItem($event.value)" 
-            [(ngModel)]="program.categoryId" required multiple>
+            <mat-select [formControl]="firstFormGroup.controls['categoryId']" #itemValue
+              (selectionChange)="changeItem($event.value)" [(ngModel)]="program.categoryId" required multiple>
 
-              <mat-option selected  *ngFor='let item of categoriesList' 
-               [value]="item.id" >{{item.name}}</mat-option>
-              
+              <mat-option selected *ngFor='let item of categoriesList' [value]="item.id">{{item.name}}</mat-option>
+
 
             </mat-select>
           </mat-form-field>
-          </div>
-          <br />
+        </div>
+        <br />
 
-          <!-- <mat-form-field class="full-width">
+        <!-- <mat-form-field class="full-width">
             <mat-label>SELECT SUB-CATEGORIES</mat-label>
             <mat-select [formControl]="secondFormGroup.controls['subCategory']" multiple #itemValue (selectionChange)="changetags($event.value)"  >
 
@@ -67,7 +66,7 @@
 
             </mat-select>
           </mat-form-field> -->
-          <div class="pl-3 pr-3">
+        <div class="pl-3 pr-3">
           <mat-label style="color: rgb(118, 118, 118);">Sub-Category</mat-label>
           <div class="full-width">
             <ng-autocomplete [data]="tags.tags" [searchKeyword]="keyword" (selected)='selectEvent($event)'
@@ -83,92 +82,101 @@
               <div *ngIf="tags?.tags?.length" [innerHTML]="notFound"></div>
             </ng-template>
           </div>
-</div>
-          <br />
-          <div class="pl-3 pr-3">
+        </div>
+        <br />
+        <div class="pl-3 pr-3">
           <mat-form-field class="full-width">
             <mat-chip-list>
-              <mat-chip *ngFor="let t of tag" [selectable]="selectable"
-                  [removable]="removable" (removed)="remove(t)">
-                  {{t.name}}<span *ngIf="!t?.name">{{t}}</span>
-                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              <mat-chip *ngFor="let t of tag" [selectable]="selectable" [removable]="removable" (removed)="remove(t)">
+                {{t.name}}<span *ngIf="!t?.name">{{t}}</span>
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
               </mat-chip>
-          </mat-chip-list>
+            </mat-chip-list>
           </mat-form-field>
-</div>
-          <br />
+        </div>
+        <br />
 
-          <div class="pl-3 pr-3">
+        <div class="pl-3 pr-3">
           <mat-form-field class="full-width">
             <mat-label>INPERSON OR VIRTUAL ?</mat-label>
-            <mat-select [formControl]="firstFormGroup.controls['inpersonOrVirtual']" [(ngModel)]="program.inpersonOrVirtual">
+            <mat-select [formControl]="firstFormGroup.controls['inpersonOrVirtual']"
+              [(ngModel)]="program.inpersonOrVirtual" required>
 
               <mat-option selected value="Inperson">Inperson</mat-option>
               <mat-option value="Virtual">Virtual</mat-option>
             </mat-select>
-          </mat-form-field></div><br>
+          </mat-form-field>
+        </div><br>
 
-          <div class="pl-3 pr-3">
+        <div class="pl-3 pr-3">
           <mat-form-field class="full-width">
             <mat-label>INDOOR OR OUTDOOR ?</mat-label>
-            <mat-select [formControl]="firstFormGroup.controls['indoorOroutdoor']" [(ngModel)]="program.indoorOroutdoor" required>
+            <mat-select [formControl]="firstFormGroup.controls['indoorOroutdoor']" [(ngModel)]="program.indoorOroutdoor"
+              required>
 
               <mat-option selected value="Indoor">Indoor</mat-option>
               <mat-option value="Outdoor">Outdoor</mat-option>
               <mat-option value="Both">Both</mat-option>
             </mat-select>
-          </mat-form-field></div><br>
+          </mat-form-field>
+        </div><br>
 
-          <div class="pl-3 pr-3">
+        <div class="pl-3 pr-3">
           <mat-form-field class="full-width">
             <mat-label>DESCRIPTION</mat-label>
             <textarea matInput #Description maxlength="3000" placeholder="Type"
-              [formControl]="firstFormGroup.controls['description']" [(ngModel)]="program.description"></textarea>
+              [formControl]="firstFormGroup.controls['description']" [(ngModel)]="program.description"
+              required></textarea>
             <mat-hint align="end">{{Description.value?.length  || 0}} / 3000</mat-hint>
 
-          </mat-form-field></div>
+          </mat-form-field>
+        </div>
 
-          <br />
+        <br />
 
-          <div class="pl-3 pr-3">
+        <div class="pl-3 pr-3">
           <mat-form-field class="full-width">
             <mat-label>SPECIAL INSTRUCTIONS</mat-label>
             <textarea matInput #Instruction maxlength="3000" placeholder="Type"
               [(ngModel)]="program.specialInstructions"
               [formControl]="firstFormGroup.controls['specialInstructions']"></textarea>
             <mat-hint align="end">{{Instruction.value?.length  || 0}} / 3000</mat-hint>
-          </mat-form-field></div>
-          <br />
+          </mat-form-field>
+        </div>
+        <br />
 
-          <div class="pl-3 pr-3">
+        <div class="pl-3 pr-3">
           <mat-form-field class="full-width">
             <mat-label>DEFAULT EMAIL</mat-label>
             <input matInput placeholder="Email" type="email" [(ngModel)]="program.emails"
-              [formControl]="firstFormGroup.controls['email']">
-          </mat-form-field></div>
-          <br />
+              [formControl]="firstFormGroup.controls['email']" required>
+          </mat-form-field>
+        </div>
+        <br />
 
-          <div class="pl-3 pr-3">
+        <div class="pl-3 pr-3">
           <mat-form-field class="full-width">
             <mat-label>PRESENTER</mat-label>
             <input matInput placeholder="Type" [formControl]="firstFormGroup.controls['presenter']"
               [(ngModel)]="program.presenter">
-          </mat-form-field></div>
-          <br />
+          </mat-form-field>
+        </div>
+        <br />
 
-          <div class="pl-3 pr-3">
+        <div class="pl-3 pr-3">
           <div class="full-width">
             <mat-label style="color: rgb(118, 118, 118);">AGE GROUP</mat-label>
             <!-- <mat-slider thumbLabel="true" min="1" max="5" step="1" value="3"></mat-slider>
             <textarea matInput hidden></textarea> -->
             <ng5-slider [(value)]="minAge" [(highValue)]="maxAge" [options]="ageOption">
             </ng5-slider>
-          </div></div>
+          </div>
+        </div>
 
-          <br />
+        <br />
 
 
-          <div class="pl-3 pr-3">
+        <div class="pl-3 pr-3">
           <div>
             <mat-label style="font-size: 0.875rem !important;color: rgb(118, 118, 118);">IS DATE NOT AVILABLE ?
             </mat-label>
@@ -176,50 +184,49 @@
               [(ngModel)]="program.isDateNotMention"><span class="text-invisible"></span></mat-slide-toggle>
 
           </div>
-          </div>
-          <br/>
-          <div *ngIf="!program.isDateNotMention">
+        </div>
+        <br />
+        <div *ngIf="!program.isDateNotMention">
 
-            <div class="pl-3 pr-3">
-          <mat-form-field class="full-width">
-            <mat-label>START DATE</mat-label>
-            <input matInput name="edate" [formControl]="firstFormGroup.controls['startDate']" [(ngModel)]="startDate"
-              [owlDateTimeTrigger]="dt1" placeholder="Start Date" [owlDateTime]="dt1" readonly>
-            <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
-          </mat-form-field>
+          <div class="pl-3 pr-3">
+            <mat-form-field class="full-width">
+              <mat-label>START DATE</mat-label>
+              <input matInput name="edate" [formControl]="firstFormGroup.controls['startDate']" [(ngModel)]="startDate"
+                [owlDateTimeTrigger]="dt1" placeholder="Start Date" [owlDateTime]="dt1" readonly>
+              <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+            </mat-form-field>
           </div>
-          
+
           <br />
 
           <div class="pl-3 pr-3">
-          <mat-form-field class="full-width">
-            <mat-label>END DATE</mat-label>
-            <input matInput name="edate" [formControl]="firstFormGroup.controls['endDate']" [(ngModel)]="endDate"
-              [owlDateTimeTrigger]="dt2" placeholder="eND Date" [owlDateTime]="dt2" readonly>
-            <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
-          </mat-form-field>
+            <mat-form-field class="full-width">
+              <mat-label>END DATE</mat-label>
+              <input matInput name="edate" [formControl]="firstFormGroup.controls['endDate']" [(ngModel)]="endDate"
+                [owlDateTimeTrigger]="dt2" placeholder="eND Date" [owlDateTime]="dt2" readonly>
+              <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+            </mat-form-field>
           </div>
         </div>
-          <br />
+        <br />
 
-          <div class="pl-3 pr-3">
+        <div class="pl-3 pr-3">
           <mat-form-field class="full-width">
             <mat-label>Days</mat-label>
-            <mat-select name="dayss" [formControl]="firstFormGroup.controls['dayss']" [(ngModel)]="daysValue"
-               multiple>
-                <mat-option [value]="'sunday'">Sunday</mat-option>
-                <mat-option [value]="'monday'">Monday</mat-option>
-                <mat-option [value]="'tuesday'">Tuesday</mat-option>
-                <mat-option [value]="'wednesday'">Wednesday</mat-option>
-                <mat-option [value]="'thursday'">Thursday</mat-option>
-                <mat-option [value]="'friday'">Friday</mat-option>
-                <mat-option [value]="'saturday'">Saturday</mat-option>
+            <mat-select name="dayss" [formControl]="firstFormGroup.controls['dayss']" [(ngModel)]="daysValue" multiple>
+              <mat-option [value]="'sunday'">Sunday</mat-option>
+              <mat-option [value]="'monday'">Monday</mat-option>
+              <mat-option [value]="'tuesday'">Tuesday</mat-option>
+              <mat-option [value]="'wednesday'">Wednesday</mat-option>
+              <mat-option [value]="'thursday'">Thursday</mat-option>
+              <mat-option [value]="'friday'">Friday</mat-option>
+              <mat-option [value]="'saturday'">Saturday</mat-option>
             </mat-select>
-        </mat-form-field>
+          </mat-form-field>
         </div>
-          <br />
+        <br />
 
-          <div class="pl-3 pr-3">
+        <div class="pl-3 pr-3">
           <div>
             <mat-label style="font-size: 0.875rem !important;color: rgb(118, 118, 118);">IS TIME NOT AVILABLE ?
             </mat-label>
@@ -228,66 +235,66 @@
 
           </div>
         </div>
-          <br/>
-          <div *ngIf="!program.isTimeNotMention">
+        <br />
+        <div *ngIf="!program.isTimeNotMention">
 
-            <div class="pl-3 pr-3">
-          <mat-form-field class="full-width">
-            <mat-label>START TIME</mat-label>
-            <input matInput name="startTime" type='time' [formControl]="firstFormGroup.controls['startTime']" [(ngModel)]="startTime"
-             placeholder="Start Time" >
-            <!-- <owl-date-time [pickerType]="'timer'" #dt3></owl-date-time> -->
-          </mat-form-field>
+          <div class="pl-3 pr-3">
+            <mat-form-field class="full-width">
+              <mat-label>START TIME</mat-label>
+              <input matInput name="startTime" type='time' [formControl]="firstFormGroup.controls['startTime']"
+                [(ngModel)]="startTime" placeholder="Start Time">
+              <!-- <owl-date-time [pickerType]="'timer'" #dt3></owl-date-time> -->
+            </mat-form-field>
           </div>
-         
+
           <br />
 
           <div class="pl-3 pr-3">
-          <mat-form-field class="full-width">
-            <mat-label>END TIME</mat-label>
-            <input matInput name="endTime" type='time' [formControl]="firstFormGroup.controls['endTime']" [(ngModel)]="endTime"
-               placeholder="End Time" >
-            <!-- <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time> -->
-          </mat-form-field>
+            <mat-form-field class="full-width">
+              <mat-label>END TIME</mat-label>
+              <input matInput name="endTime" type='time' [formControl]="firstFormGroup.controls['endTime']"
+                [(ngModel)]="endTime" placeholder="End Time">
+              <!-- <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time> -->
+            </mat-form-field>
           </div>
-        </div> 
-          <br />
+        </div>
+        <br />
 
 
-          <div class="pl-3 pr-3">
-            <div>
-              <mat-label style="font-size: 0.875rem !important; color:rgb(118, 118, 118);">IS IT A PRORATED PROGRAM ?
-              </mat-label>
-              &nbsp; &nbsp;&nbsp; <mat-slide-toggle [formControl]="firstFormGroup.controls['isproRated']"
-                [(ngModel)]="program.isproRated"><span class="text-invisible"></span></mat-slide-toggle>
-  
-            </div>
-            </div>
-           <br>
-          <!-- <div>
+        <div class="pl-3 pr-3">
+          <div>
+            <mat-label style="font-size: 0.875rem !important; color:rgb(118, 118, 118);">IS IT A PRORATED PROGRAM ?
+            </mat-label>
+            &nbsp; &nbsp;&nbsp; <mat-slide-toggle [formControl]="firstFormGroup.controls['isproRated']"
+              [(ngModel)]="program.isproRated"><span class="text-invisible"></span></mat-slide-toggle>
+
+          </div>
+        </div>
+        <br>
+        <!-- <div>
             <button mat-raised-button color="primary" matStepperNext>Next</button>
           </div> -->
-        </form>
-      </div>
-   
+      </form>
+    </div>
 
-      <div fxFlex="100" fxFlex.gt-xs="50" class="pr-2">
+
+    <div fxFlex="100" fxFlex.gt-xs="50" class="pr-2">
       <!-- </mat-step> -->
 
       <!-- <mat-step [stepControl]="secondFormGroup"> -->
-        <form [formGroup]="secondFormGroup">
-          <!-- <ng-template matStepLabel>Add Program: Basic Details</ng-template> -->
+      <form [formGroup]="secondFormGroup">
+        <!-- <ng-template matStepLabel>Add Program: Basic Details</ng-template> -->
 
-          <!-- <mat-form-field class=" pl-3 pr-3">
+        <!-- <mat-form-field class=" pl-3 pr-3">
 
             <input matInput type="file" formControlName="imageUpload" (change)="onFileChanged($event)" />
           </mat-form-field>
 
           <br /> -->
 
-          
-       
-          <div class="pl-3 pr-3">
+
+
+        <div class="pl-3 pr-3">
           <div>
             <mat-label style="font-size: 0.875rem !important; color:rgb(118, 118, 118);">IS IT A FREE PROGRAM ?
             </mat-label>
@@ -295,52 +302,53 @@
               [(ngModel)]="program.isFree"><span class="text-invisible"></span></mat-slide-toggle>
 
           </div>
-          </div>
+        </div>
 
-          <br /><br><br>
-          <div *ngIf="!program.isFree">
-            <div class="pl-3 pr-3">
+        <br /><br><br>
+        <div *ngIf="!program.isFree">
+          <div class="pl-3 pr-3">
             <mat-form-field class="full-width">
               <mat-label>PRICE</mat-label>
-              <input matInput name="pricePerParticipant" type='number' placeholder="Type" [(ngModel)]="program.pricePerParticipant"
+              <input matInput name="pricePerParticipant" type='number' placeholder="Type"
+                [(ngModel)]="program.pricePerParticipant"
                 [formControl]="secondFormGroup.controls['pricePerParticipant']">
               <span matPrefix>$&nbsp;</span>
             </mat-form-field>
-</div>
-            <br />
+          </div>
+          <br />
 
-            <div class="pl-3 pr-3">
+          <div class="pl-3 pr-3">
             <mat-form-field class="full-width">
               <mat-label>PRICE PER</mat-label>
-              <mat-select [formControl]="secondFormGroup.controls['perTimePeriod']" #itemValue (selectionChange)="getQuantity($event.value)"
-               [(ngModel)]="perTimePeriod" >
+              <mat-select [formControl]="secondFormGroup.controls['perTimePeriod']" #itemValue
+                (selectionChange)="getQuantity($event.value)" [(ngModel)]="perTimePeriod">
                 <mat-option value="Person">Person</mat-option>
                 <mat-option value="Hour"> Hour</mat-option>
-                <mat-option value="Day" >Day</mat-option>
+                <mat-option value="Day">Day</mat-option>
                 <mat-option value="Week">Week</mat-option>
-                <mat-option value="Month" >Month</mat-option>
+                <mat-option value="Month">Month</mat-option>
                 <mat-option value="Anual">Anual</mat-option>
                 <mat-option value="Seat">Seat</mat-option>
                 <mat-option value="Class">Class</mat-option>
                 <mat-option value="Session">Session</mat-option>
                 <mat-option value="Semester">Semester</mat-option>
                 <mat-option value="Lesson">Lesson</mat-option>
-                <mat-option value="Package" >Package</mat-option>  
+                <mat-option value="Package">Package</mat-option>
               </mat-select>
             </mat-form-field>
-            </div><br>
-           
-            <div class="pl-3 pr-3">
+          </div><br>
+
+          <div class="pl-3 pr-3">
             <mat-form-field class="full-width">
               <mat-label>{{title}}</mat-label>
-              <mat-select [formControl]="secondFormGroup.controls['timePeriodDuration']" 
-              [(ngModel)]="timePeriodDuration"  #itemValue >
-                <mat-option *ngFor='let item of numbers'  [value]="item" >{{item}}</mat-option>
+              <mat-select [formControl]="secondFormGroup.controls['timePeriodDuration']"
+                [(ngModel)]="timePeriodDuration" #itemValue>
+                <mat-option *ngFor='let item of numbers' [value]="item">{{item}}</mat-option>
               </mat-select>
             </mat-form-field>
-         </div>
-               
-              
+          </div>
+
+
           <br>
 
           <div class="pl-3 pr-3">
@@ -351,164 +359,167 @@
               <span matPrefix>$&nbsp;</span>
 
             </mat-form-field>
-            </div>
           </div>
-          <br />
+        </div>
+        <br />
 
-         
-        
-          <div class="pl-3 pr-3">
+
+
+        <div class="pl-3 pr-3">
           <mat-form-field class="hours">
-            <input matInput name="duration" min="0" type="number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-            maxlength = "2" [formControl]="secondFormGroup.controls['duration']" [(ngModel)]="durationTime.hours"
-                 placeholder="Hours" >
-        </mat-form-field>
-       
+            <input matInput name="duration" min="0" type="number"
+              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+              maxlength="2" [formControl]="secondFormGroup.controls['duration']" [(ngModel)]="durationTime.hours"
+              placeholder="Hours">
+          </mat-form-field>
 
-             <span class="dot">:</span>
-            
-        <mat-form-field class="minutes">
-          <input matInput name="duration" min="0" type="number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-          maxlength = "2" [formControl]="secondFormGroup.controls['duration']" [(ngModel)]="durationTime.minutes"
-               placeholder="Minutes" >
-      </mat-form-field>
-      </div><br>
 
-      <div class="pl-3 pr-3">
-      <mat-form-field class="full-width">
-        <mat-label>EXTRATION  DATE</mat-label>
-        <input matInput name="Edate" [formControl]="secondFormGroup.controls['extractionDate']" [(ngModel)]="extractionDate"
-          [owlDateTimeTrigger]="extratnDate" placeholder="Extration Date" [owlDateTime]="extratnDate" readonly>
-        <owl-date-time [pickerType]="'calendar'" #extratnDate></owl-date-time>
-      </mat-form-field>
-      </div>
-      <br />
+          <span class="dot">:</span>
 
-      <div class="pl-3 pr-3">
-      <mat-form-field class="full-width">
-        <mat-label>JOINING LINK</mat-label>
-        <input matInput placeholder="Type" [formControl]="secondFormGroup.controls['joiningLink']"
-          [(ngModel)]="program.joiningLink">
-      </mat-form-field>
-      </div>
-      <br />
+          <mat-form-field class="minutes">
+            <input matInput name="duration" min="0" type="number"
+              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+              maxlength="2" [formControl]="secondFormGroup.controls['duration']" [(ngModel)]="durationTime.minutes"
+              placeholder="Minutes">
+          </mat-form-field>
+        </div><br>
 
-      <div class="pl-3 pr-3">
-      <mat-form-field class="full-width">
-        <mat-label>Source</mat-label>
-        <mat-select name="source" [formControl]="secondFormGroup.controls['source']"
-            [(ngModel)]="program.source" multiple>
-            <mat-option   *ngFor="let src of source" value="{{src}}">{{src}}</mat-option>
-        </mat-select>
-    </mat-form-field>
-    </div>
-      <br />
+        <div class="pl-3 pr-3">
+          <mat-form-field class="full-width">
+            <mat-label>EXTRATION DATE</mat-label>
+            <input matInput name="Edate" [formControl]="secondFormGroup.controls['extractionDate']"
+              [(ngModel)]="extractionDate" [owlDateTimeTrigger]="extratnDate" placeholder="Extration Date"
+              [owlDateTime]="extratnDate" readonly>
+            <owl-date-time [pickerType]="'calendar'" #extratnDate></owl-date-time>
+          </mat-form-field>
+        </div>
+        <br />
 
-      <div class="pl-3 pr-3">
-      <mat-form-field class="full-width">
-        <mat-label>ADDRESS</mat-label>
-        <input matInput placeholder="Type" [formControl]="secondFormGroup.controls['addresses']"
-          [(ngModel)]="program.addresses">
-      </mat-form-field>
-      </div>
-      <br />
+        <div class="pl-3 pr-3">
+          <mat-form-field class="full-width">
+            <mat-label>JOINING LINK</mat-label>
+            <input matInput placeholder="Type" [formControl]="secondFormGroup.controls['joiningLink']"
+              [(ngModel)]="program.joiningLink">
+          </mat-form-field>
+        </div>
+        <br />
 
-      <div class="pl-3 pr-3">
-      <mat-form-field class="full-width" (click)="openMap()">
-        <mat-label>Location</mat-label>
-        <input matInput placeholder="Type" [formControl]="secondFormGroup.controls['location']"
-          [(ngModel)]="program.location" required>
-      </mat-form-field>
-      </div>
+        <div class="pl-3 pr-3">
+          <mat-form-field class="full-width">
+            <mat-label>Source</mat-label>
+            <mat-select name="source" [formControl]="secondFormGroup.controls['source']" [(ngModel)]="program.source"
+              multiple>
+              <mat-option *ngFor="let src of source" value="{{src}}">{{src}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <br />
+
+        <div class="pl-3 pr-3">
+          <mat-form-field class="full-width">
+            <mat-label>ADDRESS</mat-label>
+            <input matInput placeholder="Type" [formControl]="secondFormGroup.controls['addresses']"
+              [(ngModel)]="program.addresses" required>
+          </mat-form-field>
+        </div>
+        <br />
+
+        <div class="pl-3 pr-3">
+          <mat-form-field class="full-width" (click)="openMap()">
+            <mat-label>Location</mat-label>
+            <input matInput placeholder="Type" [formControl]="secondFormGroup.controls['location']"
+              [(ngModel)]="program.location" required>
+          </mat-form-field>
+        </div>
         <br>
 
         <div class="pl-3 pr-3">
-      <mat-form-field class="full-width">
-        <mat-label>CITY</mat-label>
-        <input matInput placeholder="City" type="city" [(ngModel)]="program.city"
-          [formControl]="secondFormGroup.controls['city']">
-      </mat-form-field>
-      </div>
-         <br>
-
-         <div class="pl-3 pr-3">
-      <div>
-        <mat-label style="font-size: 0.875rem !important;color: rgb(118, 118, 118);">ADULT ASSISTANCE IS REQUIRED
-        </mat-label>
-        <mat-slide-toggle [formControl]="secondFormGroup.controls['adultAssistanceIsRequried']"
-          [(ngModel)]="program.adultAssistanceIsRequried"><span class="text-invisible"></span></mat-slide-toggle>
-
-      </div>
-      </div>
-
-
-
-      <br />
-
-      <div class="pl-3 pr-3">
-      <div class="full-width">
-        <mat-label style="color: rgb(118, 118, 118);">CAPACITY</mat-label>
+          <mat-form-field class="full-width">
+            <mat-label>CITY</mat-label>
+            <input matInput placeholder="City" type="city" [(ngModel)]="program.city"
+              [formControl]="secondFormGroup.controls['city']">
+          </mat-form-field>
+        </div>
         <br>
+
+        <div class="pl-3 pr-3">
+          <div>
+            <mat-label style="font-size: 0.875rem !important;color: rgb(118, 118, 118);">ADULT ASSISTANCE IS REQUIRED
+            </mat-label>
+            <mat-slide-toggle [formControl]="secondFormGroup.controls['adultAssistanceIsRequried']"
+              [(ngModel)]="program.adultAssistanceIsRequried"><span class="text-invisible"></span></mat-slide-toggle>
+
+          </div>
+        </div>
+
+
+
+        <br />
+
+        <div class="pl-3 pr-3">
+          <div class="full-width">
+            <mat-label style="color: rgb(118, 118, 118);">CAPACITY</mat-label>
+            <br>
+            <br>
+            <ng5-slider [(value)]="minCapacity" [(highValue)]="maxCapacity" [options]="capacityOption">
+            </ng5-slider>
+          </div>
+        </div>
+
+
+        <br />
+
+        <div class="pl-3 pr-3">
+          <mat-form-field class="full-width">
+            <mat-label>BOOKING CAN'T BE CANCELED BEFORE (days)</mat-label>
+            <input matInput placeholder="Days" [formControl]="secondFormGroup.controls['days']"
+              [(ngModel)]="bookingCancelledIn.days">
+
+          </mat-form-field>
+        </div>
+        <br />
+
+        <div class="pl-3 pr-3">
+          <mat-form-field class="full-width">
+            <mat-label>BOOKING CAN'T BE CANCELED BEFORE (hours)</mat-label>
+            <input matInput placeholder="Hours" [formControl]="secondFormGroup.controls['hours']"
+              [(ngModel)]="bookingCancelledIn.hours">
+          </mat-form-field>
+        </div>
+        <br />
+
+        <div class="pl-3 pr-3">
+          <mat-form-field class="full-width">
+            <mat-label>ACTIVE STATUS</mat-label>
+            <mat-select name="activeStatus" [formControl]="secondFormGroup.controls['activeStatus']"
+              [(ngModel)]="program.activeStatus">
+              <mat-option value="Open">Open</mat-option>
+              <mat-option value="Expired">Expired</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <br />
+
+        <div class="pl-3 pr-3">
+          <mat-form-field class="full-width">
+            <mat-label>SOURCE LINK</mat-label>
+            <input matInput placeholder="source link" [formControl]="secondFormGroup.controls['sourceUrl']"
+              [(ngModel)]="program.sourceUrl">
+          </mat-form-field>
+        </div>
         <br>
-        <ng5-slider [(value)]="minCapacity" [(highValue)]="maxCapacity" [options]="capacityOption">
-        </ng5-slider>
-      </div>
-      </div>
+
+        <div class="pl-3 pr-3">
+          <mat-form-field class="full-width">
+            <mat-label>CYCLE</mat-label>
+            <input matInput placeholder="days" [formControl]="secondFormGroup.controls['cycle']"
+              [(ngModel)]="program.cycle">
+          </mat-form-field>
+        </div>
+        <br>
 
 
-      <br />
-
-      <div class="pl-3 pr-3">
-      <mat-form-field class="full-width">
-        <mat-label>BOOKING CAN'T BE CANCELED BEFORE (days)</mat-label>
-        <input matInput placeholder="Days" [formControl]="secondFormGroup.controls['days']"
-          [(ngModel)]="bookingCancelledIn.days">
-
-      </mat-form-field>
-      </div>
-      <br />
-
-      <div class="pl-3 pr-3">
-      <mat-form-field class="full-width">
-        <mat-label>BOOKING CAN'T BE CANCELED BEFORE (hours)</mat-label>
-        <input matInput placeholder="Hours" [formControl]="secondFormGroup.controls['hours']"
-          [(ngModel)]="bookingCancelledIn.hours">
-      </mat-form-field>
-      </div>
-      <br />
-
-      <div class="pl-3 pr-3">
-      <mat-form-field class="full-width">
-        <mat-label>ACTIVE STATUS</mat-label>
-        <mat-select name="activeStatus" [formControl]="secondFormGroup.controls['activeStatus']"
-            [(ngModel)]="program.activeStatus">
-            <mat-option value="Open">Open</mat-option>
-            <mat-option value="Expired">Expired</mat-option>
-        </mat-select>
-    </mat-form-field>
-    </div>
-      <br />
-
-      <div class="pl-3 pr-3">
-      <mat-form-field class="full-width">
-        <mat-label>SOURCE LINK</mat-label>
-        <input matInput placeholder="source link" [formControl]="secondFormGroup.controls['sourceUrl']"
-          [(ngModel)]="program.sourceUrl">
-      </mat-form-field>
-      </div>
-      <br>
-
-      <div class="pl-3 pr-3">
-      <mat-form-field class="full-width">
-        <mat-label>CYCLE</mat-label>
-        <input matInput placeholder="days" [formControl]="secondFormGroup.controls['cycle']"
-          [(ngModel)]="program.cycle">
-      </mat-form-field>
-      </div>
-      <br>
-
-    
-          <!-- <mat-form-field class="full-width">
+        <!-- <mat-form-field class="full-width">
             <mat-label>SELECT ASSOCIATES</mat-label>
             <mat-select [formControl]="secondFormGroup.controls['associates']" required>
 
@@ -522,14 +533,14 @@
           <br /> -->
 
 
-         
-          <!-- <mat-form-field floatLabel="always" appearance="none" class="full-width"> -->
 
-          <!-- <div>
+        <!-- <mat-form-field floatLabel="always" appearance="none" class="full-width"> -->
+
+        <!-- <div>
             <p>Upload a profile picture</p>
             <input type="file" ng2FileSelect [uploader]="uploader" />
           </div> <br /> -->
-          <!-- <div class="full-width">
+        <!-- <div class="full-width">
             <div>
               <p style="color:rgb(118, 118, 118);">Upload a program picture</p>
               <input #file accept="image/*" (change)="fileSelect($event)" type="file" name="myfile" />
@@ -538,24 +549,24 @@
             <img [src]="imgURL" height="100" *ngIf="imgURL"><br>
           </div> -->
 
-          <!-- <div fxLayout="row">
+        <!-- <div fxLayout="row">
             <button mat-raised-button color="red" matStepperPrevious>Back</button>
             <span fxFlex="8px"></span>
             <button mat-raised-button color="primary" matStepperNext>Next</button>
           </div> -->
-        </form>
-      </div>
-      <!-- </mat-step> -->
+      </form>
+    </div>
+    <!-- </mat-step> -->
 
-      <!-- <mat-step [stepControl]="thirdFormGroup"> -->
-        <!-- <form [formGroup]="thirdFormGroup"> -->
-          <!-- <ng-template matStepLabel>Add Program: Other Details</ng-template> -->
+    <!-- <mat-step [stepControl]="thirdFormGroup"> -->
+    <!-- <form [formGroup]="thirdFormGroup"> -->
+    <!-- <ng-template matStepLabel>Add Program: Other Details</ng-template> -->
 
 
-        
 
-     
-          <!-- <div fxLayout="row">
+
+
+    <!-- <div fxLayout="row">
             <button mat-raised-button color="red" matStepperPrevious>Back</button>
             <span fxFlex="8px"></span>
             <button *ngIf="program.type !=='unScheduled'" mat-raised-button color="accent" (click)="openPopUp()">Add
@@ -563,21 +574,23 @@
             <span fxFlex="8px"></span>
             <button mat-raised-button color="primary" matStepperNext>Next</button>
           </div> -->
-        <!-- </form> -->
-      <!-- </mat-step> -->
+    <!-- </form> -->
+    <!-- </mat-step> -->
 
-      <!-- <mat-step> -->
+    <!-- <mat-step> -->
 
 
-        
-      </div>
-        <ng-template matStepLabel>Done</ng-template>
-        <div>
-          <mat-icon class="pt-1" [style.fontSize]="'36px'">check</mat-icon>
-        </div>
-        <div class="full-width"> You Are Done.</div>
-        <button mat-raised-button color="primary" [disabled]="!startTime && !program.isTimeNotMention" (click)="submit()">Submit</button>
-        <!-- <div fxLayout="row">
+
+  </div>
+  <ng-template matStepLabel>Done</ng-template>
+  <div>
+    <mat-icon class="pt-1" [style.fontSize]="'36px'">check</mat-icon>
+  </div>
+  <div class="full-width"> You Are Done.</div>
+  <button mat-raised-button color="primary"
+    [disabled]="!secondFormGroup.valid || !firstFormGroup.valid || ( !startTime && !program.isTimeNotMention)"
+    (click)="submit()">Submit</button>
+  <!-- <div fxLayout="row">
           <button mat-raised-button color="red" matStepperPrevious>Back</button>
           <span fxFlex="8px"></span>
           <button mat-raised-button color="primary" (click)="submit()">Submit</button>

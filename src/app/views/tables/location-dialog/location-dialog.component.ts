@@ -1,16 +1,14 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { DataService } from 'app/shared/services/dataservice.service';
 import { MapsAPILoader } from '@agm/core';
-// import { google } from '@agm/core/services/google-maps-types';
-
+import { Component, ElementRef, Inject, NgZone, OnInit, ViewChild } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { DataService } from 'app/shared/services/dataservice.service';
 
 @Component({
-  selector: 'program-location',
-  templateUrl: './program-location.component.html'
+  selector: 'app-location-dialog',
+  templateUrl: './location-dialog.component.html',
+  styleUrls: ['./location-dialog.component.scss']
 })
-export class ProgramLocationComponent implements OnInit {
-
+export class LocationDialogComponent implements OnInit {
   address: string;
   latitude: number;
   longitude: number;
@@ -27,7 +25,7 @@ export class ProgramLocationComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ProgramLocationComponent>,
+    public dialogRef: MatDialogRef<LocationDialogComponent>,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private dataservice: DataService

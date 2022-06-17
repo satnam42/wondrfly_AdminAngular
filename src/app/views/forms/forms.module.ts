@@ -8,17 +8,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { QuillModule } from 'ngx-quill';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
-
 import { BasicFormComponent } from './basic-form/basic-form.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
-
 import { FormsRoutes } from './forms.routing';
 import { WizardComponent } from './wizard/wizard.component';
 import { ParentFormComponent } from './parent-form/parent-form.component';
 import { ProviderFormComponent } from './provider-form/provider-form.component';
 import { CategoryFormComponent } from './category-form/category-form.component';
 import { ChildFormComponent } from './child-form/child-form.component';
-import { ProgramFormComponent } from './program-form/program-form.component';
 import { AdminFormComponent } from './admin-form/admin-form.component';
 import { EditProgramComponent } from './edit-program/edit-program.component';
 import { AddcategoryFormComponent } from './addcategory-form/addcategory-form.component';
@@ -66,7 +63,6 @@ import { SharedMaterialModule } from 'app/shared/shared-material.module';
     CategoryFormComponent,
     AddcategoryFormComponent,
     ChildFormComponent,
-    ProgramFormComponent,
     AdminFormComponent,
     AddBatchComponent,
     AddBatchComponent,
