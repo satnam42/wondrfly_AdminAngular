@@ -135,8 +135,6 @@ export const TablesRoutes: Routes = [
         path: 'feedback-survey',
         component: FeedbackSurveyComponent,
       },
-
-
       {
         path: 'claims',
         component: ClaimsTableComponent,

@@ -41,9 +41,6 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { DuplicacyDataPopupComponent } from './duplicacy/duplicacy-data-popup/duplicacy-data-popup.component';
 import { DuplicacyComponent } from './duplicacy/duplicacy.component';
 import { BadgesComponent } from './badges/badges.component';
-// import { CalenderComponent } from './calender/calender.component';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { UnVerifiedProviderComponent } from './un-verified-provider/un-verified-provider.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { FeedbackTableComponent } from './feedback-table/feedback-table.component';
@@ -64,7 +61,6 @@ import { Ng5SliderModule } from 'ng5-slider';
 import { TopicsComponent } from './topics/topics.component';
 import { TopicFormComponent } from './topics/topic-form/topic-form.component';
 import { ProgramFormComponent } from './all-program-table/program-form/program-form.component';
-import { AgmCoreModule } from '@agm/core';
 import { MetaServiceComponent } from './meta-service/meta-service.component';
 import { MetaFormComponent } from './meta-service/meta-form/meta-form.component';
 import { SharedMaterialModule } from 'app/shared/shared-material.module';
@@ -88,16 +84,12 @@ import { SharedMaterialModule } from 'app/shared/shared-material.module';
     ScrollingModule,
     SharedModule,
     SharedMaterialModule,
-    CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory,
-    }),
+    // CalendarModule.forRoot({
+    //   provide: DateAdapter,
+    //   useFactory: adapterFactory,
+    // }),
     RouterModule.forChild(TablesRoutes),
     NgxDaterangepickerMd.forRoot(),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyD_5P0pxn1q9hvvTeCr3YCsDhLJoHwxs2c',
-      libraries: ['places']
-    }),
   ],
 
   declarations: [

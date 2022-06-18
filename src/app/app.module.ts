@@ -23,6 +23,7 @@ import { AuthsService } from './shared/services/auth.service';
 import { LocalStorageService } from './shared/services/local-storage.service';
 import { Globals } from './shared/helpers/globalfunctions';
 import { ProgramLocationComponent } from './views/forms/program-form/program-location/program-location.component';
+import { AgmCoreModule } from '@agm/core';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -54,9 +55,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     }),
     InMemoryWebApiModule.forRoot(InMemoryDataService, { passThruUnknownUrl: true }),
     RouterModule.forRoot(rootRouterConfig, { useHash: true }),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyD_5P0pxn1q9hvvTeCr3YCsDhLJoHwxs2c',
+      libraries: ['places']
+    }),
   ],
-  declarations: [AppComponent, NotificationComponent,ProgramLocationComponent, DataPopupComponent, RolespopupComponent],
-  entryComponents: [DataPopupComponent,ProgramLocationComponent, RolespopupComponent],
+  declarations: [AppComponent, NotificationComponent, ProgramLocationComponent, DataPopupComponent, RolespopupComponent],
+  entryComponents: [DataPopupComponent, ProgramLocationComponent, RolespopupComponent],
   providers: [
     ActiveUser,
     AuthsService,

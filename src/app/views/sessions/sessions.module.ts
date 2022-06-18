@@ -8,6 +8,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { SigninComponent } from './signin/signin.component';
 import { SessionsRoutes } from "./sessions.routing";
 import { ErrorComponent } from './error/error.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -20,6 +21,6 @@ import { ErrorComponent } from './error/error.component';
     PerfectScrollbarModule,
     RouterModule.forChild(SessionsRoutes)
   ],
-  declarations: [SigninComponent, ErrorComponent,]
+  declarations: [SigninComponent, ErrorComponent, NotFoundComponent]
 })
 export class SessionsModule { }

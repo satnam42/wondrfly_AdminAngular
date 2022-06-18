@@ -3,7 +3,6 @@ import { Routes } from '@angular/router';
 import { BasicFormComponent } from './basic-form/basic-form.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { WizardComponent } from './wizard/wizard.component';
-import { ProviderFormComponent } from './provider-form/provider-form.component';
 import { ParentFormComponent } from './parent-form/parent-form.component';
 import { CategoryFormComponent } from './category-form/category-form.component';
 import { ChildFormComponent } from './child-form/child-form.component';
@@ -11,8 +10,6 @@ import { AdminFormComponent } from './admin-form/admin-form.component';
 import { EditProgramComponent } from './edit-program/edit-program.component';
 import { AddcategoryFormComponent } from './addcategory-form/addcategory-form.component';
 import { ParentUpdateFormComponent } from './parent-update-form/parent-update-form.component';
-import { ProviderUpdateFormComponent } from './provider-update-form/provider-update-form.component';
-import { ProviderQuickFormComponent } from './provider-quick-form/provider-quick-form.component';
 import { AddFormComponent } from '../components/add-form/add-form.component';
 
 export const FormsRoutes: Routes = [
@@ -61,21 +58,6 @@ export const FormsRoutes: Routes = [
       path: 'child/:id',
       component: ChildFormComponent,
       data: { title: 'CHILD' }
-    },
-    {
-      path: 'provider',
-      component: ProviderFormComponent,
-      data: { title: 'PROVIDER' }
-    },
-    {
-      path: 'provider-update/:id',
-      component: ProviderUpdateFormComponent,
-      data: { title: 'UPDATE-PROVIDER' }
-    },
-    {
-      path: 'provider-quick',
-      component: ProviderQuickFormComponent,
-      data: { title: 'ADD-PROVIDER' }
     },
     {
       path: 'admin',
