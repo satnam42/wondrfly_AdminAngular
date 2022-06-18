@@ -1,7 +1,7 @@
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatDialog, MatSnackBar, MatSnackBarConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatDialog, MatSnackBar, MatDialogRef } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Program } from 'app/shared/models/program.model';
 import { Userr } from 'app/shared/models/user.model';
@@ -19,11 +19,8 @@ import { Observable } from 'rxjs';
   templateUrl: './program-form.component.html',
   styleUrls: ['./program-form.component.css']
 })
-export class ProgramFormComponent implements OnInit {
+export class ProgramFormComponent implements OnInit, OnDestroy {
   firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-  thirdFormGroup: FormGroup;
-  fourthFormGroup: FormGroup;
   startDate: any = new Date;
   endDate: any = new Date;
   startTime: number = 8;
@@ -45,6 +42,8 @@ export class ProgramFormComponent implements OnInit {
     hours: 0,
     minutes: 0
   }
+
+  catId: any = []
 
   locationData: any = {
     address: '',
@@ -129,8 +128,6 @@ export class ProgramFormComponent implements OnInit {
     }
 
   // ng5slider end
-
-
   // ---------------autucomplete-------------  
   visible: boolean = true;
   selectable: boolean = true;
@@ -139,10 +136,6 @@ export class ProgramFormComponent implements OnInit {
   keyword = 'name';
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
-
-  fruitCtrl = new FormControl();
-
-  filteredFruits: Observable<any[]>;
   filteredValues: Observable<any[]>;
   public numbers: Array<number> = [];
   subcatFormcontrol = new FormControl('');
@@ -153,53 +146,41 @@ export class ProgramFormComponent implements OnInit {
 
   public uploader: FileUploader = new FileUploader({ url: 'upload_url' });
   public hasBaseDropZoneOver: boolean = false;
-
   action: boolean = true;
   setAutoHide: boolean = true;
   autoHide: number = 4000;
-  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
-  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   categoriesList: any = [];
   tagByCategory: any[];
   source: any = ['Combined', 'Facebook', 'Linkedin', 'Library', 'Recreation', 'Instagram', 'Google', 'Indeed', 'Craiglist'];
   editFormData: any;
   isEmpty: any;
   isEditData: boolean;
-  constructor(private fb: FormBuilder,
+  constructor(
     private apiservice: ApiService,
     private loader: AppLoaderService,
     private activatedRoute: ActivatedRoute,
     private route: Router,
     public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ProgramFormComponent>,
     private dataservice: DataService,
     private snack: MatSnackBar) {
     this.activatedRoute.params.subscribe(params => {
-      this.user._id = params['id'];
+      let id = params['id'];
+      if (id !== 'id') {
+        this.isEditData = true;
+        this.getProgramById(id)
+      }
     });
-    // this.sessions = dataservice.getOption();
-    let config = new MatSnackBarConfig();
-    config.verticalPosition = this.verticalPosition;
-    config.horizontalPosition = this.horizontalPosition;
-    config.duration = this.setAutoHide ? this.autoHide : 0;
-    this.editFormData = data;
-    this.isEmpty = Object.keys(this.editFormData).length === 0;
-    this.getProgram();
   }
   openPopUp() {
     let dialogRef: MatDialogRef<any> = this.dialog.open(AddBatchComponent, {
       width: '30%',
       disableClose: true,
-      // data: this.sessions
     })
     dialogRef.afterClosed()
       .subscribe(res => {
         if (!res) {
-          // If user press cancel
           return;
         }
-        // this.loader.open();
       });
   }
 
@@ -209,9 +190,6 @@ export class ProgramFormComponent implements OnInit {
       this.tags = res;
       this.tags.tags = this.tags.tags.filter((item) => item.isActivated === true);
     });
-
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
   }
 
   remove(t) {
@@ -221,7 +199,41 @@ export class ProgramFormComponent implements OnInit {
     }
   }
 
-
+  getProgramById(id) {
+    this.changeItem(this.program.category)
+    this.apiservice.getProgramById(id).subscribe(res => {
+      console.log(res, 'new p from')
+      this.program = res;
+      this.days = this.program.days;
+      this.minAge = this.program.ageGroup.from
+      this.maxAge = this.program.ageGroup.to
+      this.minCapacity = this.program.capacity.min
+      this.maxCapacity = this.program.capacity.max
+      this.tag = this.program.subCategoryIds
+      this.perTimePeriod = this.program.pricePeriod.periodAmount;
+      this.timePeriodDuration = this.program.pricePeriod.periodCount
+      if (this.program.date.from == null || this.program.date.from == undefined || this.program.date.from == '') {
+        this.startDate = new Date();
+        this.endDate = new Date();
+      } else {
+        this.startDate = this.program.date.from;
+        this.endDate = this.program.date.to;
+      }
+      let timestart = this.program.time.from;
+      let timeend = this.program.time.to;
+      this.startTime = timestart;
+      this.endTime = timeend;
+      if (this.program.category.length) {
+        for (let category of this.program.category) {
+          this.catId.push(category._id)
+          this.program.categoryId = this.catId
+        }
+      } else {
+        this.catId.push(this.program.category._id)
+        this.program.categoryId = this.catId
+      }
+    })
+  }
 
   selectEvent(item) {
     const index: number = this.tag.indexOf(item);
@@ -247,6 +259,7 @@ export class ProgramFormComponent implements OnInit {
         if (!res) {
           // If user press cancel
           this.locationData = this.dataservice.getOption();
+          console.log(this.locationData)
           this.program.lat = this.locationData.lat;
           this.program.lng = this.locationData.lng;
           this.program.location = this.locationData.address;
@@ -301,18 +314,8 @@ export class ProgramFormComponent implements OnInit {
       isExpired: new FormControl([Boolean]),
       zip: new FormControl(['']),
       activeStatus: new FormControl(['']),
+      per_hour_rate: new FormControl(['']),
     });
-
-
-
-
-
-    // email: ['',],
-    // special_instruction: ['',],
-    // isAdult_assistance: [true,],
-    // booking_cancle_before: ['',],
-    // address: ['',]
-
   }
 
   // public fileOverBase(e: any): void {
@@ -329,17 +332,13 @@ export class ProgramFormComponent implements OnInit {
       this.loader.close();
       if (this.imgResponse.isSuccess === true) {
         this.program.programCoverPic = this.imgResponse.data;
-
-
       } else {
         let msg = "Something Went Wrong!";
         this.snack.open(msg, 'OK', { duration: 4000 });
-
       }
     });
 
     // --------------------preview image before upload ------------------------
-
     if (event.target.files.length === 0)
       return;
     var reader = new FileReader();
@@ -352,19 +351,6 @@ export class ProgramFormComponent implements OnInit {
     if (mimeType.match(/image\/*/) == null) {
       this.msg = " only images are supported";
       return;
-    }
-    // -------------------------------------------------------------------------------
-
-  }
-
-  getProgram() {
-    if (this.isEmpty) {
-      this.isEditData = false;
-    } else {
-      this.isEditData = true
-      console.log(this.editFormData)
-      this.program = this.editFormData;
-      this.days = this.program.days;
     }
   }
 
@@ -432,20 +418,18 @@ export class ProgramFormComponent implements OnInit {
   }
 
   updateProgram() {
-    this.program.ageGroup.from = this.minAge
-    this.program.ageGroup.to = this.maxAge
-    this.program.capacity.min = this.minCapacity
-    this.program.capacity.max = this.maxCapacity
-    this.program.duration = this.durationTime
-    this.program.pricePeriod.periodAmount = this.perTimePeriod
-    this.program.pricePeriod.periodCount = this.timePeriodDuration
+    const dateFormat = "YYYY-MM-DD";
+    this.program.ageGroup.from = this.minAge;
+    this.program.ageGroup.to = this.maxAge;
+    this.program.capacity.min = this.minCapacity;
+    this.program.capacity.max = this.maxCapacity;
     this.program.subCategoryIds = this.tag
     this.program.time.from = this.startTime;
     this.program.time.to = this.endTime;
     this.program.realTime.from = this.startTime;
     this.program.realTime.to = this.endTime;
-    this.program.date.from = this.startDate;
-    this.program.date.to = this.endDate;
+    this.program.date.from = moment(this.startDate).format(dateFormat)
+    this.program.date.to = moment(this.endDate).format(dateFormat)
     var datesDiff: any = Math.round((this.endDate - this.startDate) / (1000 * 60 * 60 * 24));
     var days: any = [];
     let i = 0;
@@ -461,7 +445,11 @@ export class ProgramFormComponent implements OnInit {
         loop = new Date(newDate);
       }
     }
-    this.program.days = this.days
+    this.program.days = this.days;
+    if (typeof this.program.isFree === 'string') { this.program.isFree = false }
+    if (typeof this.program.isFav === 'string') { this.program.isFav = false }
+    if (typeof this.program.adultAssistanceIsRequried === 'string') { this.program.adultAssistanceIsRequried = false }
+    if (typeof this.program.isFree === 'string') { this.program.isFav = false }
     var response: any;
     // if (this.batchData) {
     //   for (let i = 0; i <= totalBatch; i++) {
@@ -475,7 +463,6 @@ export class ProgramFormComponent implements OnInit {
     //   }
     // }
     // this.loader.open();
-
     this.apiservice.updateProgram(this.program._id, this.program).subscribe(res => {
       response = res;
       this.loader.close();
@@ -491,7 +478,6 @@ export class ProgramFormComponent implements OnInit {
     });
   }
 
-
   submit() {
     if (this.isEditData) {
       this.updateProgram();
@@ -499,7 +485,6 @@ export class ProgramFormComponent implements OnInit {
       this.addProgram();
     }
   }
-
 
   getCategories() {
     this.apiservice.getCategory().subscribe(res => {
@@ -511,18 +496,12 @@ export class ProgramFormComponent implements OnInit {
 
   changeItem(event) {
     this.program.categoryId = event
-    // this.getTagsByCategory()
   }
 
   changetags(event) {
     this.tags = event
   }
 
-  // getTagsByCategory(){
-  //   this.apiservice.getTagsByCategory(this.program.categoryId).subscribe((res:any) => {
-  //     this.tagByCategory = res.data;
-  //   })
-  // }
 
   getQuantity(event) {
     this.numbers = []
@@ -626,9 +605,8 @@ export class ProgramFormComponent implements OnInit {
     $element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
   }
 
-  onDayChange(event) {
-    console.log(event);
-    console.log('days', this.days)
+  ngOnDestroy(): void {
+
   }
 
 }

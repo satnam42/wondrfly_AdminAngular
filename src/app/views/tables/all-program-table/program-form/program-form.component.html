@@ -1,629 +1,622 @@
-<div class="add-activity-popup-info">
-    <div class="add-activity-body">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="sidebar-progress">
-                    <div class="progress-box">
-                        <div class="sidebar-top-h3 mb-40">
-                            <h3 [hidden]="isEditData">Add Activity</h3>
-                            <h3 [hidden]="!isEditData">Update Activity</h3>
-                        </div>
-                        <div class="cicle-dots">
-                            <div class="dots-info dots-info1" (click)="nextStep(1);scrollToElement(target1)">
-                                <h3 class="prog_text" [ngClass]="{active: step1}">Activity Info</h3>
+    <div class="add-activity-popup-info">
+        <div class="add-activity-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="sidebar-progress">
+                        <div class="progress-box">
+                            <div class="sidebar-top-h3 mb-40">
+                                <h3 [hidden]="isEditData">Add Activity</h3>
+                                <h3 [hidden]="!isEditData">Update Activity</h3>
                             </div>
-                            <div class="dots-info dots-info2" (click)="nextStep(2);scrollToElement(target2)">
-                                <h3 class="prog_text" [ngClass]="{active: step2}">Category & Type</h3>
-                            </div>
-                            <div class="dots-info dots-info3" (click)="nextStep(3);scrollToElement(target3)">
-                                <h3 class="prog_text" [ngClass]="{active: step3}">Activity Details</h3>
-                            </div>
-                            <div class="dots-info dots-info4" (click)="nextStep(4);scrollToElement(target4)">
-                                <h3 class="prog_text" [ngClass]="{active: step4}">Date & Time</h3>
-                            </div>
-                            <div class="dots-info dots-info5" (click)="nextStep(5);scrollToElement(target5)">
-                                <h3 class="prog_text" [ngClass]="{active: step5}">Pricing</h3>
-                            </div>
-                            <div class="dots-info dots-info6" (click)="nextStep(6);scrollToElement(target6)">
-                                <h3 class="prog_text" [ngClass]="{active:step6}">Special Instructions</h3>
-                            </div>
-                            <div class="dots-info dots-info7" (click)="nextStep(7);scrollToElement(target7)">
-                                <h3 class="prog_text" [ngClass]="{active: step7}">Source</h3>
+                            <div class="cicle-dots">
+                                <div class="dots-info dots-info1" (click)="nextStep(1);scrollToElement(target1)">
+                                    <h3 class="prog_text" [ngClass]="{active: step1}">Activity Info</h3>
+                                </div>
+                                <div class="dots-info dots-info2" (click)="nextStep(2);scrollToElement(target2)">
+                                    <h3 class="prog_text" [ngClass]="{active: step2}">Category & Type</h3>
+                                </div>
+                                <div class="dots-info dots-info3" (click)="nextStep(3);scrollToElement(target3)">
+                                    <h3 class="prog_text" [ngClass]="{active: step3}">Activity Details</h3>
+                                </div>
+                                <div class="dots-info dots-info4" (click)="nextStep(4);scrollToElement(target4)">
+                                    <h3 class="prog_text" [ngClass]="{active: step4}">Date & Time</h3>
+                                </div>
+                                <div class="dots-info dots-info5" (click)="nextStep(5);scrollToElement(target5)">
+                                    <h3 class="prog_text" [ngClass]="{active: step5}">Pricing</h3>
+                                </div>
+                                <div class="dots-info dots-info6" (click)="nextStep(6);scrollToElement(target6)">
+                                    <h3 class="prog_text" [ngClass]="{active:step6}">Special Instructions</h3>
+                                </div>
+                                <div class="dots-info dots-info7" (click)="nextStep(7);scrollToElement(target7)">
+                                    <h3 class="prog_text" [ngClass]="{active: step7}">Source</h3>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-8">
-                <div class="btn-save-close-info">
-                    <button class="btn-save-close" (click)="submit()">Save & Close</button>
-                    <button class="btn-cross-close"><img (click)="dialogRef.close()"
-                            src="/assets/images/crose-white-icon.svg" /></button>
-                </div>
-                <div class="main-body-content">
-                    <div class="multi-step-scroll-form">
-                        <!-- active info popup -->
-                        <div class="active-info-popup height-equal-scroll" #target1>
-                            <div class="box-content bg-white">
-                                <h2 class="h2">Activity Info</h2>
-                                <div class="active-info-form">
-                                    <div class="field-group">
-                                        <div class="label-heading">
-                                            Activity Name
-                                        </div>
-                                        <input type="text" class="input-field" placeholder="Type"
-                                            [formControl]="firstFormGroup.controls['name']" [(ngModel)]="program.name"
-                                            required required>
-                                    </div>
-                                    <div class="field-group">
-                                        <div class="label-heading">
-                                            Default Emails
-                                        </div>
-                                        <div class="input-icon-field">
-                                            <input type="email" placeholder="email@example.com" class="input-field"
-                                                placeholder="Type" [formControl]="firstFormGroup.controls['email']"
-                                                [(ngModel)]="program.emails" required>
-                                            <img src="/assets/images/pensil-blue-icon.svg" />
-                                        </div>
-                                    </div>
-                                    <div class="field-group">
-                                        <div class="label-heading">
-                                            Phone Number
-                                        </div>
-                                        <div class="input-icon-field">
-                                            <input type="tel" class="input-field" placeholder="Type"
-                                                [formControl]="firstFormGroup.controls['phoneNumber']"
-                                                [(ngModel)]="program.phoneNumber" required>
-                                            <img src="/assets/images/pensil-blue-icon.svg" />
-                                        </div>
-                                    </div>
-                                    <div class="field-group">
-                                        <div class="label-heading">
-                                            Address
-                                        </div>
-                                        <input type="text" class="input-field" placeholder="Type"
-                                            [formControl]="firstFormGroup.controls['addresses']"
-                                            [(ngModel)]="program.addresses">
-                                    </div>
-                                    <div class="field-group">
-                                        <div class="label-heading">
-                                            Location
-                                        </div>
-                                        <input type="text" class="input-field" (click)="openMap()" placeholder="Type"
-                                            [formControl]="firstFormGroup.controls['location']"
-                                            [(ngModel)]="program.location">
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6 field-group">
+                <div class="col-md-8">
+                    <div class="btn-save-close-info">
+                        <button class="btn-save-close" (click)="submit()">Save & Close</button>
+                        <button class="btn-cross-close"><img src="/assets/images/crose-white-icon.svg" /></button>
+                    </div>
+                    <div class="main-body-content">
+                        <div class="multi-step-scroll-form">
+                            <!-- active info popup -->
+                            <div class="active-info-popup height-equal-scroll" #target1>
+                                <div class="box-content bg-white">
+                                    <h2 class="h2">Activity Info</h2>
+                                    <div class="active-info-form">
+                                        <div class="field-group">
                                             <div class="label-heading">
-                                                City
+                                                Activity Name
                                             </div>
                                             <input type="text" class="input-field" placeholder="Type"
-                                                [formControl]="firstFormGroup.controls['city']"
-                                                [(ngModel)]="program.city">
+                                                [formControl]="firstFormGroup.controls['name']"
+                                                [(ngModel)]="program.name" required required>
                                         </div>
-                                        <div class="col-md-6 field-group">
+                                        <div class="field-group">
                                             <div class="label-heading">
-                                                ZIP
+                                                Default Emails
+                                            </div>
+                                            <div class="input-icon-field">
+                                                <input type="email" placeholder="email@example.com" class="input-field"
+                                                    placeholder="Type" [formControl]="firstFormGroup.controls['email']"
+                                                    [(ngModel)]="program.emails" required>
+                                                <img src="/assets/images/pensil-blue-icon.svg" />
+                                            </div>
+                                        </div>
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                Phone Number
+                                            </div>
+                                            <div class="input-icon-field">
+                                                <input type="tel" class="input-field" placeholder="Type"
+                                                    [formControl]="firstFormGroup.controls['phoneNumber']"
+                                                    [(ngModel)]="program.phoneNumber" required>
+                                                <img src="/assets/images/pensil-blue-icon.svg" />
+                                            </div>
+                                        </div>
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                Address
+                                            </div>
+                                            <input type="text" class="input-field" placeholder="Type"
+                                                [formControl]="firstFormGroup.controls['addresses']"
+                                                [(ngModel)]="program.addresses">
+                                        </div>
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                Location
+                                            </div>
+                                            <input type="text" class="input-field" (click)="openMap()"
+                                                placeholder="Type" [formControl]="firstFormGroup.controls['location']"
+                                                [(ngModel)]="program.location">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 field-group">
+                                                <div class="label-heading">
+                                                    City
+                                                </div>
+                                                <input type="text" class="input-field" placeholder="Type"
+                                                    [formControl]="firstFormGroup.controls['city']"
+                                                    [(ngModel)]="program.city">
+                                            </div>
+                                            <div class="col-md-6 field-group">
+                                                <div class="label-heading">
+                                                    ZIP
+                                                </div>
+                                                <input type="text" class="input-field"
+                                                    [formControl]="firstFormGroup.controls['zip']"
+                                                    [(ngModel)]="program.zip">
+                                            </div>
+                                        </div>
+                                        <div class="field-group">
+                                            <div class="checkboxes__item">
+                                                <label class="checkbox">
+                                                    <input type="checkbox"
+                                                        [formControl]="firstFormGroup.controls['isExpired']"
+                                                        [(ngModel)]="program.isExpired" />
+                                                    <div class="checkbox__checkmark"></div>
+                                                    <div class="checkbox__body">Expired Activity</div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end active info popup -->
+
+                            <!-- Start Category & Type popup -->
+                            <div class="category-type-popup height-equal-scroll" #target2>
+                                <div class="box-content bg-white">
+                                    <h2 class="h2">Category</h2>
+                                    <div class="active-info-form">
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                Category
+                                            </div>
+                                            <mat-select class="input-field select-down-icon"
+                                                [formControl]="firstFormGroup.controls['categoryId']" #itemValue
+                                                (selectionChange)="changeItem($event.value)"
+                                                [(ngModel)]="program.categoryId" required multiple>
+                                                <mat-option selected *ngFor='let item of categoriesList'
+                                                    [value]="item.id">
+                                                    {{item.name}}</mat-option>
+                                            </mat-select>
+                                        </div>
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                Sub - Category
+                                            </div>
+
+                                            <input type="text" class="input-field" placeholder="Select Sub-categories"
+                                                matInput [formControl]="subcatFormcontrol" [matAutocomplete]="auto">
+                                            <mat-autocomplete #auto="matAutocomplete">
+                                                <mat-option (click)="selectEvent(option)"
+                                                    *ngFor="let option of tags?.tags">
+                                                    {{option?.name}}
+                                                </mat-option>
+                                            </mat-autocomplete>
+
+                                        </div>
+                                        <div class="chip_class mt-2 mb-2" *ngIf="tag?.length">
+                                            <mat-chip-list>
+                                                <mat-chip *ngFor="let t of tag" [selectable]="selectable"
+                                                    [removable]="removable" (removed)="remove(t)">
+                                                    {{t.name}}<span *ngIf="!t?.name">{{t}}</span>
+                                                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                                </mat-chip>
+                                            </mat-chip-list>
+                                        </div>
+
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                Program type
+                                            </div>
+                                            <mat-select class="input-field select-down-icon"
+                                                [formControl]="firstFormGroup.controls['type']"
+                                                [(ngModel)]="program.type">
+                                                <mat-option value="Camps">Camps</mat-option>
+                                                <mat-option value="Semesters">Semesters</mat-option>
+                                                <mat-option value="Drop-ins">Drop-ins</mat-option>
+                                                <mat-option value="Other">Other</mat-option>
+                                            </mat-select>
+                                        </div>
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                Age group
+                                            </div>
+                                            <ng5-slider [(value)]="minAge" [(highValue)]="maxAge" [options]="ageOption">
+                                            </ng5-slider>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end Category & Type popup -->
+
+                            <!-- Start Activity Details popup -->
+                            <div class="activity-details-popup height-equal-scroll" #target3>
+                                <div class="box-content bg-white">
+                                    <h2 class="h2">Activity Details</h2>
+                                    <div class="active-info-form">
+                                        <div class="btn-online-in-person-info mb-30">
+                                            <button class="btn-multipal"
+                                                [ngClass]="{ 'active' : program.inpersonOrVirtual=='Virtual' }"
+                                                (click)="program.inpersonOrVirtual='Virtual'">Online</button>
+                                            <button class="btn-multipal"
+                                                [ngClass]="{ 'active' : program.inpersonOrVirtual=='Inperson' }"
+                                                (click)="program.inpersonOrVirtual='Inperson'">In
+                                                person</button>
+                                        </div>
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                Presenter
                                             </div>
                                             <input type="text" class="input-field"
-                                                [formControl]="firstFormGroup.controls['zip']"
-                                                [(ngModel)]="program.zip">
+                                                [formControl]="firstFormGroup.controls['presenter']"
+                                                [(ngModel)]="program.presenter">
                                         </div>
-                                    </div>
-                                    <div class="field-group">
-                                        <div class="checkboxes__item">
-                                            <label class="checkbox">
-                                                <input type="checkbox"
-                                                    [formControl]="firstFormGroup.controls['isExpired']"
-                                                    [(ngModel)]="program.isExpired" />
-                                                <div class="checkbox__checkmark"></div>
-                                                <div class="checkbox__body">Expired Activity</div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end active info popup -->
-
-                        <!-- Start Category & Type popup -->
-                        <div class="category-type-popup height-equal-scroll" #target2>
-                            <div class="box-content bg-white">
-                                <h2 class="h2">Category</h2>
-                                <div class="active-info-form">
-                                    <div class="field-group">
-                                        <div class="label-heading">
-                                            Category
-                                        </div>
-                                        <mat-select class="input-field select-down-icon"
-                                            [formControl]="firstFormGroup.controls['categoryId']" #itemValue
-                                            (selectionChange)="changeItem($event.value)"
-                                            [(ngModel)]="program.categoryId" required multiple>
-                                            <mat-option selected *ngFor='let item of categoriesList' [value]="item.id">
-                                                {{item.name}}</mat-option>
-                                        </mat-select>
-                                    </div>
-                                    <div class="field-group">
-                                        <div class="label-heading">
-                                            Sub - Category
-                                        </div>
-
-                                        <input type="text" class="input-field" placeholder="Select Sub-categories"
-                                            matInput [formControl]="subcatFormcontrol" [matAutocomplete]="auto">
-                                        <mat-autocomplete #auto="matAutocomplete">
-                                            <mat-option (click)="selectEvent(option)" *ngFor="let option of tags?.tags">
-                                                {{option?.name}}
-                                            </mat-option>
-                                        </mat-autocomplete>
-
-                                    </div>
-                                    <div class="chip_class mt-2 mb-2" *ngIf="tag?.length">
-                                        <mat-chip-list>
-                                            <mat-chip *ngFor="let t of tag" [selectable]="selectable"
-                                                [removable]="removable" (removed)="remove(t)">
-                                                {{t.name}}<span *ngIf="!t?.name">{{t}}</span>
-                                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                                            </mat-chip>
-                                        </mat-chip-list>
-                                    </div>
-
-                                    <div class="field-group">
-                                        <div class="label-heading">
-                                            Program type
-                                        </div>
-                                        <mat-select class="input-field select-down-icon"
-                                            [formControl]="firstFormGroup.controls['type']" [(ngModel)]="program.type">
-                                            <mat-option value="Camps">Camps</mat-option>
-                                            <mat-option value="Semesters">Semesters</mat-option>
-                                            <mat-option value="Drop-ins">Drop-ins</mat-option>
-                                            <mat-option value="Other">Other</mat-option>
-                                        </mat-select>
-                                    </div>
-                                    <div class="field-group">
-                                        <div class="label-heading">
-                                            Age group
-                                        </div>
-                                        <ng5-slider [(value)]="minAge" [(highValue)]="maxAge" [options]="ageOption">
-                                        </ng5-slider>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end Category & Type popup -->
-
-                        <!-- Start Activity Details popup -->
-                        <div class="activity-details-popup height-equal-scroll" #target3>
-                            <div class="box-content bg-white">
-                                <h2 class="h2">Activity Details</h2>
-                                <div class="active-info-form">
-                                    <div class="btn-online-in-person-info mb-30">
-                                        <button class="btn-multipal"
-                                            [ngClass]="{ 'active' : program.inpersonOrVirtual=='Virtual' }"
-                                            (click)="program.inpersonOrVirtual='Virtual'">Online</button>
-                                        <button class="btn-multipal"
-                                            [ngClass]="{ 'active' : program.inpersonOrVirtual=='Inperson' }"
-                                            (click)="program.inpersonOrVirtual='Inperson'">In
-                                            person</button>
-                                    </div>
-                                    <div class="field-group">
-                                        <div class="label-heading">
-                                            Presenter
-                                        </div>
-                                        <input type="text" class="input-field"
-                                            [formControl]="firstFormGroup.controls['presenter']"
-                                            [(ngModel)]="program.presenter">
-                                    </div>
-                                    <div class="field-group">
-                                        <div class="label-heading">
-                                            Description
-                                        </div>
-                                        <textarea #ProgramDescription type="text" maxlength="3000" rows="4"
-                                            class="input-field" placeholder="Type"
-                                            [formControl]="firstFormGroup.controls['description']"
-                                            [(ngModel)]="program.description">
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                Description
+                                            </div>
+                                            <textarea #ProgramDescription type="text" maxlength="3000" rows="4"
+                                                class="input-field" placeholder="Type"
+                                                [formControl]="firstFormGroup.controls['description']"
+                                                [(ngModel)]="program.description">
                                 </textarea>
-                                        <!-- <span class="text-absolu">({{ProgramDescription.value?.length}} of 3000)</span> -->
-                                    </div>
-                                    <div class="field-group">
-                                        <div class="label-heading">
-                                            Joining Link
+                                            <!-- <span class="text-absolu">({{ProgramDescription.value?.length}} of 3000)</span> -->
                                         </div>
-                                        <div class="input-icon-field joining-link-clr">
-                                            <input type="url" placeholder="htttps;//fjoejfosjafj" class="input-field"
-                                                [formControl]="firstFormGroup.controls['joiningLink']"
-                                                [(ngModel)]="program.joiningLink">
-                                            <img src="/assets/images/pensil-blue-icon.svg" />
-                                        </div>
-                                    </div>
-                                    <div class="field-group mb-20">
-                                        <div class="grid-capacity-row">
-                                            <div>
-                                                <div class="label-heading">
-                                                    Capacity
-                                                </div>
-                                                <ng5-slider [(value)]="minCapacity" [(highValue)]="maxCapacity"
-                                                    [options]="capacityOption">
-                                                </ng5-slider>
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                Joining Link
                                             </div>
-                                            <div>
-                                                <div class="checkbox-blue-box">
-                                                    <div class="checkboxes__item">
-                                                        <label class="checkbox">
-                                                            <input type="checkbox" />
-                                                            <div class="checkbox__checkmark"></div>
-                                                            <div class="checkbox__body">Activity is full</div>
-                                                        </label>
+                                            <div class="input-icon-field joining-link-clr">
+                                                <input type="url" placeholder="htttps;//fjoejfosjafj"
+                                                    class="input-field"
+                                                    [formControl]="firstFormGroup.controls['joiningLink']"
+                                                    [(ngModel)]="program.joiningLink">
+                                                <img src="/assets/images/pensil-blue-icon.svg" />
+                                            </div>
+                                        </div>
+                                        <div class="field-group mb-20">
+                                            <div class="grid-capacity-row">
+                                                <div>
+                                                    <div class="label-heading">
+                                                        Capacity
                                                     </div>
-                                                    <div class="checkboxes__item">
-                                                        <label class="checkbox">
-                                                            <input type="checkbox" />
-                                                            <div class="checkbox__checkmark"></div>
-                                                            <div class="checkbox__body">No capacity info</div>
-                                                        </label>
+                                                    <ng5-slider [(value)]="minCapacity" [(highValue)]="maxCapacity"
+                                                        [options]="capacityOption">
+                                                    </ng5-slider>
+                                                </div>
+                                                <div>
+                                                    <div class="checkbox-blue-box">
+                                                        <div class="checkboxes__item">
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" />
+                                                                <div class="checkbox__checkmark"></div>
+                                                                <div class="checkbox__body">Activity is full</div>
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkboxes__item">
+                                                            <label class="checkbox">
+                                                                <input type="checkbox" />
+                                                                <div class="checkbox__checkmark"></div>
+                                                                <div class="checkbox__body">No capacity info</div>
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="field-group">
-                                        <div class="btn-slide-toggle-info">
-                                            <div class="btn-slide-toggle">
-                                                <mat-slide-toggle color="primary"
-                                                    [checked]="program.indoorOroutdoor=='outdoor'"> </mat-slide-toggle>
-                                            </div>
-                                            <label class="slide-toggle-txt">Outdoor activity</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end Activity Details popup -->
-
-                        <!-- Start Date & Time popup -->
-                        <div class="date-time-popup height-equal-scroll" #target4>
-                            <div class="box-content bg-white">
-                                <h2 class="h2">Days & Time</h2>
-                                <div class="active-info-form">
-                                    <div class="field-group mb-15">
-                                        <div class="label-heading">
-                                            Dates
-                                        </div>
-                                        <div class="btn-start-end-date">
-                                            <div class="btn-start-date" (click)="pickerStart.open()">
-                                                <input matInput placeholder="Start Date" [(ngModel)]="startDate"
-                                                    [matDatepicker]="pickerStart">
-                                                <mat-datepicker-toggle matSuffix [for]="pickerStart">
-                                                </mat-datepicker-toggle>
-                                                <mat-datepicker #pickerStart></mat-datepicker>
-
-                                            </div>
-                                            <div class="btn-mid-arrow">
-                                                <img src="/assets/images/btn-mid-arrow.svg" />
-                                            </div>
-                                            <div class="btn-end-date" (click)="pickerEnd.open()">
-                                                <input matInput placeholder="End Date" [(ngModel)]="endDate"
-                                                    [matDatepicker]="pickerEnd">
-                                                <mat-datepicker-toggle matSuffix [for]="pickerEnd">
-                                                </mat-datepicker-toggle>
-                                                <mat-datepicker #pickerEnd></mat-datepicker>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="field-group mb-10">
-                                        <div class="checkboxes__item">
-                                            <label class="checkbox">
-                                                <input type="checkbox" />
-                                                <div class="checkbox__checkmark"></div>
-                                                <div class="checkbox__body">Dates are flexible</div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="field-group mb-10">
-                                        <div class="label-heading">
-                                            Days
-                                        </div>
-                                        <div class="weekday-ceckboxes-info checkbox-circle-box checkbox-blue-box">
-                                            <div class="checkboxes__item">
-                                                <label class="checkbox">
-                                                    <input type="checkbox" [(ngModel)]="days.monday" />
-                                                    <div class="checkbox__checkmark"></div>
-                                                    <div class="checkbox__body">Mon</div>
-                                                </label>
-                                            </div>
-                                            <div class="checkboxes__item">
-                                                <label class="checkbox">
-                                                    <input type="checkbox" [(ngModel)]="days.tuesday "
-                                                        (change)="onDayChange($event)" />
-                                                    <div class="checkbox__checkmark"></div>
-                                                    <div class="checkbox__body">Tue</div>
-                                                </label>
-                                            </div>
-                                            <div class="checkboxes__item">
-                                                <label class="checkbox">
-                                                    <input type="checkbox" (change)="onDayChange($event)"
-                                                        [(ngModel)]="days.wednesday " />
-                                                    <div class="checkbox__checkmark"></div>
-                                                    <div class="checkbox__body">Wed</div>
-                                                </label>
-                                            </div>
-                                            <div class="checkboxes__item">
-                                                <label class="checkbox">
-                                                    <input type="checkbox" (change)="onDayChange($event)"
-                                                        [(ngModel)]="days.thursday" />
-                                                    <div class="checkbox__checkmark"></div>
-                                                    <div class="checkbox__body">Thur</div>
-                                                </label>
-                                            </div>
-                                            <div class="checkboxes__item">
-                                                <label class="checkbox">
-                                                    <input type="checkbox" (change)="onDayChange($event)"
-                                                        [(ngModel)]="days.friday " />
-                                                    <div class="checkbox__checkmark"></div>
-                                                    <div class="checkbox__body">Fri</div>
-                                                </label>
-                                            </div>
-                                            <div class="checkboxes__item">
-                                                <label class="checkbox">
-                                                    <input type="checkbox" (change)="onDayChange($event)"
-                                                        [(ngModel)]="days.saturday" />
-                                                    <div class="checkbox__checkmark"></div>
-                                                    <div class="checkbox__body">Sat</div>
-                                                </label>
-                                            </div>
-                                            <div class="checkboxes__item">
-                                                <label class="checkbox">
-                                                    <input type="checkbox" (change)="onDayChange($event)"
-                                                        [(ngModel)]="days.sunday" />
-                                                    <div class="checkbox__checkmark"></div>
-                                                    <div class="checkbox__body">Sun</div>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="field-group mb-30">
-                                        <div class="label-heading">
-                                            Time
-                                        </div>
-                                        <ng5-slider [(value)]="startTime" [(highValue)]="endTime"
-                                            [options]="timeOption">
-                                        </ng5-slider>
-                                    </div>
-                                    <div class="field-group mb-10">
-                                        <div class="weekday-list-info">
-                                            <div>
-                                                <h3><span class="bold">Monday |</span> 8am - 2pm</h3>
-                                            </div>
-                                            <div>
-                                                <h3><span class="bold">Tuesday |</span> 8am - 2pm</h3>
-                                            </div>
-                                            <div>
-                                                <h3><span class="bold">Wednesday |</span> 8am - 2pm</h3>
-                                            </div>
-                                            <div>
-                                                <h3><span class="bold">Thursday |</span> 8am - 2pm</h3>
-                                            </div>
-                                            <div>
-                                                <h3><span class="bold">Friday |</span> 8am - 2pm</h3>
-                                            </div>
-                                            <div>
-                                                <h3><span class="bold">Saturday |</span> 8am - 2pm</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="field-group">
-                                        <div class="gird-date-time checkbox-blue-box">
-                                            <div class="checkboxes__item">
-                                                <label class="checkbox">
-                                                    <input type="checkbox" [(ngModel)]="program.isDateNotMention" />
-                                                    <div class="checkbox__checkmark"></div>
-                                                    <div class="checkbox__body">Date is not available</div>
-                                                </label>
-                                            </div>
-                                            <div class="checkboxes__item">
-                                                <label class="checkbox">
-                                                    <input type="checkbox" [(ngModel)]="program.isTimeNotMention" />
-                                                    <div class="checkbox__checkmark"></div>
-                                                    <div class="checkbox__body">Time is not available</div>
-                                                </label>
+                                        <div class="field-group">
+                                            <div class="btn-slide-toggle-info">
+                                                <div class="btn-slide-toggle">
+                                                    <mat-slide-toggle color="primary"
+                                                        [checked]="program.indoorOroutdoor=='outdoor'">
+                                                    </mat-slide-toggle>
+                                                </div>
+                                                <label class="slide-toggle-txt">Outdoor activity</label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- end Date & Time popup -->
+                            <!-- end Activity Details popup -->
 
-                        <!-- Start Pricing popup -->
-                        <div class="pricing-info-popup height-equal-scroll" #target5>
-                            <div class="box-content bg-white">
-                                <h2 class="h2">Pricing</h2>
-                                <div class="active-info-form">
-                                    <div class="field-group mb-20">
-                                        <div class="btn-slide-toggle-info">
-                                            <div class="btn-slide-toggle">
-                                                <mat-slide-toggle color="primary"
-                                                    [formControl]="firstFormGroup.controls['isFree']"
-                                                    [(ngModel)]="program.isFree">
-                                                </mat-slide-toggle>
+                            <!-- Start Date & Time popup -->
+                            <div class="date-time-popup height-equal-scroll" #target4>
+                                <div class="box-content bg-white">
+                                    <h2 class="h2">Days & Time</h2>
+                                    <div class="active-info-form">
+                                        <div class="field-group mb-15">
+                                            <div class="label-heading">
+                                                Dates
                                             </div>
-                                            <label class="slide-toggle-txt">Free Program</label>
-                                        </div>
-                                    </div>
-                                    <div class="field-group mb-15">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="label-heading">
-                                                    Price Per Participant
+                                            <div class="btn-start-end-date" *ngIf="!program?.isDateNotMention">
+                                                <div class="btn-start-date" (click)="pickerStart.open()">
+                                                    <input matInput placeholder="Start Date" [(ngModel)]="startDate"
+                                                        [matDatepicker]="pickerStart">
+                                                    <mat-datepicker-toggle matSuffix [for]="pickerStart">
+                                                    </mat-datepicker-toggle>
+                                                    <mat-datepicker #pickerStart></mat-datepicker>
+
                                                 </div>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">$</div>
-                                                    </div>
-                                                    <input type="text" class="form-control" placeholder="Add.."
-                                                        [(ngModel)]="program.pricePerParticipant"
-                                                        [formControl]="firstFormGroup.controls['pricePerParticipant']">
+                                                <div class="btn-mid-arrow">
+                                                    <img src="/assets/images/btn-mid-arrow.svg" />
+                                                </div>
+                                                <div class="btn-end-date" (click)="pickerEnd.open()">
+                                                    <input matInput placeholder="End Date" [(ngModel)]="endDate"
+                                                        [matDatepicker]="pickerEnd">
+                                                    <mat-datepicker-toggle matSuffix [for]="pickerEnd">
+                                                    </mat-datepicker-toggle>
+                                                    <mat-datepicker #pickerEnd></mat-datepicker>
+
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="field-group mb-20">
-                                        <div class="checkbox-blue-box">
+                                        <div class="field-group mb-10">
                                             <div class="checkboxes__item">
                                                 <label class="checkbox">
                                                     <input type="checkbox" />
                                                     <div class="checkbox__checkmark"></div>
-                                                    <div class="checkbox__body">Free DEMO is available</div>
+                                                    <div class="checkbox__body">Dates are flexible</div>
                                                 </label>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="field-group mb-15">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="label-heading">
-                                                    Estimated Price Per Hour
-                                                </div>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">$</div>
-                                                    </div>
-                                                    <input type="text" class="form-control" placeholder="Add..">
-                                                </div>
+                                        <div class="field-group mb-10">
+                                            <div class="label-heading">
+                                                Days
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="label-heading">
-                                                    Calculated Price Per Hour
+                                            <div class="weekday-ceckboxes-info checkbox-circle-box checkbox-blue-box">
+                                                <div class="checkboxes__item">
+                                                    <label class="checkbox">
+                                                        <input type="checkbox" [(ngModel)]="days.monday" />
+                                                        <div class="checkbox__checkmark"></div>
+                                                        <div class="checkbox__body">Mon</div>
+                                                    </label>
                                                 </div>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">$</div>
-                                                    </div>
-                                                    <input type="text" class="form-control" placeholder="Add..">
+                                                <div class="checkboxes__item">
+                                                    <label class="checkbox">
+                                                        <input type="checkbox" [(ngModel)]="days.tuesday " />
+                                                        <div class="checkbox__checkmark"></div>
+                                                        <div class="checkbox__body">Tue</div>
+                                                    </label>
+                                                </div>
+                                                <div class="checkboxes__item">
+                                                    <label class="checkbox">
+                                                        <input type="checkbox" [(ngModel)]="days.wednesday " />
+                                                        <div class="checkbox__checkmark"></div>
+                                                        <div class="checkbox__body">Wed</div>
+                                                    </label>
+                                                </div>
+                                                <div class="checkboxes__item">
+                                                    <label class="checkbox">
+                                                        <input type="checkbox" [(ngModel)]="days.thursday" />
+                                                        <div class="checkbox__checkmark"></div>
+                                                        <div class="checkbox__body">Thur</div>
+                                                    </label>
+                                                </div>
+                                                <div class="checkboxes__item">
+                                                    <label class="checkbox">
+                                                        <input type="checkbox" [(ngModel)]="days.friday " />
+                                                        <div class="checkbox__checkmark"></div>
+                                                        <div class="checkbox__body">Fri</div>
+                                                    </label>
+                                                </div>
+                                                <div class="checkboxes__item">
+                                                    <label class="checkbox">
+                                                        <input type="checkbox" [(ngModel)]="days.saturday" />
+                                                        <div class="checkbox__checkmark"></div>
+                                                        <div class="checkbox__body">Sat</div>
+                                                    </label>
+                                                </div>
+                                                <div class="checkboxes__item">
+                                                    <label class="checkbox">
+                                                        <input type="checkbox" [(ngModel)]="days.sunday" />
+                                                        <div class="checkbox__checkmark"></div>
+                                                        <div class="checkbox__body">Sun</div>
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="field-group mb-20">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="label-heading">
-                                                    Price Per Sibling
-                                                </div>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">$</div>
-                                                    </div>
-                                                    <input type="text" class="form-control" placeholder="Add.."
-                                                        [(ngModel)]="program.priceForSiblings"
-                                                        [formControl]="firstFormGroup.controls['priceForSiblings']" />
-                                                </div>
+                                        <div class="field-group mb-30" *ngIf="!program?.isTimeNotMention">
+                                            <div class="label-heading">
+                                                Time
                                             </div>
+                                            <ng5-slider [(value)]="startTime" [(highValue)]="endTime"
+                                                [options]="timeOption">
+                                            </ng5-slider>
                                         </div>
-                                    </div>
-
-                                    <div class="field-group">
-                                        <div class="btn-slide-toggle-info">
-                                            <div class="btn-slide-toggle">
-                                                <mat-slide-toggle color="primary"
-                                                    [formControl]="firstFormGroup.controls['isproRated']"
-                                                    [(ngModel)]="program.isproRated"> </mat-slide-toggle>
+                                        <!-- <div class="field-group mb-10">
+                                            <div class="weekday-list-info">
+                                                <div>
+                                                    <h3><span class="bold">Monday |</span> 8am - 2pm</h3>
+                                                </div>
+                                                <div>
+                                                    <h3><span class="bold">Tuesday |</span> 8am - 2pm</h3>
+                                                </div>
+                                                <div>
+                                                    <h3><span class="bold">Wednesday |</span> 8am - 2pm</h3>
+                                                </div>
+                                                <div>
+                                                    <h3><span class="bold">Thursday |</span> 8am - 2pm</h3>
+                                                </div>
+                                                <div>
+                                                    <h3><span class="bold">Friday |</span> 8am - 2pm</h3>
+                                                </div>
+                                                <div>
+                                                    <h3><span class="bold">Saturday |</span> 8am - 2pm</h3>
+                                                </div>
                                             </div>
-                                            <label class="slide-toggle-txt">Is it a prorated program?</label>
+                                        </div> -->
+                                        <div class="field-group">
+                                            <div class="gird-date-time checkbox-blue-box">
+                                                <div class="checkboxes__item">
+                                                    <label class="checkbox">
+                                                        <input type="checkbox" [(ngModel)]="program.isDateNotMention" />
+                                                        <div class="checkbox__checkmark"></div>
+                                                        <div class="checkbox__body">Date is not available</div>
+                                                    </label>
+                                                </div>
+                                                <div class="checkboxes__item">
+                                                    <label class="checkbox">
+                                                        <input type="checkbox" [(ngModel)]="program.isTimeNotMention" />
+                                                        <div class="checkbox__checkmark"></div>
+                                                        <div class="checkbox__body">Time is not available</div>
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- end Pricing popup -->
+                            <!-- end Date & Time popup -->
 
-                        <!-- Start Special Instructions popup -->
-                        <div class="special-instructions-popup height-equal-scroll" #target6>
-                            <div class="box-content bg-white">
-                                <h2 class="h2">Special Instructions</h2>
-                                <div class="active-info-form">
-                                    <div class="field-group">
-                                        <div class="label-heading">
-                                            Special Instructions
+                            <!-- Start Pricing popup -->
+                            <div class="pricing-info-popup height-equal-scroll" #target5>
+                                <div class="box-content bg-white">
+                                    <h2 class="h2">Pricing</h2>
+                                    <div class="active-info-form">
+                                        <div class="field-group mb-20">
+                                            <div class="btn-slide-toggle-info">
+                                                <div class="btn-slide-toggle">
+                                                    <mat-slide-toggle color="primary"
+                                                        [formControl]="firstFormGroup.controls['isFree']"
+                                                        [(ngModel)]="program.isFree">
+                                                    </mat-slide-toggle>
+                                                </div>
+                                                <label class="slide-toggle-txt">Free Program</label>
+                                            </div>
                                         </div>
-                                        <textarea #ProgramDescription type="text" maxlength="3000" rows="4"
-                                            class="input-field" placeholder="Type"
-                                            [(ngModel)]="program.specialInstructions"
-                                            [formControl]="firstFormGroup.controls['specialInstructions']">
+                                        <div class="field-group mb-15" *ngIf="!program.isFree">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="label-heading">
+                                                        Price Per Participant
+                                                    </div>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <div class="input-group-text">$</div>
+                                                        </div>
+                                                        <input type="text" class="form-control" placeholder="Add.."
+                                                            [(ngModel)]="program.pricePerParticipant"
+                                                            [formControl]="firstFormGroup.controls['pricePerParticipant']">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field-group mb-20">
+                                            <div class="checkbox-blue-box">
+                                                <div class="checkboxes__item">
+                                                    <label class="checkbox">
+                                                        <input type="checkbox" />
+                                                        <div class="checkbox__checkmark"></div>
+                                                        <div class="checkbox__body">Free DEMO is available</div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="field-group mb-15" *ngIf="!program.isFree">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="label-heading">
+                                                        Price Per Hour
+                                                    </div>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <div class="input-group-text">$</div>
+                                                        </div>
+                                                        <input type="number" class="form-control" placeholder="Add.."
+                                                            [(ngModel)]="program.per_hour_rate"
+                                                            [formControl]="firstFormGroup.controls['per_hour_rate']">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="field-group mb-20" *ngIf="!program.isFree">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="label-heading">
+                                                        Price Per Sibling
+                                                    </div>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <div class="input-group-text">$</div>
+                                                        </div>
+                                                        <input type="text" class="form-control" placeholder="Add.."
+                                                            [(ngModel)]="program.priceForSiblings"
+                                                            [formControl]="firstFormGroup.controls['priceForSiblings']" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="field-group">
+                                            <div class="btn-slide-toggle-info">
+                                                <div class="btn-slide-toggle">
+                                                    <mat-slide-toggle color="primary"
+                                                        [formControl]="firstFormGroup.controls['isproRated']"
+                                                        [(ngModel)]="program.isproRated"> </mat-slide-toggle>
+                                                </div>
+                                                <label class="slide-toggle-txt">Is it a prorated program?</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end Pricing popup -->
+
+                            <!-- Start Special Instructions popup -->
+                            <div class="special-instructions-popup height-equal-scroll" #target6>
+                                <div class="box-content bg-white">
+                                    <h2 class="h2">Special Instructions</h2>
+                                    <div class="active-info-form">
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                Special Instructions
+                                            </div>
+                                            <textarea #ProgramDescription type="text" maxlength="3000" rows="4"
+                                                class="input-field" placeholder="Type"
+                                                [(ngModel)]="program.specialInstructions"
+                                                [formControl]="firstFormGroup.controls['specialInstructions']">
                                 </textarea>
-                                        <!-- <span class="text-absolu">({{ProgramDescription.value?.length}} of 3000)</span> -->
-                                    </div>
-                                    <div class="field-group mb-15">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="label-heading">
-                                                    Booking Can’t Be Cancelled Before
-                                                </div>
-                                                <div class="field-days-hours-marge">
-                                                    <input type="text" placeholder="Days"
-                                                        [(ngModel)]="bookingCancelledIn.days" class="input-field">
-                                                    <select class="input-field select-down-icon"
-                                                        [(ngModel)]="bookingCancelledIn.hours">
-                                                        <option *ngFor='let i of timeArray' value="{{i}}">{{i}}
-                                                        </option>
+                                            <!-- <span class="text-absolu">({{ProgramDescription.value?.length}} of 3000)</span> -->
+                                        </div>
+                                        <div class="field-group mb-15">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="label-heading">
+                                                        Booking Can’t Be Cancelled Before
+                                                    </div>
+                                                    <div class="field-days-hours-marge">
+                                                        <input type="text" placeholder="Days"
+                                                            [(ngModel)]="bookingCancelledIn.days" class="input-field">
+                                                        <select class="input-field select-down-icon"
+                                                            [(ngModel)]="bookingCancelledIn.hours">
+                                                            <option *ngFor='let i of timeArray' value="{{i}}">{{i}}
+                                                            </option>
 
-                                                    </select>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="field-group">
-                                        <div class="btn-slide-toggle-info">
-                                            <div class="btn-slide-toggle">
-                                                <mat-slide-toggle color="primary"> </mat-slide-toggle>
+                                        <div class="field-group">
+                                            <div class="btn-slide-toggle-info">
+                                                <div class="btn-slide-toggle">
+                                                    <mat-slide-toggle color="primary"> </mat-slide-toggle>
+                                                </div>
+                                                <label class="slide-toggle-txt"><span class="font-weight-600">Child May
+                                                        Be
+                                                        Droped Off</span> (Adult supervision is not required)</label>
                                             </div>
-                                            <label class="slide-toggle-txt"><span class="font-weight-600">Child May Be
-                                                    Droped Off</span> (Adult supervision is not required)</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- end Special Instructions popup -->
+                            <!-- end Special Instructions popup -->
 
-                        <!-- Start Source popup -->
-                        <div class="source-info-popup height-equal-scroll" #target7>
-                            <div class="box-content bg-white">
-                                <h2 class="h2">Source</h2>
-                                <div class="active-info-form">
-                                    <div class="field-group">
-                                        <div class="label-heading">
-                                            Source
+                            <!-- Start Source popup -->
+                            <div class="source-info-popup height-equal-scroll" #target7>
+                                <div class="box-content bg-white">
+                                    <h2 class="h2">Source</h2>
+                                    <div class="active-info-form">
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                Source
+                                            </div>
+                                            <mat-select class="input-field" name="source"
+                                                [formControl]="firstFormGroup.controls['source']"
+                                                [(ngModel)]="program.source">
+                                                <mat-option *ngFor="let src of source" value="{{src}}">{{src}}
+                                                </mat-option>
+                                            </mat-select>
                                         </div>
-                                        <mat-select class="input-field" name="source"
-                                            [formControl]="firstFormGroup.controls['source']"
-                                            [(ngModel)]="program.source" multiple>
-                                            <mat-option *ngFor="let src of source" value="{{src}}">{{src}}</mat-option>
-                                        </mat-select>
-                                    </div>
-                                    <div class="field-group">
-                                        <div class="label-heading">
-                                            Platform Source Link
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                Platform Source Link
+                                            </div>
+                                            <input type="url" class="input-field"
+                                                [formControl]="firstFormGroup.controls['sourceUrl']"
+                                                [(ngModel)]="program.sourceUrl">
                                         </div>
-                                        <input type="url" class="input-field"
-                                            [formControl]="firstFormGroup.controls['sourceUrl']"
-                                            [(ngModel)]="program.sourceUrl">
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- end Source popup -->
+                            <!-- end Source popup -->
 
+                        </div>
                     </div>
+                    <!-- end main body content -->
                 </div>
-                <!-- end main body content -->
-            </div>
 
+            </div>
+            <!-- end row -->
         </div>
-        <!-- end row -->
+        <!-- end add-activity-body -->
     </div>
-    <!-- end add-activity-body -->
-</div>

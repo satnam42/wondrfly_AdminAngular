@@ -11,6 +11,7 @@ import { EditProgramComponent } from './edit-program/edit-program.component';
 import { AddcategoryFormComponent } from './addcategory-form/addcategory-form.component';
 import { ParentUpdateFormComponent } from './parent-update-form/parent-update-form.component';
 import { AddFormComponent } from '../components/add-form/add-form.component';
+import { ProgramFormComponent } from '../tables/all-program-table/program-form/program-form.component';
 
 export const FormsRoutes: Routes = [
   {
@@ -33,6 +34,11 @@ export const FormsRoutes: Routes = [
       path: 'edit-program/:id',
       component: EditProgramComponent,
       data: { title: 'EDIT-PROGRAM' }
+    },
+    {
+      path: 'program-form/:id',
+      component: ProgramFormComponent,
+      data: { title: 'PROGRAM-FORM' }
     },
     {
       path: 'parent',

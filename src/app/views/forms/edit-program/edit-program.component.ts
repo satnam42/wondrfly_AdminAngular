@@ -13,8 +13,8 @@ import * as moment from 'moment';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { DataService } from 'app/shared/services/dataservice.service';
 import { UpdateBatchPopupComponent } from './update-batch-popup/update-batch-popup.component';
-import { ProgramLocationComponent } from '../program-form/program-location/program-location.component';
 import { Globals } from 'app/shared/helpers/globalfunctions';
+import { ProgramLocationComponent } from '../program-form/program-location/program-location.component';
 @Component({
   selector: 'app-edit-program',
   templateUrl: './edit-program.component.html',

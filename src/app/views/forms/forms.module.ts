@@ -26,6 +26,7 @@ import { AddBatchComponent } from './program-form/add-batch/add-batch-.component
 import { AgmCoreModule } from '@agm/core';
 import { AddFormComponent } from '../components/add-form/add-form.component';
 import { SharedMaterialModule } from 'app/shared/shared-material.module';
+import { ProgramFormComponent } from '../tables/all-program-table/program-form/program-form.component';
 
 @NgModule({
   imports: [
@@ -58,8 +59,8 @@ import { SharedMaterialModule } from 'app/shared/shared-material.module';
     ChildFormComponent,
     AdminFormComponent,
     AddBatchComponent,
-    AddBatchComponent,
     AddFormComponent,
+    ProgramFormComponent,
     UpdateBatchPopupComponent,
     UpdateFormComponent,],
   providers: [],

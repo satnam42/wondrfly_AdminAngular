@@ -12,9 +12,9 @@ import { ApiService } from 'app/shared/services/api.service.service';
 import * as moment from 'moment';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { DataService } from 'app/shared/services/dataservice.service';
-import { ProgramLocationComponent } from '../program-form/program-location/program-location.component';
-import { AddBatchComponent } from '../program-form/add-batch/add-batch-.component';
 import { Globals } from 'app/shared/helpers/globalfunctions';
+import { AddBatchComponent } from '../program-form/add-batch/add-batch-.component';
+import { ProgramLocationComponent } from '../program-form/program-location/program-location.component';
 
 @Component({
   selector: 'app-wizard',

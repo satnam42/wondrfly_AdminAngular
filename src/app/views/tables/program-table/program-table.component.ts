@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from 'app/shared/services/dataservice.service';
@@ -7,9 +7,10 @@ import { FileUploader } from 'ng2-file-upload';
 import { Userr } from 'app/shared/models/user.model';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatDialogRef, MatDialog } from '@angular/material';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatDialogRef, MatDialog, MatTableDataSource, MatPaginator, MatSort, PageEvent } from '@angular/material';
 import { ProgramDataPopupComponent } from './program-data-popup/program-data-popup.component';
 import { Program } from 'app/shared/models/program.model';
+import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-program-table',
   templateUrl: './program-table.component.html',
@@ -18,8 +19,24 @@ import { Program } from 'app/shared/models/program.model';
 export class ProgramTableComponent implements OnInit {
   isLoading: boolean;
   rows: Program[];
+  dataSource = new MatTableDataSource();
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  searchControl = new FormControl();
+  @ViewChild(MatSort, { static: false }) set content(sort: MatSort) {
+    this.dataSource.sort = sort;
+  }
+  displayedColumns: string[] = [
+    'name',
+    'id',
+    'createdOn',
+    'isPublished',
+    'expiredIn',
+    'star',
+    'select'
+  ];
   pageNo: number = 1;
-  pageSize: number;
+  pageSize: number = 20;
+  pageLength: any;
   temp: Program[];
   ColumnMode = ColumnMode;
   user = new Userr;
@@ -53,6 +70,9 @@ export class ProgramTableComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.user._id = params['id'];
     });
+    this.apiservice.getAllProgramByUser(this.user._id, this.pageNo, 500).subscribe((res: any) => {
+      this.pageLength = res.length;
+    })
     this.getUserById(this.user._id)
   }
 
@@ -98,14 +118,13 @@ export class ProgramTableComponent implements OnInit {
 
   getProgram() {
     this.isLoading = true;
-    this.pageSize = 200;
     this.loader.open();
     this.apiservice.getAllProgramByUser(this.user._id, this.pageNo, this.pageSize).subscribe((res: any) => {
+      this.loader.close();
       this.temp = res;
       this.temp = this.temp.filter(program => !program.isExpired);
       this.rows = this.temp.reverse();
-      this.loader.close();
-      this.isLoading = false;
+      this.dataSource = new MatTableDataSource(this.rows);
     });
   }
   publishUnpublishMultiplePrograms() {
@@ -162,10 +181,25 @@ export class ProgramTableComponent implements OnInit {
     })
   }
 
-  ngOnInit() {
-    this.rows;
-    this.getProgram();
+  // =========================================== Pagination =========================================================
+  pageChanged(event: PageEvent) {
+    window.scroll(0, 0);
+    if (event.previousPageIndex > event.pageIndex) {
+      this.pageSize = event.pageSize;
+      this.pageNo = this.pageNo !== 0 ? this.pageNo - 1 : this.pageNo
+      this.getProgram();
+    } else {
+      this.pageSize = event.pageSize;
+      this.pageNo = event.pageIndex + 1;
+      this.getProgram();
+    }
+  }
 
+  ngOnInit() {
+    this.getProgram();
+    this.searchControl.valueChanges.subscribe((value) => {
+      this.searchFilter(value);
+    });
   }
   public fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
@@ -176,11 +210,34 @@ export class ProgramTableComponent implements OnInit {
     if (val) {
       this.apiservice.searchProgram(val).subscribe((res: any) => {
         this.rows = res.filter(item => item.user === this.user._id)
+        this.dataSource = new MatTableDataSource(this.rows);
       });
     } else {
       this.getProgram();
     }
   }
+
+  searchFilter(key) {
+    var response: any;
+    if (key) {
+      this.loader.open();
+      this.apiservice.searchProgramFilter('name', key).subscribe((res: any) => {
+        this.loader.close()
+        if (res.isSuccess) {
+          response = res.data;
+          this.rows = response.filter(item => item.user === this.user._id)
+          this.dataSource = new MatTableDataSource(this.rows);
+        }
+      });
+    }
+    if (!key) {
+      this.getProgram();
+    }
+    this.loader.close()
+  }
+
+
+
   onFileChange(ev) {
     const reader = new FileReader();
     const file = ev.target.files[0];

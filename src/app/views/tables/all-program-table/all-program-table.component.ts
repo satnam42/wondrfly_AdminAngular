@@ -16,7 +16,6 @@ import * as moment from 'moment';
 import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
 import { FormControl } from '@angular/forms';
 import { Program } from 'app/shared/models/program.model';
-import { ProgramFormComponent } from './program-form/program-form.component';
 @Component({
   selector: 'app-all-program-table',
   templateUrl: './all-program-table.component.html',
@@ -39,6 +38,7 @@ export class AllProgramTableComponent implements OnInit {
   rows: Program[];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  isEmpty: any;
   @ViewChild(MatSort, { static: false }) set content(sort: MatSort) {
     this.dataSource.sort = sort;
   }
@@ -143,20 +143,6 @@ export class AllProgramTableComponent implements OnInit {
   }
 
   // view data 
-  formPopUps(data) {
-    let dialogRef: MatDialogRef<any> = this.dialog.open(ProgramFormComponent, {
-      panelClass: 'add-activity-form-info',
-      disableClose: true,
-      data: data,
-      // this.name: this.data.firstName
-    })
-    dialogRef.afterClosed()
-      .subscribe(res => {
-        if (!res) {
-          return;
-        }
-      });
-  }
 
   copyText(val: string) {
     let selBox = document.createElement('textarea');
@@ -195,6 +181,23 @@ export class AllProgramTableComponent implements OnInit {
       this.route.createUrlTree(['forms/edit-program/', data._id])
     );
     window.open('#' + url, '_blank');
+  }
+
+  newForm(data) {
+    this.isEmpty = Object.keys(data).length === 0;
+    if (this.isEmpty) {
+      const url = this.route.serializeUrl(
+        this.route.createUrlTree(['forms/program-form/', 'id'])
+      );
+      window.open('#' + url, '_blank');
+    }
+    else {
+      let id = data.id ? data.id : data._id;
+      const url = this.route.serializeUrl(
+        this.route.createUrlTree(['forms/program-form/', id])
+      );
+      window.open('#' + url, '_blank');
+    }
   }
 
   manage(data) {

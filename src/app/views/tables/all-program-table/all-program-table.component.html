@@ -15,16 +15,17 @@
         Total Activities<span class="blue-clr"> ({{totalProgramsCount}})</span>
       </h4>
       <div class="add-program-btn">
-        <!-- <label class="letsplay_btn ">Import
-                        <input  style="display: none;"  accept=".xlsx, .xls, .csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" mat-raised-button type="file" color="primary" #csv_file (change)=" onFileChange($event)" name="myfile">
-                    </label> -->
         <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
           <mat-button-toggle matTooltip2="Add" (click)="openPopUps('wizard')" value="add">
             <mat-icon class="text-success">+ Activity</mat-icon>
           </mat-button-toggle>
-          <!-- <button class="letsplay_btn" data-toggle="modal" (click)="openPopUps('wizard')" data-target="#addNewTopic">
-                    ADD New Program </button> -->
-          <!-- <button class="letsplay_btn quick_add" data-toggle="modal" (click)="openPopUps('form')" data-target="#addNewTopic">Quick Program Add</button> -->
+        </mat-button-toggle-group>
+      </div>
+      <div class="add-program-btn">
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+          <mat-button-toggle matTooltip2="Add" (click)="newForm({})" value="add">
+            <mat-icon class="text-success">+ Activity New</mat-icon>
+          </mat-button-toggle>
         </mat-button-toggle-group>
       </div>
     </div>
@@ -176,8 +177,8 @@
                 <button mat-menu-item (click)="createDuplicate(row)">
                   <mat-icon class="col-blue">file_copy</mat-icon>Duplicate
                 </button>
-                <button mat-menu-item (click)="formPopUps(row)">
-                  <mat-icon class="col-blue">edit</mat-icon>Edit Popup
+                <button mat-menu-item (click)="newForm(row)">
+                  <mat-icon class="col-blue">edit</mat-icon>New-Form
                 </button>
                 <button mat-menu-item (click)="edit(row)">
                   <mat-icon class="col-blue">edit</mat-icon>Edit

@@ -60,7 +60,6 @@ import { KeywordFormComponent } from '../forms/keyword-form/keyword-form.compone
 import { Ng5SliderModule } from 'ng5-slider';
 import { TopicsComponent } from './topics/topics.component';
 import { TopicFormComponent } from './topics/topic-form/topic-form.component';
-import { ProgramFormComponent } from './all-program-table/program-form/program-form.component';
 import { MetaServiceComponent } from './meta-service/meta-service.component';
 import { MetaFormComponent } from './meta-service/meta-form/meta-form.component';
 import { SharedMaterialModule } from 'app/shared/shared-material.module';
@@ -136,10 +135,9 @@ import { SharedMaterialModule } from 'app/shared/shared-material.module';
     KeywordFormComponent,
     TopicsComponent,
     TopicFormComponent,
-    ProgramFormComponent,
     MetaServiceComponent,
     MetaFormComponent,
   ],
-  entryComponents: [SearchProviderPopupComponent, MetaFormComponent, DuplicacyDataPopupComponent, TopicFormComponent, ProgramFormComponent, ProviderDataPopupComponent, KeywordFormComponent, ProgramDataPopupComponent, UsersComponent, EditFormComponent, AllUserComponent]
+  entryComponents: [SearchProviderPopupComponent, MetaFormComponent, DuplicacyDataPopupComponent, TopicFormComponent, ProviderDataPopupComponent, KeywordFormComponent, ProgramDataPopupComponent, UsersComponent, EditFormComponent, AllUserComponent]
 })
 export class TablesModule { }

@@ -22,8 +22,8 @@ import { ActiveUser } from './shared/services/auth/auth.guard';
 import { AuthsService } from './shared/services/auth.service';
 import { LocalStorageService } from './shared/services/local-storage.service';
 import { Globals } from './shared/helpers/globalfunctions';
-import { ProgramLocationComponent } from './views/forms/program-form/program-location/program-location.component';
 import { AgmCoreModule } from '@agm/core';
+import { ProgramLocationComponent } from './views/forms/program-form/program-location/program-location.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
