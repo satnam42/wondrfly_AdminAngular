@@ -66,8 +66,8 @@
               *ngIf=" activeTab === ''">({{temp?.message}})</span></a></li>
         <li [ngClass]="{'active': activeTab === 'montclair'}"><a (click)="activeProgramsTab('montclair')"> Montclair
             <span *ngIf=" activeTab === 'montclair'">({{temp?.total}})</span></a></li>
-        <li [ngClass]="{'active': activeTab === 'pcount'}"><a (click)="activeProgramsTab('pcount')"> Program Count <span
-              *ngIf=" activeTab === 'pcount'">({{temp?.message}})</span></a></li>
+        <li [ngClass]="{'active': activeTab === 'pcount'}"><a (click)="activeProgramsTab('pcount')"> Program Count
+          </a></li>
       </ul>
     </div>
   </div>

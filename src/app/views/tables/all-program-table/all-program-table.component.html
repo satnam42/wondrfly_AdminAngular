@@ -136,7 +136,8 @@
           <ng-container matColumnDef="type">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
             <td mat-cell *matCellDef="let row" (click)="openPopUp(row)">
-              {{row.type}}
+              <span *ngIf="row.type=='Drops-in'">Drop-ins</span>
+              <span *ngIf="row.type!=='Drops-in'">{{row?.type}}</span>
             </td>
           </ng-container>
 

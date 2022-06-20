@@ -98,7 +98,9 @@
     <div class="row">
       <div class="col-3">
         <div class="categories">
-          <span><div class="program_leble"></div> Programs</span>
+          <span>
+            <div class="program_leble"></div> Programs
+          </span>
         </div>
         <!-- <div class="N_dropdown">
           <mat-select appDropdown placeholder="New Provider">
@@ -110,7 +112,9 @@
       </div>
       <div class="col-3">
         <div class="categories">
-          <span><div class="provider_leble"></div> Providers</span>
+          <span>
+            <div class="provider_leble"></div> Providers
+          </span>
         </div>
       </div>
       <div class="col-6">
@@ -118,6 +122,8 @@
           <div class="btn" [class.btn_active]="isWeek" (click)="getGraphData('week')">Week</div>
           <div class="btn" [class.btn_active]="isMonth" (click)="getGraphData('month')">Month</div>
           <div class="btn" [class.btn_active]="isYear" (click)="getGraphData('year')">Year</div>
+          <div class="btn" [class.btn_active]="isQuarter" (click)="getGraphData('quarter')">Quarter</div>
+          <div class="btn" [class.btn_active]="isSemiYear" (click)="getGraphData('semiYear')">Semi Year</div>
         </div>
       </div>
     </div>
@@ -132,118 +138,50 @@
           <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
             style="height: 255px;"></div>
         </mat-tab>
-        <!-- <mat-tab label="Provider Data">
-          <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
-            style="height: 255px;"></div>
-        </mat-tab> -->
-        <!-- <mat-tab label="New Added Child">
-          <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
-            style="height: 255px;"></div>
-        </mat-tab> -->
-        <!-- <mat-tab label="Profile Completed">
-          <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
-            style="height: 255px;"></div>
-        </mat-tab> -->
       </mat-tab-group>
     </mat-card>
   </div>
-
-  <!-- <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="50" *ngIf="isMonth"
-  [@animate]="{ value: '*', params: { y: '50px', delay: '600ms' } }">
-  <mat-card class="p-0 ">
-    <mat-tab-group>
-      <mat-tab label="New Register Parents">
-        <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
-          style="height: 255px;"></div>
-      </mat-tab>
-      <mat-tab label="New Register Providers">
-        <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
-          style="height: 255px;"></div>
-      </mat-tab>
-      <mat-tab label="New Added Child">
-        <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
-          style="height: 255px;"></div>
-      </mat-tab>
-      <mat-tab label="Profile Completed">
-        <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
-          style="height: 255px;"></div>
-      </mat-tab>
-    </mat-tab-group>
-  </mat-card>
-</div> -->
-
-<!-- <div fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="50"  *ngIf="isYear"
-[@animate]="{ value: '*', params: { y: '50px', delay: '600ms' } }">
-<mat-card class="p-0 ">
-  <mat-tab-group>
-    <mat-tab label="New Register Parents">
-      <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
-        style="height: 255px;"></div>
-    </mat-tab>
-    <mat-tab label="New Register Providers">
-      <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
-        style="height: 255px;"></div>
-    </mat-tab>
-    <mat-tab label="New Added Child">
-      <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
-        style="height: 255px;"></div>
-    </mat-tab>
-    <mat-tab label="Profile Completed">
-      <div echarts [options]="trafficVsSaleOptions" [merge]="trafficVsSale" [autoResize]="true"
-        style="height: 255px;"></div>
-    </mat-tab>
-  </mat-tab-group>
-</mat-card>
-</div> -->
-
 </div>
 
-       <mat-card class="p-0">
-        <h3 style="margin-left:26px;margin-top: 15px;">Progress</h3>
-        <mat-card-content>
-          <div class="mb-1">
-            <p class="m-0">
-              Parents <span class="text-muted">| {{parents.total}}</span>
-            </p>
-            <mat-progress-bar color="warn" mode="determinate" [value]="parents.total/50" class="rounded"
-              style="height: 6px">
-            </mat-progress-bar>
-          </div>
-          <div class="mb-1">
-            <p class="m-0 text-13">
-              Providers <span class="text-muted">| {{providers.total}}</span>
-            </p>
-            <mat-progress-bar color="primary" mode="determinate" [value]="providers.length/50" class="rounded"
-              style="height: 6px">
-            </mat-progress-bar>
-          </div>
-          <div class="mb-1">
-            <p class="m-0 text-13">
-              Programs <span class="text-muted">| {{programs.total}}</span>
-            </p>
-            <mat-progress-bar class="" color="accent" mode="determinate" [value]="programs.total/50" class="rounded"
-              style="height: 6px">
-            </mat-progress-bar>
-          </div>
-          <div class="">
-            <p class="m-0 text-13">
-              child <span class="text-muted">| {{children.length}}</span>
-            </p>
-            <mat-progress-bar class="" color="warn" mode="determinate" [value]="children.length/50" class="rounded"
-              style="height: 6px">
-            </mat-progress-bar>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    
+<mat-card class="p-0">
+  <h3 style="margin-left:26px;margin-top: 15px;">Progress</h3>
+  <mat-card-content>
+    <div class="mb-1">
+      <p class="m-0">
+        Parents <span class="text-muted">| {{parents.total}}</span>
+      </p>
+      <mat-progress-bar color="warn" mode="determinate" [value]="parents.total/50" class="rounded" style="height: 6px">
+      </mat-progress-bar>
+    </div>
+    <div class="mb-1">
+      <p class="m-0 text-13">
+        Providers <span class="text-muted">| {{providers.total}}</span>
+      </p>
+      <mat-progress-bar color="primary" mode="determinate" [value]="providers.length/50" class="rounded"
+        style="height: 6px">
+      </mat-progress-bar>
+    </div>
+    <div class="mb-1">
+      <p class="m-0 text-13">
+        Programs <span class="text-muted">| {{programs.total}}</span>
+      </p>
+      <mat-progress-bar class="" color="accent" mode="determinate" [value]="programs.total/50" class="rounded"
+        style="height: 6px">
+      </mat-progress-bar>
+    </div>
+    <div class="">
+      <p class="m-0 text-13">
+        child <span class="text-muted">| {{children.length}}</span>
+      </p>
+      <mat-progress-bar class="" color="warn" mode="determinate" [value]="children.length/50" class="rounded"
+        style="height: 6px">
+      </mat-progress-bar>
+    </div>
+  </mat-card-content>
+</mat-card>
 
-      <mat-card class="p-0">
-        <h3 style="margin-left:26px;margin-top: 15px;">Published/unpublished/Expiring-soon</h3>
-        <div
-          echarts
-          [options]="dailyBandwithUsage"
-          [autoResize]="true"
-          style="height: 216px;"
-        ></div>
-      </mat-card>
-   
+
+<mat-card class="p-0">
+  <h3 style="margin-left:26px;margin-top: 15px;">Published/unpublished/Expiring-soon</h3>
+  <div echarts [options]="dailyBandwithUsage" [autoResize]="true" style="height: 216px;"></div>
+</mat-card>

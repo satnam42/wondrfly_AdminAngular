@@ -45,6 +45,8 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
   isWeek: boolean = true;
   isMonth: boolean = false;
   isYear: boolean = false;
+  isQuarter: boolean = false;
+  isSemiYear: boolean = false;
   dataCount: any = [];
   dataValue: any = [];
   providerGraphData: any;
@@ -97,6 +99,8 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
       this.isWeek = true;
       this.isMonth = false;
       this.isYear = false;
+      this.isQuarter = false;
+      this.isSemiYear = false;
       this.apiservice.analyticsGraphProgram(value).subscribe((res: any) => {
         this.graphData = res.data;
         this.dataValue = this.graphData.map(function (el) { return el.week; });
@@ -115,7 +119,10 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
       this.isWeek = false;
       this.isMonth = true;
       this.isYear = false;
+      this.isQuarter = false;
+      this.isSemiYear = false;
       this.apiservice.analyticsGraphProgram(value).subscribe((res: any) => {
+        console.log(res, "month")
         this.graphData = res.data;
         this.dataValue = this.graphData.map(function (el) { return el.month; });
         this.dataCount = this.graphData.map(function (el) { return el.count; });
@@ -124,16 +131,66 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
         this.initTrafficVsSaleChart(this.themeService.activatedTheme);
       });
       this.apiservice.analyticsGraphProviders(value).subscribe((res: any) => {
+        console.log(res, "month")
         this.providerGraphData = res.data;
         this.providerDataValue = this.providerGraphData.map(function (el) { return el.month; });
         this.providerDataCount = this.providerGraphData.map(function (el) { return el.count; });
         this.saleData = this.dataCount;
       });
-    } else {
+    }
+    else if (value == 'quarter') {
+      this.isWeek = false;
+      this.isMonth = false;
+      this.isYear = false;
+      this.isQuarter = true;
+      this.isSemiYear = false;
+      this.apiservice.analyticsGraphProgram(value).subscribe((res: any) => {
+        console.log(res, "quarter")
+        this.graphData = res.data;
+        this.dataValue = this.graphData.map(function (el) { return el.month; });
+        this.dataCount = this.graphData.map(function (el) { return el.count; });
+        this.dataPeriod = this.graphData.map(function (el) { return pipe.transform(el.period, 'MMM d, y') + ' to ' + pipe.transform(el.end, 'MMM d, y'); });
+        this.trafficData = this.dataCount;
+        this.initTrafficVsSaleChart(this.themeService.activatedTheme);
+      });
+      this.apiservice.analyticsGraphProviders(value).subscribe((res: any) => {
+        console.log(res, "quarter")
+        this.providerGraphData = res.data;
+        this.providerDataValue = this.providerGraphData.map(function (el) { return el.month; });
+        this.providerDataCount = this.providerGraphData.map(function (el) { return el.count; });
+        this.saleData = this.dataCount;
+      });
+    } else if (value == 'semiYear') {
+      this.isWeek = false;
+      this.isMonth = false;
+      this.isYear = false;
+      this.isQuarter = false;
+      this.isSemiYear = true;
+      this.apiservice.analyticsGraphProgram(value).subscribe((res: any) => {
+        console.log(res, "semiyear")
+        this.graphData = res.data;
+        this.dataValue = this.graphData.map(function (el) { return el.month; });
+        this.dataCount = this.graphData.map(function (el) { return el.count; });
+        this.dataPeriod = this.graphData.map(function (el) { return pipe.transform(el.period, 'MMMM, y'); });
+        this.trafficData = this.dataCount;
+        this.initTrafficVsSaleChart(this.themeService.activatedTheme);
+      });
+      this.apiservice.analyticsGraphProviders(value).subscribe((res: any) => {
+        console.log(res, "semiyear")
+        this.providerGraphData = res.data;
+        this.providerDataValue = this.providerGraphData.map(function (el) { return el.month; });
+        this.providerDataCount = this.providerGraphData.map(function (el) { return el.count; });
+        this.saleData = this.dataCount;
+      });
+    }
+    else {
       this.isWeek = false;
       this.isMonth = false;
       this.isYear = true;
+      this.isQuarter = false;
+      this.isSemiYear = false;
       this.apiservice.analyticsGraphProgram(value).subscribe((res: any) => {
+        console.log(res, "year")
         this.graphData = res.data;
         this.dataValue = this.graphData.map(function (el) { return el.year; });
         this.dataCount = this.graphData.map(function (el) { return el.count; });
@@ -142,6 +199,7 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
         this.initTrafficVsSaleChart(this.themeService.activatedTheme);
       });
       this.apiservice.analyticsGraphProviders(value).subscribe((res: any) => {
+        console.log(res, "year")
         this.providerGraphData = res.data;
         this.providerDataValue = this.providerGraphData.map(function (el) { return el.year; });
         this.providerDataCount = this.providerGraphData.map(function (el) { return el.count; });
