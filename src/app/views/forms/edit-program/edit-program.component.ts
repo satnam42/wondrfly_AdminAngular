@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { Observable } from 'rxjs';
 import { MatAutocompleteSelectedEvent, MatDialogRef, MatDialog, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material';
 import { FileUploader } from 'ng2-file-upload';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -417,7 +416,6 @@ export class EditProgramComponent implements OnInit {
   getProgramById() {
     this.changeItem(this.program.category)
     this.apiservice.getProgramById(this.program._id).subscribe(res => {
-      console.log(res)
       this.program = res;
       let daysValue: any = []
       daysValue = Object.keys(this.program.days);

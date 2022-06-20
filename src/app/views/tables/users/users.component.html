@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="col-6">
-      <div class="search-form-info">
+      <div class="search-form-info" [hidden]="activeTab=='pcount'">
         <mat-form-field class="w-85" appearance="standard"
           [hidden]="selectedValue=='montclair' || selectedValue=='byDate'">
           <!-- <mat-label>Search</mat-label> -->
@@ -58,6 +58,20 @@
 </div>
 
 <div class="container usertable table-body-info">
+
+  <div class="row">
+    <div class="col-6">
+      <ul class="table-top-links">
+        <li [ngClass]="{'active': activeTab === ''}"><a (click)="activeProgramsTab('')"> All Providers <span
+              *ngIf=" activeTab === ''">({{temp?.message}})</span></a></li>
+        <li [ngClass]="{'active': activeTab === 'montclair'}"><a (click)="activeProgramsTab('montclair')"> Montclair
+            <span *ngIf=" activeTab === 'montclair'">({{temp?.total}})</span></a></li>
+        <li [ngClass]="{'active': activeTab === 'pcount'}"><a (click)="activeProgramsTab('pcount')"> Program Count <span
+              *ngIf=" activeTab === 'pcount'">({{temp?.message}})</span></a></li>
+      </ul>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-12">
       <div class="example-container mat-elevation-z8">
@@ -85,6 +99,16 @@
             <td mat-cell *matCellDef="let row" (click)="openPopUp(row)"> {{row.firstName}} </td>
           </ng-container>
 
+          <ng-container matColumnDef="providerName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Provider Name </th>
+            <td mat-cell *matCellDef="let row" (click)="openPopUp(row)"> {{row.providerName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="programCount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Program Count </th>
+            <td mat-cell *matCellDef="let row" (click)="openPopUp(row)"> {{row.programCount}} </td>
+          </ng-container>
+
           <ng-container matColumnDef="addressLine1">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
             <td mat-cell *matCellDef="let row" (click)="openPopUp(row)">
@@ -96,6 +120,12 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone Number </th>
             <td mat-cell *matCellDef="let row" (click)="openPopUp(row)">
               {{row.phoneNumber}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="updatedOn">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated On </th>
+            <td mat-cell *matCellDef="let row" (click)="openPopUp(row)">
+              {{row.updatedOn |  date :'MMM d, y'}}
             </td>
           </ng-container>
 
@@ -117,7 +147,7 @@
           </ng-container>
           <ng-container matColumnDef="star" stickyEnd>
             <th mat-header-cell class="w-25" *matHeaderCellDef>Action</th>
-            <td mat-cell class="w-25" *matCellDef="let row">
+            <td mat-cell class="w-25" *matCellDef="let row" [hidden]="activeTab=='pcount'">
               <button mat-icon-button [matMenuTriggerFor]="action">
                 <mat-icon>more_vert</mat-icon>
               </button>

@@ -50,7 +50,6 @@ export class MetaFormComponent implements OnInit {
   }
   addMetaService() {
     this.apiservice.addMetaService(this.metaForm.value).subscribe((res: any) => {
-      console.log(res)
       if (res.isSuccess === true) {
         this.snack.open(this.message, 'OK', { duration: 7000 });
         this.dialogRef.close();
@@ -63,7 +62,6 @@ export class MetaFormComponent implements OnInit {
   }
   updateMetaService() {
     this.apiservice.updateMetaService(this.metaData._id, this.metaData).subscribe((res: any) => {
-      console.log(res)
       if (res.isSuccess === true) {
         this.dialogRef.close();
         this.snack.open('Data Updated', 'OK', { duration: 7000 });

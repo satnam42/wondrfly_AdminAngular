@@ -7,7 +7,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Userr } from 'app/shared/models/user.model';
 import { ApiService } from 'app/shared/services/api.service.service';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
@@ -68,7 +68,7 @@ export class UsersComponent implements OnInit {
   private currentPage = 1;
 
   private request$!: any;
-
+  activeTab: any;
   data: any;
   total: any;
 
@@ -78,6 +78,7 @@ export class UsersComponent implements OnInit {
     private router: Router,
     private confirmService: AppConfirmService,
     private loader: AppLoaderService,
+    private activatedRoute: ActivatedRoute,
     private snack: MatSnackBar,
     private dataservice: DataService,
     public dialog: MatDialog,
@@ -87,8 +88,7 @@ export class UsersComponent implements OnInit {
     // this.users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
     // this.data = Object.assign(this.users);
     // this.dataSource = new MatTableDataSource(this.users);
-    this.getProvider()
-
+    this.getSetTabs();
   }
 
   ngOnInit() {
@@ -130,7 +130,6 @@ export class UsersComponent implements OnInit {
   getProvider() {
     this.loader.open()
     this.apiservice.getUsers(this.provider, this.pageNo, this.pageSize).subscribe((res: any) => {
-      this.loader.close()
       this.total = res.total;
       this.temp = res;
       this.pageLength = this.temp.message;
@@ -141,21 +140,40 @@ export class UsersComponent implements OnInit {
         this.selectedValue = this.defaultFilter;
       }
     })
+    this.loader.close()
   }
+
+
+  // =========================================== Get provider Count =========================================================
+  getProgramCount() {
+    this.loader.open()
+    this.apiservice.getActiveProgramCount(this.pageNo, this.pageSize).subscribe((res: any) => {
+      this.total = res.total;
+      this.temp = res;
+      this.pageLength = this.temp.message;
+      if (this.temp.items) {
+        this.users = this.temp.items;
+        this.dataSource = new MatTableDataSource(this.users);
+        this.isScrol = true;
+      }
+    })
+    this.loader.close()
+  }
+
   // =========================================== Pagination =========================================================
   pageChanged(event) {
     event.pageSize
     if (event.pageSize > this.pageSize || event.pageSize < this.pageSize) {
       this.pageNo = event.pageIndex + 1;
       this.pageSize = event.pageSize;
-      this.getProvider();
+      this.getSetTabs();
     }
     else if (event.previousPageIndex > event.pageIndex) {
       this.pageNo = this.pageNo !== 0 ? this.pageNo - 1 : this.pageNo
-      this.getProvider();
+      this.getSetTabs();
     } else {
       this.pageNo = event.pageIndex + 1;
-      this.getProvider();
+      this.getSetTabs();
     }
   }
 
@@ -166,14 +184,11 @@ export class UsersComponent implements OnInit {
   }
 
   getMontclairProvider() {
-    this.loader.open()
-    this.apiservice.getMontclairProvider(this.pageNo, 120).subscribe((res: any) => {
-      this.total = res.total
-      this.users = this.news.concat(res.items);
-      this.loader.close()
-      // this.data = res.items;
+    this.apiservice.getMontclairProvider(this.pageNo, this.pageSize).subscribe((res: any) => {
+      this.temp = res;
+      this.pageLength = this.temp.total;
+      this.users = this.temp.items;
       this.dataSource = new MatTableDataSource(this.users);
-      this.isScrol = true;
     })
   }
 
@@ -320,13 +335,7 @@ export class UsersComponent implements OnInit {
 
   }
 
-  loadMore() {
-    // this.pageSize += 20;
-    this.pageNo += 1;
-    if (this.selectedValue == 'montclair') {
-      this.getMontclairProvider();
-    } else { this.getProvider(); }
-  }
+
   // this.getNews(this.currentPage)
   //   .pipe(finalize(() => this.onFinalize()))
   //   .subscribe((news: any) => {
@@ -358,6 +367,63 @@ export class UsersComponent implements OnInit {
       navigator.clipboard.writeText(`${this.baseUrl}`).then().catch(e => console.error(e));
     }
   }
+
+  // =========================================== change program tabs =========================================================
+  activeProgramsTab(tab) {
+    const activetab = tab;
+    if (activetab !== '') {
+      this.router.navigate(
+        [],
+        { relativeTo: this.activatedRoute, queryParams: { activity: activetab } }
+      );
+    } else {
+      this.router.navigate(
+        [],
+        { relativeTo: this.activatedRoute, queryParams: {} }
+      );
+    }
+  }
+
+  // =========================================== programs type Tab =========================================================
+  getSetTabs() {
+    let displayedColumns: any[] = [
+      'select',
+      'firstName',
+      'email',
+      'addressLine1',
+      'phoneNumber',
+      'isActivated',
+      'freeTrial',
+      'updatedOn',
+      'star',
+    ];
+    this.activatedRoute.queryParams
+      .subscribe((params: any) => {
+        this.activeTab = params.activity;
+        switch (this.activeTab) {
+          case 'montclair':
+            this.displayedColumns = displayedColumns;
+            this.getMontclairProvider();
+            break;
+          case 'pcount':
+            let column = [
+              'providerName',
+              'programCount',
+              'star']
+            this.displayedColumns = column;
+            this.getProgramCount();
+
+            break;
+          default:
+            this.activeTab = ''
+            this.displayedColumns = displayedColumns;
+            this.getProvider();
+        }
+      })
+  }
+
+
+
 }
 
 

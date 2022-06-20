@@ -422,9 +422,7 @@ export class WizardComponent implements OnInit {
       this.snack.open(msg, 'ERROR', { duration: 4000 });
     } else {
       this.loader.open();
-      console.log(this.program, 'before')
       this.apiservice.addProgram(this.program).subscribe((res: any) => {
-        console.log(res, 'after')
         this.loader.close();
         if (res.isSuccess === true) {
           this.snack.open('Program Added successfully', 'OK', { duration: 5000 });

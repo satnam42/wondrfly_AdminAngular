@@ -10,6 +10,7 @@ import { Program } from '../models/program.model';
 import { Claim } from '../models/claim.model';
 import { environment } from 'environments/environment.prod';
 import { User } from 'app/views/app-chats/chat.service';
+import { AppLoaderService } from './app-loader/app-loader.service';
 
 @Injectable({
     providedIn: 'root'
@@ -25,7 +26,7 @@ export class ApiService {
 
 
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private loader: AppLoaderService) {
 
     }
     // --------------------access token------------------------
@@ -1656,6 +1657,17 @@ export class ApiService {
         });
         return subject.asObservable();
     }
+    //=============================================== Active Programs ========================================
+    getActiveProgramCount(pageNo, pageSize): Observable<any> {
+        const subject = new Subject<any>();
+        this.http.get(`${this.root}/providers/activePrograms?pageNo=${pageNo}&pageSize=${pageSize}`, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+
 
 }
 

@@ -87,7 +87,6 @@ export class TopicsComponent implements OnInit {
   getTopics() {
     this.loader.open();
     this.apiservice.getTopics().subscribe(res => {
-      console.log(res)
       this.loader.close();
       this.temp = res;
       if (this.temp.data) {

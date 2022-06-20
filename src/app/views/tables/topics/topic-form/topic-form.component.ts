@@ -47,7 +47,6 @@ export class TopicFormComponent implements OnInit {
   }
   addTopic() {
     this.apiservice.addSearchTopic(this.topicForm.value).subscribe((res: any) => {
-      console.log(res)
       if (res.isSuccess === true) {
         this.snack.open(this.message, 'OK', { duration: 7000 });
         this.dialogRef.close();
@@ -60,7 +59,6 @@ export class TopicFormComponent implements OnInit {
   }
   updateTopic() {
     this.apiservice.updateSearchTopic(this.topicData._id, this.topicData).subscribe((res: any) => {
-      console.log(res)
       if (res.isSuccess === true) {
         this.dialogRef.close();
         this.snack.open(this.message, 'OK', { duration: 7000 });

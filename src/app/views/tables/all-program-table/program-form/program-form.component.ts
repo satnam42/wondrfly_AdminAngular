@@ -202,7 +202,6 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
   getProgramById(id) {
     this.changeItem(this.program.category)
     this.apiservice.getProgramById(id).subscribe(res => {
-      console.log(res, 'new p from')
       this.program = res;
       this.days = this.program.days;
       this.minAge = this.program.ageGroup.from
@@ -259,7 +258,6 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
         if (!res) {
           // If user press cancel
           this.locationData = this.dataservice.getOption();
-          console.log(this.locationData)
           this.program.lat = this.locationData.lat;
           this.program.lng = this.locationData.lng;
           this.program.location = this.locationData.address;
@@ -405,7 +403,6 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
       this.snack.open(msg, 'ERROR', { duration: 4000 });
     } else {
       this.loader.open();
-      console.log(this.program)
       this.apiservice.addProgram(this.program).subscribe((res: any) => {
         this.loader.close();
         if (res.isSuccess === true) {
@@ -601,7 +598,6 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
   }
 
   scrollToElement($element): void {
-    console.log($element);
     $element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
   }
 
