@@ -166,6 +166,7 @@ export class EditProgramComponent implements OnInit {
       daysValue: new FormControl(['',]),
       isExpired: new FormControl(false),
       proof_reader_notes: new FormControl(['',]),
+      isPrivateLession: new FormControl(false),
 
     });
 

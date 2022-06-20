@@ -67,6 +67,7 @@ export class Program {
     last_reviewed = new Date();
     cycle_time: number;
     proof_reader_notes: string;
+    isPrivateLession: boolean = false;
 
     constructor(obj?: any) {
 

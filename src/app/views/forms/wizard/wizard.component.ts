@@ -255,6 +255,7 @@ export class WizardComponent implements OnInit {
       dayss: new FormControl(['',]),
       isproRated: new FormControl(false),
       proof_reader_notes: new FormControl(['',]),
+      isPrivateLession: new FormControl(false),
 
     });
     this.secondFormGroup = new FormGroup({
