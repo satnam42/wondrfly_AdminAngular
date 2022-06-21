@@ -68,6 +68,7 @@ export class Program {
     cycle_time: number;
     proof_reader_notes: string;
     isPrivateLession: boolean = false;
+    daysLeft: string;
 
     constructor(obj?: any) {
 

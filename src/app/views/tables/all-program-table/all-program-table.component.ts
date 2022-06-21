@@ -16,6 +16,7 @@ import * as moment from 'moment';
 import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
 import { FormControl } from '@angular/forms';
 import { Program } from 'app/shared/models/program.model';
+import { DateDifferencePipe } from 'app/shared/pipes/date-difference.pipe';
 @Component({
   selector: 'app-all-program-table',
   templateUrl: './all-program-table.component.html',
@@ -31,7 +32,7 @@ export class AllProgramTableComponent implements OnInit {
     'pricePerParticipant',
     'isPublished',
     'type',
-    'expiredIn',
+    'daysLeft',
     'isFreeTrial',
     'star',
   ];
@@ -96,6 +97,7 @@ export class AllProgramTableComponent implements OnInit {
     private loader: AppLoaderService,
     private dialog: MatDialog,
     private csvService: CsvDataService,
+    private dateDiff: DateDifferencePipe
   ) {
     this.getSetTabs();
     let config = new MatSnackBarConfig();
@@ -233,6 +235,7 @@ export class AllProgramTableComponent implements OnInit {
       this.temp = res;
       this.pageLength = +this.temp.message;
       if (this.temp.isSuccess) {
+        this.temp.items.map(e => e.daysLeft = this.dateDiff.transform(e.date.to));
         this.rows = this.temp.items;
         this.dataSource = new MatTableDataSource(this.rows);
       }
@@ -244,7 +247,10 @@ export class AllProgramTableComponent implements OnInit {
     this.loader.open();
     this.apiservice.getMontclairProgram(this.pageNo, this.pageSize).subscribe(res => {
       this.temp = res;
+      console.log(res)
       if (this.temp.isSuccess) {
+        this.temp.items.map(e => e.daysLeft = this.dateDiff.transform(e.date.to));
+        console.log(this.temp.items)
         this.pageLength = +this.temp.message;
         this.rows = this.temp.items;
         this.dataSource = new MatTableDataSource(this.rows);
@@ -262,8 +268,9 @@ export class AllProgramTableComponent implements OnInit {
       if (res) {
         res.map(x => x.programs.map(z => {
           data.push(z)
-          this.rows = data;
           this.pageLength = data.length;
+          this.rows = data;
+          this.rows.map(e => e.daysLeft = this.dateDiff.transform(e.date.to));
           this.dataSource = new MatTableDataSource(this.rows);
         }))
       }
@@ -277,6 +284,7 @@ export class AllProgramTableComponent implements OnInit {
       this.loader.close();
       this.publishedUnpublishedList = res;
       this.pageLength = +this.publishedUnpublishedList.total;
+      this.publishedUnpublishedList.items.map(e => e.daysLeft = this.dateDiff.transform(e.date.to));
       this.rows = this.publishedUnpublishedList.items;
       this.dataSource = new MatTableDataSource(this.rows);
     })
@@ -288,6 +296,7 @@ export class AllProgramTableComponent implements OnInit {
     this.apiservice.getExpiringProgram('', '',).subscribe((res: any) => {
       this.loader.close();
       this.expiredProgram = res;
+      this.expiredProgram.items.map(e => e.daysLeft = this.dateDiff.transform(e.date.to));
       this.rows = this.expiredProgram.items;
       this.dataSource = new MatTableDataSource(this.rows);
     });
@@ -299,6 +308,7 @@ export class AllProgramTableComponent implements OnInit {
     this.apiservice.allExpiredProgram().subscribe((res: any) => {
       this.loader.close();
       this.allExpired = res;
+      this.allExpired.items.map(e => e.daysLeft = this.dateDiff.transform(e.date.to));
       this.rows = this.allExpired.items;
       this.dataSource = new MatTableDataSource(this.rows);
     });

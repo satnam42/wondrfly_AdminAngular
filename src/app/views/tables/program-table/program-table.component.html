@@ -31,13 +31,29 @@
           matTooltip="Publish Selected Activities">
           Publish
         </button>
-        <button (click)="selectedActivityIds.isPublished=false;publishUnpublishMultiplePrograms()" mat-raised-button
-          color="warn" *ngIf="selectedActivityIds.programIds?.length" matTooltip="Unpublish Selected Activities">
+        <button class="mr-4" (click)="selectedActivityIds.isPublished=false;publishUnpublishMultiplePrograms()"
+          mat-raised-button color="warn" *ngIf="selectedActivityIds.programIds?.length"
+          matTooltip="Unpublish Selected Activities">
           Unpublish
+        </button>
+        <button (click)="selectedActivityIds.isExpired=true;publishUnpublishMultiplePrograms()" mat-raised-button
+          color="warn" *ngIf="selectedActivityIds.programIds?.length" matTooltip="Unpublish Selected Activities">
+          Expire
         </button>
       </div>
     </div>
-
+    <div class="row">
+      <div class="col-6">
+        <ul class="table-top-links">
+          <!-- <li [ngClass]="{'active': activeTab === 'online'}" ><a (click)="onlinePrograms()">Online Programs</a></li> -->
+          <li [ngClass]="{'active': activeTab === ''}"><a (click)="activeProgramsTab('')"> All Programs <span
+                *ngIf=" activeTab === ''">({{temp?.message}})</span></a></li>
+          <li [ngClass]="{'active': activeTab === 'expired'}"><a (click)="activeProgramsTab('expired')"> Expired <span
+                *ngIf=" activeTab === 'expired'"><span *ngIf="temp?.message>0">({{temp?.message}})</span>
+                <span *ngIf="temp?.message< 0">(0)</span></span></a></li>
+        </ul>
+      </div>
+    </div>
     <div class="row">
       <div class="col-12">
         <table mat-table [dataSource]="dataSource" matSort>
@@ -58,7 +74,7 @@
           <ng-container matColumnDef="createdOn">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Added-On </th>
             <td mat-cell *matCellDef="let row" (click)="openPopUp(row)">
-              {{row?.addedBy?.createdOn | date:'medium'}}
+              {{row?.addedBy?.createdOn | date:'M/d/yy, h:mm a'}}
             </td>
           </ng-container>
 
@@ -74,8 +90,8 @@
           <ng-container matColumnDef="expiredIn">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Expired In </th>
             <td mat-cell *matCellDef="let row">
-              <span *ngIf="!row?.isDateNotMention && !row?.isExpired">
-                <counter [isProgram]="true" [futureString]="row?.date?.to"></counter>
+              <span [ngClass]="{'expiredP':row.daysLeft=='Expired'}" *ngIf="!row?.isDateNotMention">
+                {{row?.daysLeft}}
               </span>
               <span *ngIf="row?.isDateNotMention && !row?.isExpired">Date Not Mentioned</span>
               <span *ngIf="row?.isExpired" style="background: red;">Expired</span>

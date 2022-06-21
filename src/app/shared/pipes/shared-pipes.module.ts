@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { RelativeTimePipe } from './relative-time.pipe';
 import { ExcerptPipe } from "./excerpt.pipe";
 import { GetValueByKeyPipe } from './get-value-by-key.pipe';
+import { DateDifferencePipe } from './date-difference.pipe';
 
 const pipes = [
   RelativeTimePipe,
   ExcerptPipe,
-  GetValueByKeyPipe
+  GetValueByKeyPipe,
+  DateDifferencePipe,
 ]
 
 @NgModule({
@@ -15,6 +17,7 @@ const pipes = [
     CommonModule
   ],
   declarations: pipes,
-  exports: pipes
+  exports: pipes,
+  providers: [DatePipe, DateDifferencePipe]
 })
 export class SharedPipesModule { }

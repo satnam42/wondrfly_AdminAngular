@@ -11,6 +11,7 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
 import { ProgramDataPopupComponent } from './program-data-popup/program-data-popup.component';
 import { Program } from 'app/shared/models/program.model';
 import { FormControl } from '@angular/forms';
+import { DateDifferencePipe } from 'app/shared/pipes/date-difference.pipe';
 @Component({
   selector: 'app-program-table',
   templateUrl: './program-table.component.html',
@@ -22,6 +23,7 @@ export class ProgramTableComponent implements OnInit {
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   searchControl = new FormControl();
+  activeTab: any;
   @ViewChild(MatSort, { static: false }) set content(sort: MatSort) {
     this.dataSource.sort = sort;
   }
@@ -37,7 +39,7 @@ export class ProgramTableComponent implements OnInit {
   pageNo: number = 1;
   pageSize: number = 20;
   pageLength: any;
-  temp: Program[];
+  temp: any = [];
   ColumnMode = ColumnMode;
   user = new Userr;
   pageLimit = 100;
@@ -66,13 +68,12 @@ export class ProgramTableComponent implements OnInit {
     private confirmService: AppConfirmService,
     private loader: AppLoaderService,
     private dialog: MatDialog,
+    private dateDiff: DateDifferencePipe
   ) {
     this.activatedRoute.params.subscribe(params => {
       this.user._id = params['id'];
+      this.getSetTabs();
     });
-    this.apiservice.getAllProgramByUser(this.user._id, this.pageNo, 500).subscribe((res: any) => {
-      this.pageLength = res.length;
-    })
     this.getUserById(this.user._id)
   }
 
@@ -117,16 +118,30 @@ export class ProgramTableComponent implements OnInit {
   }
 
   getProgram() {
-    this.isLoading = true;
     this.loader.open();
     this.apiservice.getAllProgramByUser(this.user._id, this.pageNo, this.pageSize).subscribe((res: any) => {
-      this.loader.close();
       this.temp = res;
-      this.temp = this.temp.filter(program => !program.isExpired);
-      this.rows = this.temp.reverse();
+      this.pageLength = this.temp.message;
+      console.log(res);
+      this.temp.items.map(e => e.daysLeft = this.dateDiff.transform(e.date.to));
+      this.rows = this.temp.items;
       this.dataSource = new MatTableDataSource(this.rows);
     });
+    this.loader.close();
   }
+
+  getExpiredProgram() {
+    this.loader.open();
+    this.apiservice.getExpiredProgramByUser(this.user._id, this.pageNo, this.pageSize).subscribe((res: any) => {
+      this.temp = res;
+      this.pageLength = this.temp.message;
+      this.temp.items.map(e => e.daysLeft = this.dateDiff.transform(e.date.to));
+      this.rows = this.temp.items;
+      this.dataSource = new MatTableDataSource(this.rows);
+    });
+    this.loader.close();
+  }
+
   publishUnpublishMultiplePrograms() {
     if (this.selectedActivityIds.programIds.length < 20) {
       this.apiservice.publishUnpublishMultiplePrograms(this.selectedActivityIds).subscribe((res: any) => {
@@ -187,34 +202,18 @@ export class ProgramTableComponent implements OnInit {
     if (event.previousPageIndex > event.pageIndex) {
       this.pageSize = event.pageSize;
       this.pageNo = this.pageNo !== 0 ? this.pageNo - 1 : this.pageNo
-      this.getProgram();
+      this.getSetTabs();
     } else {
       this.pageSize = event.pageSize;
       this.pageNo = event.pageIndex + 1;
-      this.getProgram();
+      this.getSetTabs();
     }
   }
 
   ngOnInit() {
-    this.getProgram();
     this.searchControl.valueChanges.subscribe((value) => {
       this.searchFilter(value);
     });
-  }
-  public fileOverBase(e: any): void {
-    this.hasBaseDropZoneOver = e;
-  }
-
-  updateFilter(event) {
-    const val = event.target.value;
-    if (val) {
-      this.apiservice.searchProgram(val).subscribe((res: any) => {
-        this.rows = res.filter(item => item.user === this.user._id)
-        this.dataSource = new MatTableDataSource(this.rows);
-      });
-    } else {
-      this.getProgram();
-    }
   }
 
   searchFilter(key) {
@@ -236,11 +235,38 @@ export class ProgramTableComponent implements OnInit {
     this.loader.close()
   }
 
-
-
-  onFileChange(ev) {
-    const reader = new FileReader();
-    const file = ev.target.files[0];
+  // =========================================== change program tabs =========================================================
+  activeProgramsTab(tab) {
+    const activetab = tab;
+    if (activetab !== '') {
+      this.route.navigate(
+        [],
+        { relativeTo: this.activatedRoute, queryParams: { activity: activetab } }
+      );
+    } else {
+      this.route.navigate(
+        [],
+        { relativeTo: this.activatedRoute, queryParams: {} }
+      );
+    }
   }
+
+  // =========================================== programs type Tab =========================================================
+  getSetTabs() {
+    this.activatedRoute.queryParams
+      .subscribe((params: any) => {
+        this.activeTab = params.activity;
+        console.log(this.activeTab)
+        switch (this.activeTab) {
+          case 'expired':
+            this.getExpiredProgram()
+            break;
+          default:
+            this.activeTab = ''
+            this.getProgram();
+        }
+      })
+  }
+
 
 }

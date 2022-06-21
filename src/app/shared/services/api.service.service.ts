@@ -658,7 +658,16 @@ export class ApiService {
     getAllProgramByUser(userId, pageNo, pageSize): Observable<Program> {
         const subject = new Subject<Program>();
         this.http.get(`${this.root}/programs/byUser?userId=${userId}&pageNo=${pageNo}&pageSize=${pageSize}`, this.getHeaders()).subscribe((responseData: any) => {
-            subject.next(responseData.data);
+            subject.next(responseData);
+        }, (error) => {
+            subject.next(error);
+        });
+        return subject.asObservable();
+    }
+    getExpiredProgramByUser(userId, pageNo, pageSize): Observable<Program> {
+        const subject = new Subject<Program>();
+        this.http.get(`${this.root}/programs/expiredByProvider?userId=${userId}&pageNo=${pageNo}&pageSize=${pageSize}`, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData);
         }, (error) => {
             subject.next(error);
         });

@@ -136,17 +136,16 @@
           <ng-container matColumnDef="type">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
             <td mat-cell *matCellDef="let row" (click)="openPopUp(row)">
-              <span *ngIf="row.type=='Drops-in'">Drop-ins</span>
-              <span *ngIf="row.type!=='Drops-in'">{{row?.type}}</span>
+              <span *ngIf="row.type=='Drops-in'||row.type=='Drop-in'">Drop-ins</span>
+              <span *ngIf="row.type!=='Drops-in'&& row.type!=='Drop-in'">{{row?.type}}</span>
             </td>
           </ng-container>
 
-          <ng-container matColumnDef="expiredIn">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Expired In </th>
+          <ng-container matColumnDef="daysLeft">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Expiring In </th>
             <td mat-cell *matCellDef="let row">
-              <span *ngIf="!row?.isDateNotMention && !row?.isExpired">
-                <counter [isProgram]="true" [futureString]="row?.date?.to"></counter>
-              </span>
+              <span [ngClass]="{'expiredP':row?.daysLeft=='Expired'}"
+                *ngIf="!row?.isDateNotMention && !row?.isExpired">{{row?.daysLeft}}</span>
               <span *ngIf="row?.isDateNotMention && !row?.isExpired">Date Not Mentioned</span>
               <span *ngIf="row?.isExpired" style="background: red;padding: 3px 10px;color: #fff;">Expired</span>
             </td>

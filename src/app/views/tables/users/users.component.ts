@@ -206,15 +206,18 @@ export class UsersComponent implements OnInit {
   }
 
   add() {
-    // this.router.navigate(['form']);
-    this.router.navigate(['/forms/provider-form']);
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(['/forms/provider-form'])
+    );
+    window.open('#' + url, '_blank');
   }
   edit(data) {
     this.dataservice.setOption(data);
-    if (data._id) {
-      data.id = data._id
-    }
-    this.router.navigate(['forms/provider-form-update', data.id]);
+    let id = data._id ? data._id : data.id;
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(['forms/provider-form-update', id])
+    );
+    window.open('#' + url, '_blank');
   }
 
   deleteProvider(user) {

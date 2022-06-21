@@ -6,36 +6,21 @@ import * as moment from 'moment';
 import { DataService } from 'app/shared/services/dataservice.service';
 import { ApiService } from 'app/shared/services/api.service.service';
 import { Userr } from 'app/shared/models/user.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'program-data-popup',
   templateUrl: './program-data-popup.component.html'
 })
 export class ProgramDataPopupComponent implements OnInit {
-  public itemForm: FormGroup;
-  provider = new Userr;
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ProgramDataPopupComponent>,
-    private fb: FormBuilder,
-    private apiservice: ApiService
-  ) { }
-
-  getProviderById() {
-    var response: any;
-    this.apiservice.getProviderById(this.data.user).subscribe((res) => {
-      response = res;
-      console.log('provider detail', response);
-
-      if (response.isSuccess) {
-        this.provider = response.data;
-      }
-    });
-
+    private dp: DatePipe
+  ) {
+    data.date.to = dp.transform(data.date.to, 'M/d/yy')
+    data.date.from = dp.transform(data.date.from, 'M/d/yy')
   }
   ngOnInit() {
-    this.getProviderById();
-
   }
 }

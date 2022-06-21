@@ -10,14 +10,12 @@ import { environment } from 'environments/environment';
   styleUrls: ['./data-popup.component.scss']
 })
 export class DataPopupComponent implements OnInit {
-  public itemForm: FormGroup;
   name: '';
   IPtoLocation = environment.IPtoLocationURL
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<DataPopupComponent>,
-    private fb: FormBuilder,
-  ) { console.log(data)}
+  ) { }
 
   ngOnInit() {
 
