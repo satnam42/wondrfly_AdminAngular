@@ -36,8 +36,8 @@
           matTooltip="Unpublish Selected Activities">
           Unpublish
         </button>
-        <button (click)="selectedActivityIds.isExpired=true;publishUnpublishMultiplePrograms()" mat-raised-button
-          color="warn" *ngIf="selectedActivityIds.programIds?.length" matTooltip="Unpublish Selected Activities">
+        <button (click)="selectedActivityIds.isExpired=true;expireMultiplePrograms()" mat-raised-button color="warn"
+          *ngIf="selectedActivityIds.programIds?.length" matTooltip="Unpublish Selected Activities">
           Expire
         </button>
       </div>
@@ -90,7 +90,7 @@
           <ng-container matColumnDef="expiredIn">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Expired In </th>
             <td mat-cell *matCellDef="let row">
-              <span [ngClass]="{'expiredP':row.daysLeft=='Expired'}" *ngIf="!row?.isDateNotMention">
+              <span [ngClass]="{'expiredP':row.daysLeft=='Expired'}" *ngIf="!row?.isDateNotMention && !row?.isExpired">
                 {{row?.daysLeft}}
               </span>
               <span *ngIf="row?.isDateNotMention && !row?.isExpired">Date Not Mentioned</span>

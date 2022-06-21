@@ -1222,6 +1222,17 @@ export class ApiService {
         return subject.asObservable();
     }
 
+    expireMultiplePrograms(model): Observable<any[]> {
+        const subject = new Subject<any[]>();
+        this.http.post(`${this.root}/programs/bulkExpire`, model, this.getHeaders()).subscribe((responseData: any) => {
+            this.userResponse = responseData;
+            subject.next(this.userResponse);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+
 
 
     getPublishedProgram(pageNo, pageSize, programType): Observable<Program[]> {

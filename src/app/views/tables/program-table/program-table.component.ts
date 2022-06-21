@@ -122,7 +122,6 @@ export class ProgramTableComponent implements OnInit {
     this.apiservice.getAllProgramByUser(this.user._id, this.pageNo, this.pageSize).subscribe((res: any) => {
       this.temp = res;
       this.pageLength = this.temp.message;
-      console.log(res);
       this.temp.items.map(e => e.daysLeft = this.dateDiff.transform(e.date.to));
       this.rows = this.temp.items;
       this.dataSource = new MatTableDataSource(this.rows);
@@ -155,13 +154,29 @@ export class ProgramTableComponent implements OnInit {
       this.snack.open('Please select less than 20 Activities!', 'OK', { duration: 5000 });
     }
   }
+
+
+  expireMultiplePrograms() {
+    if (this.selectedActivityIds.programIds.length < 20) {
+      this.apiservice.expireMultiplePrograms(this.selectedActivityIds).subscribe((res: any) => {
+        if (res.isSuccess) {
+          this.snack.open(res.data, 'OK', { duration: 5000 });
+          this.selectedActivityIds.programIds = []
+          this.getProgram();
+        }
+      });
+    } else {
+      this.snack.open('Please select less than 20 Activities!', 'OK', { duration: 5000 });
+    }
+  }
+
+
   publishUnpublishProgram(data, program) {
     var model: any = {
       programId: program._id,
       isPublished: data.checked
     }
     this.apiservice.PublishedProgram(model).subscribe((res: any) => {
-      console.log(res)
       if (res.isSuccess) {
         this.snack.open('Program status changed', 'OK', { duration: 4000 });
       } else { this.snack.open('Somthing went wrong', 'OK', { duration: 4000 }); }
@@ -256,7 +271,6 @@ export class ProgramTableComponent implements OnInit {
     this.activatedRoute.queryParams
       .subscribe((params: any) => {
         this.activeTab = params.activity;
-        console.log(this.activeTab)
         switch (this.activeTab) {
           case 'expired':
             this.getExpiredProgram()
