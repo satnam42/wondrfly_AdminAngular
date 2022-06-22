@@ -3,55 +3,26 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TablesRoutes } from './tables.routing';
-import { ProviderTableComponent } from './provider-table/provider-table.component';
-import { ReoprtsComponent } from './reoprts/reoprts.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ChartsModule } from 'ng2-charts';
 import { FileUploadModule } from 'ng2-file-upload';
 import { SharedPipesModule } from 'app/shared/pipes/shared-pipes.module';
 import { TagTableComponent } from './tag-table/tag-table.component';
-import { ChildReportsComponent } from './child-reports/child-reports.component';
-import { ProgramsReportsComponent } from './programs-reports/programs-reports.component';
-import { ParentReportsComponent } from './parent-reports/parent-reports.component';
 import { TagEditTableComponent } from './tag-edit-table/tag-edit-table.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { AdminTableComponent } from './admin-table/admin-table.component';
 import { ProgramTableComponent } from './program-table/program-table.component';
-import { AddTagFormComponent } from './add-tag-form/add-tag-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ClaimsTableComponent } from './claims-table/claims-table.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { SearchProviderPopupComponent } from './all-program-table/search-provider-popup/search-provider-popup.component';
 import { AllProgramTableComponent } from './all-program-table/all-program-table.component';
-import { ProviderDataPopupComponent } from './provider-table/provider-data-popup/provider-data-popup.component';
 import { ProgramDataPopupComponent } from './program-table/program-data-popup/program-data-popup.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-import { NgxEchartsModule } from 'ngx-echarts';
-import { AmbassadorTableComponent } from './ambassador-table/ambassador-table.component';
-import { AmbassadorPointsComponent } from './ambassador-points/ambassador-points.component';
-import { AddactivityComponent } from './addactivity/addactivity.component';
-import { UpdateActivityComponent } from './update-activity/update-activity.component';
-import { ProgramReportComponent } from './program-report/program-report.component';
-import { ProviderReportComponent } from './provider-report/provider-report.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { EditProviderListComponent } from './edit-provider-list/edit-provider-list.component';
-import { ForumComponent } from './forum/forum.component';
-import { AddNotificationComponent } from './add-notification/add-notification.component';
-import { NotificationsComponent } from './notifications/notifications.component';
-import { DuplicacyDataPopupComponent } from './duplicacy/duplicacy-data-popup/duplicacy-data-popup.component';
-import { DuplicacyComponent } from './duplicacy/duplicacy.component';
-import { BadgesComponent } from './badges/badges.component';
-import { UnVerifiedProviderComponent } from './un-verified-provider/un-verified-provider.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { FeedbackTableComponent } from './feedback-table/feedback-table.component';
 import { ChildrenTableComponent } from './children-table/children-table.component';
 import { UsersComponent } from './users/users.component';
-import { EditFormComponent } from '../components/edit-form/edit-form.component';
-import { FeedbackSurveyComponent } from './feedback-survey/feedback-survey.component';
 import { AllUserComponent } from './all-user/all-user.component';
 import { SharedModule } from 'app/shared/shared.module';
-import { ExpiredProgramsComponent } from './expired-programs/expired-programs.component';
-import { AllExpiredComponent } from './all-expired/all-expired.component';
 import { ParentTableComponent } from './parent-table/parent-table.component';
 import { CategoryTableComponent } from './category-table/category-table.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
@@ -79,7 +50,6 @@ import { SharedMaterialModule } from 'app/shared/shared-material.module';
     FileUploadModule,
     SharedPipesModule,
     AutocompleteLibModule,
-    NgxEchartsModule,
     ScrollingModule,
     SharedModule,
     SharedMaterialModule,
@@ -94,43 +64,15 @@ import { SharedMaterialModule } from 'app/shared/shared-material.module';
   declarations: [
     ParentTableComponent,
     ChildrenTableComponent,
-    ProviderTableComponent,
     CategoryTableComponent,
-    AddTagFormComponent,
-    ReoprtsComponent,
     TagTableComponent,
     TagEditTableComponent,
-    ChildReportsComponent,
-    ProgramsReportsComponent,
-    ParentReportsComponent,
-    AdminTableComponent,
     ProgramTableComponent,
     AllProgramTableComponent,
-    ClaimsTableComponent,
     SearchProviderPopupComponent,
-    ProviderDataPopupComponent,
     ProgramDataPopupComponent,
-    AmbassadorTableComponent,
-    AmbassadorPointsComponent,
-    AddactivityComponent,
-    UpdateActivityComponent,
-    ProgramReportComponent,
-    ProviderReportComponent,
-    EditProviderListComponent,
-    ForumComponent,
-    AddNotificationComponent,
-    NotificationsComponent,
-    DuplicacyComponent,
-    DuplicacyDataPopupComponent,
-    BadgesComponent,
-    UnVerifiedProviderComponent,
-    FeedbackTableComponent,
     UsersComponent,
-    EditFormComponent,
-    FeedbackSurveyComponent,
     AllUserComponent,
-    ExpiredProgramsComponent,
-    AllExpiredComponent,
     KeywordComponent,
     KeywordFormComponent,
     TopicsComponent,
@@ -138,6 +80,6 @@ import { SharedMaterialModule } from 'app/shared/shared-material.module';
     MetaServiceComponent,
     MetaFormComponent,
   ],
-  entryComponents: [SearchProviderPopupComponent, MetaFormComponent, DuplicacyDataPopupComponent, TopicFormComponent, ProviderDataPopupComponent, KeywordFormComponent, ProgramDataPopupComponent, UsersComponent, EditFormComponent, AllUserComponent]
+  entryComponents: [SearchProviderPopupComponent, MetaFormComponent, TopicFormComponent, KeywordFormComponent, ProgramDataPopupComponent]
 })
 export class TablesModule { }

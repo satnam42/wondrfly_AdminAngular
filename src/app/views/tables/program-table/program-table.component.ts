@@ -32,7 +32,7 @@ export class ProgramTableComponent implements OnInit {
     'id',
     'createdOn',
     'isPublished',
-    'expiredIn',
+    'daysLeft',
     'star',
     'select'
   ];

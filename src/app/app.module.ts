@@ -15,7 +15,6 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { Ng5SliderModule } from 'ng5-slider';
-import { NotificationComponent } from './views/components/notification/notification.component';
 import { DataPopupComponent } from './views/tables/data-popup/data-popup.component';
 import { RolespopupComponent } from './rolespopup/rolespopup.component';
 import { ActiveUser } from './shared/services/auth/auth.guard';
@@ -60,7 +59,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       libraries: ['places']
     }),
   ],
-  declarations: [AppComponent, NotificationComponent, ProgramLocationComponent, DataPopupComponent, RolespopupComponent],
+  declarations: [AppComponent, ProgramLocationComponent, DataPopupComponent, RolespopupComponent],
   entryComponents: [DataPopupComponent, ProgramLocationComponent, RolespopupComponent],
   providers: [
     ActiveUser,

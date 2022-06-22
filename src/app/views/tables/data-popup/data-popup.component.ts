@@ -1,8 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Session } from 'app/shared/models/batch.model';
-import * as moment from 'moment';
 import { environment } from 'environments/environment';
 @Component({
   selector: 'app-data-popup',

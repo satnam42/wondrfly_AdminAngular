@@ -118,6 +118,6 @@ table{width: 100%;}
     background: red;
 }
 
-.egret-navy .mat-form-field-appearance-legacy .mat-form-field-label{
-margin: 4px 0px 0px 10px;
+::ng-deep .mat-form-field-label-wrapper{
+    left: 10px !important;
 }

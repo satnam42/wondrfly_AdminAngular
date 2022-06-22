@@ -8,16 +8,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { QuillModule } from 'ngx-quill';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
-import { BasicFormComponent } from './basic-form/basic-form.component';
-import { FileUploadComponent } from './file-upload/file-upload.component';
 import { FormsRoutes } from './forms.routing';
 import { WizardComponent } from './wizard/wizard.component';
 import { ParentFormComponent } from './parent-form/parent-form.component';
 import { CategoryFormComponent } from './category-form/category-form.component';
 import { ChildFormComponent } from './child-form/child-form.component';
-import { AdminFormComponent } from './admin-form/admin-form.component';
 import { EditProgramComponent } from './edit-program/edit-program.component';
-import { AddcategoryFormComponent } from './addcategory-form/addcategory-form.component';
 import { ParentUpdateFormComponent } from './parent-update-form/parent-update-form.component';
 import { Ng5SliderModule } from 'ng5-slider';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
@@ -48,16 +44,13 @@ import { ProgramFormComponent } from '../tables/all-program-table/program-form/p
     }),
     RouterModule.forChild(FormsRoutes)
   ],
-  declarations: [BasicFormComponent,
+  declarations: [
     EditProgramComponent,
-    FileUploadComponent,
     WizardComponent,
     ParentFormComponent,
     ParentUpdateFormComponent,
     CategoryFormComponent,
-    AddcategoryFormComponent,
     ChildFormComponent,
-    AdminFormComponent,
     AddBatchComponent,
     AddFormComponent,
     ProgramFormComponent,

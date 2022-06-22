@@ -122,7 +122,6 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
       this.isQuarter = false;
       this.isSemiYear = false;
       this.apiservice.analyticsGraphProgram(value).subscribe((res: any) => {
-        console.log(res, "month")
         this.graphData = res.data;
         this.dataValue = this.graphData.map(function (el) { return el.month; });
         this.dataCount = this.graphData.map(function (el) { return el.count; });
@@ -131,7 +130,6 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
         this.initTrafficVsSaleChart(this.themeService.activatedTheme);
       });
       this.apiservice.analyticsGraphProviders(value).subscribe((res: any) => {
-        console.log(res, "month")
         this.providerGraphData = res.data;
         this.providerDataValue = this.providerGraphData.map(function (el) { return el.month; });
         this.providerDataCount = this.providerGraphData.map(function (el) { return el.count; });
@@ -145,7 +143,6 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
       this.isQuarter = true;
       this.isSemiYear = false;
       this.apiservice.analyticsGraphProgram(value).subscribe((res: any) => {
-        console.log(res, "quarter")
         this.graphData = res.data;
         this.dataValue = this.graphData.map(function (el) { return el.month; });
         this.dataCount = this.graphData.map(function (el) { return el.count; });
@@ -154,7 +151,6 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
         this.initTrafficVsSaleChart(this.themeService.activatedTheme);
       });
       this.apiservice.analyticsGraphProviders(value).subscribe((res: any) => {
-        console.log(res, "quarter")
         this.providerGraphData = res.data;
         this.providerDataValue = this.providerGraphData.map(function (el) { return el.month; });
         this.providerDataCount = this.providerGraphData.map(function (el) { return el.count; });
@@ -167,7 +163,6 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
       this.isQuarter = false;
       this.isSemiYear = true;
       this.apiservice.analyticsGraphProgram(value).subscribe((res: any) => {
-        console.log(res, "semiyear")
         this.graphData = res.data;
         this.dataValue = this.graphData.map(function (el) { return el.month; });
         this.dataCount = this.graphData.map(function (el) { return el.count; });
@@ -176,7 +171,6 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
         this.initTrafficVsSaleChart(this.themeService.activatedTheme);
       });
       this.apiservice.analyticsGraphProviders(value).subscribe((res: any) => {
-        console.log(res, "semiyear")
         this.providerGraphData = res.data;
         this.providerDataValue = this.providerGraphData.map(function (el) { return el.month; });
         this.providerDataCount = this.providerGraphData.map(function (el) { return el.count; });
@@ -190,7 +184,6 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
       this.isQuarter = false;
       this.isSemiYear = false;
       this.apiservice.analyticsGraphProgram(value).subscribe((res: any) => {
-        console.log(res, "year")
         this.graphData = res.data;
         this.dataValue = this.graphData.map(function (el) { return el.year; });
         this.dataCount = this.graphData.map(function (el) { return el.count; });
@@ -199,7 +192,6 @@ export class AnalyticsComponent implements OnInit, AfterViewInit {
         this.initTrafficVsSaleChart(this.themeService.activatedTheme);
       });
       this.apiservice.analyticsGraphProviders(value).subscribe((res: any) => {
-        console.log(res, "year")
         this.providerGraphData = res.data;
         this.providerDataValue = this.providerGraphData.map(function (el) { return el.year; });
         this.providerDataCount = this.providerGraphData.map(function (el) { return el.count; });

@@ -14,6 +14,7 @@ export class Program {
     programId: string;
     time: any = {};
     date: any = {}
+    addedBy: {};
     ageGroup: any = {};
     bookingCancelledIn: any = {};
     duration: any = {};

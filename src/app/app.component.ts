@@ -1,11 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 
-import { RoutePartsService } from './shared/services/route-parts.service';
-// import { ThemeService } from './shared/services/theme.service';
-
-import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -17,13 +12,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   pageTitle = '';
 
   constructor(
-    public title: Title,
-    private router: Router,
-    private activeRoute: ActivatedRoute,
-    private routePartsService: RoutePartsService,
-    // private themeService: ThemeService,
-    // private layout: LayoutService,
-    // private renderer: Renderer2
+    public title: Title
   ) { }
 
   ngOnInit() {

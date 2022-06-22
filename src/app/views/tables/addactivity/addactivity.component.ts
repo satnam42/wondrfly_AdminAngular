@@ -1,10 +1,9 @@
-import { Component, OnInit, Output, ɵConsole, EventEmitter, Input } from '@angular/core';
-import { TablesService } from '../tables.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'app/shared/services/api.service.service';
 import { AppLoaderService } from '../../../shared/services/app-loader/app-loader.service';
 import { DataService } from 'app/shared/services/dataservice.service';
-import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar, MatSnackBarConfig, MatDialogRef, MatDialog } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Userr } from 'app/shared/models/user.model';
 @Component({
@@ -43,11 +42,11 @@ export class AddactivityComponent implements OnInit {
   Activity() {
     const simar: any = {
       ambassadorId: this.adjust._id,
-      point : this.activityForm.value.point,
-      description : this.activityForm.value.description,
-      activity : this.activityForm.value.activity,
+      point: this.activityForm.value.point,
+      description: this.activityForm.value.description,
+      activity: this.activityForm.value.activity,
 
-}
+    }
     this.apiservice.addAdjust(simar).subscribe(res => {
       this.ForumResponse = res;
       console.log('response ', this.ForumResponse)

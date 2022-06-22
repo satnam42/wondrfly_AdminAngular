@@ -1,7 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar, MatDialog, MatDialogRef } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { RolespopupComponent } from 'app/rolespopup/rolespopup.component';
 import { Userr } from 'app/shared/models/user.model';
@@ -9,10 +9,8 @@ import { ApiService } from 'app/shared/services/api.service.service';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { DataService } from 'app/shared/services/dataservice.service';
-import { EditFormComponent } from 'app/views/components/edit-form/edit-form.component';
 import { Observable } from 'rxjs';
 import { finalize, share } from 'rxjs/operators';
-import { DataPopupComponent } from '../data-popup/data-popup.component';
 @Component({
   selector: 'app-all-user',
   templateUrl: './all-user.component.html',
@@ -161,18 +159,6 @@ export class AllUserComponent implements OnInit {
     //       this.selection = new SelectionModel<UserData>(true, []);
     //     }
     //   });
-  }
-
-  openDialog(data: any, title: any): void {
-    const dialogRef = this.dialog.open(EditFormComponent, {
-      // disableClose : true,
-      width: '650px',
-      data: { data: data, title: title, id: data.id },
-    });
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-      }
-    });
   }
 
   openPopUp(data) {

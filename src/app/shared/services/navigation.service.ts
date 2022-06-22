@@ -85,7 +85,7 @@ export class NavigationService {
       sub: [
         { name: 'Providers', state: 'providers' },
         { name: 'Parents', state: "paging" },
-        { name: 'Ambassadors', state: "ambassadors" },
+        // { name: 'Ambassadors', state: "ambassadors" },
         { name: 'All Users', state: "All-Users" },
 
       ]
@@ -113,36 +113,36 @@ export class NavigationService {
     //   state: 'tables/badgeList'
     // },
 
-    {
-      name: 'Admins',
-      type: 'dropDown',
-      tooltip: 'Admins',
-      icon: 'person',
+    // {
+    //   name: 'Admins',
+    //   type: 'dropDown',
+    //   tooltip: 'Admins',
+    //   icon: 'person',
 
-      badges: [{ color: 'primary', value: '3' }],
-      sub: [
-        { name: 'Super Admin', state: 'tables' },
-        { name: 'Sales', state: 'tables' },
-        { name: 'Operations', state: 'tables' },
+    //   badges: [{ color: 'primary', value: '3' }],
+    //   sub: [
+    //     { name: 'Super Admin', state: 'tables' },
+    //     { name: 'Sales', state: 'tables' },
+    //     { name: 'Operations', state: 'tables' },
 
-      ]
-    },
+    //   ]
+    // },
 
 
 
-    {
-      name: 'Support',
-      type: 'dropDown',
-      tooltip: 'Support',
-      icon: 'person',
-      state: 'tables',
-      badges: [{ color: 'primary', value: '3' }],
-      sub: [
-        { name: 'Listing Claims', state: 'claims' },
-        { name: 'Forum', state: 'forum' },
-        { name: 'Alerts', state: 'notifications' },
-      ]
-    },
+    // {
+    //   name: 'Support',
+    //   type: 'dropDown',
+    //   tooltip: 'Support',
+    //   icon: 'person',
+    //   state: 'tables',
+    //   badges: [{ color: 'primary', value: '3' }],
+    //   sub: [
+    //     { name: 'Listing Claims', state: 'claims' },
+    //     { name: 'Forum', state: 'forum' },
+    //     { name: 'Alerts', state: 'notifications' },
+    //   ]
+    // },
 
     // {
     //   name: ' Ambassadors',

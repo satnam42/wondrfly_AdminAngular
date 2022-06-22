@@ -389,6 +389,7 @@ export class AllProgramTableComponent implements OnInit {
         this.loader.close()
         if (res.isSuccess) {
           response = res.data;
+          response.map(e => e.daysLeft = this.dateDiff.transform(e.date.to));
           this.dataSource = new MatTableDataSource(response);
           this.filteredData = response;
         }
