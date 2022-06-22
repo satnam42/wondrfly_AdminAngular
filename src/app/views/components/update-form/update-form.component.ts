@@ -84,6 +84,7 @@ export class UpdateFormComponent implements OnInit {
       id: this.user.id,
       firstName: this.user.firstName,
       userName: this.user.userName,
+      email: this.user.email,
       lastName: this.user.lastName,
       phoneNumber: this.user.phoneNumber,
       secondaryPhonenumber: this.user.secondaryPhonenumber,
