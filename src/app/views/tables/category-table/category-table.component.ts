@@ -33,10 +33,10 @@ export class CategoryTableComponent implements OnInit {
   imagePath;
   imgURL: any;
 
-  iconURL:any
-  imageURL:any
-  logoURL:any
-  patternURL:any
+  iconURL: any
+  imageURL: any
+  logoURL: any
+  patternURL: any
   logoFormData = new FormData();
   iconFormData = new FormData();
   imageFormData = new FormData();
@@ -65,11 +65,10 @@ export class CategoryTableComponent implements OnInit {
       if (this.responseData.isSuccess === true) {
         this.categoryForm.reset();
         let id = this.responseData.data._id
-        console.log('add cat res',this.responseData)
-        if(this.imageFormData.has('image')){this.imageUpload(id)}
-        if(this.iconFormData.has('icon')){this.iconUpload(id)}
-        if(this.logoFormData.has('logo')){this.logoUpload(id)}
-        if(this.patternFormData.has('pattern')){this.patternUpload(id)}
+        if (this.imageFormData.has('image')) { this.imageUpload(id) }
+        if (this.iconFormData.has('icon')) { this.iconUpload(id) }
+        if (this.logoFormData.has('logo')) { this.logoUpload(id) }
+        if (this.patternFormData.has('pattern')) { this.patternUpload(id) }
         this.getCategory();
         this.snack.open(this.message, 'OK', { duration: 4000 });
         this.route.navigate(['tables/category']);
@@ -186,19 +185,16 @@ export class CategoryTableComponent implements OnInit {
     this.apiservice.getCategory().subscribe(res => {
       this.loader.close();
       this.CategoriesList = res;
-      console.log('==>>',this.CategoriesList.sort((a,b) => 0 - (a.name > b.name ? -1 : 1)))
     });
     this.loader.close();
   }
-  activateDeactivateCategory(isActivated,indx)
-  {
-if(isActivated)
-{
- this.CategoriesList[indx].isActivated=isActivated
-}
-else { this.CategoriesList[indx].isActivated=isActivated }
-    this.apiservice.activateDeactivateCategory(isActivated,this.CategoriesList[indx].id).subscribe((res: any) => {
-      
+  activateDeactivateCategory(isActivated, indx) {
+    if (isActivated) {
+      this.CategoriesList[indx].isActivated = isActivated
+    }
+    else { this.CategoriesList[indx].isActivated = isActivated }
+    this.apiservice.activateDeactivateCategory(isActivated, this.CategoriesList[indx].id).subscribe((res: any) => {
+
     })
   }
   ngOnInit() {
@@ -210,26 +206,22 @@ else { this.CategoriesList[indx].isActivated=isActivated }
     });
   }
 
-  imageUpload(id){
-    this.apiservice.categoryImageUpload(this.imageFormData,id).subscribe(res => {
-      console.log('imageUpload Response',res)
-          });this.imageFormData=new FormData();
+  imageUpload(id) {
+    this.apiservice.categoryImageUpload(this.imageFormData, id).subscribe(res => {
+    }); this.imageFormData = new FormData();
   }
-  iconUpload(id){
-    this.apiservice.subCategoryIconUpload('categories',this.iconFormData,id).subscribe(res => {
-      console.log('iconUpload Response',res)
-          });this.iconFormData=new FormData();
-        }
-  logoUpload(id){
-                this.apiservice.subCategoryLogoUpload('categories',this.logoFormData,id).subscribe(res => {
-                  console.log('logoUpload Response',res)
-                      });this.logoFormData=new FormData();
+  iconUpload(id) {
+    this.apiservice.subCategoryIconUpload('categories', this.iconFormData, id).subscribe(res => {
+    }); this.iconFormData = new FormData();
   }
-  patternUpload(id){
-    this.apiservice.subCategoryPatternUpload('categories',this.patternFormData,id).subscribe(res => {
-      console.log('logoUpload Response',res)
-          });this.patternFormData=new FormData();
-}
+  logoUpload(id) {
+    this.apiservice.subCategoryLogoUpload('categories', this.logoFormData, id).subscribe(res => {
+    }); this.logoFormData = new FormData();
+  }
+  patternUpload(id) {
+    this.apiservice.subCategoryPatternUpload('categories', this.patternFormData, id).subscribe(res => {
+    }); this.patternFormData = new FormData();
+  }
 
 
 
@@ -250,7 +242,6 @@ else { this.CategoriesList[indx].isActivated=isActivated }
       this.iconURL = reader.result;
     }
     this.iconMimeType = event.target.files[0].type;
-    console.log('iconMimeType',this.iconMimeType)
     // if (iconMimeType.match(/image\/*/) == null) {
     //   // this.msg = " only images are supported";
     //   return;
@@ -276,7 +267,6 @@ else { this.CategoriesList[indx].isActivated=isActivated }
       this.imageURL = reader.result;
     }
     var imageMimeType = event.target.files[0].type;
-    console.log('imageMimeType',imageMimeType)    // if (mimeType.match(/image\/*/) == null) {
     //   // this.msg = " only images are supported";
     //   return;
     // }
@@ -300,8 +290,7 @@ else { this.CategoriesList[indx].isActivated=isActivated }
       this.logoURL = reader.result;
     }
     this.logoMimeType = event.target.files[0].type;
-    console.log('logoMimeType',this.logoMimeType)
-        // if (mimeType.match(/image\/*/) == null) {
+    // if (mimeType.match(/image\/*/) == null) {
     //   // this.msg = " only images are supported";
     //   return;
     // }
@@ -326,7 +315,6 @@ else { this.CategoriesList[indx].isActivated=isActivated }
       this.patternURL = reader.result;
     }
     this.patternMimeType = event.target.files[0].type;
-    console.log('patternMimeType',this.patternMimeType)
     // var mimeType = event.target.files[0].type;
     // if (mimeType.match(/image\/*/) == null) {
     //   // this.msg = " only images are supported";

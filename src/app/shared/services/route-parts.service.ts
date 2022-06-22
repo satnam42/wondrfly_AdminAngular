@@ -25,7 +25,6 @@ export class RoutePartsService {
         routeParts = routeParts.concat(this.generateRouteParts(snapshot.firstChild));
       }
       if (snapshot.data['title'] && snapshot.url.length) {
-        // console.log(snapshot.data['title'], snapshot.url)
         routeParts.push({
           title: snapshot.data['title'],
           breadcrumb: snapshot.data['breadcrumb'],

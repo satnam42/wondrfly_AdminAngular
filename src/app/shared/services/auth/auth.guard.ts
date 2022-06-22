@@ -15,22 +15,21 @@ export class UserGuard implements CanActivate {
     if (!this.auth.currentUser() || !this.auth.isAuthorized()) {
       this.myRoute.navigate(["sessions/signin"]);
     }
-      return true;  
+    return true;
   }
 }
 @Injectable()
 export class ActiveUser implements CanActivate {
   user: any;
-  constructor(public router: Router,private auth: AuthsService,){
-     this.user=this.auth.currentUser();
-   }
- 
-  canActivate(): Observable<boolean> | Promise<boolean> | boolean{
-      // console.log(localStorage.getItem('CurrentUserWondrfly'),"Admin");
-      if(!this.auth.currentUser()){
-         return true
-      }else if(this.user.role=="operationadmin"){this.router.navigate(['beta-program/enrolled']);} 
-      else { this.router.navigate(["dashboard/analytics"]);}
-       
+  constructor(public router: Router, private auth: AuthsService,) {
+    this.user = this.auth.currentUser();
+  }
+
+  canActivate(): Observable<boolean> | Promise<boolean> | boolean {
+    if (!this.auth.currentUser()) {
+      return true
+    } else if (this.user.role == "operationadmin") { this.router.navigate(['beta-program/enrolled']); }
+    else { this.router.navigate(["dashboard/analytics"]); }
+
   }
 }

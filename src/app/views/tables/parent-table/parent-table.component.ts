@@ -134,7 +134,6 @@ export class ParentTableComponent implements OnInit, OnChanges {
     this.loader.open()
     this.apiservice.getParents(this.pageNo, this.pageSize).subscribe(res => {
       this.temp = res;
-      console.log('res getParent', res)
       if (this.temp.items) {
         this.rows = this.temp.items;
         this.isScrol = true;
@@ -218,10 +217,8 @@ export class ParentTableComponent implements OnInit, OnChanges {
     else if (this.isActive) {
       filter += `&status=true`
     }
-    console.log('searched value', filter)
     this.apiservice.searchParentFilter(filter).subscribe((res: any) => {
       response = res.data;
-      console.log('res search', res)
       this.rows = response;
       this.isScrol = false;
     });

@@ -57,7 +57,6 @@ export class HomeComponent implements OnInit {
     this.loader.open();
     this.apiservice.getAllReport(fromDate, toDate).subscribe(res => {
       this.response = res;
-      console.log('res fromback end',this.response)
       this.loader.close();
       if (this.response.isSuccess === true) {
         this.isResponse = true;
@@ -80,21 +79,21 @@ export class HomeComponent implements OnInit {
       this.loader.close();
     });
   }
-  goToList(data){
-    switch(data) {
+  goToList(data) {
+    switch (data) {
       case 'parents':
         this.route.navigate(['tables/paging']);
         break;
-        case 'providers':
-          this.route.navigate(['tables/provider']);
-          break;
-        case 'children':
-          this.route.navigate(['tables/children']);
-          break;
-          case 'programs':
-            this.route.navigate(['tables/all-program']);
-            break;
-      
+      case 'providers':
+        this.route.navigate(['tables/provider']);
+        break;
+      case 'children':
+        this.route.navigate(['tables/children']);
+        break;
+      case 'programs':
+        this.route.navigate(['tables/all-program']);
+        break;
+
     }
   }
   ngOnInit() {

@@ -79,7 +79,6 @@ export class PlansComponent implements OnInit {
     this.badgeForm.value.icon = this.badgeImageUrl;
     if (this.badgeForm.value.icon) {
       this.apiservice.addBadge(this.badgeForm.value).subscribe((res) => {
-        console.log('added alert', res);
         this.alertResponse = res;
         this.loader.close();
         if (this.alertResponse.isSuccess === true) {

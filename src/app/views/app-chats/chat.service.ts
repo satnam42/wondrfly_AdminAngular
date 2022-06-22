@@ -45,8 +45,7 @@ export class ChatService {
   onChatsUpdated = new Subject<any>();
 
   constructor(private http: HttpClient) {
-    // console.log('from service');
-    // this.loadChatData()
+
   }
 
   loadChatData(): Observable<any> {

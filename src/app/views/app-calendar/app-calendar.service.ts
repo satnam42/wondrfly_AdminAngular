@@ -28,7 +28,6 @@ export class AppCalendarService {
         })
       }
     } else {
-      console.log('token not found')
     }
     return header;
   }
@@ -80,7 +79,6 @@ export class AppCalendarService {
     const subject = new Subject<CalendarEvent[]>();
     this.http.delete(`${this.root}/events/delete/${eventID}`, this.getHeaders())
       .subscribe((events: any) => {
-        console.log('response', events)
         this.events = events.data;
       }, (error) => {
         subject.next(error.error);

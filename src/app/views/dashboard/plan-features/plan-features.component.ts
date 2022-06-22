@@ -32,10 +32,10 @@ export class PlanFeaturesComponent implements OnInit {
   token: any;
 
   constructor(private apiservice: ApiService, private snack: MatSnackBar,
-     private dataservice: DataService, private loader: AppLoaderService, private route: Router)
-      { this.token = localStorage.getItem('token');
-      var retrievedObject = localStorage.getItem('userData');
-      }
+    private dataservice: DataService, private loader: AppLoaderService, private route: Router) {
+    this.token = localStorage.getItem('token');
+    var retrievedObject = localStorage.getItem('userData');
+  }
 
 
   ngOnInit() {
@@ -58,7 +58,6 @@ export class PlanFeaturesComponent implements OnInit {
       this.featuresList = this.features.data;
       this.loader.close();
       this.featuresList.reverse();
-      console.log('featuresList', this.featuresList)
     });
   }
 
@@ -80,18 +79,18 @@ export class PlanFeaturesComponent implements OnInit {
 
   onSubmit() {
     // this.loader.open();
-      this.apiservice.addFeature(this.featureForm.value).subscribe((res) => {
-        this.alertResponse = res;
+    this.apiservice.addFeature(this.featureForm.value).subscribe((res) => {
+      this.alertResponse = res;
+      // this.loader.close();
+      if (this.alertResponse.isSuccess === true) {
+        // this.snack.open(this.messages, 'OK', { duration: 7000 });
+        this.getFeatures();
+      }
+      else {
         // this.loader.close();
-        if (this.alertResponse.isSuccess === true) {
-          // this.snack.open(this.messages, 'OK', { duration: 7000 });
-          this.getFeatures();
-        }
-        else {
-          // this.loader.close();
-          let msg = 'Something Went Wrong!';
-          // this.snack.open(msg, 'OK', { duration: 7000 });
-        }
-      });
+        let msg = 'Something Went Wrong!';
+        // this.snack.open(msg, 'OK', { duration: 7000 });
+      }
+    });
   }
 }

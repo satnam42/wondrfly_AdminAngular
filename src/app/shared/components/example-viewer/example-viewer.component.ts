@@ -18,7 +18,6 @@ export class EgretExampleViewerComponent implements OnInit, AfterViewInit, OnDes
     if (exampleId) {
       this._exampleId = exampleId;
     } else {
-      console.log("EXAMPLE ID MISSING");
     }
   }
   // Title and component Ref
@@ -31,11 +30,11 @@ export class EgretExampleViewerComponent implements OnInit, AfterViewInit, OnDes
     return this._exampleId;
   }
 
-  @ViewChild('exampleContainer', {read: ViewContainerRef, static: false}) exampleContainer: ViewContainerRef
+  @ViewChild('exampleContainer', { read: ViewContainerRef, static: false }) exampleContainer: ViewContainerRef
 
   constructor(
     private cfr: ComponentFactoryResolver
-  ) { 
+  ) {
 
   }
 
@@ -43,7 +42,7 @@ export class EgretExampleViewerComponent implements OnInit, AfterViewInit, OnDes
     this.componentPath = this.path + this.exampleId + '/' + this.exampleId + '.component';
   }
   ngAfterViewInit() {
-    if(!this.data) {
+    if (!this.data) {
       console.log('EXAMPLE COMPONENT MISSING');
       return;
     }
@@ -51,7 +50,7 @@ export class EgretExampleViewerComponent implements OnInit, AfterViewInit, OnDes
     this.exampleViewRef = this.exampleContainer.createComponent(componentFactory);
   }
   ngOnDestroy() {
-    if(this.exampleViewRef) {
+    if (this.exampleViewRef) {
       this.exampleViewRef.destroy();
     }
   }

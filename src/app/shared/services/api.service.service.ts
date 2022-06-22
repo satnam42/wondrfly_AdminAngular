@@ -41,7 +41,6 @@ export class ApiService {
                 })
             }
         } else {
-            console.log('token not found')
         }
         return header;
 
@@ -58,7 +57,6 @@ export class ApiService {
                 })
             }
         } else {
-            console.log('token not found')
         }
         return header;
 
@@ -1201,7 +1199,6 @@ export class ApiService {
 
     PublishedProgram(model): Observable<any[]> {
         const subject = new Subject<any[]>();
-        console.log(model)
         this.http.put(`${this.root}/programs/publish?programId=${model.programId}&isPublished=${model.isPublished}`, '', this.getHeaders()).subscribe((responseData: any) => {
             this.userResponse = responseData;
             subject.next(this.userResponse);

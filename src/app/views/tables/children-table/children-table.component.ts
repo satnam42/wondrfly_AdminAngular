@@ -71,9 +71,8 @@ export class ChildrenTableComponent implements OnInit {
       this.loadMore()
     }
   }
-  getChildren(){
+  getChildren() {
     this.apiservice.getChildren(this.pageNo, this.pageSize).subscribe(res => {
-      console.log('children list response ', res)
       this.temp = res;
       if (this.temp.items) {
         this.rows = this.temp.items;

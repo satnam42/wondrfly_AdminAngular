@@ -12,14 +12,13 @@ export class RolespopupComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef <RolespopupComponent>,
+    public dialogRef: MatDialogRef<RolespopupComponent>,
     private apiservice: ApiService
   ) { }
 
-  getRoles(){
-    this.apiservice.getRoles().subscribe((res:any) => {
+  getRoles() {
+    this.apiservice.getRoles().subscribe((res: any) => {
       this.roles = res;
-      console.log('roles', res)
     })
   }
 

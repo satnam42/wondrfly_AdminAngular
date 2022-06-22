@@ -51,10 +51,10 @@ export class TagEditTableComponent {
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   categoryInput: any;
   tagResponse: any;
-  iconURL:any
-  imageURL:any
-  logoURL:any
-  patternURL:any
+  iconURL: any
+  imageURL: any
+  logoURL: any
+  patternURL: any
   baseURL = environment.baseURL
   // addExtraClass: boolean = false;
   constructor(private route: Router, private dataservice: DataService,
@@ -63,19 +63,19 @@ export class TagEditTableComponent {
     private loader: AppLoaderService
   ) {
     this.tag = dataservice.getOption();
-    if(this.tag.icon){
-      this.iconURL = this.baseURL+this.tag.icon
+    if (this.tag.icon) {
+      this.iconURL = this.baseURL + this.tag.icon
     }
-    if(this.tag.image){
-      this.imageURL = this.baseURL+this.tag.image
+    if (this.tag.image) {
+      this.imageURL = this.baseURL + this.tag.image
     }
-    if(this.tag.logo){
-      this.logoURL = this.baseURL+this.tag.logo
+    if (this.tag.logo) {
+      this.logoURL = this.baseURL + this.tag.logo
     }
-    if(this.tag.pattern){
-      this.patternURL = this.baseURL+this.tag.pattern
+    if (this.tag.pattern) {
+      this.patternURL = this.baseURL + this.tag.pattern
     }
-       this.filteredCategories = this.categoryCtrl.valueChanges.pipe(
+    this.filteredCategories = this.categoryCtrl.valueChanges.pipe(
       startWith(null),
       map((category: string | null) => category ? this.filter(category) : this.allCategories.slice()));
 
@@ -125,7 +125,7 @@ export class TagEditTableComponent {
     this.route.navigate(['tables/tag']);
 
   }
-  
+
 
   iconSelect(event) {
     this.iconFormData = new FormData();
@@ -144,7 +144,6 @@ export class TagEditTableComponent {
       this.iconURL = reader.result;
     }
     this.iconMimeType = event.target.files[0].type;
-    console.log('iconMimeType',this.iconMimeType)
     // if (iconMimeType.match(/image\/*/) == null) {
     //   // this.msg = " only images are supported";
     //   return;
@@ -170,7 +169,6 @@ export class TagEditTableComponent {
       this.imageURL = reader.result;
     }
     var imageMimeType = event.target.files[0].type;
-    console.log('imageMimeType',imageMimeType)    // if (mimeType.match(/image\/*/) == null) {
     //   // this.msg = " only images are supported";
     //   return;
     // }
@@ -194,8 +192,7 @@ export class TagEditTableComponent {
       this.logoURL = reader.result;
     }
     this.logoMimeType = event.target.files[0].type;
-    console.log('logoMimeType',this.logoMimeType)
-        // if (mimeType.match(/image\/*/) == null) {
+    // if (mimeType.match(/image\/*/) == null) {
     //   // this.msg = " only images are supported";
     //   return;
     // }
@@ -220,7 +217,6 @@ export class TagEditTableComponent {
       this.patternURL = reader.result;
     }
     this.patternMimeType = event.target.files[0].type;
-    console.log('patternMimeType',this.patternMimeType)
     // var mimeType = event.target.files[0].type;
     // if (mimeType.match(/image\/*/) == null) {
     //   // this.msg = " only images are supported";
@@ -232,10 +228,10 @@ export class TagEditTableComponent {
 
   updateTag() {
     this.loader.open();
-    if(this.imageFormData.has('image')){this.imageUpload()}
-    if(this.iconFormData.has('icon')){this.iconUpload()}
-    if(this.logoFormData.has('logo')){this.logoUpload()}
-    if(this.patternFormData.has('pattern')){this.patternUpload()}
+    if (this.imageFormData.has('image')) { this.imageUpload() }
+    if (this.iconFormData.has('icon')) { this.iconUpload() }
+    if (this.logoFormData.has('logo')) { this.logoUpload() }
+    if (this.patternFormData.has('pattern')) { this.patternUpload() }
     this.apiservice.updateTag(this.tag._id, this.tag).subscribe(res => {
       this.tagResponse = res;
       this.loader.close(); if (this.tagResponse.isSuccess === true) {
@@ -249,26 +245,22 @@ export class TagEditTableComponent {
     });
 
   }
-  imageUpload(){
-    this.apiservice.subCategoryImageUpload('tags',this.imageFormData,this.tag._id).subscribe(res => {
-      console.log('imageUpload Response',res)
-          });
+  imageUpload() {
+    this.apiservice.subCategoryImageUpload('tags', this.imageFormData, this.tag._id).subscribe(res => {
+    });
   }
-  iconUpload(){
-    this.apiservice.subCategoryIconUpload('tags',this.iconFormData,this.tag._id).subscribe(res => {
-      console.log('iconUpload Response',res)
-          });
-        }
-  logoUpload(){
-                this.apiservice.subCategoryLogoUpload('tags',this.logoFormData,this.tag._id).subscribe(res => {
-                  console.log('logoUpload Response',res)
-                      });
+  iconUpload() {
+    this.apiservice.subCategoryIconUpload('tags', this.iconFormData, this.tag._id).subscribe(res => {
+    });
   }
-  patternUpload(){
-    this.apiservice.subCategoryPatternUpload('tags',this.patternFormData,this.tag._id).subscribe(res => {
-      console.log('logoUpload Response',res)
-          });
-}
+  logoUpload() {
+    this.apiservice.subCategoryLogoUpload('tags', this.logoFormData, this.tag._id).subscribe(res => {
+    });
+  }
+  patternUpload() {
+    this.apiservice.subCategoryPatternUpload('tags', this.patternFormData, this.tag._id).subscribe(res => {
+    });
+  }
   ngOnInit() {
     this.apiservice.getCategory().subscribe(res => {
       this.allCategories = res;

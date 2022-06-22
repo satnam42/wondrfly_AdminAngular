@@ -11,7 +11,7 @@ import tinyColor from 'tinycolor2';
 })
 export class DefaultDashboardComponent implements OnInit {
 
-  lineChartSteppedData: Array <any> = [{
+  lineChartSteppedData: Array<any> = [{
     data: [1, 8, 4, 8, 2, 2, 9],
     label: 'Order',
     borderWidth: 0,
@@ -60,13 +60,13 @@ export class DefaultDashboardComponent implements OnInit {
   public lineChartColors: Array<any> = [];
   public lineChartLegend: boolean = false;
   public lineChartType: string = 'line';
-  
+
 
   // Chart grid options
   doughnutChartColors1: any[] = [{
     backgroundColor: ['#fff', 'rgba(0, 0, 0, .24)',]
   }];
-    doughnutChartColors2: any[] = [{
+  doughnutChartColors2: any[] = [{
     backgroundColor: ['rgba(0, 0, 0, .5)', 'rgba(0, 0, 0, .15)',]
   }];
   total1: number = 500;
@@ -194,14 +194,12 @@ export class DefaultDashboardComponent implements OnInit {
     this.themeService.onThemeChange.subscribe(activeTheme => {
       this.setChartColor(activeTheme);
     });
-    this.setChartColor(this.themeService.activatedTheme);  
-    
+    this.setChartColor(this.themeService.activatedTheme);
+
   }
 
 
   setChartColor(theme) {
-    console.log(theme);
-    
     this.lineChartColors = [{
       backgroundColor: tinyColor(theme.baseColor).setAlpha(.6),
       borderColor: 'rgba(0,0,0,0)',
@@ -216,7 +214,7 @@ export class DefaultDashboardComponent implements OnInit {
       pointBorderColor: 'rgba(0, 0, 0, 0)',
       pointHoverBackgroundColor: 'rgba(0, 0, 0, 0.1)',
       pointHoverBorderColor: 'rgba(0, 0, 0, 0)'
-    }]    
+    }]
   }
 
 }

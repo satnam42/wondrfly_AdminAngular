@@ -22,17 +22,16 @@ export class EgretExampleViewerTemplateComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     combineLatest(this.route.params, this.route.data)
-    .pipe(takeUntil(this.unsubscribeAll))
-    .subscribe(([params, data]) => {
-      this.id = params["id"];
-      this.examples = data.map[this.id];
-      this.exampleComponents = data.components;
-      this.componentDirPath = data.path;
+      .pipe(takeUntil(this.unsubscribeAll))
+      .subscribe(([params, data]) => {
+        this.id = params["id"];
+        this.examples = data.map[this.id];
+        this.exampleComponents = data.components;
+        this.componentDirPath = data.path;
 
-      const title = this.id.replace("-", " ");
-      this.title = title.charAt(0).toUpperCase() + title.substring(1);
-      // console.log(params, data);
-    });
+        const title = this.id.replace("-", " ");
+        this.title = title.charAt(0).toUpperCase() + title.substring(1);
+      });
   }
 
   ngOnDestroy() {

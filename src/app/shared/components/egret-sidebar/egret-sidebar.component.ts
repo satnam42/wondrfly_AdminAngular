@@ -72,7 +72,6 @@ export class EgretSidebarComponent implements OnInit, OnDestroy {
     this.matchMediaService.onMediaChange
       .pipe(takeUntil(this.unsubscribeAll))
       .subscribe(() => {
-        // console.log("medua sub");
         if (this.mediaObserver.isActive(this.lockedBreakpoint)) {
           this.sidebarLockedOpen = true;
           this.opened = true;
@@ -132,7 +131,7 @@ export class EgretSidebarComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribeAll.next();
     this.unsubscribeAll.complete();
-     this.sidebarHelperService.removeSidebar(this.name);
+    this.sidebarHelperService.removeSidebar(this.name);
   }
 }
 
@@ -143,7 +142,7 @@ export class EgretSidebarTogglerDirective {
   @Input("egretSidebarToggler")
   public id: any;
 
-  constructor(private egretSidebarHelperService: EgretSidebarHelperService) {}
+  constructor(private egretSidebarHelperService: EgretSidebarHelperService) { }
 
   @HostListener("click")
   onClick() {

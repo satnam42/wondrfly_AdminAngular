@@ -33,9 +33,9 @@ export class TagTableComponent implements OnInit {
     categoryIds: []
 
   }
-  categoryData:any[]=[];
+  categoryData: any[] = [];
 
-   tagForm: FormGroup;
+  tagForm: FormGroup;
   submitted: boolean = false;
   visible: boolean = true;
   selectable = "selectable"
@@ -63,25 +63,25 @@ export class TagTableComponent implements OnInit {
   imageMimeType;
   logoMimeType
   patternMimeType
-  iconURL:any
-  imageURL:any
-  logoURL:any
-  patternURL:any
+  iconURL: any
+  imageURL: any
+  logoURL: any
+  patternURL: any
   constructor(private route: Router,
     private snack: MatSnackBar,
     private loader: AppLoaderService,
     private dataservice: DataService, private dialog: MatDialog,
     private apiservice: ApiService
-    ) {
-      this.filteredCategories = this.categoryCtrl.valueChanges.pipe(
-        startWith(null),
-        map((category: string | null) => category ? this.filter(category) : this.allCategories.slice()));
-  
-      let config = new MatSnackBarConfig();
-      config.verticalPosition = this.verticalPosition;
-      config.horizontalPosition = this.horizontalPosition;
-      config.duration = this.setAutoHide ? this.autoHide : 0;
-     }
+  ) {
+    this.filteredCategories = this.categoryCtrl.valueChanges.pipe(
+      startWith(null),
+      map((category: string | null) => category ? this.filter(category) : this.allCategories.slice()));
+
+    let config = new MatSnackBarConfig();
+    config.verticalPosition = this.verticalPosition;
+    config.horizontalPosition = this.horizontalPosition;
+    config.duration = this.setAutoHide ? this.autoHide : 0;
+  }
 
   edit(data) {
     this.dataservice.setOption(data);
@@ -114,8 +114,7 @@ export class TagTableComponent implements OnInit {
     this.apiservice.getTag().subscribe(res => {
       this.temp = res;
       this.tagsList = this.temp;
-      this.tagsList = this.tagsList.sort((a,b) => 0 - (a.name > b.name ? -1 : 1));
-      console.log('===>>',this.tagsList)
+      this.tagsList = this.tagsList.sort((a, b) => 0 - (a.name > b.name ? -1 : 1));
       this.loader.close();
     });
   }
@@ -124,7 +123,7 @@ export class TagTableComponent implements OnInit {
     var response: any;
     if (key) {
       this.apiservice.searchTag(key).subscribe((res: any) => {
-        this.rows=[];
+        this.rows = [];
         response = res;
         this.rows = response;
       });
@@ -133,12 +132,10 @@ export class TagTableComponent implements OnInit {
       this.getTag();
     }
   }
-  activateDeactivate(data,tag){
-    console.log(data)
-     let tagId= tag._id;
-     let status= data.checked
-    this.apiservice.activateDeactivateTag(tagId,status).subscribe((res: any) => {
-      console.log(res) 
+  activateDeactivate(data, tag) {
+    let tagId = tag._id;
+    let status = data.checked
+    this.apiservice.activateDeactivateTag(tagId, status).subscribe((res: any) => {
     })
   }
 
@@ -154,7 +151,7 @@ export class TagTableComponent implements OnInit {
       categoryIds: new FormControl([], Validators.required),
     });
   }
- 
+
   adds(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
@@ -210,28 +207,24 @@ export class TagTableComponent implements OnInit {
   // add tags function
 
   onSubmit() {
-    var CategoryId=this.tagForm.value.categoryIds;
+    var CategoryId = this.tagForm.value.categoryIds;
     this.categoryData.push(CategoryId)
-    let body={
-      name:this.tagForm.value.name,
-      description:this.tagForm.value.description,
-      categoryIds:this.categoryData,
+    let body = {
+      name: this.tagForm.value.name,
+      description: this.tagForm.value.description,
+      categoryIds: this.categoryData,
     }
-    console.log('body',body)
     this.submitted = true;
     this.loader.open();
-    console.log('before',this.tagForm.value)
     this.apiservice.addTag(body).subscribe((res) => {
-      console.log('ressss',res)
       this.tagResponse = res;
-      console.log('after',this.tagResponse)
       this.loader.close();
       let id = this.tagResponse.data._id;
       if (this.tagResponse.isSuccess) {
-        if(this.imageFormData.has('image')){this.imageUpload(id)}
-        if(this.iconFormData.has('icon')){this.iconUpload(id)}
-        if(this.logoFormData.has('logo')){this.logoUpload(id)}
-        if(this.patternFormData.has('pattern')){this.patternUpload(id)}
+        if (this.imageFormData.has('image')) { this.imageUpload(id) }
+        if (this.iconFormData.has('icon')) { this.iconUpload(id) }
+        if (this.logoFormData.has('logo')) { this.logoUpload(id) }
+        if (this.patternFormData.has('pattern')) { this.patternUpload(id) }
         this.snack.open(this.message, 'OK', { duration: 4000 });
         this.getTag();
       } else {
@@ -257,7 +250,6 @@ export class TagTableComponent implements OnInit {
       this.iconURL = reader.result;
     }
     this.iconMimeType = event.target.files[0].type;
-    console.log('iconMimeType',this.iconMimeType)
     // if (iconMimeType.match(/image\/*/) == null) {
     //   // this.msg = " only images are supported";
     //   return;
@@ -283,7 +275,6 @@ export class TagTableComponent implements OnInit {
       this.imageURL = reader.result;
     }
     var imageMimeType = event.target.files[0].type;
-    console.log('imageMimeType',imageMimeType)    // if (mimeType.match(/image\/*/) == null) {
     //   // this.msg = " only images are supported";
     //   return;
     // }
@@ -307,8 +298,7 @@ export class TagTableComponent implements OnInit {
       this.logoURL = reader.result;
     }
     this.logoMimeType = event.target.files[0].type;
-    console.log('logoMimeType',this.logoMimeType)
-        // if (mimeType.match(/image\/*/) == null) {
+    // if (mimeType.match(/image\/*/) == null) {
     //   // this.msg = " only images are supported";
     //   return;
     // }
@@ -333,7 +323,6 @@ export class TagTableComponent implements OnInit {
       this.patternURL = reader.result;
     }
     this.patternMimeType = event.target.files[0].type;
-    console.log('patternMimeType',this.patternMimeType)
     // var mimeType = event.target.files[0].type;
     // if (mimeType.match(/image\/*/) == null) {
     //   // this.msg = " only images are supported";
@@ -342,39 +331,35 @@ export class TagTableComponent implements OnInit {
     // -------------------------------------------------------------------------------
 
   }
-  imageUpload(id){
-    this.apiservice.subCategoryImageUpload('tags',this.imageFormData,id).subscribe(res => {
-      console.log('imageUpload Response',res)
-          });
+  imageUpload(id) {
+    this.apiservice.subCategoryImageUpload('tags', this.imageFormData, id).subscribe(res => {
+    });
   }
-  iconUpload(id){
-    this.apiservice.subCategoryIconUpload('tags',this.iconFormData,id).subscribe(res => {
-      console.log('iconUpload Response',res)
-          });
-        }
-  logoUpload(id){
-                this.apiservice.subCategoryLogoUpload('tags',this.logoFormData,id).subscribe(res => {
-                  console.log('logoUpload Response',res)
-                      });
+  iconUpload(id) {
+    this.apiservice.subCategoryIconUpload('tags', this.iconFormData, id).subscribe(res => {
+    });
   }
-  patternUpload(id){
-    this.apiservice.subCategoryPatternUpload('tags',this.patternFormData,id).subscribe(res => {
-      console.log('logoUpload Response',res)
-          });
-}
+  logoUpload(id) {
+    this.apiservice.subCategoryLogoUpload('tags', this.logoFormData, id).subscribe(res => {
+    });
+  }
+  patternUpload(id) {
+    this.apiservice.subCategoryPatternUpload('tags', this.patternFormData, id).subscribe(res => {
+    });
+  }
 
   // updateFilter(event) {
   //   const val = event.target.value.toLowerCase();
   //   var columns = Object.keys(this.temp[0]);
-    // Removes last "$$index" from "column"
-    // columns.splice(columns.length - 1);
-    // console.log(columns);
-    // if (!columns.length)
-    //   return;
-    // const rows = this.temp.filter(function (d) {
-    //   for (let i = 0; i <= columns.length; i++) {
-    //     let column = columns[i];
-        // console.log(d[column]);
+  // Removes last "$$index" from "column"
+  // columns.splice(columns.length - 1);
+  // console.log(columns);
+  // if (!columns.length)
+  //   return;
+  // const rows = this.temp.filter(function (d) {
+  //   for (let i = 0; i <= columns.length; i++) {
+  //     let column = columns[i];
+  // console.log(d[column]);
   //       if (d[column] && d[column].toString().toLowerCase().indexOf(val) > -1) {
   //         return true;
   //       }
@@ -382,8 +367,8 @@ export class TagTableComponent implements OnInit {
   //   });
   //   this.tagsList = rows;
   // }
-  changeItem(event){
-   
+  changeItem(event) {
+
   }
 
 }

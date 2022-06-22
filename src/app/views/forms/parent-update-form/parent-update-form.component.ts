@@ -49,7 +49,7 @@ export class ParentUpdateFormComponent implements OnInit {
   back() {
     this.route.navigate(['tables/paging']);
   }
-  
+
   ngOnInit() {
 
     this.parentupdateForm = new FormGroup({
@@ -76,10 +76,8 @@ export class ParentUpdateFormComponent implements OnInit {
 
   updateParent() {
     this.loader.open();
-    console.log(this.user)
     this.apiservice.updateParent(this.user.id, this.user).subscribe(res => {
       this.parentResponse = res;
-      console.log('after',this.user)
       if (this.parentResponse.isSuccess === true) {
         this.snack.open(this.message, 'OK', { duration: 4000 })
         this.route.navigate(['tables/paging']);

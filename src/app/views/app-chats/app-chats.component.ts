@@ -14,7 +14,7 @@ export class AppChatsComponent implements OnInit, OnDestroy {
   isMobile;
   screenSizeWatcher: Subscription;
   isSidenavOpen: Boolean = true;
-  @ViewChild(MatSidenav, {static: false}) public sideNav: MatSidenav;
+  @ViewChild(MatSidenav, { static: false }) public sideNav: MatSidenav;
 
   activeChatUser = {
     name: 'Gevorg Spartak',
@@ -26,10 +26,9 @@ export class AppChatsComponent implements OnInit, OnDestroy {
 
 
   constructor(
-    private mediaObserver: MediaObserver, 
+    private mediaObserver: MediaObserver,
     public chatService: ChatService
   ) {
-    // console.log(chatService.chats)
     this.user = chatService.user
   }
 

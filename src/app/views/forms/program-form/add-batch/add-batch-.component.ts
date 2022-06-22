@@ -18,7 +18,7 @@ export class AddBatchComponent implements OnInit {
   endDate = new Date;
   startTime = new Date;
   endTime = new Date;
-  batch= new Session;
+  batch = new Session;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<AddBatchComponent>,
@@ -28,7 +28,6 @@ export class AddBatchComponent implements OnInit {
 
   addBatch() {
     this.sessions.push(this.batch);
-    console.log('program sessions', this.sessions);
     this.dataservice.setOption(this.sessions);
     this.batch = new Session;
   }
@@ -38,7 +37,6 @@ export class AddBatchComponent implements OnInit {
     if (data.length) {
       this.sessions = data
     }
-    console.log('batch', data)
   }
   submit() {
     this.dialogRef.close();

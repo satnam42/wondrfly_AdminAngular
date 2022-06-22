@@ -83,8 +83,6 @@ export class ThemeService {
     let themeStr = getQueryParam('theme');
     try {
       this.activatedTheme = JSON.parse(themeStr);
-      console.log(this.activatedTheme);
-
       this.flipActiveFlag(this.activatedTheme.name);
     } catch (e) { }
   }

@@ -9,29 +9,27 @@ import { DataService } from 'app/shared/services/dataservice.service';
   styleUrls: ['./popup-form.component.scss']
 })
 export class PopupFormComponent implements OnInit {
-  reason:string='';
+  reason: string = '';
   @ViewChild('search', { static: true })
   public searchElementRef: ElementRef;
-  constructor( @Inject(MAT_DIALOG_DATA) public data: any,
-  public dialogRef: MatDialogRef<PopupFormComponent>,
-  private apiService: ApiService,
-  private dataservice: DataService,
-  private snack: MatSnackBar) { console.log(data) }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<PopupFormComponent>,
+    private apiService: ApiService,
+    private dataservice: DataService,
+    private snack: MatSnackBar) { }
 
   ngOnInit() {
-   
+
   }
 
   setData() {
-    let body ={
+    let body = {
       id: this.data._id,
       reason: this.reason
     }
-    console.log(body)
-    this.apiService.setExpired(body).subscribe((res:any) =>{
-      console.log(res)
-      if(res.isSuccess){
-        let msg ='Program Expired'
+    this.apiService.setExpired(body).subscribe((res: any) => {
+      if (res.isSuccess) {
+        let msg = 'Program Expired'
         this.snack.open(msg, 'ok', { duration: 4000 });
         this.dataservice.setOption(res);
       }

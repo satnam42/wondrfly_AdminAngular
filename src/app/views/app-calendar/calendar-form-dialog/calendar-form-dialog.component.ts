@@ -41,19 +41,15 @@ export class CalendarFormDialogComponent implements OnInit {
         end: data.date
       });
     }
-    console.log('data', data);
     this.eventForm = this.buildEventForm(this.event);
-    console.log(' this.event', this.event)
   }
   searchProvider(e: string) {
     this.apiservice.searchProviderByName(e).subscribe((res) => {
       this.providers = res;
-      console.log('providers', this.providers)
     })
   }
   selectedProviderId(e) {
     this.eventForm.value.userId = e._id;
-    console.log('this.eventForm.value.userId', this.eventForm.value.userId)
   }
   public getProviderName(e) {
     if (e) {

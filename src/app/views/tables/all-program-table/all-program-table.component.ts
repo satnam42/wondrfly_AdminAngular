@@ -247,10 +247,8 @@ export class AllProgramTableComponent implements OnInit {
     this.loader.open();
     this.apiservice.getMontclairProgram(this.pageNo, this.pageSize).subscribe(res => {
       this.temp = res;
-      console.log(res)
       if (this.temp.isSuccess) {
         this.temp.items.map(e => e.daysLeft = this.dateDiff.transform(e.date.to));
-        console.log(this.temp.items)
         this.pageLength = +this.temp.message;
         this.rows = this.temp.items;
         this.dataSource = new MatTableDataSource(this.rows);

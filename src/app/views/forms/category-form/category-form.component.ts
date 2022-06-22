@@ -20,7 +20,7 @@ export class CategoryFormComponent implements OnInit {
   categoryForm: FormGroup;
   FormData: any;
   submitted: boolean;
-  usersData: any = {};  
+  usersData: any = {};
   responseData: any;
   res: any[];
   category: any = [];
@@ -39,10 +39,10 @@ export class CategoryFormComponent implements OnInit {
 
   // addExtraClass: boolean = false;
 
-  iconURL:any
-  imageURL:any
-  logoURL:any
-  patternURL:any
+  iconURL: any
+  imageURL: any
+  logoURL: any
+  patternURL: any
   logoFormData = new FormData();
   iconFormData = new FormData();
   imageFormData = new FormData();
@@ -59,17 +59,17 @@ export class CategoryFormComponent implements OnInit {
     private route: Router,
     private loader: AppLoaderService) {
     this.category = this.dataservice.getOption();
-    if(this.category.iconUrl){
-      this.iconURL = this.baseURL+this.category.iconUrl
+    if (this.category.iconUrl) {
+      this.iconURL = this.baseURL + this.category.iconUrl
     }
-    if(this.category.imageUrl){
-      this.imageURL = this.baseURL+this.category.imageUrl
+    if (this.category.imageUrl) {
+      this.imageURL = this.baseURL + this.category.imageUrl
     }
-    if(this.category.logoUrl){
-      this.logoURL = this.baseURL+this.category.logoUrl
+    if (this.category.logoUrl) {
+      this.logoURL = this.baseURL + this.category.logoUrl
     }
-    if(this.category.pattern){
-      this.patternURL = this.baseURL+this.category.pattern
+    if (this.category.pattern) {
+      this.patternURL = this.baseURL + this.category.pattern
     }
 
     let config = new MatSnackBarConfig();
@@ -80,15 +80,14 @@ export class CategoryFormComponent implements OnInit {
   }
   back() {
     this.route.navigate(['tables/category']);
-  }  
+  }
 
   updateCategory() {
     this.loader.open();
-    if(this.imageFormData.has('image')){this.imageUpload()}
-    if(this.iconFormData.has('icon')){this.iconUpload()}
-    if(this.logoFormData.has('logo')){this.logoUpload()}
-    if(this.patternFormData.has('pattern')){this.patternUpload()}
-    console.log('before cat update', this.category )
+    if (this.imageFormData.has('image')) { this.imageUpload() }
+    if (this.iconFormData.has('icon')) { this.iconUpload() }
+    if (this.logoFormData.has('logo')) { this.logoUpload() }
+    if (this.patternFormData.has('pattern')) { this.patternUpload() }
     this.apiservice.updateCategory(this.category.id, this.category).subscribe(res => {
       this.loader.close();
       this.categoryResponse = res;
@@ -104,26 +103,22 @@ export class CategoryFormComponent implements OnInit {
     });
 
   }
-  imageUpload(){
-    this.apiservice.categoryImageUpload(this.imageFormData,this.category.id).subscribe(res => {
-      console.log('imageUpload Response',res)
-          });
+  imageUpload() {
+    this.apiservice.categoryImageUpload(this.imageFormData, this.category.id).subscribe(res => {
+    });
   }
-  iconUpload(){
-    this.apiservice.subCategoryIconUpload('categories',this.iconFormData,this.category.id).subscribe(res => {
-      console.log('iconUpload Response',res)
-          });
-        }
-  logoUpload(){
-                this.apiservice.subCategoryLogoUpload('categories',this.logoFormData,this.category.id).subscribe(res => {
-                  console.log('logoUpload Response',res)
-                      });
+  iconUpload() {
+    this.apiservice.subCategoryIconUpload('categories', this.iconFormData, this.category.id).subscribe(res => {
+    });
   }
-  patternUpload(){
-    this.apiservice.subCategoryPatternUpload('categories',this.patternFormData,this.category.id).subscribe(res => {
-      console.log('logoUpload Response',res)
-          });
-}
+  logoUpload() {
+    this.apiservice.subCategoryLogoUpload('categories', this.logoFormData, this.category.id).subscribe(res => {
+    });
+  }
+  patternUpload() {
+    this.apiservice.subCategoryPatternUpload('categories', this.patternFormData, this.category.id).subscribe(res => {
+    });
+  }
 
 
 
@@ -144,7 +139,6 @@ export class CategoryFormComponent implements OnInit {
       this.iconURL = reader.result;
     }
     this.iconMimeType = event.target.files[0].type;
-    console.log('iconMimeType',this.iconMimeType)
     // if (iconMimeType.match(/image\/*/) == null) {
     //   // this.msg = " only images are supported";
     //   return;
@@ -170,7 +164,6 @@ export class CategoryFormComponent implements OnInit {
       this.imageURL = reader.result;
     }
     var imageMimeType = event.target.files[0].type;
-    console.log('imageMimeType',imageMimeType)    // if (mimeType.match(/image\/*/) == null) {
     //   // this.msg = " only images are supported";
     //   return;
     // }
@@ -194,8 +187,7 @@ export class CategoryFormComponent implements OnInit {
       this.logoURL = reader.result;
     }
     this.logoMimeType = event.target.files[0].type;
-    console.log('logoMimeType',this.logoMimeType)
-        // if (mimeType.match(/image\/*/) == null) {
+    // if (mimeType.match(/image\/*/) == null) {
     //   // this.msg = " only images are supported";
     //   return;
     // }
@@ -220,7 +212,6 @@ export class CategoryFormComponent implements OnInit {
       this.patternURL = reader.result;
     }
     this.patternMimeType = event.target.files[0].type;
-    console.log('patternMimeType',this.patternMimeType)
     // var mimeType = event.target.files[0].type;
     // if (mimeType.match(/image\/*/) == null) {
     //   // this.msg = " only images are supported";
@@ -249,6 +240,5 @@ export class CategoryFormComponent implements OnInit {
     return this.updateCategory();
   }
 }
-   
 
-  
+

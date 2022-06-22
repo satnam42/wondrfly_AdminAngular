@@ -21,7 +21,7 @@ export class UpdateForumComponent implements OnInit {
   keyword = 'name';
   selectable: boolean = true;
   removable: boolean = true;
-    separatorKeysCodes: number[] = [ENTER, COMMA];
+  separatorKeysCodes: number[] = [ENTER, COMMA];
   tags: any = [];
   isChanged: EventEmitter<any> = new EventEmitter();
   formData = {};
@@ -31,12 +31,12 @@ export class UpdateForumComponent implements OnInit {
   usersData: any = {};
   responseData: any;
   res: any[];
-  tagIds: any= [];
+  tagIds: any = [];
   selectFeature: any = [];
   tagsData: any = [];
   features: any = [];
   isLoading: boolean;
-  selectedFeature: any ;
+  selectedFeature: any;
   toppings = new FormControl();
   // selected: any = {};
   message: string = 'Topic Updated Successfully!';
@@ -54,10 +54,9 @@ export class UpdateForumComponent implements OnInit {
     private apiservice: ApiService,
     private snack: MatSnackBar,
     private route: Router,
-    private apiService : ApiService,
+    private apiService: ApiService,
     private loader: AppLoaderService) {
     this.topic = dataservice.getOption();
-    console.log('dataaadd ', this.topic);
     let config = new MatSnackBarConfig();
     config.verticalPosition = this.verticalPosition;
     config.horizontalPosition = this.horizontalPosition;
@@ -73,7 +72,6 @@ export class UpdateForumComponent implements OnInit {
     this.loader.open();
     this.apiservice.updateForum(this.topic).subscribe(res => {
       this.ForumResponse = res;
-        console.log('response ', this.ForumResponse)
       this.loader.close();
       if (this.ForumResponse.isSuccess === true) {
         this.snack.open(this.message, 'OK', { duration: 4000 })
@@ -82,12 +80,11 @@ export class UpdateForumComponent implements OnInit {
         let msg = "Something Went Wrong";
         this.snack.open(msg, 'OK', { duration: 2000 })
       }
-    });   
-  } 
+    });
+  }
 
   remove(f, indx): void {
     this.topic.tagIds.splice(indx, 1);
-    console.log('tagsssss', this.topic.tagIds);
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
@@ -98,14 +95,11 @@ export class UpdateForumComponent implements OnInit {
 
   selectEvent(item) {
     this.topic.tagIds.push(item)
-    console.log('selectEvent', item);
-    console.log(' this.topic.tagIds', this.topic.tagIds);
   }
 
   onChangeSearch(key: string) {
     this.apiservice.searchTag(key).subscribe((res: any) => {
       this.tags = res;
-      console.log('this.tags', this.tags);
     });
 
   }
@@ -116,15 +110,14 @@ export class UpdateForumComponent implements OnInit {
       postFor: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       title: new FormControl('', Validators.required),
-      
+
     });
-  } 
+  }
 
   onSubmit() {
     this.submitted = true;
     // this.topic.tags = this.selected;
     return this.updateForum();
   }
- 
-} 
-  
+
+}

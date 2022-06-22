@@ -253,9 +253,7 @@ export class AddFormComponent implements OnInit {
     this.user.categoryIds = this.categoryIds
     this.user.sourceUrl = this.sourceUrls;
     this.loader.open();
-    console.log(this.user)
     this.apiservice.addProvider(this.user).subscribe((res) => {
-      console.log(res)
       this.providerResponse = res;
       this.loader.close();
       if (this.providerResponse.isSuccess === true) {

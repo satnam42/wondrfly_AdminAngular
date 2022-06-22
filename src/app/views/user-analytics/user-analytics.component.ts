@@ -27,7 +27,6 @@ export class UserAnalyticsComponent implements OnInit {
   }
 
   getAnalyticsData() {
-    console.log(this.id)
     this.apiservice.getParentAnalytics(this.id).subscribe(res => {
       this.searchedData = res;
       this.programs = this.searchedData.filter(e => e.program);
@@ -43,6 +42,7 @@ export class UserAnalyticsComponent implements OnInit {
   }
   getfreeTextByParentId() {
     this.apiservice.getfreeTextByParentId(this.id).subscribe(res => {
-      this.freeText= res.reverse()    })
+      this.freeText = res.reverse()
+    })
   }
 }

@@ -25,7 +25,6 @@ export class UpdateBatchPopupComponent implements OnInit {
     private dataservice: DataService,
   ) {
     this.batch = data;
-    console.log('batch', this.batch);
     this.program = dataservice.getOption();
 
   }
@@ -46,15 +45,13 @@ export class UpdateBatchPopupComponent implements OnInit {
 
         if (this.batch._id === batch._id) {
           this.program.sessions[i] = this.batch;
-          console.log('batchData in for loop', this.batch);
-          console.log('program.sessions[i] in for loop', this.program.sessions[i]);
         }
       }
     }
-    console.log('program data before upload', this.program);
+
     this.apiservice.updateProgram(this.program._id, this.program).subscribe(res => {
       response = res;
-      console.log('updated program', response);
+
       if (response.isSuccess === true) {
 
       } else {
@@ -72,7 +69,6 @@ export class UpdateBatchPopupComponent implements OnInit {
     //   this.sessions = data
     // }
 
-    // console.log('batch', data)
 
     // this.buildItemForm(this.data.payload)
   }

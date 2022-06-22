@@ -110,7 +110,6 @@ export class AppCalendarComponent implements OnInit {
   }
 
   public handleEvent(action: string, event: EgretCalendarEvent): void {
-    console.log('event>>>>>>>>>>>', event)
     this.dialogRef = this.dialog.open(CalendarFormDialogComponent, {
       panelClass: 'calendar-form-dialog',
       data: { event, action },

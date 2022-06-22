@@ -10,7 +10,7 @@ import { Subscription } from "rxjs";
 export class ChatLeftSidenavComponent implements OnInit {
   userUpdateSub: Subscription;
   loadDataSub: Subscription;
-  
+
   isSidenavOpen = true;
 
   currentUser: User = new User();
@@ -19,7 +19,7 @@ export class ChatLeftSidenavComponent implements OnInit {
   constructor(
     private chatService: ChatService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit() {
     // this.chatService.onChatsUpdated
@@ -42,17 +42,16 @@ export class ChatLeftSidenavComponent implements OnInit {
       });
   }
   ngOnDestroy() {
-    if( this.userUpdateSub ) this.userUpdateSub.unsubscribe();
-    if( this.loadDataSub ) this.loadDataSub.unsubscribe();
+    if (this.userUpdateSub) this.userUpdateSub.unsubscribe();
+    if (this.loadDataSub) this.loadDataSub.unsubscribe();
   }
 
-  getChatByContact(contactId) { 
+  getChatByContact(contactId) {
     this.chatService.getChatByContact(contactId)
       .subscribe(res => {
         // console.log('from sub',res);
       }, err => {
-        console.log(err)
       })
   }
-  
+
 }
