@@ -420,7 +420,7 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
         this.loader.close();
         if (res.isSuccess === true) {
           this.snack.open('Program Added successfully', 'OK', { duration: 5000 });
-          this.route.navigate(['tables/program', this.user._id]);
+          this.route.navigate(['tables/program', this.id]);
         }
       });
     }

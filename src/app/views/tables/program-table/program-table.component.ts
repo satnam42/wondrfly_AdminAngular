@@ -99,7 +99,14 @@ export class ProgramTableComponent implements OnInit {
 
   edit(data) {
     this.dataservice.setOption(data);
-    this.route.navigate(['forms/edit-program', data._id]);
+    const url = this.route.serializeUrl(
+      this.route.createUrlTree(['forms/program-form/', data._id], {
+        queryParams: {
+          form: 'edit'
+        }
+      })
+    );
+    window.open('#' + url, '_blank');
   }
   back() {
     history.back();
@@ -112,7 +119,11 @@ export class ProgramTableComponent implements OnInit {
   add() {
     // this.route.navigate(['forms/wizard', this.user._id])
     const url = this.route.serializeUrl(
-      this.route.createUrlTree(['forms/wizard', this.user._id])
+      this.route.createUrlTree(['forms/program-form/', this.user._id], {
+        queryParams: {
+          form: 'add'
+        }
+      })
     );
     window.open('#' + url, '_blank');
   }
