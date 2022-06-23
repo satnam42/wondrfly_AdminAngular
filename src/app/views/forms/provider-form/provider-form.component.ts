@@ -1,25 +1,25 @@
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialog, MatSnackBar, MatDialogRef } from '@angular/material';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatChipInputEvent, MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Program } from 'app/shared/models/program.model';
 import { Userr } from 'app/shared/models/user.model';
 import { ApiService } from 'app/shared/services/api.service.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { DataService } from 'app/shared/services/dataservice.service';
-import { AddBatchComponent } from 'app/views/forms/program-form/add-batch/add-batch-.component';
-import { ProgramLocationComponent } from 'app/views/forms/program-form/program-location/program-location.component';
 import * as moment from 'moment';
 import { FileUploader } from 'ng2-file-upload';
 import { Options } from 'ng5-slider';
 import { Observable } from 'rxjs';
+import { ProgramLocationComponent } from '../program-form/program-location/program-location.component';
+
 @Component({
-  selector: 'app-program-form',
-  templateUrl: './program-form.component.html',
-  styleUrls: ['./program-form.component.css']
+  selector: 'app-provider-form',
+  templateUrl: './provider-form.component.html',
+  styleUrls: ['./provider-form.component.scss']
 })
-export class ProgramFormComponent implements OnInit, OnDestroy {
+export class ProviderFormComponent implements OnInit, OnDestroy {
   firstFormGroup: FormGroup;
   startDate: any = new Date;
   endDate: any = new Date;
@@ -31,6 +31,7 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
   msg: string;
   imagePath;
   imgURL: any;
+  sourceUrls = [];
   duration: any;
   timeArray: any = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"];
   bookingCancelledIn = {
@@ -151,6 +152,7 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
   isEditData: boolean;
   isEdit: boolean = false;
   id = ''
+  providerResponse: any;
   constructor(
     private apiservice: ApiService,
     private loader: AppLoaderService,
@@ -175,18 +177,7 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
         }
       })
   }
-  openPopUp() {
-    let dialogRef: MatDialogRef<any> = this.dialog.open(AddBatchComponent, {
-      width: '30%',
-      disableClose: true,
-    })
-    dialogRef.afterClosed()
-      .subscribe(res => {
-        if (!res) {
-          return;
-        }
-      });
-  }
+  
 
   onChangeSearch(key: string) {
     this.tags = []
@@ -276,55 +267,48 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
       this.onChangeSearch(value);
     })
     this.firstFormGroup = new FormGroup({
-      name: new FormControl(['',]),
-      type: new FormControl(['',]),
-      categoryId: new FormControl(['',]),
-      phoneNumber: new FormControl(['']),
-      subCategory: new FormControl(['']),
-      inpersonOrVirtual: new FormControl(['',]),
-      indoorOroutdoor: new FormControl(['',]),
-      description: new FormControl(['',]),
-      specialInstructions: new FormControl(['',]),
-      email: new FormControl(['', Validators.email]),
-      presenter: new FormControl(['',]),
-      ageGroup: new FormControl(['',]),
-      startDate: new FormControl(['',]),
-      endDate: new FormControl(['',]),
-      startTime: new FormControl(['',]),
-      endTime: new FormControl(['',]),
-      isDateNotMention: new FormControl(false),
-      isTimeNotMention: new FormControl(false),
-      isproRated: new FormControl(false),
-      dayss: new FormControl(['',]),
-      isFree: new FormControl(false),
-      days: new FormControl(['',]),
-      pricePerParticipant: new FormControl(['',]),
-      priceForSiblings: new FormControl(['',]),
-      perTimePeriod: new FormControl(['',]),
-      timePeriodDuration: new FormControl(['',]),
-      extractionDate: new FormControl(['',]),
-      duration: new FormControl(['', Validators.required]),
-      adultAssistanceIsRequried: new FormControl(false),
-      addresses: new FormControl(['',]),
-      hours: new FormControl(['',]),
-      joiningLink: new FormControl(['',]),
-      location: new FormControl(['']),
-      city: new FormControl(['']),
-      source: new FormControl(['',]),
-      sourceUrl: new FormControl(['',]),
-      cycle: new FormControl(['']),
-      isExpired: new FormControl([false]),
-      zip: new FormControl(['']),
-      activeStatus: new FormControl(['']),
-      per_hour_rate: new FormControl(['']),
-      privateOrGroup: new FormControl(['']),
-      offerDiscount: new FormControl(['']),
-      last_reviewed: new FormControl(['']),
-      cycle_time: new FormControl(['']),
-      isParentJoin: new FormControl([false]),
-      maxTravelDistance: new FormControl([Number]),
-      totalSessionClasses: new FormControl([Number]),
-      isParentGuardianRequire: new FormControl([false]),
+      firstName: new FormControl('', Validators.required),
+      userName: new FormControl('', Validators.pattern(/^\S*$/)),
+      lastName: new FormControl('',),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      phoneNumber: new FormControl('',),
+      sex: new FormControl('',),
+      addressLine1: new FormControl('',),
+      addressLine2: new FormControl('',),
+      city: new FormControl('',),
+      facebook: new FormControl('',),
+      website: new FormControl('',),
+      instagram: new FormControl('',),
+      twitter: new FormControl('',),
+      taxNumber: new FormControl('',),
+      country: new FormControl('',),
+      zipCode: new FormControl('',),
+      lat: new FormControl('',),
+      lng: new FormControl('',),
+      stripeToken: new FormControl('',),
+      stripeKey: new FormControl('',),
+      ssn: new FormControl('',),
+      deviceToken: new FormControl('',),
+      location: new FormControl('',),
+      source: new FormControl([],),
+      sourceLinks: new FormControl([],),
+      state: new FormControl('',),
+      note: new FormControl('',),
+      subCategoryIds: new FormControl('',),
+      activeStatus: new FormControl('',),
+      cycle: new FormControl('',),
+      categoryIds: new FormControl('',),
+      facebookRating: new FormControl('',),
+      numberOfFacebook: new FormControl('',),
+      googleRating: new FormControl('',),
+      numberOfGoogle: new FormControl('',),
+      yelpRating: new FormControl('',),
+      numberOfYelp: new FormControl('',),
+      instagramFollowers: new FormControl('',),
+      proof_reader_notes: new FormControl('',),
+      cancellation_and_refund: new FormControl('',),
+      cycle_time: new FormControl(Number),
+      last_reviewed: new FormControl(Date,),
     });
   }
 
@@ -426,69 +410,11 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
     this.loader.close();
   }
 
-  updateProgram() {
-    const dateFormat = "YYYY-MM-DD";
-    this.program.ageGroup.from = this.minAge;
-    this.program.ageGroup.to = this.maxAge;
-    this.program.capacity.min = this.minCapacity;
-    this.program.capacity.max = this.maxCapacity;
-    this.program.subCategoryIds = this.tag
-    this.program.time.from = this.startTime;
-    this.program.time.to = this.endTime;
-    this.program.realTime.from = this.startTime;
-    this.program.realTime.to = this.endTime;
-    this.program.date.from = moment(this.startDate).format(dateFormat)
-    this.program.date.to = moment(this.endDate).format(dateFormat)
-    var datesDiff: any = Math.round((this.endDate - this.startDate) / (1000 * 60 * 60 * 24));
-    var days: any = [];
-    let i = 0;
-    let loop: any = new Date(this.startDate);
-    if (datesDiff == 0) {
-      days.push(moment(loop).format('dddd'))
-    }
-    else {
-      while (i <= datesDiff) {
-        days.push(moment(loop).format('dddd'))
-        let newDate = loop.setDate(loop.getDate() + 1);
-        i++;
-        loop = new Date(newDate);
-      }
-    }
-    this.program.days = this.days;
-    if (typeof this.program.isFree === 'string') { this.program.isFree = false }
-    if (typeof this.program.isFav === 'string') { this.program.isFav = false }
-    if (typeof this.program.adultAssistanceIsRequried === 'string') { this.program.adultAssistanceIsRequried = false }
-    if (typeof this.program.isFree === 'string') { this.program.isFav = false }
-    var response: any;
-    // if (this.batchData) {
-    //   for (let i = 0; i <= totalBatch; i++) {
-    //     batch = this.program.sessions[i];
-
-    //     if (this.batchData._id === batch._id) {
-    //       this.program.sessions[i] = this.batchData;
-
-    //     }
-    //   }
-    // }
-    // this.loader.open();
-    this.apiservice.updateProgram(this.program._id, this.program).subscribe(res => {
-      response = res;
-      this.loader.close();
-      if (response.isSuccess === true) {
-        let msg = "Program Updated successfully";
-        this.snack.open(msg, 'OK', { duration: 4000 });
-        this.route.navigate(['tables/program', response.data.user])
-      } else {
-        let msg = "Somthing went wrong";
-        this.snack.open(msg, 'ERROR', { duration: 4000 });
-        this.loader.close();
-      }
-    });
-  }
+ 
 
   submit() {
     if (this.isEdit) {
-      this.updateProgram();
+      this.updateProvider();
     } else {
       this.addProgram();
     }
@@ -542,29 +468,23 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
   nextStep(step) {
 
     switch (step) {
-      case 'Activity Info':
+      case 'Provider Info':
         this.stepType = step;
 
         break;
-      case 'Category & Type':
+      case 'Address Info':
         this.stepType = step;
         break;
-      case 'Activity Details':
+      case 'Provider Details':
         this.stepType = step;
         break;
-      case 'Date & Time':
+      case 'Website and other':
         this.stepType = step;
         break;
-      case 'Pricing':
+      case 'Source and Ratings':
         this.stepType = step;
         break;
-      case 'Special Instructions':
-        this.stepType = step;
-        break;
-      case 'Source':
-        this.stepType = step;
-        break;
-      case 'Cycle':
+      case 'Cycle Info':
         this.stepType = step;
         break;
       default:
@@ -577,8 +497,111 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
     $element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
   }
 
+  //==========================================Provider=============================================>
+  getUserById() {
+    this.apiservice.getUserById(this.user.id).subscribe((res: any) => {
+      this.user = res;
+      this.user.sourceUrl;
+    })
+  }
+
+  updateProvider() {
+    var user: any = {
+      id: this.user.id,
+      firstName: this.user.firstName,
+      userName: this.user.userName,
+      email: this.user.email,
+      lastName: this.user.lastName,
+      phoneNumber: this.user.phoneNumber,
+      secondaryPhonenumber: this.user.secondaryPhonenumber,
+      description: this.user.description,
+      facebook: this.user.facebook,
+      website: this.user.website,
+      youtube: this.user.youtube,
+      lat: this.user.lat,
+      lng: this.user.lng,
+      activeStatus: this.user.activeStatus,
+      instagram: this.user.instagram,
+      linkedin: this.user.linkedin,
+      addressLine1: this.user.addressLine1,
+      addressLine2: this.user.addressLine2,
+      about: this.user.about,
+      bio: this.user.bio,
+      categoryIds: [],
+      subCategoryIds: [],
+      links: this.user.sourceUrl,
+      cycle: this.user.cycle,
+      tagsId: [],
+      isAmbassador: this.user.isAmbassador,
+      interests: this.user.interests,
+      healthAndSafety: this.user.healthAndSafety,
+      city: this.user.city,
+      country: this.user.country,
+      state: this.user.state,
+      street: this.user.street,
+      location: this.user.location,
+      note: this.user.note,
+      securityQuestion: this.user.securityQuestion,
+      answer: this.user.answer,
+      zipCode: this.user.zipCode,
+      logo: this.user.logo,
+      source: this.user.source,
+      rating: this.user.rating
+    }
+    this.loader.open();
+    this.apiservice.updateProvider(user).subscribe(res => {
+      this.providerResponse = res;
+      this.loader.close();
+      if (this.providerResponse.isSuccess === true) {
+        this.snack.open('Provider Updated', 'OK', { duration: 4000 })
+        this.route.navigate(['tables/providers']);
+      } else
+        if (this.providerResponse.isSuccess === false && this.providerResponse.error === 'userName already resgister') {
+          let msg = 'UserId is already registered!';
+          this.snack.open(msg, 'OK', { duration: 7000 });
+        }
+        else {
+          let msg = "Something Went Wrong!";
+          this.snack.open(msg, 'OK', { duration: 4000 });
+        }
+    });
+  }
+
+  removeSourceUrl(sourceUrl) {
+    const index = this.sourceUrls.indexOf(sourceUrl);
+
+    if (index >= 0) {
+      this.sourceUrls.splice(index, 1);
+    }
+  }
+  addSourceUrl(event: MatChipInputEvent) {
+    const value = (event.value || '').trim();
+    if (value) {
+      this.sourceUrls.push(value);
+    }
+    // Reset the input value
+    if (event.input) {
+      event.input.value = '';
+    }
+  }
+  pasteSourceUrl(event: ClipboardEvent): void {
+    event.preventDefault();
+    event.clipboardData
+      .getData('Text')
+      .split(/;|,|\n/)
+      .forEach(value => {
+        if (value.trim()) {
+          this.sourceUrls.push(value.trim());
+        }
+      })
+  }
+
+
   ngOnDestroy(): void {
 
   }
 
 }
+
+
+

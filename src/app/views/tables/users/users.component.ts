@@ -211,6 +211,16 @@ export class UsersComponent implements OnInit {
     );
     window.open('#' + url, '_blank');
   }
+  newForm() {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(['/forms/provider-form-new'])
+    );
+    window.open('#' + url, '_blank');
+  }
+
+
+
+
   edit(data) {
     this.dataservice.setOption(data);
     let id = data._id ? data._id : data.id;

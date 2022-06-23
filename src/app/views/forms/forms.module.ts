@@ -23,6 +23,7 @@ import { AgmCoreModule } from '@agm/core';
 import { AddFormComponent } from '../components/add-form/add-form.component';
 import { SharedMaterialModule } from 'app/shared/shared-material.module';
 import { ProgramFormComponent } from '../tables/all-program-table/program-form/program-form.component';
+import { ProviderFormComponent } from './provider-form/provider-form.component';
 
 @NgModule({
   imports: [
@@ -55,7 +56,8 @@ import { ProgramFormComponent } from '../tables/all-program-table/program-form/p
     AddFormComponent,
     ProgramFormComponent,
     UpdateBatchPopupComponent,
-    UpdateFormComponent,],
+    UpdateFormComponent,
+    ProviderFormComponent,],
   providers: [],
   entryComponents: [AddBatchComponent, UpdateBatchPopupComponent]
 })

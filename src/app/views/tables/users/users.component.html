@@ -15,18 +15,17 @@
       <h4>Total Providers<span class="blue-clr">({{total}})</span></h4>
       <div class="add-program-btn">
         <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-          <!-- <mat-button-toggle (click)=" deleteProvider()" matTooltip="Delete">
-          <mat-icon class="danger-clr">delete</mat-icon>
-        </mat-button-toggle> -->
           <mat-button-toggle matTooltip2="Add" (click)="add()" value="add">
             <mat-icon class="text-success">+ Add Provider</mat-icon>
           </mat-button-toggle>
         </mat-button-toggle-group>
-
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item>Change Status</button>
-          <!-- <button mat-menu-item>Item 2</button> -->
-        </mat-menu>
+      </div>
+      <div class="add-program-btn">
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+          <mat-button-toggle matTooltip2="Add" (click)="newForm()" value="add">
+            <mat-icon class="text-success">+ Add Provider</mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
       </div>
     </div>
     <div class="col-6">

@@ -8,6 +8,7 @@ import { EditProgramComponent } from './edit-program/edit-program.component';
 import { ParentUpdateFormComponent } from './parent-update-form/parent-update-form.component';
 import { AddFormComponent } from '../components/add-form/add-form.component';
 import { ProgramFormComponent } from '../tables/all-program-table/program-form/program-form.component';
+import { ProviderFormComponent } from './provider-form/provider-form.component';
 
 export const FormsRoutes: Routes = [
   {
@@ -51,6 +52,11 @@ export const FormsRoutes: Routes = [
       {
         path: 'provider-form',
         component: AddFormComponent,
+        data: { title: 'ADD-PROVIDER' }
+      },
+      {
+        path: 'provider-form-new',
+        component: ProviderFormComponent,
         data: { title: 'ADD-PROVIDER' }
       },
       {
