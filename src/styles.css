@@ -637,8 +637,9 @@ background-color: rgb(231, 149, 149);
 /* end mat checkbox blue color */
 
 /* tooltip css   */
-.tooltip-div {position: relative;cursor: pointer;}
-.tooltip-div .tooltip-text {visibility: hidden;position: absolute;width: max-content;max-width: 250px; z-index: 1;left: -22px;top: 100%;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;color: #494949;letter-spacing: 0.001em;background: #CECECE;border-radius: 6px;padding: 8px 10px;margin-top: 5px;}
-.tooltip-div .tooltip-text::after {content: "";position: absolute;bottom: 100%;left: 19px;border-width: 6px;border-style: solid;border-color: transparent transparent #CECECE transparent;}
-.tooltip-div:hover .tooltip-text {visibility: visible;}
+[data-toggle="tooltip"][data-title]:hover:after {opacity: 1;transition: all 0.1s ease 0.5s;visibility: visible;}
+[data-toggle="tooltip"][data-title]:after {content: attr(data-title);position: absolute;top: 100%;left: 100%;
+    z-index: 99999;visibility: hidden;width: max-content;max-width: 350px;background-color: #CECECE;color: #494949;padding: 5px 8px;opacity: 0;border-radius: 3px;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;letter-spacing: 0.01em;}
+[data-toggle="tooltip"][data-title] {position: relative;}
+
 /* end tooltip css   */

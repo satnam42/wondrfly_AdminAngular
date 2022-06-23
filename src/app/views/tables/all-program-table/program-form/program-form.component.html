@@ -103,7 +103,9 @@
                                         </div>
                                         <div class="field-group">
                                             <div class="label-heading">
-                                                Location
+                                                <span data-toggle="tooltip"
+                                                    data-title="If the activity is a private, in-person session, will the instructor come to the student's location? Or does the student go to the instructor's location?">
+                                                    Location</span>
                                             </div>
                                             <input type="text" class="input-field" (click)="openMap()"
                                                 placeholder="Type" [formControl]="firstFormGroup.controls['location']"
@@ -228,7 +230,9 @@
                                         </div>
                                         <div class="field-group">
                                             <div class="label-heading">
-                                                Maximum Travel Distance (for Solo Pro)
+                                                <span data-toggle="tooltip"
+                                                    data-title="If a private, in-persion activity is conducted at a student's location, then what is the farthest the instructor is willing to travel from their location to the student's?">Maximum
+                                                    Travel Distance (for Solo Pro)</span>
                                             </div>
                                             <input type="number" class="input-field" placeholder="Type"
                                                 [formControl]="firstFormGroup.controls['maxTravelDistance']"
@@ -239,7 +243,7 @@
                                                 <div class="btn-slide-toggle">
                                                     <mat-slide-toggle color="primary"
                                                         [formControl]="firstFormGroup.controls['isParentJoin']"
-                                                        [checked]="program.isParentJoin">
+                                                        [(ngModel)]="program.isParentJoin">
                                                     </mat-slide-toggle>
                                                 </div>
                                                 <label class="slide-toggle-txt">Can Parents join the Activity?</label>
@@ -276,9 +280,26 @@
                                                 <mat-option value="Virtual">Virtual</mat-option>
                                             </mat-select>
                                         </div>
+                                        <div class="field-group" *ngIf="program.inpersonOrVirtual=='Virtual'">
+                                            <div class="label-heading">
+
+                                                <span data-toggle="tooltip"
+                                                    data-title="If the activity takes place over an online platform, like Zoom, what is the link needed to join the meeting?">Joining
+                                                    Link</span>
+                                            </div>
+                                            <div class="input-icon-field joining-link-clr">
+                                                <input type="url" placeholder="htttps;//fjoejfosjafj"
+                                                    class="input-field"
+                                                    [formControl]="firstFormGroup.controls['joiningLink']"
+                                                    [(ngModel)]="program.joiningLink">
+                                                <mat-icon class="editicon_class">edit</mat-icon>
+                                            </div>
+                                        </div>
                                         <div class="field-group">
                                             <div class="label-heading">
-                                                Private or Group
+                                                <span data-toggle="tooltip"
+                                                    data-title="Will the instructor be working one-on-one with a single student at a time? Or do they teach a group of kids together?">
+                                                    Private or Group</span>
                                             </div>
                                             <mat-select class="input-field select-down-icon"
                                                 [formControl]="firstFormGroup.controls['privateOrGroup']"
@@ -305,18 +326,6 @@
                                                 [(ngModel)]="program.description">
                                 </textarea>
                                             <!-- <span class="text-absolu">({{ProgramDescription.value?.length}} of 3000)</span> -->
-                                        </div>
-                                        <div class="field-group">
-                                            <div class="label-heading">
-                                                Joining Link
-                                            </div>
-                                            <div class="input-icon-field joining-link-clr">
-                                                <input type="url" placeholder="htttps;//fjoejfosjafj"
-                                                    class="input-field"
-                                                    [formControl]="firstFormGroup.controls['joiningLink']"
-                                                    [(ngModel)]="program.joiningLink">
-                                                <mat-icon class="editicon_class">edit</mat-icon>
-                                            </div>
                                         </div>
                                         <div class="field-group mb-20">
                                             <div class="grid-capacity-row">
@@ -485,14 +494,22 @@
                                                     <label class="checkbox">
                                                         <input type="checkbox" [(ngModel)]="program.isDateNotMention" />
                                                         <div class="checkbox__checkmark"></div>
-                                                        <div class="checkbox__body">Date is not available</div>
+                                                        <div class="checkbox__body">
+                                                            <span data-toggle="tooltip"
+                                                                data-title="If an activity is ongoing or happens every day, there may not be a specific date for the provider to give.">
+                                                                Date is not available</span>
+                                                        </div>
                                                     </label>
                                                 </div>
                                                 <div class="checkboxes__item">
                                                     <label class="checkbox">
                                                         <input type="checkbox" [(ngModel)]="program.isTimeNotMention" />
                                                         <div class="checkbox__checkmark"></div>
-                                                        <div class="checkbox__body">Time is not available</div>
+                                                        <div class="checkbox__body">
+                                                            <span data-toggle="tooltip"
+                                                                data-title="If an activity is ongoing or happens all day, there may not be a specific time for the provider to give.">
+                                                                Time is not available</span>
+                                                        </div>
                                                     </label>
                                                 </div>
                                             </div>
@@ -559,7 +576,10 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="label-heading">
-                                                        Price Per Hour
+
+                                                        <span data-toggle="tooltip"
+                                                            data-title="If the minimum amount of time required for cancellation without charges is in days and hours, indicate it here. ">
+                                                            Price Per Hour</span>
                                                     </div>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
@@ -574,7 +594,8 @@
                                         </div>
                                         <div class="field-group">
                                             <div class="label-heading">
-                                                Offers/Discounts
+                                                <span data-toggle="tooltip"
+                                                    data-title="Are there any special offers or discounts for early enrollment, first-time clients, groups, siblings, seasonal discounts, or anything else?">Offers/Discounts</span>
                                             </div>
                                             <input type="text" class="input-field" placeholder="Type"
                                                 [formControl]="firstFormGroup.controls['offerDiscount']"
@@ -606,7 +627,11 @@
                                                         [formControl]="firstFormGroup.controls['isproRated']"
                                                         [(ngModel)]="program.isproRated"> </mat-slide-toggle>
                                                 </div>
-                                                <label class="slide-toggle-txt">Is it a prorated program?</label>
+                                                <label class="slide-toggle-txt">
+                                                    <span data-toggle="tooltip"
+                                                        data-title="Does the provider charge per individual class or session? Or do they charge for a series of sessions all at once?">
+                                                        Is it a prorated program?</span>
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
@@ -621,7 +646,7 @@
                                     <div class="active-info-form">
                                         <div class="field-group">
                                             <div class="label-heading">
-                                                Special Instructions
+                                                <span>Special Instructions</span>
                                             </div>
                                             <textarea #ProgramDescription type="text" maxlength="3000" rows="4"
                                                 class="input-field" placeholder="Type"
@@ -634,7 +659,9 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="label-heading">
-                                                        Booking Can’t Be Cancelled Before
+                                                        <span data-toggle="tooltip"
+                                                            data-title="If the minimum amount of time required for cancellation without charges is in days and hours, indicate it here. ">Booking
+                                                            Can’t Be Cancelled Before</span>
                                                     </div>
                                                     <div class="field-days-hours-marge">
                                                         <input type="text" placeholder="Days"
@@ -659,7 +686,9 @@
                                                     </mat-slide-toggle>
                                                 </div>
                                                 <label class="slide-toggle-txt">Is
-                                                    parent/guardian's presence required?</label>
+                                                    <span data-toggle="tooltip"
+                                                        data-title="Can the parent drop off their child at the activity and expect them to be cared for? Or do they have to stay to supervise them?">
+                                                        parent/guardian's presence required?</span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -674,7 +703,9 @@
                                     <div class="active-info-form">
                                         <div class="field-group">
                                             <div class="label-heading">
-                                                Source
+
+                                                <span data-toggle="tooltip"
+                                                    data-title="Does the provider have a website? Or is this data being pulled from Yelp, Facebook, Google My Business, or another platform? ">Source</span>
                                             </div>
                                             <mat-select class="input-field" name="source"
                                                 [formControl]="firstFormGroup.controls['source']"
@@ -685,7 +716,9 @@
                                         </div>
                                         <div class="field-group">
                                             <div class="label-heading">
-                                                Platform Source Link
+                                                <span data-toggle="tooltip"
+                                                    data-title="Will usually be a link to the provider's website.">Platform
+                                                    Source Link</span>
                                             </div>
                                             <input type="url" class="input-field"
                                                 [formControl]="firstFormGroup.controls['sourceUrl']"
@@ -703,7 +736,9 @@
                                     <div class="active-info-form">
                                         <div class="field-group">
                                             <div class="label-heading">
-                                                Last review Date
+                                                <span data-toggle="tooltip"
+                                                    data-title="When is the last time this Program information was updated?">Last
+                                                    review Date</span>
                                             </div>
                                             <div class="input-icon-field">
                                                 <input matInput class="input-field" [matDatepicker]="pickerCycle"
@@ -717,9 +752,8 @@
                                         </div>
                                         <div class="field-group">
                                             <div class="label-heading">
-                                                How many days is the cycle <span class="tooltip-div">?
-                                                    <span class="tooltip-text">What is the Frequency of updating Program
-                                                        info (in days)</span></span>
+                                                How many days is the cycle <span data-toggle="tooltip"
+                                                    data-title="What is the Frequency of updating Program info (in days)">?</span>
                                             </div>
                                             <input type="number" class="input-field" placeholder="Days in number"
                                                 [formControl]="firstFormGroup.controls['cycle_time']"

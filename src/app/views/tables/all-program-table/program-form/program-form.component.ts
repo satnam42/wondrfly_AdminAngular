@@ -313,7 +313,7 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
       source: new FormControl(['',]),
       sourceUrl: new FormControl(['',]),
       cycle: new FormControl(['']),
-      isExpired: new FormControl([Boolean]),
+      isExpired: new FormControl([false]),
       zip: new FormControl(['']),
       activeStatus: new FormControl(['']),
       per_hour_rate: new FormControl(['']),
@@ -322,10 +322,10 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
       offerDiscount: new FormControl(['']),
       last_reviewed: new FormControl(['']),
       cycle_time: new FormControl(['']),
-      isParentJoin: new FormControl([Boolean]),
+      isParentJoin: new FormControl([false]),
       maxTravelDistance: new FormControl([Number]),
       totalSessionClasses: new FormControl([Number]),
-      isParentGuardianRequire: new FormControl([Boolean]),
+      isParentGuardianRequire: new FormControl([false]),
     });
   }
 
