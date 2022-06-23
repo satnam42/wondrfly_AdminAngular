@@ -5,30 +5,44 @@
                     <div class="sidebar-progress">
                         <div class="progress-box">
                             <div class="sidebar-top-h3 mb-40">
-                                <h3 [hidden]="isEditData">Add Activity</h3>
-                                <h3 [hidden]="!isEditData">Update Activity</h3>
+                                <h3 [hidden]="isEdit">Add Activity</h3>
+                                <h3 [hidden]="!isEdit">Update Activity</h3>
                             </div>
                             <div class="cicle-dots">
-                                <div class="dots-info dots-info1" (click)="nextStep(1);scrollToElement(target1)">
-                                    <h3 class="prog_text" [ngClass]="{active: step1}">Activity Info</h3>
+                                <div class="dots-info dots-info1"
+                                    (click)="nextStep('Activity Info');scrollToElement(target1)">
+                                    <h3 class="prog_text" [ngClass]="{active: stepType==='Activity Info'}">Activity Info
+                                    </h3>
                                 </div>
-                                <div class="dots-info dots-info2" (click)="nextStep(2);scrollToElement(target2)">
-                                    <h3 class="prog_text" [ngClass]="{active: step2}">Category & Type</h3>
+                                <div class="dots-info dots-info2"
+                                    (click)="nextStep('Category & Type');scrollToElement(target2)">
+                                    <h3 class="prog_text" [ngClass]="{active: stepType==='Category & Type'}">Category &
+                                        Type</h3>
                                 </div>
-                                <div class="dots-info dots-info3" (click)="nextStep(3);scrollToElement(target3)">
-                                    <h3 class="prog_text" [ngClass]="{active: step3}">Activity Details</h3>
+                                <div class="dots-info dots-info3"
+                                    (click)="nextStep('Activity Details');scrollToElement(target3)">
+                                    <h3 class="prog_text" [ngClass]="{active:  stepType==='Activity Details'}">Activity
+                                        Details</h3>
                                 </div>
-                                <div class="dots-info dots-info4" (click)="nextStep(4);scrollToElement(target4)">
-                                    <h3 class="prog_text" [ngClass]="{active: step4}">Date & Time</h3>
+                                <div class="dots-info dots-info4"
+                                    (click)="nextStep('Date & Time');scrollToElement(target4)">
+                                    <h3 class="prog_text" [ngClass]="{active:  stepType==='Date & Time'}">Date & Time
+                                    </h3>
                                 </div>
-                                <div class="dots-info dots-info5" (click)="nextStep(5);scrollToElement(target5)">
-                                    <h3 class="prog_text" [ngClass]="{active: step5}">Pricing</h3>
+                                <div class="dots-info dots-info5"
+                                    (click)="nextStep('Pricing');scrollToElement(target5)">
+                                    <h3 class="prog_text" [ngClass]="{active:  stepType==='Pricing'}">Pricing</h3>
                                 </div>
-                                <div class="dots-info dots-info6" (click)="nextStep(6);scrollToElement(target6)">
-                                    <h3 class="prog_text" [ngClass]="{active:step6}">Special Instructions</h3>
+                                <div class="dots-info dots-info6"
+                                    (click)="nextStep('Special Instructions');scrollToElement(target6)">
+                                    <h3 class="prog_text" [ngClass]="{active: stepType==='Special Instructions'}">
+                                        Special Instructions</h3>
                                 </div>
-                                <div class="dots-info dots-info7" (click)="nextStep(7);scrollToElement(target7)">
-                                    <h3 class="prog_text" [ngClass]="{active: step7}">Source</h3>
+                                <div class="dots-info dots-info7" (click)="nextStep('Source');scrollToElement(target7)">
+                                    <h3 class="prog_text" [ngClass]="{active:  stepType==='Source'}">Source</h3>
+                                </div>
+                                <div class="dots-info dots-info7" (click)="nextStep('Cycle');scrollToElement(target8)">
+                                    <h3 class="prog_text" [ngClass]="{active:  stepType==='Cycle'}">Cycle</h3>
                                 </div>
                             </div>
                         </div>
@@ -37,8 +51,10 @@
 
                 <div class="col-md-8">
                     <div class="btn-save-close-info">
-                        <button class="btn-save-close" (click)="submit()">Save & Close</button>
-                        <button class="btn-cross-close"><img src="/assets/images/crose-white-icon.svg" /></button>
+                        <button class="btn-save-close" (click)="submit()"> Save </button>
+                        <button class="btn-cross-close">
+                            <mat-icon class="icon_class">cancel</mat-icon>
+                        </button>
                     </div>
                     <div class="main-body-content">
                         <div class="multi-step-scroll-form">
@@ -63,7 +79,7 @@
                                                 <input type="email" placeholder="email@example.com" class="input-field"
                                                     placeholder="Type" [formControl]="firstFormGroup.controls['email']"
                                                     [(ngModel)]="program.emails" required>
-                                                <img src="/assets/images/pensil-blue-icon.svg" />
+                                                <mat-icon class="editicon_class">edit</mat-icon>
                                             </div>
                                         </div>
                                         <div class="field-group">
@@ -74,7 +90,7 @@
                                                 <input type="tel" class="input-field" placeholder="Type"
                                                     [formControl]="firstFormGroup.controls['phoneNumber']"
                                                     [(ngModel)]="program.phoneNumber" required>
-                                                <img src="/assets/images/pensil-blue-icon.svg" />
+                                                <mat-icon class="editicon_class">edit</mat-icon>
                                             </div>
                                         </div>
                                         <div class="field-group">
@@ -110,6 +126,14 @@
                                                     [formControl]="firstFormGroup.controls['zip']"
                                                     [(ngModel)]="program.zip">
                                             </div>
+                                        </div>
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                Instructor
+                                            </div>
+                                            <input type="text" class="input-field" placeholder="Type"
+                                                [formControl]="firstFormGroup.controls['instructor']"
+                                                [(ngModel)]="program.instructor">
                                         </div>
                                         <div class="field-group">
                                             <div class="checkboxes__item">
@@ -185,11 +209,43 @@
                                         </div>
                                         <div class="field-group">
                                             <div class="label-heading">
+                                                Indoor or Outdoor
+                                            </div>
+                                            <mat-select class="input-field select-down-icon"
+                                                [formControl]="firstFormGroup.controls['indoorOroutdoor']"
+                                                [(ngModel)]="program.indoorOroutdoor" required>
+                                                <mat-option selected value="Indoor">Indoor</mat-option>
+                                                <mat-option value="Outdoor">Outdoor</mat-option>
+                                                <mat-option value="Both">Both</mat-option>
+                                            </mat-select>
+                                        </div>
+                                        <div class="field-group mb-5">
+                                            <div class="label-heading">
                                                 Age group
                                             </div>
                                             <ng5-slider [(value)]="minAge" [(highValue)]="maxAge" [options]="ageOption">
                                             </ng5-slider>
                                         </div>
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                Maximum Travel Distance (for Solo Pro)
+                                            </div>
+                                            <input type="number" class="input-field" placeholder="Type"
+                                                [formControl]="firstFormGroup.controls['maxTravelDistance']"
+                                                [(ngModel)]="program.maxTravelDistance">
+                                        </div>
+                                        <div class="field-group">
+                                            <div class="btn-slide-toggle-info">
+                                                <div class="btn-slide-toggle">
+                                                    <mat-slide-toggle color="primary"
+                                                        [formControl]="firstFormGroup.controls['isParentJoin']"
+                                                        [checked]="program.isParentJoin">
+                                                    </mat-slide-toggle>
+                                                </div>
+                                                <label class="slide-toggle-txt">Can Parents join the Activity?</label>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -200,7 +256,7 @@
                                 <div class="box-content bg-white">
                                     <h2 class="h2">Activity Details</h2>
                                     <div class="active-info-form">
-                                        <div class="btn-online-in-person-info mb-30">
+                                        <!-- <div class="btn-online-in-person-info mb-30">
                                             <button class="btn-multipal"
                                                 [ngClass]="{ 'active' : program.inpersonOrVirtual=='Virtual' }"
                                                 (click)="program.inpersonOrVirtual='Virtual'">Online</button>
@@ -208,6 +264,28 @@
                                                 [ngClass]="{ 'active' : program.inpersonOrVirtual=='Inperson' }"
                                                 (click)="program.inpersonOrVirtual='Inperson'">In
                                                 person</button>
+                                        </div> -->
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                Inperson or virtual
+                                            </div>
+                                            <mat-select class="input-field select-down-icon"
+                                                [formControl]="firstFormGroup.controls['inpersonOrVirtual']"
+                                                [(ngModel)]="program.inpersonOrVirtual" required>
+                                                <mat-option selected value="Inperson">Inperson</mat-option>
+                                                <mat-option value="Virtual">Virtual</mat-option>
+                                            </mat-select>
+                                        </div>
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                Private or Group
+                                            </div>
+                                            <mat-select class="input-field select-down-icon"
+                                                [formControl]="firstFormGroup.controls['privateOrGroup']"
+                                                [(ngModel)]="program.privateOrGroup" required>
+                                                <mat-option selected value="private">Private</mat-option>
+                                                <mat-option value="group">Group</mat-option>
+                                            </mat-select>
                                         </div>
                                         <div class="field-group">
                                             <div class="label-heading">
@@ -237,7 +315,7 @@
                                                     class="input-field"
                                                     [formControl]="firstFormGroup.controls['joiningLink']"
                                                     [(ngModel)]="program.joiningLink">
-                                                <img src="/assets/images/pensil-blue-icon.svg" />
+                                                <mat-icon class="editicon_class">edit</mat-icon>
                                             </div>
                                         </div>
                                         <div class="field-group mb-20">
@@ -268,16 +346,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="field-group">
-                                            <div class="btn-slide-toggle-info">
-                                                <div class="btn-slide-toggle">
-                                                    <mat-slide-toggle color="primary"
-                                                        [checked]="program.indoorOroutdoor=='outdoor'">
-                                                    </mat-slide-toggle>
-                                                </div>
-                                                <label class="slide-toggle-txt">Outdoor activity</label>
                                             </div>
                                         </div>
                                     </div>
@@ -411,7 +479,7 @@
                                                 </div>
                                             </div>
                                         </div> -->
-                                        <div class="field-group">
+                                        <div class="field-group mb-4">
                                             <div class="gird-date-time checkbox-blue-box">
                                                 <div class="checkboxes__item">
                                                     <label class="checkbox">
@@ -428,6 +496,14 @@
                                                     </label>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                Total number of classes/session
+                                            </div>
+                                            <input type="number" class="input-field"
+                                                [formControl]="firstFormGroup.controls['totalSessionClasses']"
+                                                [(ngModel)]="program.totalSessionClasses">
                                         </div>
                                     </div>
                                 </div>
@@ -496,6 +572,14 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                Offers/Discounts
+                                            </div>
+                                            <input type="text" class="input-field" placeholder="Type"
+                                                [formControl]="firstFormGroup.controls['offerDiscount']"
+                                                [(ngModel)]="program.offerDiscount">
+                                        </div>
 
                                         <div class="field-group mb-20" *ngIf="!program.isFree">
                                             <div class="row">
@@ -555,7 +639,7 @@
                                                     <div class="field-days-hours-marge">
                                                         <input type="text" placeholder="Days"
                                                             [(ngModel)]="bookingCancelledIn.days" class="input-field">
-                                                        <select class="input-field select-down-icon"
+                                                        <select class="input-field select-down-icon" placeholder="Hours"
                                                             [(ngModel)]="bookingCancelledIn.hours">
                                                             <option *ngFor='let i of timeArray' value="{{i}}">{{i}}
                                                             </option>
@@ -569,11 +653,13 @@
                                         <div class="field-group">
                                             <div class="btn-slide-toggle-info">
                                                 <div class="btn-slide-toggle">
-                                                    <mat-slide-toggle color="primary"> </mat-slide-toggle>
+                                                    <mat-slide-toggle color="primary"
+                                                        [formControl]="firstFormGroup.controls['isParentGuardianRequire']"
+                                                        [(ngModel)]="program.isParentGuardianRequire">
+                                                    </mat-slide-toggle>
                                                 </div>
-                                                <label class="slide-toggle-txt"><span class="font-weight-600">Child May
-                                                        Be
-                                                        Droped Off</span> (Adult supervision is not required)</label>
+                                                <label class="slide-toggle-txt">Is
+                                                    parent/guardian's presence required?</label>
                                             </div>
                                         </div>
                                     </div>
@@ -609,6 +695,40 @@
                                 </div>
                             </div>
                             <!-- end Source popup -->
+
+                            <!-- Start Cycle popup -->
+                            <div class="source-info-popup height-equal-scroll" #target8>
+                                <div class="box-content bg-white">
+                                    <h2 class="h2">Cycle</h2>
+                                    <div class="active-info-form">
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                Last review Date
+                                            </div>
+                                            <div class="input-icon-field">
+                                                <input matInput class="input-field" [matDatepicker]="pickerCycle"
+                                                    [formControl]="firstFormGroup.controls['last_reviewed']"
+                                                    [(ngModel)]="program.last_reviewed">
+                                                <mat-datepicker-toggle matSuffix [for]="pickerCycle">
+                                                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                                                </mat-datepicker-toggle>
+                                            </div>
+                                            <mat-datepicker #pickerCycle></mat-datepicker>
+                                        </div>
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                How many days is the cycle <span class="tooltip-div">?
+                                                    <span class="tooltip-text">toltip How many days is the
+                                                        cycle</span></span>
+                                            </div>
+                                            <input type="number" class="input-field" placeholder="Days in number"
+                                                [formControl]="firstFormGroup.controls['cycle_time']"
+                                                [(ngModel)]="program.cycle_time">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end Cycle popup -->
 
                         </div>
                     </div>

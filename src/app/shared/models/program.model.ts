@@ -70,6 +70,12 @@ export class Program {
     proof_reader_notes: string;
     isPrivateLession: boolean = false;
     daysLeft: string;
+    instructor: string;
+    isParentJoin: boolean = false;
+    offerDiscount: string;
+    maxTravelDistance: number;
+    totalSessionClasses: number;
+    isParentGuardianRequire: boolean = false;
 
     constructor(obj?: any) {
 

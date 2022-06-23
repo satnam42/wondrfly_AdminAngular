@@ -187,19 +187,15 @@ export class AllProgramTableComponent implements OnInit {
 
   newForm(data) {
     this.isEmpty = Object.keys(data).length === 0;
-    if (this.isEmpty) {
-      const url = this.route.serializeUrl(
-        this.route.createUrlTree(['forms/program-form/', 'id'])
-      );
-      window.open('#' + url, '_blank');
-    }
-    else {
-      let id = data.id ? data.id : data._id;
-      const url = this.route.serializeUrl(
-        this.route.createUrlTree(['forms/program-form/', id])
-      );
-      window.open('#' + url, '_blank');
-    }
+    let id = data.id ? data.id : data._id;
+    const url = this.route.serializeUrl(
+      this.route.createUrlTree(['forms/program-form/', id], {
+        queryParams: {
+          form: 'edit'
+        }
+      })
+    );
+    window.open('#' + url, '_blank');
   }
 
   manage(data) {

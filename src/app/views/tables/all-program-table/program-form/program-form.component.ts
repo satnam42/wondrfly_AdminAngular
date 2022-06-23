@@ -66,13 +66,7 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
     from: new Date(this.startDate),
     to: new Date(this.endDate)
   };
-  step1 = true;
-  step2 = false;
-  step3 = false;
-  step4 = false;
-  step5 = false;
-  step6 = false;
-  step7 = false
+  stepType = 'Activity Info';
   user = new Userr;
   program: any = new Program;
   sessions: any = {};
@@ -155,6 +149,8 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
   editFormData: any;
   isEmpty: any;
   isEditData: boolean;
+  isEdit: boolean = false;
+  id = ''
   constructor(
     private apiservice: ApiService,
     private loader: AppLoaderService,
@@ -164,12 +160,20 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
     private dataservice: DataService,
     private snack: MatSnackBar) {
     this.activatedRoute.params.subscribe(params => {
-      let id = params['id'];
-      if (id !== 'id') {
-        this.isEditData = true;
-        this.getProgramById(id)
-      }
+      this.id = params['id'];
     });
+
+
+    this.activatedRoute.queryParams
+      .subscribe((params: any) => {
+        let form = params['form']
+        if (form == 'add') {
+          this.isEdit = false
+        } else if (form == 'edit') {
+          this.getProgramById(this.id)
+          this.isEdit = true;
+        }
+      })
   }
   openPopUp() {
     let dialogRef: MatDialogRef<any> = this.dialog.open(AddBatchComponent, {
@@ -313,6 +317,15 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
       zip: new FormControl(['']),
       activeStatus: new FormControl(['']),
       per_hour_rate: new FormControl(['']),
+      instructor: new FormControl(['']),
+      privateOrGroup: new FormControl(['']),
+      offerDiscount: new FormControl(['']),
+      last_reviewed: new FormControl(['']),
+      cycle_time: new FormControl(['']),
+      isParentJoin: new FormControl([Boolean]),
+      maxTravelDistance: new FormControl([Number]),
+      totalSessionClasses: new FormControl([Number]),
+      isParentGuardianRequire: new FormControl([Boolean]),
     });
   }
 
@@ -361,7 +374,7 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
     this.program.capacity.max = this.maxCapacity
     this.program.ageGroup.from = this.minAge
     this.program.ageGroup.to = this.maxAge
-    this.program.userId = this.user._id;
+    this.program.userId = this.id;
     this.program.bookingCancelledIn = this.bookingCancelledIn;
     this.program.time.from = this.startTime;
     this.program.time.to = this.endTime;
@@ -454,8 +467,7 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
 
     //     if (this.batchData._id === batch._id) {
     //       this.program.sessions[i] = this.batchData;
-    //       console.log('batchData in for loop', this.batchData);
-    //       console.log('program.sessions[i] in for loop', this.program.sessions[i]);
+
     //     }
     //   }
     // }
@@ -476,7 +488,7 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    if (this.isEditData) {
+    if (this.isEdit) {
       this.updateProgram();
     } else {
       this.addProgram();
@@ -528,72 +540,37 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  nextStep(step: number) {
+  nextStep(step) {
 
     switch (step) {
-      case 1:
-        this.step1 = true;
-        this.step2 = false;
-        this.step3 = false;
-        this.step4 = false;
-        this.step5 = false;
-        this.step6 = false;
-        this.step7 = false;
+      case 'Activity Info':
+        this.stepType = step;
+
         break;
-      case 2:
-        this.step1 = false;
-        this.step2 = true;
-        this.step3 = false;
-        this.step4 = false;
-        this.step5 = false;
-        this.step6 = false;
-        this.step7 = false;
+      case 'Category & Type':
+        this.stepType = step;
         break;
-      case 3:
-        this.step1 = false;
-        this.step2 = false;
-        this.step3 = true;
-        this.step4 = false;
-        this.step5 = false;
-        this.step6 = false;
-        this.step7 = false;
+      case 'Activity Details':
+        this.stepType = step;
         break;
-      case 4:
-        this.step1 = false;
-        this.step2 = false;
-        this.step3 = false;
-        this.step4 = true;
-        this.step5 = false;
-        this.step6 = false;
-        this.step7 = false;
+      case 'Date & Time':
+        this.stepType = step;
         break;
-      case 5:
-        this.step1 = false;
-        this.step2 = false;
-        this.step3 = false;
-        this.step4 = false;
-        this.step5 = true;
-        this.step6 = false;
-        this.step7 = false;
+      case 'Pricing':
+        this.stepType = step;
         break;
-      case 6:
-        this.step1 = false;
-        this.step2 = false;
-        this.step3 = false;
-        this.step4 = false;
-        this.step5 = false;
-        this.step6 = true;
-        this.step7 = false;
+      case 'Special Instructions':
+        this.stepType = step;
         break;
-      case 7:
-        this.step1 = false;
-        this.step2 = false;
-        this.step3 = false;
-        this.step4 = false;
-        this.step5 = false;
-        this.step6 = false;
-        this.step7 = true;
+      case 'Source':
+        this.stepType = step;
         break;
+      case 'Cycle':
+        this.stepType = step;
+        break;
+      default:
+        this.stepType;
+        break
     }
   }
 
