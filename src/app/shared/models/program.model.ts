@@ -14,7 +14,7 @@ export class Program {
     programId: string;
     time: any = {};
     date: any = {}
-    addedBy: {};
+    addedBy: { createdOn: Date };
     ageGroup: any = {};
     bookingCancelledIn: any = {};
     duration: any = {};
@@ -65,7 +65,7 @@ export class Program {
     }
     isExpired: boolean = false;
     per_hour_rate: any;
-    last_reviewed = new Date();
+    last_reviewed: Date;
     cycle_time: number;
     proof_reader_notes: string;
     isPrivateLession: boolean = false;

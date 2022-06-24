@@ -30,7 +30,7 @@ export class ProgramTableComponent implements OnInit {
   displayedColumns: string[] = [
     'name',
     'id',
-    'createdOn',
+    'addedBy.createdOn',
     'isPublished',
     'daysLeft',
     'star',
@@ -134,7 +134,7 @@ export class ProgramTableComponent implements OnInit {
       this.temp = res;
       this.pageLength = this.temp.message;
       this.temp.items.map(e => e.daysLeft = this.dateDiff.transform(e.date.to));
-      this.rows = this.temp.items;
+      this.rows = this.temp.items.reverse();
       this.dataSource = new MatTableDataSource(this.rows);
     });
     this.loader.close();
@@ -146,7 +146,7 @@ export class ProgramTableComponent implements OnInit {
       this.temp = res;
       this.pageLength = this.temp.message;
       this.temp.items.map(e => e.daysLeft = this.dateDiff.transform(e.date.to));
-      this.rows = this.temp.items;
+      this.rows = this.temp.items.reverse();
       this.dataSource = new MatTableDataSource(this.rows);
     });
     this.loader.close();
