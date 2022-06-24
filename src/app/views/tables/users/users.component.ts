@@ -12,7 +12,6 @@ import { Userr } from 'app/shared/models/user.model';
 import { ApiService } from 'app/shared/services/api.service.service';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
-import { DataService } from 'app/shared/services/dataservice.service';
 import { environment } from 'environments/environment';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
@@ -65,8 +64,6 @@ export class UsersComponent implements OnInit {
   users: any = [];
   public news: Array<any> = [];
 
-  private currentPage = 1;
-
   private request$!: any;
   activeTab: any;
   data: any;
@@ -80,7 +77,6 @@ export class UsersComponent implements OnInit {
     private loader: AppLoaderService,
     private activatedRoute: ActivatedRoute,
     private snack: MatSnackBar,
-    private dataservice: DataService,
     public dialog: MatDialog,
     // private confirmationDialogService: ConfirmationDialogService,
     // private spinner: NgxSpinnerService
@@ -123,9 +119,6 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  setOrUnsetFreeTrial(data, user) {
-
-  }
   // =========================================== Get provider List =========================================================
   getProvider() {
     this.loader.open()
@@ -205,30 +198,34 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  add() {
-    const url = this.router.serializeUrl(
-      this.router.createUrlTree(['/forms/provider-form'])
-    );
-    window.open('#' + url, '_blank');
+  // add() {
+  //   const url = this.router.serializeUrl(
+  //     this.router.createUrlTree(['/forms/provider-form'])
+  //   );
+  //   window.open('#' + url, '_blank');
+  // }
+  newForm(data?) {
+    if (data) {
+      let id = data._id ? data._id : data.id;
+      const url = this.router.serializeUrl(
+        this.router.createUrlTree(['/forms/provider-form', id])
+      );
+      window.open('#' + url, '_blank');
+    } else {
+      const url = this.router.serializeUrl(
+        this.router.createUrlTree(['/forms/provider-form', 'add'])
+      );
+      window.open('#' + url, '_blank');
+    }
   }
-  newForm() {
-    const url = this.router.serializeUrl(
-      this.router.createUrlTree(['/forms/provider-form-new'])
-    );
-    window.open('#' + url, '_blank');
-  }
-
-
-
-
-  edit(data) {
-    this.dataservice.setOption(data);
-    let id = data._id ? data._id : data.id;
-    const url = this.router.serializeUrl(
-      this.router.createUrlTree(['forms/provider-form-update', id])
-    );
-    window.open('#' + url, '_blank');
-  }
+  // edit(data) {
+  //   this.dataservice.setOption(data);
+  //   let id = data._id ? data._id : data.id;
+  //   const url = this.router.serializeUrl(
+  //     this.router.createUrlTree(['forms/provider-form-update', id])
+  //   );
+  //   window.open('#' + url, '_blank');
+  // }
 
   deleteProvider(user) {
     this.confirmService.confirm({ message: `Delete ${user.firstName}?` }).subscribe(res => {
@@ -259,34 +256,6 @@ export class UsersComponent implements OnInit {
     }
     this.router.navigate(['tables/program', data.id]);
   }
-
-  removeSelectedRows() {
-    // this.confirmationDialogService.confirm({
-    //     title: 'Please confirm..',
-    //     message: 'Do you really want to Delete ... ?',
-    //   }).subscribe((result: any) => {
-    //     if (result) {
-    //       this.selection.selected.forEach((item) => {
-    //         let index: number = this.data.findIndex((d: any) => d === item);
-    //         this.data.splice(index, 1);
-    //         this.dataSource = new MatTableDataSource<UserData>(this.data);
-    //       });
-    //       this.selection = new SelectionModel<UserData>(true, []);
-    //     }
-    //   });
-  }
-
-  // openDialog(data: any, title: any): void {
-  //   const dialogRef = this.dialog.open(EditFormComponent, {
-  //     // disableClose : true,
-  //     width: '650px',
-  //     data: { data: data, title: title, id: data.id },
-  //   });
-  //   dialogRef.afterClosed().subscribe((result: any) => {
-  //     if (result) {
-  //     }
-  //   });
-  // }
 
   openPopUp(data) {
     let dialogRef: MatDialogRef<any> = this.dialog.open(DataPopupComponent, {
@@ -345,28 +314,6 @@ export class UsersComponent implements OnInit {
     else {
       this.reset()
     }
-
-  }
-
-
-  // this.getNews(this.currentPage)
-  //   .pipe(finalize(() => this.onFinalize()))
-  //   .subscribe((news: any) => {
-  //     this.currentPage++;
-  //     this.news = this.news.concat(news.items);
-  //   });
-
-  getNews(page: number = 1): Observable<any> {
-    if (this.request$) {
-      return this.request$;
-    } else {
-      this.request$ = this.http.get(``).pipe(share());
-      return this.request$;
-    }
-  }
-
-  onFinalize(): void {
-    this.request$ = null;
   }
 
   trueFalseFreeTrial(e, row) {
@@ -434,9 +381,6 @@ export class UsersComponent implements OnInit {
         }
       })
   }
-
-
-
 }
 
 

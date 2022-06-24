@@ -1,4 +1,3 @@
-import { UpdateFormComponent } from './../components/update-form/update-form.component';
 import { Routes } from '@angular/router';
 import { WizardComponent } from './wizard/wizard.component';
 import { ParentFormComponent } from './parent-form/parent-form.component';
@@ -6,7 +5,6 @@ import { CategoryFormComponent } from './category-form/category-form.component';
 import { ChildFormComponent } from './child-form/child-form.component';
 import { EditProgramComponent } from './edit-program/edit-program.component';
 import { ParentUpdateFormComponent } from './parent-update-form/parent-update-form.component';
-import { AddFormComponent } from '../components/add-form/add-form.component';
 import { ProgramFormComponent } from '../tables/all-program-table/program-form/program-form.component';
 import { ProviderFormComponent } from './provider-form/provider-form.component';
 
@@ -49,21 +47,21 @@ export const FormsRoutes: Routes = [
         component: ChildFormComponent,
         data: { title: 'CHILD' }
       },
+      // {
+      //   path: 'provider-form',
+      //   component: AddFormComponent,
+      //   data: { title: 'ADD-PROVIDER' }
+      // },
       {
-        path: 'provider-form',
-        component: AddFormComponent,
-        data: { title: 'ADD-PROVIDER' }
-      },
-      {
-        path: 'provider-form-new',
+        path: 'provider-form/:id',
         component: ProviderFormComponent,
         data: { title: 'ADD-PROVIDER' }
       },
-      {
-        path: 'provider-form-update/:id',
-        component: UpdateFormComponent,
-        data: { title: 'UPDATE-PROVIDER' }
-      },
+      // {
+      //   path: 'provider-form-update/:id',
+      //   component: UpdateFormComponent,
+      //   data: { title: 'UPDATE-PROVIDER' }
+      // },
     ]
   }
 ];

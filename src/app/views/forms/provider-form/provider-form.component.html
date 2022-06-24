@@ -9,25 +9,25 @@
               <h3 [hidden]="!isEdit">Update Provider</h3>
             </div>
             <div class="cicle-dots">
-              <div class="dots-info dots-info1" (click)="nextStep('Provider Info');scrollToElement(target1)">
-                <h3 class="prog_text" [ngClass]="{active: stepType==='Provider Info'}">Provider Info
+              <div class="dots-info dots-info1" (click)="scrollToElement(target1,'General Info')">
+                <h3 class="prog_text" [ngClass]="{active: stepType==='General Info'}">General Info
                 </h3>
               </div>
-              <div class="dots-info dots-info2" (click)="nextStep('Address Info');scrollToElement(target2)">
+              <div class="dots-info dots-info2" (click)="scrollToElement(target2,'Address Info')">
                 <h3 class="prog_text" [ngClass]="{active: stepType==='Address Info'}">Address Info</h3>
               </div>
-              <div class="dots-info dots-info3" (click)="nextStep('Provider Details');scrollToElement(target3)">
+              <div class="dots-info dots-info3" (click)="scrollToElement(target3,'Provider Details')">
                 <h3 class="prog_text" [ngClass]="{active:  stepType==='Provider Details'}">Provider
                   Details</h3>
               </div>
-              <div class="dots-info dots-info4" (click)="nextStep('Website and other');scrollToElement(target4)">
+              <div class="dots-info dots-info4" (click)="scrollToElement(target4,'Website and other')">
                 <h3 class="prog_text" [ngClass]="{active:  stepType==='Website and other'}">Website and other
                 </h3>
               </div>
-              <div class="dots-info dots-info5" (click)="nextStep('Source and Ratings');scrollToElement(target5)">
+              <div class="dots-info dots-info5" (click)="scrollToElement(target5,'Source and Ratings')">
                 <h3 class="prog_text" [ngClass]="{active:  stepType==='Source and Ratings'}">Source and Ratings</h3>
               </div>
-              <div class="dots-info dots-info7" (click)="nextStep('Cycle Info');scrollToElement(target8)">
+              <div class="dots-info dots-info7" (click)="scrollToElement(target8,'Cycle Info')">
                 <h3 class="prog_text" [ngClass]="{active:  stepType==='Cycle Info'}">Cycle Info</h3>
               </div>
             </div>
@@ -45,243 +45,250 @@
         <div class="main-body-content">
           <div class="multi-step-scroll-form">
             <form [formGroup]="firstFormGroup">
-            <!-- active info popup -->
-            <div class="active-info-popup height-equal-scroll" #target1>
-              <div class="box-content bg-white">
-                <h2 class="h2">General Info</h2>
-                <div class="active-info-form">
-                  <div class="field-group">
-                    <div class="label-heading">
-                      Provider Name
+              <!-- active info popup -->
+              <div class="active-info-popup height-equal-scroll" #target1>
+                <div class="box-content bg-white">
+                  <h2 class="h2">General Info</h2>
+                  <div class="active-info-form">
+                    <div class="field-group">
+                      <div class="label-heading">
+                        Provider Name
+                      </div>
+                      <input type="text" class="input-field" [formControl]="firstFormGroup.controls['firstName']"
+                        required [(ngModel)]="user.firstName" placeholder="User Name" required>
                     </div>
-                    <input type="text" class="input-field" [formControl]="firstFormGroup.controls['firstName']" required
-                      [(ngModel)]="user.firstName" placeholder="User Name" required>
-                  </div>
-                  <div class="field-group">
-                    <div class="label-heading">
-                      Provider Id
+                    <div class="field-group">
+                      <div class="label-heading">
+                        Provider Id
+                      </div>
+                      <input type="text" class="input-field" [formControl]="firstFormGroup.controls['userName']"
+                        required [(ngModel)]="user.userName" placeholder="User Id">
                     </div>
-                    <input type="text" class="input-field" [formControl]="firstFormGroup.controls['userName']" required
-                      [(ngModel)]="user.userName" placeholder="User Id">
-                  </div>
-                  <div class="field-group">
-                    <div class="label-heading">
-                      Email
+                    <div class="field-group">
+                      <div class="label-heading">
+                        Email
+                      </div>
+                      <div class="input-icon-field">
+                        <input type="email" placeholder="email@example.com" class="input-field" placeholder="Type"
+                          [formControl]="firstFormGroup.controls['email']" [(ngModel)]="user.email" required>
+                        <mat-icon class="editicon_class">edit</mat-icon>
+                      </div>
                     </div>
-                    <div class="input-icon-field">
-                      <input type="email" placeholder="email@example.com" class="input-field" placeholder="Type"
-                        [formControl]="firstFormGroup.controls['email']" [(ngModel)]="user.email" required>
-                      <mat-icon class="editicon_class">edit</mat-icon>
+                    <div class="field-group">
+                      <div class="label-heading">
+                        Phone Number
+                      </div>
+                      <div class="input-icon-field">
+                        <input type="tel" class="input-field" placeholder="Type"
+                          [formControl]="firstFormGroup.controls['phoneNumber']" [(ngModel)]="user.phoneNumber"
+                          required>
+                        <mat-icon class="editicon_class">edit</mat-icon>
+                      </div>
                     </div>
-                  </div>
-                  <div class="field-group">
-                    <div class="label-heading">
-                      Phone Number
+                    <div class="field-group">
+                      <div class="label-heading">
+                        <span data-toggle="tooltip"
+                          data-title="If the activity is a private, in-person session, will the instructor come to the student's location? Or does the student go to the instructor's location?">
+                          Location</span>
+                      </div>
+                      <input type="text" class="input-field" name="provider_other_locations" placeholder="Location"
+                        (click)="openMap()" [formControl]="firstFormGroup.controls['location']"
+                        [(ngModel)]="user.location" required readonly>
                     </div>
-                    <div class="input-icon-field">
-                      <input type="tel" class="input-field" placeholder="Type"
-                        [formControl]="firstFormGroup.controls['phoneNumber']" [(ngModel)]="user.phoneNumber" required>
-                      <mat-icon class="editicon_class">edit</mat-icon>
-                    </div>
-                  </div>
-                  <div class="field-group">
-                    <div class="label-heading">
-                      <span data-toggle="tooltip"
-                        data-title="If the activity is a private, in-person session, will the instructor come to the student's location? Or does the student go to the instructor's location?">
-                        Location</span>
-                    </div>
-                    <input type="text" class="input-field" (click)="openMap()" placeholder="Type"
-                      [formControl]="firstFormGroup.controls['location']" [(ngModel)]="user.location">
-                  </div>
 
+                  </div>
                 </div>
               </div>
-            </div>
-            <!-- end active info popup -->
+              <!-- end active info popup -->
 
-            <!-- Start Address Info popup -->
-            <div class="category-type-popup height-equal-scroll" #target2>
-              <div class="box-content bg-white">
-                <h2 class="h2">Address Info</h2>
-                <div class="active-info-form">
+              <!-- Start Address Info popup -->
+              <div class="category-type-popup height-equal-scroll" #target2>
+                <div class="box-content bg-white">
+                  <h2 class="h2">Address Info</h2>
+                  <div class="active-info-form">
 
-                  <div class="field-group">
-                    <div class="label-heading">
-                      Address
-                    </div>
-                    <input type="text" class="input-field" placeholder="Type"
-                      [formControl]="firstFormGroup.controls['addressLine1']" [(ngModel)]="user.addressLine1">
-                  </div>
-
-                  <div class="field-group">
-                    <div class="label-heading">
-                      Country
-                    </div>
-                    <input type="text" class="input-field" placeholder="Type"
-                      [formControl]="firstFormGroup.controls['country']" [(ngModel)]="user.country">
-                  </div>
-                  <div class="field-group">
-                    <div class="label-heading">
-                      State
-                    </div>
-                    <input type="text" class="input-field" placeholder="Type"
-                      [formControl]="firstFormGroup.controls['state']" [(ngModel)]="user.state">
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6 field-group">
+                    <div class="field-group">
                       <div class="label-heading">
-                        City
+                        Address
                       </div>
                       <input type="text" class="input-field" placeholder="Type"
-                        [formControl]="firstFormGroup.controls['city']" [(ngModel)]="user.city">
+                        [formControl]="firstFormGroup.controls['addressLine1']" [(ngModel)]="user.addressLine1">
                     </div>
-                    <div class="col-md-6 field-group">
-                      <div class="label-heading">
-                        ZIP
-                      </div>
-                      <input type="text" class="input-field" [formControl]="firstFormGroup.controls['zipCode']"
-                        [(ngModel)]="user.zipCode">
-                    </div>
-                  </div>
 
+                    <div class="field-group">
+                      <div class="label-heading">
+                        Country
+                      </div>
+                      <input type="text" class="input-field" placeholder="Type"
+                        [formControl]="firstFormGroup.controls['country']" [(ngModel)]="user.country">
+                    </div>
+                    <div class="field-group">
+                      <div class="label-heading">
+                        State
+                      </div>
+                      <input type="text" class="input-field" placeholder="Type"
+                        [formControl]="firstFormGroup.controls['state']" [(ngModel)]="user.state">
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 field-group">
+                        <div class="label-heading">
+                          City
+                        </div>
+                        <input type="text" class="input-field" placeholder="Type"
+                          [formControl]="firstFormGroup.controls['city']" [(ngModel)]="user.city">
+                      </div>
+                      <div class="col-md-6 field-group">
+                        <div class="label-heading">
+                          ZIP
+                        </div>
+                        <input type="text" class="input-field" [formControl]="firstFormGroup.controls['zipCode']"
+                          [(ngModel)]="user.zipCode">
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
               </div>
-            </div>
-            <!-- end Category & Type popup -->
+              <!-- end Category & Type popup -->
 
-            <!-- Start Activity Details popup -->
-            <div class="activity-details-popup height-equal-scroll" #target3>
-              <div class="box-content bg-white">
-                <h2 class="h2">Provider Details</h2>
-                <div class="active-info-form">
+              <!-- Start Activity Details popup -->
+              <div class="activity-details-popup height-equal-scroll" #target3>
+                <div class="box-content bg-white">
+                  <h2 class="h2">Provider Details</h2>
+                  <div class="active-info-form">
 
-                  <div class="field-group">
-                    <div class="label-heading">
-                      Active Status
+                    <div class="field-group">
+                      <div class="label-heading">
+                        Active Status
+                      </div>
+                      <mat-select name="activeStatus" class="input-field select-down-icon"
+                        [formControl]="firstFormGroup.controls['activeStatus']" [(ngModel)]="user.activeStatus">
+                        <mat-option value="Open">Open</mat-option>
+                        <mat-option value="Expired">Expired</mat-option>
+                        <mat-option value="Wrong County">Wrong County</mat-option>
+                      </mat-select>
                     </div>
-                    <mat-select name="activeStatus" class="input-field select-down-icon"
-                      [formControl]="firstFormGroup.controls['activeStatus']" [(ngModel)]="user.activeStatus">
-                      <mat-option value="Open">Open</mat-option>
-                      <mat-option value="Expired">Expired</mat-option>
-                      <mat-option value="Wrong County">Wrong County</mat-option>
-                    </mat-select>
-                  </div>
 
-                  <div class="field-group">
-                    <div class="label-heading">
-                      Note
-                    </div>
-                    <textarea #ProgramDescription type="text" maxlength="3000" rows="4" class="input-field"
-                      placeholder="Type" [formControl]="firstFormGroup.controls['note']" [(ngModel)]="user.note">
+                    <div class="field-group">
+                      <div class="label-heading">
+                        Note
+                      </div>
+                      <textarea #ProgramDescription type="text" maxlength="3000" rows="4" class="input-field"
+                        placeholder="Type" [formControl]="firstFormGroup.controls['note']" [(ngModel)]="user.note">
                           </textarea>
-                    <!-- <span class="text-absolu">({{ProgramDescription.value?.length}} of 3000)</span> -->
-                  </div>
-                  <div class="field-group">
-                    <div class="label-heading">
-                      Cancellation & Refund
+                      <!-- <span class="text-absolu">({{ProgramDescription.value?.length}} of 3000)</span> -->
                     </div>
-                    <textarea #ProgramDescription type="text" maxlength="3000" rows="4" class="input-field"
-                      placeholder="Type" name="cancellation_and_refund"
-                      [formControl]="firstFormGroup.controls['cancellation_and_refund']"
-                      [(ngModel)]="user.cancellation_and_refund">
+                    <div class="field-group">
+                      <div class="label-heading">
+                        Cancellation & Refund
+                      </div>
+                      <textarea #ProgramDescription type="text" maxlength="3000" rows="4" class="input-field"
+                        placeholder="Type" name="cancellation_and_refund"
+                        [formControl]="firstFormGroup.controls['cancellation_and_refund']"
+                        [(ngModel)]="user.cancellation_and_refund">
                           </textarea>
-                    <!-- <span class="text-absolu">({{ProgramDescription.value?.length}} of 3000)</span> -->
+                      <!-- <span class="text-absolu">({{ProgramDescription.value?.length}} of 3000)</span> -->
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <!-- end Activity Details popup -->
+              <!-- end Activity Details popup -->
 
-            <!-- Start Date & Time popup -->
-            <div class="date-time-popup height-equal-scroll" #target4>
-              <div class="box-content bg-white">
-                <h2 class="h2">Website and More</h2>
-                <div class="active-info-form">
-                  <div class="field-group">
-                    <div class="label-heading">
-                     Website
+              <!-- Start Date & Time popup -->
+              <div class="date-time-popup height-equal-scroll" #target4>
+                <div class="box-content bg-white">
+                  <h2 class="h2">Website and More</h2>
+                  <div class="active-info-form">
+                    <div class="field-group">
+                      <div class="label-heading">
+                        Website
+                      </div>
+                      <input class="input-field" name="Website" placeholder="Website"
+                        [formControl]="firstFormGroup.controls['website']" type='url' [(ngModel)]="user.website">
                     </div>
-                    <input class="input-field" name="Website" placeholder="Website"
-                    [formControl]="firstFormGroup.controls['website']" type='url'
-                    [(ngModel)]="user.website">
-                  </div>
-                  <div class="field-group">
-                    <div class="label-heading">
-                      Number of facebook users
+                    <div class="field-group">
+                      <div class="label-heading">
+                        Number of facebook users
+                      </div>
+                      <input class="input-field" name="numberOfFacebook" placeholder="Number of facebook users"
+                        [formControl]="firstFormGroup.controls['numberOfFacebook']" type='number'
+                        [(ngModel)]="user.rating.numberOfFacebook">
                     </div>
-                    <input class="input-field" name="numberOfFacebook" placeholder="Number of facebook users"
-                    [formControl]="firstFormGroup.controls['numberOfFacebook']" type='number'
-                    [(ngModel)]="user.rating.numberOfFacebook">
-                  </div>
-                  <div class="field-group">
-                    <div class="label-heading">
-                      Number of google users
+                    <div class="field-group">
+                      <div class="label-heading">
+                        Number of google users
+                      </div>
+                      <input class="input-field" name="numberOfGoogle" placeholder="Number of google users"
+                        [formControl]="firstFormGroup.controls['numberOfGoogle']" type='number'
+                        [(ngModel)]="user.rating.numberOfGoogle">
                     </div>
-                    <input class="input-field" name="numberOfGoogle" placeholder="Number of google users"
-                    [formControl]="firstFormGroup.controls['numberOfGoogle']" type='number' [(ngModel)]="user.rating.numberOfGoogle">
-                  </div>
-                  <div class="field-group">
-                    <div class="label-heading">
-                      Number of yelp users
+                    <div class="field-group">
+                      <div class="label-heading">
+                        Number of yelp users
+                      </div>
+                      <input class="input-field" name="numberOfYelp" placeholder="Number of yelp users"
+                        [formControl]="firstFormGroup.controls['numberOfYelp']" type='number'
+                        [(ngModel)]="user.rating.numberOfYelp">
                     </div>
-                    <input class="input-field" name="numberOfYelp" placeholder="Number of yelp users"
-                    [formControl]="firstFormGroup.controls['numberOfYelp']" type='number' [(ngModel)]="user.rating.numberOfYelp">
-                  </div>
-                  <div class="field-group">
-                    <div class="label-heading">
-                      Number of instagram followers
+                    <div class="field-group">
+                      <div class="label-heading">
+                        Number of instagram followers
+                      </div>
+                      <input class="input-field" name="instagramFollowers" placeholder="Number of instagram Followers"
+                        [formControl]="firstFormGroup.controls['instagramFollowers']" type='number'
+                        [(ngModel)]="user.rating.instagramFollowers">
                     </div>
-                    <input  class="input-field" name="instagramFollowers" placeholder="Number of instagram Followers"
-                    [formControl]="firstFormGroup.controls['instagramFollowers']" type='number'
-                    [(ngModel)]="user.rating.instagramFollowers">
+
                   </div>
-                
                 </div>
               </div>
-            </div>
-            <!-- end Date & Time popup -->
+              <!-- end Date & Time popup -->
 
-            <!-- Start Pricing popup -->
-            <div class="pricing-info-popup height-equal-scroll" #target5>
-              <div class="box-content bg-white">
-                <h2 class="h2">Source and Ratings</h2>
-                <div class="active-info-form">
-                  <div class="field-group">
-                    <div class="label-heading">
-                      Source
-                    </div>
-                    <mat-select name="source" class="input-field select-down-icon" [formControl]="firstFormGroup.controls['source']" [(ngModel)]="user.source" multiple>
-                      <mat-option *ngFor="let src of source" value="{{src}}">{{src}}</mat-option>
-                    </mat-select>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6 field-group">
+              <!-- Start Pricing popup -->
+              <div class="pricing-info-popup height-equal-scroll" #target5>
+                <div class="box-content bg-white">
+                  <h2 class="h2">Source and Ratings</h2>
+                  <div class="active-info-form">
+                    <div class="field-group">
                       <div class="label-heading">
-                        Facebook Rating
+                        Source
                       </div>
-                      <input class="input-field" name="facebookRating" placeholder="Facebook Rating"
-                      [formControl]="firstFormGroup.controls['facebookRating']" type=number [(ngModel)]="user.rating.facebookRating">
+                      <mat-select name="source" class="input-field select-down-icon"
+                        [formControl]="firstFormGroup.controls['source']" [(ngModel)]="user.source" multiple>
+                        <mat-option *ngFor="let src of source" value="{{src}}">{{src}}</mat-option>
+                      </mat-select>
                     </div>
-                    <div class="col-md-6 field-group">
-                      <div class="label-heading">
-                        Google Rating
+                    <div class="row">
+                      <div class="col-md-6 field-group">
+                        <div class="label-heading">
+                          Facebook Rating
+                        </div>
+                        <input class="input-field" name="facebookRating" placeholder="Facebook Rating"
+                          [formControl]="firstFormGroup.controls['facebookRating']" type=number
+                          [(ngModel)]="user.rating.facebookRating">
                       </div>
-                      <input type="text" class="input-field" name="googleRating" placeholder="Google Rating"
-                      [formControl]="firstFormGroup.controls['googleRating']" type=number [(ngModel)]="user.rating.googleRating">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6 field-group">
-                      <div class="label-heading">
-                        Yelp Rating
+                      <div class="col-md-6 field-group">
+                        <div class="label-heading">
+                          Google Rating
+                        </div>
+                        <input type="text" class="input-field" name="googleRating" placeholder="Google Rating"
+                          [formControl]="firstFormGroup.controls['googleRating']" type=number
+                          [(ngModel)]="user.rating.googleRating">
                       </div>
-                      <input type="text" class="input-field"name="yelpRating" placeholder="Google Rating"
-                      [formControl]="firstFormGroup.controls['yelpRating']" type=number [(ngModel)]="user.rating.yelpRating">
                     </div>
-                  </div>
-                  <div class="field-group">
-                   
-                    <!-- <mat-form-field appearance="fill" class="full-width">
+                    <div class="row">
+                      <div class="col-md-6 field-group">
+                        <div class="label-heading">
+                          Yelp Rating
+                        </div>
+                        <input type="text" class="input-field" name="yelpRating" placeholder="Google Rating"
+                          [formControl]="firstFormGroup.controls['yelpRating']" type=number
+                          [(ngModel)]="user.rating.yelpRating">
+                      </div>
+                    </div>
+                    <div class="field-group">
+
+                      <!-- <mat-form-field appearance="fill" class="full-width">
                       <mat-label>Links</mat-label>
                       <mat-chip-list #chipList>
                         <mat-chip *ngFor="let chip of sourceUrls" [removable]="removable" (removed)="removeSourceUrl(chip)">
@@ -293,56 +300,56 @@
                           (paste)="pasteSourceUrl($event)" />
                       </mat-chip-list>
                     </mat-form-field> -->
-                  </div>
-                 
-                </div>
-              </div>
-            </div>
-            <!-- end Pricing popup -->
+                    </div>
 
-            <!-- Start Cycle popup -->
-            <div class="source-info-popup height-equal-scroll" #target8>
-              <div class="box-content bg-white">
-                <h2 class="h2">Cycle Info</h2>
-                <div class="active-info-form">
-                  <div class="field-group">
-                    <div class="label-heading">
-                      <span data-toggle="tooltip"
-                        data-title="When is the last time this Program information was updated?">Last
-                        review Date</span>
-                    </div>
-                    <div class="input-icon-field">
-                      <input matInput class="input-field" [matDatepicker]="pickerCycle"
-                        [formControl]="firstFormGroup.controls['last_reviewed']" [(ngModel)]="user.last_reviewed">
-                      <mat-datepicker-toggle matSuffix [for]="pickerCycle">
-                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-                      </mat-datepicker-toggle>
-                    </div>
-                    <mat-datepicker #pickerCycle></mat-datepicker>
-                  </div>
-                  <div class="field-group">
-                    <div class="label-heading">
-                      How many days is the cycle <span data-toggle="tooltip"
-                        data-title="What is the Frequency of updating Program info (in days)">?</span>
-                    </div>
-                    <input type="number" class="input-field" placeholder="Days in number"
-                      [formControl]="firstFormGroup.controls['cycle_time']" [(ngModel)]="user.cycle_time">
-                  </div>
-                  <div class="field-group">
-                    <div class="label-heading">
-                      Proofreader Note
-                    </div>
-                    <textarea #ProgramDescription type="text" maxlength="3000" rows="4" class="input-field"
-                      placeholder="Type" name="cancellation_and_refund"
-                      [formControl]="firstFormGroup.controls['proof_reader_notes']"
-                      [(ngModel)]="user.proof_reader_notes">
-                          </textarea>
-                    <!-- <span class="text-absolu">({{ProgramDescription.value?.length}} of 3000)</span> -->
                   </div>
                 </div>
               </div>
-            </div>
-            <!-- end Cycle popup -->
+              <!-- end Pricing popup -->
+
+              <!-- Start Cycle popup -->
+              <div class="source-info-popup height-equal-scroll" #target8>
+                <div class="box-content bg-white">
+                  <h2 class="h2">Cycle Info</h2>
+                  <div class="active-info-form">
+                    <div class="field-group">
+                      <div class="label-heading">
+                        <span data-toggle="tooltip"
+                          data-title="When is the last time this Program information was updated?">Last
+                          review Date</span>
+                      </div>
+                      <div class="input-icon-field">
+                        <input matInput class="input-field" [matDatepicker]="pickerCycle"
+                          [formControl]="firstFormGroup.controls['last_reviewed']" [(ngModel)]="user.last_reviewed">
+                        <mat-datepicker-toggle matSuffix [for]="pickerCycle">
+                          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                        </mat-datepicker-toggle>
+                      </div>
+                      <mat-datepicker #pickerCycle></mat-datepicker>
+                    </div>
+                    <div class="field-group">
+                      <div class="label-heading">
+                        How many days is the cycle <span data-toggle="tooltip"
+                          data-title="What is the Frequency of updating Program info (in days)">?</span>
+                      </div>
+                      <input type="number" class="input-field" placeholder="Days in number"
+                        [formControl]="firstFormGroup.controls['cycle_time']" [(ngModel)]="user.cycle_time">
+                    </div>
+                    <div class="field-group">
+                      <div class="label-heading">
+                        Proofreader Note
+                      </div>
+                      <textarea #ProgramDescription type="text" maxlength="3000" rows="4" class="input-field"
+                        placeholder="Type" name="cancellation_and_refund"
+                        [formControl]="firstFormGroup.controls['proof_reader_notes']"
+                        [(ngModel)]="user.proof_reader_notes">
+                          </textarea>
+                      <!-- <span class="text-absolu">({{ProgramDescription.value?.length}} of 3000)</span> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- end Cycle popup -->
             </form>
           </div>
         </div>

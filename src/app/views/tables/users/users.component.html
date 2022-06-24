@@ -13,17 +13,17 @@
   </div> -->
     <div class="col-6 tablesuser-flex">
       <h4>Total Providers<span class="blue-clr">({{total}})</span></h4>
-      <div class="add-program-btn">
+      <!-- <div class="add-program-btn">
         <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
           <mat-button-toggle matTooltip2="Add" (click)="add()" value="add">
             <mat-icon class="text-success">+ Add Provider</mat-icon>
           </mat-button-toggle>
         </mat-button-toggle-group>
-      </div>
+      </div> -->
       <div class="add-program-btn">
         <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-          <mat-button-toggle matTooltip2="Add" (click)="newForm()" value="add">
-            <mat-icon class="text-success">+ Add Provider</mat-icon>
+          <mat-button-toggle matTooltip2="Add" (click)="newForm()">
+            <mat-icon class="text-success">+ Add New</mat-icon>
           </mat-button-toggle>
         </mat-button-toggle-group>
       </div>
@@ -157,9 +157,12 @@
                 <button mat-menu-item (click)="manage(row)">
                   <mat-icon class="col-blue">list</mat-icon>Manage
                 </button>
-                <button mat-menu-item (click)="edit(row)">
+                <button mat-menu-item (click)="newForm(row)">
                   <mat-icon class="col-blue">edit</mat-icon>Edit
                 </button>
+                <!-- <button mat-menu-item (click)="edit(row)">
+                  <mat-icon class="col-blue">edit</mat-icon>Edit
+                </button> -->
                 <button mat-menu-item (click)="deleteProvider(row)">
                   <mat-icon class="col-blue">delete</mat-icon>Delete
                 </button>
