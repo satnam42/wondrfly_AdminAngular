@@ -805,10 +805,6 @@ export class ApiService {
         return subject.asObservable();
     }
 
-
-
-
-
     providerListByFilter(city, state, country, source, type, sex, pageSize, pageNo): Observable<Userr> {
         let querry: any;
         let value: any;
@@ -1678,6 +1674,16 @@ export class ApiService {
     getActiveProgramCount(pageNo, pageSize): Observable<any> {
         const subject = new Subject<any>();
         this.http.get(`${this.root}/providers/activePrograms?pageNo=${pageNo}&pageSize=${pageSize}`, this.getHeaders()).subscribe((responseData: any) => {
+            subject.next(responseData);
+        }, (error) => {
+            subject.next(error.error);
+        });
+        return subject.asObservable();
+    }
+
+    searchProgramByprovider(key, id): Observable<Userr> {
+        const subject = new Subject<Userr>();
+        this.http.get(`${this.root}/programs/searchWithProviderId?name=${key}&providerId=${id}`, this.getHeaders()).subscribe((responseData: any) => {
             subject.next(responseData);
         }, (error) => {
             subject.next(error.error);

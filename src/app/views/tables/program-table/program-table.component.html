@@ -79,7 +79,7 @@
           </ng-container>
 
           <ng-container matColumnDef="isPublished">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Publish Status </th>
             <td class="center" mat-cell *matCellDef="let row">
               <mat-slide-toggle [checked]="row?.isPublished" color="primary"
                 (change)="publishUnpublishProgram($event,row)">

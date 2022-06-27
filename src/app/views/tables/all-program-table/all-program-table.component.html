@@ -144,15 +144,14 @@
           <ng-container matColumnDef="daysLeft">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Expire In </th>
             <td mat-cell *matCellDef="let row">
-              <span [ngClass]="{'expiredP':row?.daysLeft=='Expired'}"
-                *ngIf="!row?.isDateNotMention && !row?.isExpired">{{row?.daysLeft}}</span>
+              <span *ngIf="!row?.isDateNotMention && !row?.isExpired">{{row?.daysLeft}}</span>
               <span *ngIf="row?.isDateNotMention && !row?.isExpired">Date Not Mentioned</span>
               <span *ngIf="row?.isExpired" style="background: red;padding: 3px 10px;color: #fff;">Expired</span>
             </td>
           </ng-container>
 
           <ng-container matColumnDef="isPublished">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Publish Status </th>
             <td class="center" mat-cell *matCellDef="let row">
               <mat-slide-toggle [checked]="row?.isPublished" color="primary"
                 (change)="publishUnpublishProgram($event,row)">

@@ -123,6 +123,7 @@ export class UsersComponent implements OnInit {
   getProvider() {
     this.loader.open()
     this.apiservice.getUsers(this.provider, this.pageNo, this.pageSize).subscribe((res: any) => {
+      console.log(res)
       this.total = res.total;
       this.temp = res;
       this.pageLength = this.temp.message;
@@ -179,6 +180,7 @@ export class UsersComponent implements OnInit {
   getMontclairProvider() {
     this.apiservice.getMontclairProvider(this.pageNo, this.pageSize).subscribe((res: any) => {
       this.temp = res;
+      console.log(this.temp)
       this.pageLength = this.temp.total;
       this.users = this.temp.items;
       this.dataSource = new MatTableDataSource(this.users);
@@ -353,6 +355,8 @@ export class UsersComponent implements OnInit {
       'addressLine1',
       'phoneNumber',
       'isActivated',
+      'activePrograms',
+      'expiredPrograms',
       'freeTrial',
       'updatedOn',
       'star',

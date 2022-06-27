@@ -751,6 +751,17 @@
                                                 [formControl]="firstFormGroup.controls['cycle_time']"
                                                 [(ngModel)]="program.cycle_time">
                                         </div>
+                                        <div class="field-group">
+                                            <div class="label-heading">
+                                                Proofreader Note
+                                            </div>
+                                            <textarea #ProgramDescription type="text" maxlength="3000" rows="4"
+                                                class="input-field" placeholder="Type"
+                                                [formControl]="firstFormGroup.controls['proof_reader_notes']"
+                                                [(ngModel)]="program.proof_reader_notes">
+                                </textarea>
+                                            <!-- <span class="text-absolu">({{ProgramDescription.value?.length}} of 3000)</span> -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>

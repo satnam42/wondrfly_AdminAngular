@@ -325,6 +325,7 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
       maxTravelDistance: new FormControl([Number]),
       totalSessionClasses: new FormControl([Number]),
       isParentGuardianRequire: new FormControl([false]),
+      proof_reader_notes: new FormControl(['']),
     });
   }
 

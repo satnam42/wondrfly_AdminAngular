@@ -14,7 +14,7 @@ export class DateDifferencePipe implements PipeTransform {
       var today = this.dp.transform(date2, "M/d/yy");
       var Time = new Date(value).getTime() - new Date(today).getTime()
       var Days: any = Time / (1000 * 3600 * 24); //Diference in Days
-      return Days = Days > 0 ? Days + ' Days' : 'Expired';
+      return Days = Days > 0 ? Days + ' Days' : 'Out Of Date';
     }
   }
 
