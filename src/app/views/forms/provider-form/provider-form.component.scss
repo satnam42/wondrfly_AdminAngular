@@ -11,7 +11,7 @@
 .main-body-content {
     padding-top: 75px;
 }
-.btn-save-close-info {display: flex;justify-content: end;position: fixed;width: 63%;padding: 15px;
+.btn-save-close-info {display: flex;justify-content: end;position: fixed;right:-15px;padding: 15px;
     background-color: #fff;z-index: 1;padding: 15px;}
 .btn-save-close {font-family: 'Poppins';font-style: normal;font-weight: 600;font-size: 12px;line-height: 18px;text-align: center;letter-spacing: 0.02em;text-transform: uppercase;color: #FFFFFF;background: #53B2E8;border: 1px solid #53B2E8;border-radius: 20px;margin-right: 25px; padding: 10px 24px 8px 20px;display: flex;column-gap: 8px;}
 .btn-cross-close {background: #53B2E8;border: 1px solid #53B2E8;border-radius: 0 20px 20px 0px;padding: 8px 14px 8px 5px;display: flex;}
@@ -140,4 +140,8 @@ height: 8px;border: solid #77C6E9;border-width: 0 1px 1px 0;transform: rotate(45
 
 .active{
     color: #53B2E8 !important;
+}
+
+::ng-deep html{
+    scroll-snap-type: y mandatory !important;
 }

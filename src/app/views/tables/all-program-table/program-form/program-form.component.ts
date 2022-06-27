@@ -1,5 +1,5 @@
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatSnackBar, MatDialogRef } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -151,6 +151,7 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
   isEditData: boolean;
   isEdit: boolean = false;
   id = ''
+  listener
   constructor(
     private apiservice: ApiService,
     private loader: AppLoaderService,
@@ -158,12 +159,11 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
     private route: Router,
     public dialog: MatDialog,
     private dataservice: DataService,
-    private snack: MatSnackBar) {
+    private snack: MatSnackBar,
+    private renderer2: Renderer2) {
     this.activatedRoute.params.subscribe(params => {
       this.id = params['id'];
     });
-
-
     this.activatedRoute.queryParams
       .subscribe((params: any) => {
         let form = params['form']
@@ -174,6 +174,23 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
           this.isEdit = true;
         }
       })
+      this.listener = this.renderer2.listen('window', 'scroll', (e) => {
+        const sections = document.querySelectorAll("div[id]");
+        let scrollY = window.pageYOffset;
+        sections.forEach((current: any) => {
+          const sectionHeight = current.offsetHeight;
+          const sectionTop = current.offsetTop - 100;
+          let sectionId = current.getAttribute("id");
+          if (
+            scrollY > sectionTop &&
+            scrollY <= sectionTop + sectionHeight
+          ) {
+            document.querySelector(".prog_text a[href*=" + sectionId + "]").classList.add("active");
+          } else {
+            document.querySelector(".prog_text a[href*=" + sectionId + "]").classList.remove("active");
+          }
+        });
+      });
   }
   openPopUp() {
     let dialogRef: MatDialogRef<any> = this.dialog.open(AddBatchComponent, {

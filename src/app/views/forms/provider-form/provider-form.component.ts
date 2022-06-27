@@ -1,5 +1,5 @@
 import { ENTER, COMMA, SEMICOLON, SPACE, TAB } from '@angular/cdk/keycodes';
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent, MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -47,6 +47,7 @@ export class ProviderFormComponent implements OnInit, OnDestroy {
   id: any;
   isEdit: any;
   stepType: string = 'General Info'
+  listener;
   constructor(
     private apiservice: ApiService,
     private loader: AppLoaderService,
@@ -54,7 +55,8 @@ export class ProviderFormComponent implements OnInit, OnDestroy {
     private route: Router,
     public dialog: MatDialog,
     private dataservice: DataService,
-    private snack: MatSnackBar) {
+    private snack: MatSnackBar,
+    private renderer2: Renderer2) {
     this.activatedRoute.params.subscribe(params => {
       this.id = params['id'];
       if (this.id == 'add') {
@@ -64,39 +66,31 @@ export class ProviderFormComponent implements OnInit, OnDestroy {
         this.isEdit = true;
       }
     });
-
-  }
-
-  @HostListener("window:scroll", [])
-  onWindowScroll() {
-    console.log('workingggg')
-    // Get current scroll position
-    const sections = document.querySelectorAll("div[id]");
-    let scrollY = window.pageYOffset;
-    console.log(sections)
-    // Now we loop through sections to get height, top and ID values for each
-    sections.forEach((current: any) => {
-      const sectionHeight = current.offsetHeight;
-      const sectionTop = current.offsetTop - 90;
-
-
-      let sectionId = current.getAttribute("id");
-      console.log(sectionId, 'hahhahaah')
-
-      /*
-      - If our current scroll position enters the space where current section on screen is, add .active class to corresponding navigation link, else remove it
-      - To know which link needs an active class, we use sectionId variable we are getting while looping through sections as an selector
-      */
-      if (
-        scrollY > sectionTop &&
-        scrollY <= sectionTop + sectionHeight
-      ) {
-        document.querySelector(".prog_text a[href*=" + sectionId + "]").classList.add("active");
-      } else {
-        document.querySelector(".prog_text a[href*=" + sectionId + "]").classList.remove("active");
-      }
+    this.listener = this.renderer2.listen('window', 'scroll', (e) => {
+      const sections = document.querySelectorAll("div[id]");
+      let scrollY = window.pageYOffset;
+      sections.forEach((current: any) => {
+        const sectionHeight = current.offsetHeight;
+        const sectionTop = current.offsetTop - 100;
+        let sectionId = current.getAttribute("id");
+        if (
+          scrollY > sectionTop &&
+          scrollY <= sectionTop + sectionHeight
+        ) {
+          document.querySelector(".prog_text a[href*=" + sectionId + "]").classList.add("active");
+        } else {
+          document.querySelector(".prog_text a[href*=" + sectionId + "]").classList.remove("active");
+        }
+      });
     });
   }
+
+  // @HostListener("window:scroll", [])
+  // onWindowScroll() {
+  //   console.log('workingggg')
+  //   // Get current scroll position
+   
+  // }
 
   openMap() {
     let dialogRef: MatDialogRef<any> = this.dialog.open(ProgramLocationComponent, {
@@ -319,7 +313,7 @@ export class ProviderFormComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy(): void {
-
+    this.listener();
   }
 
 }
