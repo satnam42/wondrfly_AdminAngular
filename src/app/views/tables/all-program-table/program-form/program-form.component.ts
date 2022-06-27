@@ -557,46 +557,8 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  nextStep(step) {
-
-    switch (step) {
-      case 'Activity Info':
-        this.stepType = step;
-
-        break;
-      case 'Category & Type':
-        this.stepType = step;
-        break;
-      case 'Activity Details':
-        this.stepType = step;
-        break;
-      case 'Date & Time':
-        this.stepType = step;
-        break;
-      case 'Pricing':
-        this.stepType = step;
-        break;
-      case 'Special Instructions':
-        this.stepType = step;
-        break;
-      case 'Source':
-        this.stepType = step;
-        break;
-      case 'Cycle':
-        this.stepType = step;
-        break;
-      default:
-        this.stepType;
-        break
-    }
-  }
-
-  scrollToElement($element): void {
-    $element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
-  }
-
   ngOnDestroy(): void {
-
+  this.listener();
   }
 
 }
