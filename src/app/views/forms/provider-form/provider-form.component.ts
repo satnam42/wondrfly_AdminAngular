@@ -1,5 +1,5 @@
 import { ENTER, COMMA, SEMICOLON, SPACE, TAB } from '@angular/cdk/keycodes';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent, MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -65,6 +65,37 @@ export class ProviderFormComponent implements OnInit, OnDestroy {
       }
     });
 
+  }
+
+  @HostListener("window:scroll", [])
+  onWindowScroll() {
+    console.log('workingggg')
+    // Get current scroll position
+    const sections = document.querySelectorAll("div[id]");
+    let scrollY = window.pageYOffset;
+    console.log(sections)
+    // Now we loop through sections to get height, top and ID values for each
+    sections.forEach((current: any) => {
+      const sectionHeight = current.offsetHeight;
+      const sectionTop = current.offsetTop - 90;
+
+
+      let sectionId = current.getAttribute("id");
+      console.log(sectionId, 'hahhahaah')
+
+      /*
+      - If our current scroll position enters the space where current section on screen is, add .active class to corresponding navigation link, else remove it
+      - To know which link needs an active class, we use sectionId variable we are getting while looping through sections as an selector
+      */
+      if (
+        scrollY > sectionTop &&
+        scrollY <= sectionTop + sectionHeight
+      ) {
+        document.querySelector(".prog_text a[href*=" + sectionId + "]").classList.add("active");
+      } else {
+        document.querySelector(".prog_text a[href*=" + sectionId + "]").classList.remove("active");
+      }
+    });
   }
 
   openMap() {
@@ -144,11 +175,11 @@ export class ProviderFormComponent implements OnInit, OnDestroy {
   }
 
 
-  scrollToElement($element, stepType): void {
-    this.stepType = stepType
-    console.log($element.div)
-    $element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
-  }
+  // scrollToElement($element, stepType): void {
+  //   this.stepType = stepType
+  //   console.log($element.div)
+  //   $element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+  // }
 
   //==========================================Provider=============================================>
   getUserById(id) {

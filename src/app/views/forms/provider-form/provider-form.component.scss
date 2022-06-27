@@ -2,18 +2,19 @@
 .multi-step-scroll-form .active-info-form .mat-chip:not(.mat-basic-chip) {
     display: flex;
 }
-.add-activity-body {position: relative;overflow: hidden;}
-.sidebar-progress {position: fixed;width: 33%;background: #DCF3FF;border-radius: 0px;padding: 30px 35px;height: 100%;}
+.add-activity-body {position: relative}
+.sidebar-progress {position: fixed;width: 33.333%;background: #DCF3FF;border-radius: 0px;padding: 30px 35px;height: 100%;}
 .sidebar-top-h3 h3 {font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 26px;line-height: 39px;color: #828282;margin-bottom: 0px;}
 .sidebar-progress .dots-info{margin-bottom: 20px;cursor: pointer;}
 .sidebar-progress .cicle-dots .dots-info h3 {font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 18px;line-height: 27px;color: #828282;margin-bottom: 0px;}
 .sidebar-progress .cicle-dots .dots-info .prog_text.active{color: #53B2E8;}
 
-.btn-save-close-info {display: flex;justify-content: end;position: relative;width: 100%;padding: 15px;}
+.btn-save-close-info {display: flex;justify-content: end;top: 0;position: sticky;width: 100%;padding: 15px;
+    background-color: #fff;z-index: 1;padding: 15px;}
 .btn-save-close {font-family: 'Poppins';font-style: normal;font-weight: 600;font-size: 12px;line-height: 18px;text-align: center;letter-spacing: 0.02em;text-transform: uppercase;color: #FFFFFF;background: #53B2E8;border: 1px solid #53B2E8;border-radius: 20px;margin-right: 25px; padding: 10px 24px 8px 20px;display: flex;column-gap: 8px;}
 .btn-cross-close {background: #53B2E8;border: 1px solid #53B2E8;border-radius: 0 20px 20px 0px;padding: 8px 14px 8px 5px;display: flex;}
 .main-body-content h2.h2 {font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 18px;line-height: 18px;color: #494949;margin-bottom: 30px;}
-.height-equal-scroll{height: 100%;max-height: 740px;min-height: 740px;scroll-snap-align: start;}
+.height-equal-scroll{height: calc(100vh - 16vh); scroll-margin-top: 80px;scroll-snap-align: start;}
 .label-heading {font-family: 'Poppins';font-style: normal;font-weight: 600;font-size: 12px;line-height: 18px;letter-spacing: 0.01em;text-transform: capitalize;color: #494949;margin-bottom: 4px;}
 .input-field {border: 1px solid #E5E9EC;border-radius: 20px;padding: 13px 15px;margin-bottom: 15px;width: 100%;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;letter-spacing: 0.001em;color: rgba(0, 0, 0, 0.87);background-color: #fff;}
 .input-field:focus-visible {outline: unset;}
@@ -49,7 +50,9 @@ height: 8px;border: solid #77C6E9;border-width: 0 1px 1px 0;transform: rotate(45
 .checkbox .checkbox__body {font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 14px;line-height: 18px;color: #494949;}
 .checkbox-blue-box .checkbox .checkbox__checkmark:after {left: -1px;top: -1px;width: 14px;height: 14px;background-color: #53B2E8;border: 1px solid #77C6E9;transform: unset;}
 
-.multi-step-scroll-form {position: relative;display: block;height: calc(100vh - 20vh);max-height: 740px;width: 100%;overflow: hidden;overflow-y: scroll;scroll-snap-type: y mandatory;padding: 30px 15% 0px 0px;margin-bottom: 0px;}
+.multi-step-scroll-form {position: relative;display: block;
+    height: calc(100vh - 15vh);
+    background-color: #fff; width: 66.666%;margin-left: 33.333%;padding: 0px 30px;margin-bottom: 0px;}
 .multi-step-scroll-form::-webkit-scrollbar-track{background-color: #DCF3FF;}
 .multi-step-scroll-form::-webkit-scrollbar{width: 10px;background-color: #DCF3FF;}
 .multi-step-scroll-form::-webkit-scrollbar-thumb{background-color: #53B2E8;border-radius: 10px;}
@@ -129,8 +132,11 @@ height: 8px;border: solid #77C6E9;border-width: 0 1px 1px 0;transform: rotate(45
     font-size: 21px;
 }
    
-
+.prog_text a {
+    color: #828282;
+    text-decoration: none;
+}
 
 .active{
-    color: #53B2E8;
+    color: #53B2E8 !important;
 }

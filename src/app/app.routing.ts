@@ -65,9 +65,9 @@ export const rootRouterConfig: Routes = [
 
     ]
   },
-  {
-    path: '**',
-    redirectTo: 'sessions/404'
-  }
+  // {
+  //   path: '**',
+  //   redirectTo: 'sessions/404'
+  // }
 ];
 
