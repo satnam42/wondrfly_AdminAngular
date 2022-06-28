@@ -56,8 +56,17 @@ element.style {
 
 /* top left listing heading css  */
 .tablesuser-flex {display: flex;align-items: center;column-gap: 30px;}
-.table-header-info h4 {font-family: 'Poppins';font-style: normal;font-weight: 400;
-  font-size: 26px;line-height: 18px;color: #4F4F4F; margin-bottom: 0px;}                                          
+.table-header-info h4 {font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 27px;
+    line-height: 30px;
+    color: #4F4F4F;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0px;
+  }                                          
 .add-program-btn mat-button-toggle-group.mat-button-toggle-group {border: none!important;}
 .add-program-btn mat-button-toggle-group.mat-button-toggle-group mat-button-toggle {border: 1px solid #53B2E8;height: auto;border-radius: 10px;}
 .add-program-btn mat-button-toggle-group.mat-button-toggle-group .mat-icon {font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 14px;line-height: 18px;color: #53B2E8!important;display: block;width: 100%;padding: 10px 15px;height: auto;}

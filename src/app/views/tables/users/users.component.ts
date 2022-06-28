@@ -14,8 +14,6 @@ import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.s
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { environment } from 'environments/environment';
 import * as moment from 'moment';
-import { Observable } from 'rxjs';
-import { share } from 'rxjs/operators';
 import { DataPopupComponent } from '../data-popup/data-popup.component';
 
 @Component({
@@ -71,7 +69,6 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private apiservice: ApiService,
-    private http: HttpClient,
     private router: Router,
     private confirmService: AppConfirmService,
     private loader: AppLoaderService,
@@ -253,10 +250,14 @@ export class UsersComponent implements OnInit {
   }
 
   manage(data) {
-    if (data._id) {
-      data.id = data._id
+    if (data) {
+      let id = data._id ? data._id : data.id;
+      const url = this.router.serializeUrl(
+        this.router.createUrlTree(['tables/program', id])
+      );
+      window.open('#' + url, '_blank');
     }
-    this.router.navigate(['tables/program', data.id]);
+    // this.router.navigate(['tables/program', data.id]);
   }
 
   openPopUp(data) {
@@ -355,6 +356,7 @@ export class UsersComponent implements OnInit {
       'addressLine1',
       'phoneNumber',
       'isActivated',
+      'allPrograms',
       'activePrograms',
       'expiredPrograms',
       'freeTrial',

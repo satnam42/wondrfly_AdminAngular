@@ -177,14 +177,6 @@ export class AllProgramTableComponent implements OnInit {
       });
   }
 
-  edit(data) {
-    this.dataservice.setOption(data);
-    const url = this.route.serializeUrl(
-      this.route.createUrlTree(['forms/edit-program/', data._id])
-    );
-    window.open('#' + url, '_blank');
-  }
-
   newForm(data) {
     this.isEmpty = Object.keys(data).length === 0;
     let id = data.id ? data.id : data._id;
@@ -225,9 +217,7 @@ export class AllProgramTableComponent implements OnInit {
 
   // =========================================== All programs =========================================================
   getProgram() {
-    this.loader.open();
     this.apiservice.getProgram(this.pageNo, this.pageSize).subscribe(res => {
-      this.loader.close();
       this.temp = res;
       this.pageLength = +this.temp.message;
       if (this.temp.isSuccess) {
@@ -236,7 +226,6 @@ export class AllProgramTableComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.rows);
       }
     });
-    this.loader.close();
   }
   // =========================================== montclair programs =========================================================
   getMontclairProgram() {

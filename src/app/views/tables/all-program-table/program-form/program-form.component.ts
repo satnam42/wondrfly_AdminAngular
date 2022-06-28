@@ -152,6 +152,7 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
   isEdit: boolean = false;
   id = ''
   listener
+  programOwner: any;
   constructor(
     private apiservice: ApiService,
     private loader: AppLoaderService,
@@ -168,29 +169,34 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
       .subscribe((params: any) => {
         let form = params['form']
         if (form == 'add') {
-          this.isEdit = false
+          this.isEdit = false;
+          let provider = localStorage.getItem('provider');
+          this.programOwner = provider;
+          console.log(provider)
         } else if (form == 'edit') {
           this.getProgramById(this.id)
           this.isEdit = true;
         }
       })
-      this.listener = this.renderer2.listen('window', 'scroll', (e) => {
-        const sections = document.querySelectorAll("div[id]");
-        let scrollY = window.pageYOffset;
-        sections.forEach((current: any) => {
-          const sectionHeight = current.offsetHeight;
-          const sectionTop = current.offsetTop - 100;
-          let sectionId = current.getAttribute("id");
-          if (
-            scrollY > sectionTop &&
-            scrollY <= sectionTop + sectionHeight
-          ) {
-            document.querySelector(".prog_text a[href*=" + sectionId + "]").classList.add("active");
-          } else {
-            document.querySelector(".prog_text a[href*=" + sectionId + "]").classList.remove("active");
-          }
-        });
+    /////Active Sidebar on scroll forms ====> Start
+    this.listener = this.renderer2.listen('window', 'scroll', (e) => {
+      const sections = document.querySelectorAll("div[id]");
+      let scrollY = window.pageYOffset;
+      sections.forEach((current: any) => {
+        const sectionHeight = current.offsetHeight;
+        const sectionTop = current.offsetTop - 100;
+        let sectionId = current.getAttribute("id");
+        if (
+          scrollY > sectionTop &&
+          scrollY <= sectionTop + sectionHeight
+        ) {
+          document.querySelector(".prog_text a[href*=" + sectionId + "]").classList.add("active");
+        } else {
+          document.querySelector(".prog_text a[href*=" + sectionId + "]").classList.remove("active");
+        }
       });
+    });
+    /////Active Sidebar on scroll forms ====> END
   }
   openPopUp() {
     let dialogRef: MatDialogRef<any> = this.dialog.open(AddBatchComponent, {
@@ -223,8 +229,10 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
   getProgramById(id) {
     this.changeItem(this.program.category)
     this.apiservice.getProgramById(id).subscribe(res => {
+      console.log(res)
       this.program = res;
       this.days = this.program.days;
+      this.programOwner = this.program.addedBy;
       this.minAge = this.program.ageGroup.from
       this.maxAge = this.program.ageGroup.to
       this.minCapacity = this.program.capacity.min
@@ -558,7 +566,7 @@ export class ProgramFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-  this.listener();
+    this.listener();
   }
 
 }

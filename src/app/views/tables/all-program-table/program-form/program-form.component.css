@@ -5,6 +5,8 @@
 .add-activity-body {position: relative}
 .sidebar-progress {position: fixed;width: 33.333%;background: #DCF3FF;border-radius: 0px;padding: 30px 35px;height: 100%;}
 .sidebar-top-h3 h3 {font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 26px;line-height: 39px;color: #828282;margin-bottom: 0px;}
+.sidebar-top-h3 h3 span{ font-size: 18px;}
+.sidebar-top-h3 h3.one-line-txt{white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
 .sidebar-progress .dots-info{margin-bottom: 20px;cursor: pointer;}
 .sidebar-progress .cicle-dots .dots-info h3 {font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 18px;line-height: 27px;color: #828282;margin-bottom: 0px;}
 .sidebar-progress .cicle-dots .dots-info .prog_text.active{color: #53B2E8;}
@@ -16,7 +18,7 @@
 .btn-save-close {font-family: 'Poppins';font-style: normal;font-weight: 600;font-size: 12px;line-height: 18px;text-align: center;letter-spacing: 0.02em;text-transform: uppercase;color: #FFFFFF;background: #53B2E8;border: 1px solid #53B2E8;border-radius: 20px;margin-right: 25px; padding: 10px 24px 8px 20px;display: flex;column-gap: 8px;}
 .btn-cross-close {background: #53B2E8;border: 1px solid #53B2E8;border-radius: 0 20px 20px 0px;padding: 8px 14px 8px 5px;display: flex;}
 .main-body-content h2.h2 {font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 18px;line-height: 18px;color: #494949;margin-bottom: 30px;}
-.height-equal-scroll{height: 100%;min-height: 740px;scroll-margin-top: 150px;scroll-snap-align: start;}
+.height-equal-scroll{height: 100vh;min-height: 740px;scroll-margin-top: 150px;scroll-snap-align: start;}
 .label-heading {font-family: 'Poppins';font-style: normal;font-weight: 600;font-size: 12px;line-height: 18px;letter-spacing: 0.01em;text-transform: capitalize;color: #494949;margin-bottom: 4px;}
 .input-field {border: 1px solid #E5E9EC;border-radius: 20px;padding: 13px 15px;margin-bottom: 15px;width: 100%;font-family: 'Poppins';font-style: normal;font-weight: 400;font-size: 12px;line-height: 18px;letter-spacing: 0.001em;color: rgba(0, 0, 0, 0.87);background-color: #fff;}
 .input-field:focus-visible {outline: unset;}

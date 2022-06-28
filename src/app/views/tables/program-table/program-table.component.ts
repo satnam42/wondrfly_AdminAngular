@@ -166,7 +166,6 @@ export class ProgramTableComponent implements OnInit {
     }
   }
 
-
   expireMultiplePrograms() {
     if (this.selectedActivityIds.programIds.length < 20) {
       this.apiservice.expireMultiplePrograms(this.selectedActivityIds).subscribe((res: any) => {
@@ -180,7 +179,6 @@ export class ProgramTableComponent implements OnInit {
       this.snack.open('Please select less than 20 Activities!', 'OK', { duration: 5000 });
     }
   }
-
 
   publishUnpublishProgram(data, program) {
     var model: any = {

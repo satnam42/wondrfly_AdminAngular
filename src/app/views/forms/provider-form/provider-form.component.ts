@@ -89,7 +89,7 @@ export class ProviderFormComponent implements OnInit, OnDestroy {
   // onWindowScroll() {
   //   console.log('workingggg')
   //   // Get current scroll position
-   
+
   // }
 
   openMap() {
@@ -197,6 +197,7 @@ export class ProviderFormComponent implements OnInit, OnDestroy {
       this.providerResponse = res;
       this.loader.close();
       if (this.providerResponse.isSuccess === true) {
+        localStorage.removeItem('provider');
         this.snack.open('Provider Added', 'OK', { duration: 7000 });
         this.route.navigate(['tables/providers']);
       } else {
@@ -268,6 +269,7 @@ export class ProviderFormComponent implements OnInit, OnDestroy {
       this.providerResponse = res;
       this.loader.close();
       if (this.providerResponse.isSuccess === true) {
+        localStorage.removeItem('provider');
         this.snack.open(this.message, 'OK', { duration: 4000 })
         this.route.navigate(['tables/providers']);
       } else
@@ -314,6 +316,7 @@ export class ProviderFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.listener();
+    localStorage.removeItem('provider');
   }
 
 }

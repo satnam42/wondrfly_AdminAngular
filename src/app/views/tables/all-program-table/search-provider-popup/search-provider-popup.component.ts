@@ -19,7 +19,6 @@ export class SearchProviderPopupComponent implements OnInit {
   searchByName = true;
   searchByMail = false;
   searchById = false;
-
   emailForSearch: string;
   idForSearch: string;
 
@@ -46,6 +45,7 @@ export class SearchProviderPopupComponent implements OnInit {
       this.route.navigate(['forms/wizard', this.user._id]);
     }
     if (this.data === 'new-form') {
+      localStorage.setItem('provider', item.firstName)
       this.route.navigate(['forms/program-form', this.user._id], {
         queryParams: {
           form: 'add'
@@ -74,7 +74,6 @@ export class SearchProviderPopupComponent implements OnInit {
     this.apiservice.searchProviderByName(key).subscribe((res: any) => {
       // this.providerData = res;
       this.users = res;
-
     });
   }
 
@@ -93,12 +92,6 @@ export class SearchProviderPopupComponent implements OnInit {
 
       if (users.isSuccess === true) {
         this.user._id = users.data._id;
-        if (this.data === 'wizard') {
-          this.route.navigate(['forms/wizard', this.user._id]);
-        }
-        if (this.data === 'form') {
-          this.route.navigate(['forms/program', this.user._id]);
-        }
         this.dialogRef.close();
       }
       else {
