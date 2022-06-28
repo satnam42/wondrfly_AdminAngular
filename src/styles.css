@@ -645,6 +645,7 @@ background-color: rgb(231, 149, 149);
 /* end tooltip css   */
 html{
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 ::-webkit-scrollbar-track{background-color: #DCF3FF;}
 ::-webkit-scrollbar{width: 10px;background-color: #DCF3FF;}
